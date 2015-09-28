@@ -1,0 +1,537 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<premis:premis xmlns:premis="info:lc/xmlns/premis-v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="info:lc/xmlns/premis-v2 http://www.loc.gov/standards/premis/premis.xsd" version="2.2">
+  <premis:object xsi:type="premis:representation">
+    <premis:objectIdentifier>
+      <premis:objectIdentifierType>preservation-sip-id</premis:objectIdentifierType>
+      <premis:objectIdentifierValue>c7ef1044-adda-45d2-8f37-288c5cae88ba</premis:objectIdentifierValue>
+    </premis:objectIdentifier>
+    <premis:originalName>csc_test_invalid_mets_required_fixity.zip</premis:originalName>
+    <premis:environment>
+      <premis:dependency>
+        <premis:dependencyIdentifier>
+          <premis:dependencyIdentifierType>mets:OBJID</premis:dependencyIdentifierType>
+          <premis:dependencyIdentifierValue>kdk-csc-sip001</premis:dependencyIdentifierValue>
+        </premis:dependencyIdentifier>
+      </premis:dependency>
+    </premis:environment>
+  </premis:object>
+  <premis:object xsi:type="premis:representation">
+    <premis:objectIdentifier>
+      <premis:objectIdentifierType>preservation-signature-id</premis:objectIdentifierType>
+      <premis:objectIdentifierValue>4b8c094b-d54c-473c-a1f9-327113854108</premis:objectIdentifierValue>
+    </premis:objectIdentifier>
+    <premis:originalName>varmiste.sig</premis:originalName>
+    <premis:relationship>
+      <premis:relationshipType>structural</premis:relationshipType>
+      <premis:relationshipSubType>is included in</premis:relationshipSubType>
+      <premis:relatedObjectIdentification>
+        <premis:relatedObjectIdentifierType>preservation-sip-id</premis:relatedObjectIdentifierType>
+        <premis:relatedObjectIdentifierValue>c7ef1044-adda-45d2-8f37-288c5cae88ba</premis:relatedObjectIdentifierValue>
+      </premis:relatedObjectIdentification>
+    </premis:relationship>
+  </premis:object>
+  <premis:object xsi:type="premis:representation">
+    <premis:objectIdentifier>
+      <premis:objectIdentifierType>preservation-mets-id</premis:objectIdentifierType>
+      <premis:objectIdentifierValue>715ecfb6-267a-411e-8381-e8702a6a1a6d</premis:objectIdentifierValue>
+    </premis:objectIdentifier>
+    <premis:originalName>mets.xml</premis:originalName>
+    <premis:relationship>
+      <premis:relationshipType>structural</premis:relationshipType>
+      <premis:relationshipSubType>is included in</premis:relationshipSubType>
+      <premis:relatedObjectIdentification>
+        <premis:relatedObjectIdentifierType>preservation-sip-id</premis:relatedObjectIdentifierType>
+        <premis:relatedObjectIdentifierValue>c7ef1044-adda-45d2-8f37-288c5cae88ba</premis:relatedObjectIdentifierValue>
+      </premis:relatedObjectIdentification>
+    </premis:relationship>
+  </premis:object>
+  <premis:event>
+    <premis:eventIdentifier>
+      <premis:eventIdentifierType>preservation-event-id</premis:eventIdentifierType>
+      <premis:eventIdentifierValue>1d74e513-2424-43f6-b847-b8f2c3ac17ae</premis:eventIdentifierValue>
+    </premis:eventIdentifier>
+    <premis:eventType>digital signature validation</premis:eventType>
+    <premis:eventDateTime>2015-09-23T09:56:02</premis:eventDateTime>
+    <premis:eventDetail>Submission information package digital signature validation</premis:eventDetail>
+    <premis:eventOutcomeInformation><premis:eventOutcome>success</premis:eventOutcome><premis:eventOutcomeDetail><premis:eventOutcomeDetailNote>mets.xml sha1 4107952fb17f635a36bc469374905939558f618f OK
+</premis:eventOutcomeDetailNote></premis:eventOutcomeDetail></premis:eventOutcomeInformation>
+    <premis:linkingAgentIdentifier>
+      <premis:linkingAgentIdentifierType>preservation-agent-id</premis:linkingAgentIdentifierType>
+      <premis:linkingAgentIdentifierValue>check_signature.pyc-0.65-1441468673-ga5e2ad3</premis:linkingAgentIdentifierValue>
+    </premis:linkingAgentIdentifier>
+    <premis:linkingObjectIdentifier><premis:linkingObjectIdentifierType>preservation-signature-id</premis:linkingObjectIdentifierType><premis:linkingObjectIdentifierValue>4b8c094b-d54c-473c-a1f9-327113854108</premis:linkingObjectIdentifierValue></premis:linkingObjectIdentifier>
+  </premis:event>
+  <premis:event>
+    <premis:eventIdentifier>
+      <premis:eventIdentifierType>preservation-event-id</premis:eventIdentifierType>
+      <premis:eventIdentifierValue>94f5a125-a526-4f60-bf89-a22fc83662f9</premis:eventIdentifierValue>
+    </premis:eventIdentifier>
+    <premis:eventType>validation</premis:eventType>
+    <premis:eventDateTime>2015-09-23T09:56:17</premis:eventDateTime>
+    <premis:eventDetail>Validation compilation of submission information package</premis:eventDetail>
+    <premis:eventOutcomeInformation><premis:eventOutcome>failure</premis:eventOutcome><premis:eventOutcomeDetail><premis:eventOutcomeDetailNote>All events have not been completed successfully</premis:eventOutcomeDetailNote></premis:eventOutcomeDetail></premis:eventOutcomeInformation>
+    <premis:linkingAgentIdentifier>
+      <premis:linkingAgentIdentifierType>preservation-agent-id</premis:linkingAgentIdentifierType>
+      <premis:linkingAgentIdentifierValue>create_premis_report.pyc-0.65-1441468673-ga5e2ad3</premis:linkingAgentIdentifierValue>
+    </premis:linkingAgentIdentifier>
+    <premis:linkingObjectIdentifier><premis:linkingObjectIdentifierType>preservation-sip-id</premis:linkingObjectIdentifierType><premis:linkingObjectIdentifierValue>c7ef1044-adda-45d2-8f37-288c5cae88ba</premis:linkingObjectIdentifierValue></premis:linkingObjectIdentifier>
+  </premis:event>
+  <premis:event>
+    <premis:eventIdentifier>
+      <premis:eventIdentifierType>preservation-event-id</premis:eventIdentifierType>
+      <premis:eventIdentifierValue>c58d8450-8c45-42fe-8fe1-c661a9458a44</premis:eventIdentifierValue>
+    </premis:eventIdentifier>
+    <premis:eventType>virus check</premis:eventType>
+    <premis:eventDateTime>2015-09-23T09:56:00</premis:eventDateTime>
+    <premis:eventDetail>Virus check of transferred files</premis:eventDetail>
+    <premis:eventOutcomeInformation><premis:eventOutcome>success</premis:eventOutcome><premis:eventOutcomeDetail><premis:eventOutcomeDetailNote>program="Clam AV"; version="ClamAV 0.98.5"; virusDefinitions="19651/Wed Nov 19 07:40:03 2014
+"/var/archivematica/sharedDirectory/currentlyProcessing/csc_test_invalid_mets_required_fixity.zip-c7ef1044-adda-45d2-8f37-288c5cae88ba/KDK_paatosseminaarin_ohjelma_10_12_2013.pdf: OK
+/var/archivematica/sharedDirectory/currentlyProcessing/csc_test_invalid_mets_required_fixity.zip-c7ef1044-adda-45d2-8f37-288c5cae88ba/varmiste.sig: OK
+/var/archivematica/sharedDirectory/currentlyProcessing/csc_test_invalid_mets_required_fixity.zip-c7ef1044-adda-45d2-8f37-288c5cae88ba/mets.xml: OK
+
+----------- SCAN SUMMARY -----------
+Known viruses: 3684424
+Engine version: 0.98.5
+Scanned directories: 1
+Scanned files: 3
+Infected files: 0
+Data scanned: 0.56 MB
+Data read: 0.33 MB (ratio 1.70:1)
+Time: 15.489 sec (0 m 15 s)
+
+LibClamAV Warning: **************************************************
+LibClamAV Warning: ***  The virus database is older than 7 days!  ***
+LibClamAV Warning: ***   Please update it as soon as possible.    ***
+LibClamAV Warning: **************************************************
+</premis:eventOutcomeDetailNote></premis:eventOutcomeDetail></premis:eventOutcomeInformation>
+    <premis:linkingAgentIdentifier>
+      <premis:linkingAgentIdentifierType>preservation-agent-id</premis:linkingAgentIdentifierType>
+      <premis:linkingAgentIdentifierValue>check_virus.pyc-0.65-1441468673-ga5e2ad3</premis:linkingAgentIdentifierValue>
+    </premis:linkingAgentIdentifier>
+    <premis:linkingObjectIdentifier><premis:linkingObjectIdentifierType>preservation-sip-id</premis:linkingObjectIdentifierType><premis:linkingObjectIdentifierValue>c7ef1044-adda-45d2-8f37-288c5cae88ba</premis:linkingObjectIdentifierValue></premis:linkingObjectIdentifier>
+  </premis:event>
+  <premis:event>
+    <premis:eventIdentifier>
+      <premis:eventIdentifierType>preservation-event-id</premis:eventIdentifierType>
+      <premis:eventIdentifierValue>1fc9a89f-4e94-482f-ae23-1a345863fb5b</premis:eventIdentifierValue>
+    </premis:eventIdentifier>
+    <premis:eventType>validation</premis:eventType>
+    <premis:eventDateTime>2015-09-23T09:56:04</premis:eventDateTime>
+    <premis:eventDetail>METS schema validation</premis:eventDetail>
+    <premis:eventOutcomeInformation><premis:eventOutcome>success</premis:eventOutcome><premis:eventOutcomeDetail><premis:eventOutcomeDetailNote>/usr/share/information-package-tools/schema/mets/mets.xsd:16: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/w3/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/premis/premis.xsd:39: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at 'http://www.loc.gov/standards/xlink/xlink.xsd' for the namespace 'http://www.w3.org/1999/xlink', since this namespace was already imported with the schema located at '/usr/share/information-package-tools/schema/w3/xlink.xsd'.
+/usr/share/information-package-tools/schema/external/mods/mods.xsd:1: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at 'http://www.loc.gov/mods/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/mods/mods.xsd:1: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at 'http://www.loc.gov/standards/xlink/xlink.xsd' for the namespace 'http://www.w3.org/1999/xlink', since this namespace was already imported with the schema located at '/usr/share/information-package-tools/schema/w3/xlink.xsd'.
+/usr/share/information-package-tools/schema/external/dc/dcterms.xsd:66: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at 'http://www.w3.org/2001/03/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/dc/dc.xsd:42: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at 'http://www.w3.org/2001/03/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ead/ead.xsd:72: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at 'http://www.loc.gov/standards/xlink/xlink.xsd' for the namespace 'http://www.w3.org/1999/xlink', since this namespace was already imported with the schema located at '/usr/share/information-package-tools/schema/w3/xlink.xsd'.
+/usr/share/information-package-tools/schema/external/eac/cpf.xsd:63: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at 'http://www.loc.gov/standards/xlink/xlink.xsd' for the namespace 'http://www.w3.org/1999/xlink', since this namespace was already imported with the schema located at '/usr/share/information-package-tools/schema/w3/xlink.xsd'.
+/usr/share/information-package-tools/schema/external/eac/cpf.xsd:65: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at 'http://www.w3.org/2007/08/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/lido/lido.xsd:60: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at 'http://www.w3.org/2001/03/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/instance.xsd:43: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/reusable.xsd:25: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/ddi-xhtml11.xsd:64: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/XHTML/xhtml-attribs-1.xsd:16: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/XHTML/xhtml-blkphras-1.xsd:27: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/XHTML/xhtml-bdo-1.xsd:23: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/reusable.xsd:27: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/dcterms.xsd' for the namespace 'http://purl.org/dc/terms/', since this namespace was already imported with the schema located at '/usr/share/information-package-tools/schema/external/dc/dcterms.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/archive.xsd:25: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/datacollection.xsd:24: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/instance.xsd:49: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/dcterms.xsd' for the namespace 'http://purl.org/dc/terms/', since this namespace was already imported with the schema located at '/usr/share/information-package-tools/schema/external/dc/dcterms.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/physicaldataproduct_ncube_inline.xsd:25: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/physicaldataproduct_ncube_normal.xsd:25: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/physicaldataproduct_ncube_tabular.xsd:25: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/physicaldataproduct_proprietary.xsd:24: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/ddi-codebook/dcterms.xsd:65: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-codebook/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/ddi-codebook/dcterms.xsd:69: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-codebook/dc.xsd' for the namespace 'http://purl.org/dc/elements/1.1/', since this namespace was already imported with the schema located at '/usr/share/information-package-tools/schema/external/dc/dc.xsd'.
+/usr/share/information-package-tools/schema/ddi-codebook/dcterms.xsd:72: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-codebook/dcmitype.xsd' for the namespace 'http://purl.org/dc/dcmitype/', since this namespace was already imported with the schema located at '/usr/share/information-package-tools/schema/external/dc/dcmitype.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-codebook/codebook.xsd:51: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-codebook/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-codebook/codebook.xsd:52: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-codebook/ddi-xhtml11.xsd' for the namespace 'http://www.w3.org/1999/xhtml', since this namespace was already imported with the schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/ddi-xhtml11.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-codebook/codebook.xsd:53: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-codebook/dcterms.xsd' for the namespace 'http://purl.org/dc/terms/', since this namespace was already imported with the schema located at '/usr/share/information-package-tools/schema/external/dc/dcterms.xsd'.
+/var/archivematica/sharedDirectory/currentlyProcessing/csc_test_invalid_mets_required_fixity.zip-c7ef1044-adda-45d2-8f37-288c5cae88ba/mets.xml validates
+
+</premis:eventOutcomeDetailNote></premis:eventOutcomeDetail></premis:eventOutcomeInformation>
+    <premis:linkingAgentIdentifier>
+      <premis:linkingAgentIdentifierType>preservation-agent-id</premis:linkingAgentIdentifierType>
+      <premis:linkingAgentIdentifierValue>validate_mets_schema.pyc-0.65-1441468673-ga5e2ad3</premis:linkingAgentIdentifierValue>
+    </premis:linkingAgentIdentifier>
+    <premis:linkingObjectIdentifier><premis:linkingObjectIdentifierType>preservation-mets-id</premis:linkingObjectIdentifierType><premis:linkingObjectIdentifierValue>715ecfb6-267a-411e-8381-e8702a6a1a6d</premis:linkingObjectIdentifierValue></premis:linkingObjectIdentifier>
+  </premis:event>
+  <premis:event>
+    <premis:eventIdentifier>
+      <premis:eventIdentifierType>preservation-event-id</premis:eventIdentifierType>
+      <premis:eventIdentifierValue>0ee66568-7561-4c89-8de5-d42b0d7904a0</premis:eventIdentifierValue>
+    </premis:eventIdentifier>
+    <premis:eventType>validation</premis:eventType>
+    <premis:eventDateTime>2015-09-23T09:56:06</premis:eventDateTime>
+    <premis:eventDetail>Additional METS validation of required features</premis:eventDetail>
+    <premis:eventOutcomeInformation><premis:eventOutcome>failure</premis:eventOutcome><premis:eventOutcomeDetail><premis:eventOutcomeDetailExtension><svrl:schematron-output xmlns:svrl="http://purl.oclc.org/dsdl/svrl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:schold="http://www.ascc.net/xml/schematron" xmlns:saxon="http://icl.com/saxon" xmlns:sch="http://www.ascc.net/xml/schematron" xmlns:iso="http://purl.oclc.org/dsdl/schematron" xmlns:mets="http://www.loc.gov/METS/" xmlns:kdk="http://www.kdk.fi/standards/mets/kdk-extensions" xmlns:exsl="http://exslt.org/common" xmlns:sets="http://exslt.org/sets" xmlns:str="http://exslt.org/strings" title="METS internal inspection" schemaVersion="1.4.1">
+  <!--   
+		   
+		   
+		 -->
+  <svrl:ns-prefix-in-attribute-values uri="http://www.loc.gov/METS/" prefix="mets"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.kdk.fi/standards/mets/kdk-extensions" prefix="kdk"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://exslt.org/common" prefix="exsl"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://exslt.org/sets" prefix="sets"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://exslt.org/strings" prefix="str"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:mets"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:metsHdr"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:dmdSec"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:techMD"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:rightsMD"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:dmdSec"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:techMD"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:rightsMD"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE!='OTHER']"/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE!='OTHER']"/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE!='OTHER']"/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE!='OTHER']"/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE!='OTHER']"/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE!='OTHER']"/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE!='OTHER']"/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE!='OTHER']"/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE!='OTHER']"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:mdWrap"/>
+  <svrl:fired-rule context="mets:mdWrap"/>
+  <svrl:fired-rule context="mets:mdWrap"/>
+  <svrl:fired-rule context="mets:mdWrap"/>
+  <svrl:fired-rule context="mets:mdWrap"/>
+  <svrl:fired-rule context="mets:mdWrap"/>
+  <svrl:fired-rule context="mets:mdWrap"/>
+  <svrl:fired-rule context="mets:mdWrap"/>
+  <svrl:fired-rule context="mets:mdWrap"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:file"/>
+  <svrl:failed-assert test="count(@CHECKSUM) = count(@CHECKSUMTYPE)" location="/*[local-name()='mets' and namespace-uri()='http://www.loc.gov/METS/']/*[local-name()='fileSec' and namespace-uri()='http://www.loc.gov/METS/']/*[local-name()='fileGrp' and namespace-uri()='http://www.loc.gov/METS/']/*[local-name()='file' and namespace-uri()='http://www.loc.gov/METS/']">
+    <svrl:line-number>188</svrl:line-number>
+    <svrl:text>
+                CHECKSUM attribute requires the use of CHECKSUMTYPE attribute (and vice versa) in &lt;file&gt; element. The other of these attributes is missing.
+            </svrl:text>
+  </svrl:failed-assert>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:div[@DMDID]"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:file[@ADMID]"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:fptr[@FILEID]"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:dmdSec"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:techMD"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:rightsMD"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:file"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:mets"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:fptr"/>
+</svrl:schematron-output>
+
+
+<svrl:schematron-output xmlns:svrl="http://purl.oclc.org/dsdl/svrl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:schold="http://www.ascc.net/xml/schematron" xmlns:saxon="http://icl.com/saxon" xmlns:sch="http://www.ascc.net/xml/schematron" xmlns:iso="http://purl.oclc.org/dsdl/schematron" xmlns:mets="http://www.loc.gov/METS/" xmlns:mix="http://www.loc.gov/mix/v20" xmlns:textmd="http://www.kdk.fi/standards/textmd" xmlns:audiomd="http://www.loc.gov/audioMD/" xmlns:videomd="http://www.loc.gov/videoMD/" xmlns:metsrights="http://cosimo.stanford.edu/sdr/metsrights/" xmlns:marc21="http://www.loc.gov/MARC21/slim" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:ead="urn:isbn:1-931666-22-9" xmlns:eac="urn:isbn:1-931666-33-4" xmlns:vra="http://www.vraweb.org/vracore4.htm" xmlns:lido="http://www.lido-schema.org" xmlns:ddilc="ddi:instance:3_2" xmlns:ddicb="ddi:codebook:2_5" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:exsl="http://exslt.org/common" xmlns:sets="http://exslt.org/sets" xmlns:str="http://exslt.org/strings" title="METS external metadata type check" schemaVersion="1.4.1">
+  <!--   
+		   
+		   
+		 -->
+  <svrl:ns-prefix-in-attribute-values uri="http://www.loc.gov/METS/" prefix="mets"/>
+  <svrl:ns-prefix-in-attribute-values uri="info:lc/xmlns/premis-v2" prefix="premis"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.loc.gov/mix/v20" prefix="mix"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.kdk.fi/standards/textmd" prefix="textmd"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.loc.gov/audioMD/" prefix="audiomd"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.loc.gov/videoMD/" prefix="videomd"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://cosimo.stanford.edu/sdr/metsrights/" prefix="metsrights"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.loc.gov/MARC21/slim" prefix="marc21"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.loc.gov/mods/v3" prefix="mods"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://purl.org/dc/elements/1.1/" prefix="dc"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://purl.org/dc/terms/" prefix="dcterms"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://purl.org/dc/dcmitype/" prefix="dcmitype"/>
+  <svrl:ns-prefix-in-attribute-values uri="urn:isbn:1-931666-22-9" prefix="ead"/>
+  <svrl:ns-prefix-in-attribute-values uri="urn:isbn:1-931666-33-4" prefix="eac"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.vraweb.org/vracore4.htm" prefix="vra"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.lido-schema.org" prefix="lido"/>
+  <svrl:ns-prefix-in-attribute-values uri="ddi:instance:3_2" prefix="ddilc"/>
+  <svrl:ns-prefix-in-attribute-values uri="ddi:codebook:2_5" prefix="ddicb"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/1999/xlink" prefix="xlink"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://exslt.org/common" prefix="exsl"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://exslt.org/sets" prefix="sets"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://exslt.org/strings" prefix="str"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE='PREMIS:OBJECT']"/>
+  <svrl:fired-rule context="mets:xmlData/premis:object"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE='PREMIS:EVENT']"/>
+  <svrl:fired-rule context="mets:xmlData/premis:event"/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE='PREMIS:EVENT']"/>
+  <svrl:fired-rule context="mets:xmlData/premis:event"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE='PREMIS:AGENT']"/>
+  <svrl:fired-rule context="mets:xmlData/premis:agent"/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE='PREMIS:AGENT']"/>
+  <svrl:fired-rule context="mets:xmlData/premis:agent"/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE='PREMIS:AGENT']"/>
+  <svrl:fired-rule context="mets:xmlData/premis:agent"/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE='PREMIS:AGENT']"/>
+  <svrl:fired-rule context="mets:xmlData/premis:agent"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE='METSRIGHTS']"/>
+  <svrl:fired-rule context="mets:xmlData/metsrights:*"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE='DC']"/>
+  <svrl:fired-rule context="mets:xmlData/dc:*"/>
+  <svrl:fired-rule context="mets:xmlData/dc:*"/>
+  <svrl:fired-rule context="mets:xmlData/dc:*"/>
+  <svrl:fired-rule context="mets:xmlData/dc:*"/>
+  <svrl:fired-rule context="mets:xmlData/dc:*"/>
+  <svrl:fired-rule context="mets:xmlData/dc:*"/>
+  <svrl:fired-rule context="mets:xmlData/dc:*"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:mets"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:dmdSec"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:rightsMD"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:file"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:file"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:file"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:file"/>
+</svrl:schematron-output>
+
+<svrl:schematron-output xmlns:svrl="http://purl.oclc.org/dsdl/svrl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:schold="http://www.ascc.net/xml/schematron" xmlns:saxon="http://icl.com/saxon" xmlns:sch="http://www.ascc.net/xml/schematron" xmlns:iso="http://purl.oclc.org/dsdl/schematron" xmlns:mets="http://www.loc.gov/METS/" xmlns:mix="http://www.loc.gov/mix/v20" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:exsl="http://exslt.org/common" xmlns:sets="http://exslt.org/sets" xmlns:str="http://exslt.org/strings" title="NISOIMG (MIX) metadata issues" schemaVersion="1.4">
+  <!--   
+		   
+		   
+		 -->
+  <svrl:ns-prefix-in-attribute-values uri="http://www.loc.gov/METS/" prefix="mets"/>
+  <svrl:ns-prefix-in-attribute-values uri="info:lc/xmlns/premis-v2" prefix="premis"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.loc.gov/mix/v20" prefix="mix"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/1999/xlink" prefix="xlink"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://exslt.org/common" prefix="exsl"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://exslt.org/sets" prefix="sets"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://exslt.org/strings" prefix="str"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:file"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:file"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:file"/>
+</svrl:schematron-output>
+
+<svrl:schematron-output xmlns:svrl="http://purl.oclc.org/dsdl/svrl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:schold="http://www.ascc.net/xml/schematron" xmlns:saxon="http://icl.com/saxon" xmlns:sch="http://www.ascc.net/xml/schematron" xmlns:iso="http://purl.oclc.org/dsdl/schematron" xmlns:mets="http://www.loc.gov/METS/" xmlns:exsl="http://exslt.org/common" xmlns:str="http://exslt.org/strings" xmlns:sets="http://exslt.org/sets" title="PREMIS metadata check" schemaVersion="1.4">
+  <!--   
+		   
+		   
+		 -->
+  <svrl:ns-prefix-in-attribute-values uri="http://www.loc.gov/METS/" prefix="mets"/>
+  <svrl:ns-prefix-in-attribute-values uri="info:lc/xmlns/premis-v2" prefix="premis"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/2001/XMLSchema-instance" prefix="xsi"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://exslt.org/common" prefix="exsl"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://exslt.org/strings" prefix="str"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://exslt.org/sets" prefix="sets"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="premis:objectCharacteristics"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:techMD//premis:format"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="premis:objectIdentifierValue"/>
+  <svrl:fired-rule context="premis:linkingObjectIdentifierValue"/>
+  <svrl:fired-rule context="premis:linkingObjectIdentifierValue"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="premis:eventIdentifierValue"/>
+  <svrl:fired-rule context="premis:eventIdentifierValue"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="premis:linkingAgentIdentifierValue"/>
+  <svrl:fired-rule context="premis:linkingAgentIdentifierValue"/>
+  <svrl:fired-rule context="premis:linkingAgentIdentifierValue"/>
+  <svrl:fired-rule context="premis:linkingAgentIdentifierValue"/>
+  <svrl:fired-rule context="premis:agentIdentifierValue"/>
+  <svrl:fired-rule context="premis:agentIdentifierValue"/>
+  <svrl:fired-rule context="premis:agentIdentifierValue"/>
+  <svrl:fired-rule context="premis:agentIdentifierValue"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="premis:objectIdentifierType"/>
+  <svrl:fired-rule context="premis:objectIdentifierValue"/>
+  <svrl:fired-rule context="premis:eventIdentifierType"/>
+  <svrl:fired-rule context="premis:eventIdentifierValue"/>
+  <svrl:fired-rule context="premis:eventIdentifierType"/>
+  <svrl:fired-rule context="premis:eventIdentifierValue"/>
+  <svrl:fired-rule context="premis:agentIdentifierType"/>
+  <svrl:fired-rule context="premis:agentIdentifierValue"/>
+  <svrl:fired-rule context="premis:agentIdentifierType"/>
+  <svrl:fired-rule context="premis:agentIdentifierValue"/>
+  <svrl:fired-rule context="premis:agentIdentifierType"/>
+  <svrl:fired-rule context="premis:agentIdentifierValue"/>
+  <svrl:fired-rule context="premis:agentIdentifierType"/>
+  <svrl:fired-rule context="premis:agentIdentifierValue"/>
+</svrl:schematron-output>
+
+</premis:eventOutcomeDetailExtension></premis:eventOutcomeDetail></premis:eventOutcomeInformation>
+    <premis:linkingAgentIdentifier>
+      <premis:linkingAgentIdentifierType>preservation-agent-id</premis:linkingAgentIdentifierType>
+      <premis:linkingAgentIdentifierValue>validate_mets_schematron.pyc-0.65-1441468673-ga5e2ad3</premis:linkingAgentIdentifierValue>
+    </premis:linkingAgentIdentifier>
+    <premis:linkingObjectIdentifier><premis:linkingObjectIdentifierType>preservation-mets-id</premis:linkingObjectIdentifierType><premis:linkingObjectIdentifierValue>715ecfb6-267a-411e-8381-e8702a6a1a6d</premis:linkingObjectIdentifierValue></premis:linkingObjectIdentifier>
+  </premis:event>
+  <premis:event>
+    <premis:eventIdentifier>
+      <premis:eventIdentifierType>preservation-event-id</premis:eventIdentifierType>
+      <premis:eventIdentifierValue>6e95b0a4-6d60-4f6d-b3a9-eda3f2dcf269</premis:eventIdentifierValue>
+    </premis:eventIdentifier>
+    <premis:eventType>decompression</premis:eventType>
+    <premis:eventDateTime>2015-09-23T09:55:44</premis:eventDateTime>
+    <premis:eventDetail>Decompression of submission information package</premis:eventDetail>
+    <premis:eventOutcomeInformation><premis:eventOutcome>success</premis:eventOutcome><premis:eventOutcomeDetail><premis:eventOutcomeDetailNote>Archive:  /var/archivematica/sharedDirectory/currentlyProcessing/csc_test_invalid_mets_required_fixity.zip-c7ef1044-adda-45d2-8f37-288c5cae88ba
+   creating: /var/archivematica/sharedDirectory/currentlyProcessing/extract-c7ef1044-adda-45d2-8f37-288c5cae88baiWYdMK/csc_test_invalid_mets_required_fixity/
+  inflating: /var/archivematica/sharedDirectory/currentlyProcessing/extract-c7ef1044-adda-45d2-8f37-288c5cae88baiWYdMK/csc_test_invalid_mets_required_fixity/KDK_paatosseminaarin_ohjelma_10_12_2013.pdf  
+  inflating: /var/archivematica/sharedDirectory/currentlyProcessing/extract-c7ef1044-adda-45d2-8f37-288c5cae88baiWYdMK/csc_test_invalid_mets_required_fixity/varmiste.sig  
+  inflating: /var/archivematica/sharedDirectory/currentlyProcessing/extract-c7ef1044-adda-45d2-8f37-288c5cae88baiWYdMK/csc_test_invalid_mets_required_fixity/mets.xml  
+</premis:eventOutcomeDetailNote></premis:eventOutcomeDetail></premis:eventOutcomeInformation>
+    <premis:linkingAgentIdentifier>
+      <premis:linkingAgentIdentifierType>preservation-agent-id</premis:linkingAgentIdentifierType>
+      <premis:linkingAgentIdentifierValue>extract_sip.pyc-0.65-1441468673-ga5e2ad3</premis:linkingAgentIdentifierValue>
+    </premis:linkingAgentIdentifier>
+    <premis:linkingObjectIdentifier><premis:linkingObjectIdentifierType>preservation-sip-id</premis:linkingObjectIdentifierType><premis:linkingObjectIdentifierValue>c7ef1044-adda-45d2-8f37-288c5cae88ba</premis:linkingObjectIdentifierValue></premis:linkingObjectIdentifier>
+  </premis:event>
+  <premis:event>
+    <premis:eventIdentifier>
+      <premis:eventIdentifierType>preservation-event-id</premis:eventIdentifierType>
+      <premis:eventIdentifierValue>f7575c38-1a84-4a4d-9e0a-5e133c021fce</premis:eventIdentifierValue>
+    </premis:eventIdentifier>
+    <premis:eventType>transfer</premis:eventType>
+    <premis:eventDateTime>2015-09-23T09:55:41</premis:eventDateTime>
+    <premis:eventDetail>Transfer of submission information package</premis:eventDetail>
+    <premis:eventOutcomeInformation><premis:eventOutcome>success</premis:eventOutcome><premis:eventOutcomeDetail><premis:eventOutcomeDetailNote>Transfer received by digital preservation system</premis:eventOutcomeDetailNote></premis:eventOutcomeDetail></premis:eventOutcomeInformation>
+    <premis:linkingAgentIdentifier>
+      <premis:linkingAgentIdentifierType>preservation-user-id</premis:linkingAgentIdentifierType>
+      <premis:linkingAgentIdentifierValue>organisaatio1</premis:linkingAgentIdentifierValue>
+    </premis:linkingAgentIdentifier>
+    <premis:linkingObjectIdentifier><premis:linkingObjectIdentifierType>preservation-sip-id</premis:linkingObjectIdentifierType><premis:linkingObjectIdentifierValue>c7ef1044-adda-45d2-8f37-288c5cae88ba</premis:linkingObjectIdentifierValue></premis:linkingObjectIdentifier>
+  </premis:event>
+  <premis:agent>
+    <premis:agentIdentifier>
+      <premis:agentIdentifierType>preservation-agent-id</premis:agentIdentifierType>
+      <premis:agentIdentifierValue>check_signature.pyc-0.65-1441468673-ga5e2ad3</premis:agentIdentifierValue>
+    </premis:agentIdentifier>
+    <premis:agentName>check_signature.pyc</premis:agentName>
+    <premis:agentType>software</premis:agentType>
+  </premis:agent>
+  <premis:agent>
+    <premis:agentIdentifier>
+      <premis:agentIdentifierType>preservation-agent-id</premis:agentIdentifierType>
+      <premis:agentIdentifierValue>create_premis_report.pyc-0.65-1441468673-ga5e2ad3</premis:agentIdentifierValue>
+    </premis:agentIdentifier>
+    <premis:agentName>create_premis_report.pyc</premis:agentName>
+    <premis:agentType>software</premis:agentType>
+  </premis:agent>
+  <premis:agent>
+    <premis:agentIdentifier>
+      <premis:agentIdentifierType>preservation-agent-id</premis:agentIdentifierType>
+      <premis:agentIdentifierValue>check_virus.pyc-0.65-1441468673-ga5e2ad3</premis:agentIdentifierValue>
+    </premis:agentIdentifier>
+    <premis:agentName>check_virus.pyc</premis:agentName>
+    <premis:agentType>software</premis:agentType>
+  </premis:agent>
+  <premis:agent>
+    <premis:agentIdentifier>
+      <premis:agentIdentifierType>preservation-agent-id</premis:agentIdentifierType>
+      <premis:agentIdentifierValue>validate_mets_schema.pyc-0.65-1441468673-ga5e2ad3</premis:agentIdentifierValue>
+    </premis:agentIdentifier>
+    <premis:agentName>validate_mets_schema.pyc</premis:agentName>
+    <premis:agentType>software</premis:agentType>
+  </premis:agent>
+  <premis:agent>
+    <premis:agentIdentifier>
+      <premis:agentIdentifierType>preservation-agent-id</premis:agentIdentifierType>
+      <premis:agentIdentifierValue>validate_mets_schematron.pyc-0.65-1441468673-ga5e2ad3</premis:agentIdentifierValue>
+    </premis:agentIdentifier>
+    <premis:agentName>validate_mets_schematron.pyc</premis:agentName>
+    <premis:agentType>software</premis:agentType>
+  </premis:agent>
+  <premis:agent>
+    <premis:agentIdentifier>
+      <premis:agentIdentifierType>preservation-agent-id</premis:agentIdentifierType>
+      <premis:agentIdentifierValue>extract_sip.pyc-0.65-1441468673-ga5e2ad3</premis:agentIdentifierValue>
+    </premis:agentIdentifier>
+    <premis:agentName>extract_sip.pyc</premis:agentName>
+    <premis:agentType>software</premis:agentType>
+  </premis:agent>
+  <premis:agent>
+    <premis:agentIdentifier>
+      <premis:agentIdentifierType>preservation-user-id</premis:agentIdentifierType>
+      <premis:agentIdentifierValue>organisaatio1</premis:agentIdentifierValue>
+    </premis:agentIdentifier>
+    <premis:agentName>organisaatio1</premis:agentName>
+    <premis:agentType>organization</premis:agentType>
+  </premis:agent>
+</premis:premis>

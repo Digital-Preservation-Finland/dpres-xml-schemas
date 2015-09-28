@@ -16,16 +16,16 @@
                     <xsl:value-of select="document('css/report.css')" disable-output-escaping="yes" />
                 </style>
 
-                <title>PAS – Inspection report</title>
+                <title>Digital preservation service – Ingest report</title>
             </head>
             <body>
                 <div id="row">
                     <xsl:choose>
                         <xsl:when test="//premis:event/premis:eventOutcomeInformation/premis:eventOutcome = 'failure'">
-                            <div class="col-md-10"><h1>Inspection report – <span class="text-red">Submission rejected</span></h1></div>
+                            <div class="col-md-10"><h1>Ingest report – <span class="text-red">Submission rejected</span></h1></div>
                         </xsl:when>
                         <xsl:otherwise>
-                            <div class="col-md-10"><h1>Inspection report – <span class="text-success">Submission accepted</span></h1></div>
+                            <div class="col-md-10"><h1>Ingest report – <span class="text-success">Submission accepted</span></h1></div>
                         </xsl:otherwise>
                     </xsl:choose>
                     
@@ -48,16 +48,16 @@
                 <xsl:choose>
                     <xsl:when test="//premis:event/premis:eventOutcomeInformation/premis:eventOutcome = 'failure'">
                         <xsl:variable name="objid" select="//premis:object/premis:environment/premis:dependency/premis:dependencyIdentifier/premis:dependencyIdentifierType[text() = 'mets:OBJID']/../premis:dependencyIdentifierValue/text()"/>
-                        <xsl:variable name="username" select="//premis:agent/premis:agentIdentifier/premis:agentIdentifierType[text() = 'pas-user-id']/../../premis:agentName/text()"/>
+                        <xsl:variable name="username" select="//premis:agent/premis:agentIdentifier/premis:agentIdentifierType[text() = 'preservation-user-id']/../../premis:agentName/text()"/>
                         
-                        <p class="lead">Digital preservation system has received submission information package <strong><xsl:value-of select="$objid"/></strong> from user <strong><xsl:value-of select="$username"/></strong> and performed following actions. Some actions have failed and preservation responsibility has not been transferred to the digital preservation system.
+                        <p class="lead">Digital preservation service has received submission information package <strong><xsl:value-of select="$objid"/></strong> from user <strong><xsl:value-of select="$username"/></strong> and performed following actions. Some actions have failed and preservation responsibility has not been changed to the digital preservation service.
                         </p>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:variable name="objid" select="//premis:object/premis:environment/premis:dependency/premis:dependencyIdentifier/premis:dependencyIdentifierType[text() = 'mets:OBJID']/../premis:dependencyIdentifierValue/text()"/>
-                        <xsl:variable name="username" select="//premis:agent/premis:agentIdentifier/premis:agentIdentifierType[text() = 'pas-user-id']/../../premis:agentName/text()"/>
+                        <xsl:variable name="username" select="//premis:agent/premis:agentIdentifier/premis:agentIdentifierType[text() = 'preservation-user-id']/../../premis:agentName/text()"/>
                         
-                        <p class="lead">Digital preservation system has received submission information package <strong><xsl:value-of select="$objid"/></strong> from user <strong><xsl:value-of select="$username"/></strong> and performed following actions. All actions were successful and preservation responsibility has been transferred to the digital preservation system.
+                        <p class="lead">Digital preservation service has received submission information package <strong><xsl:value-of select="$objid"/></strong> from user <strong><xsl:value-of select="$username"/></strong> and performed following actions. All actions were successful and preservation responsibility has been changed to the digital preservation service.
                         </p>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -68,22 +68,19 @@
                     <xsl:variable name="object_id_type" select="premis:objectIdentifier/premis:objectIdentifierType"/>
                     <xsl:variable name="object_id_value" select="premis:objectIdentifier/premis:objectIdentifierValue"/>
 
-                    <xsl:if test="$object_id_type = 'pas-transfer-id'">
-                        <h2>Transfer <small><xsl:value-of select="premis:originalName"/></small></h2>
-                    </xsl:if>
-                    <xsl:if test="$object_id_type = 'pas-sip-id'">
+                    <xsl:if test="$object_id_type = 'preservation-sip-id'">
                         <h2>Submission information package <small><xsl:value-of select="premis:originalName"/></small></h2>
                     </xsl:if>
-                    <xsl:if test="$object_id_type = 'pas-sig-id'">
+                    <xsl:if test="$object_id_type = 'preservation-signature-id'">
                         <h2>Digital signature <small><xsl:value-of select="premis:originalName"/></small></h2>
                     </xsl:if>
-                    <xsl:if test="$object_id_type = 'pas-mets-id'">
+                    <xsl:if test="$object_id_type = 'preservation-mets-id'">
                         <h2>Metadata object <small><xsl:value-of select="premis:originalName"/></small></h2>
                     </xsl:if>
-                    <xsl:if test="$object_id_type = 'pas-object-id'">
+                    <xsl:if test="$object_id_type = 'preservation-object-id'">
                         <h2>Digital object <small><xsl:value-of select="premis:originalName"/></small></h2>
                     </xsl:if>
-                    <xsl:if test="$object_id_type = 'pas-aip-id'">
+                    <xsl:if test="$object_id_type = 'preservation-aip-id'">
                         <h2>Archival information package <small><xsl:value-of select="premis:originalName"/></small></h2>
                     </xsl:if>
                     
@@ -96,7 +93,7 @@
                         <xsl:for-each select="//premis:event/premis:linkingObjectIdentifier/premis:linkingObjectIdentifierValue[text() = $object_id_value]">
                             <!-- Filter out some events -->
                             <xsl:variable name="eventDetail" select="../../premis:eventDetail"/>
-                            <xsl:if test="not(contains($eventDetail, 'Validation compilation of a SIP')) and not(contains($eventDetail, 'Ingestion of the transfer'))">
+                            <xsl:if test="not(contains($eventDetail, 'Validation compilation of submission information package')) and not(contains($eventDetail, 'Transfer of submission information package'))">
 
                                 <xsl:choose>
                                     <xsl:when test="../../premis:eventOutcomeInformation/premis:eventOutcome = 'failure'">
@@ -120,7 +117,7 @@
             <hr/>
             
             <center>
-            <h6>Please note that this report is a summary of digitally signed and machine-readable report generated by digital preservation system.</h6>
+            <h6>Please note that this report is a summary of digitally signed and machine-readable report generated by the digital preservation service.</h6>
             </center>
 
             </body>
