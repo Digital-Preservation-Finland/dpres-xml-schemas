@@ -17,32 +17,34 @@ See: http://www.loc.gov/standards/premis/
 			<sch:assert test="./premis:originalName">
 				&lt;originalName&gt; element must be used in '<sch:value-of select=".//premis:objectIdentifierValue"/>'.
 			</sch:assert>
-
-			<!-- 
-
-				 TODO: Find some other way of doing environment validation.
-				 https://jira.csc.fi/browse/KDKPAS-972
-
-				 Commented out environment because this is added to mets schema validation task report.
-				 This report does not contain tested number of events.
-
-				 In addition number of events in report might change over time so we want more
-				 robust way of checking if environment element should exist.
-
-
-			<sch:assert test="((count(ancestor::premis:premis/premis:event) &gt; 4) and (./premis:environment)) or (count(ancestor::premis:premis/premis:event) &lt; 5)">
-				&lt;environment&gt; element must be used in '<sch:value-of select=".//premis:objectIdentifierValue"/>'.
-			</sch:assert>
-			<sch:assert test="((count(ancestor::premis:premis/premis:event) &lt; 5) and not(./premis:environment)) or (count(ancestor::premis:premis/premis:event) &gt; 4)">
-				&lt;environment&gt; element must not be used in '<sch:value-of select=".//premis:objectIdentifierValue"/>'.
-			</sch:assert>
-			-->
-
 			<sch:assert test="not(./premis:relationship)">
 				&lt;relationship&gt; element must not be used in '<sch:value-of select=".//premis:objectIdentifierValue"/>'.
 			</sch:assert>
 		</sch:rule>	
 	</sch:pattern>
+
+	<!-- sip object environment check -->
+    <sch:pattern name="SipObjectEnvironment">
+		<!-- In case environment is found, see that it is not incorrect nor empty -->
+		<sch:rule context="premis:object[normalize-space(.//premis:objectIdentifierType)='preservation-sip-id' and (./premis:environment)]">
+			<sch:assert test="normalize-space(.//premis:dependencyIdentifierType) = 'mets:OBJID'">
+				&lt;dependencyIdentifierType&gt; in object '<sch:value-of select=".//premis:objectIdentifierValue"/>' must be 'mets:OBJID'.
+			</sch:assert>
+			<sch:assert test="string-length(normalize-space(.//premis:dependencyIdentifierValue)) &gt; 0">
+				&lt;dependencyIdentifierValue&gt; in object '<sch:value-of select=".//premis:objectIdentifierValue"/>' must not be empty.
+			</sch:assert>
+		</sch:rule>	
+		<!-- In case environment is not found, see that METS schema validation was not successful -->
+        <sch:rule context="premis:object[normalize-space(.//premis:objectIdentifierType)='preservation-sip-id' and not(./premis:environment)]">
+			<!--
+				Get success/failure outcome from METS schema validation. Error message about missing environment given, if outcome is 'success' (i.e. something else than missing or 'failure')
+			-->
+			<sch:assert test="not(ancestor::premis:premis/premis:event[normalize-space(./premis:eventType)='validation' and normalize-space(./premis:eventDetail)='METS schema validation']//premis:eventOutcome) or normalize-space(ancestor::premis:premis/premis:event[normalize-space(./premis:eventType)='validation' and normalize-space(./premis:eventDetail)='METS schema validation']//premis:eventOutcome) = 'failure'">
+				&lt;environment&gt; element must be used in object '<sch:value-of select=".//premis:objectIdentifierValue"/>'.
+			</sch:assert>
+		</sch:rule>	
+	</sch:pattern>
+
 	
 	<!-- signature object check -->
     <sch:pattern name="SigObject">
