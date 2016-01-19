@@ -49,9 +49,9 @@ See: http://www.loc.gov/standards/premis/
 	<!-- signature object check -->
     <sch:pattern name="SigObject">
         <sch:rule context="premis:object[normalize-space(.//premis:objectIdentifierType)='preservation-signature-id']">
-			<sch:assert test="./premis:originalName='varmiste.sig'">
-				Original name must be 'varmiste.sig' in '<sch:value-of select=".//premis:objectIdentifierValue"/>'.
-			</sch:assert>			
+			<sch:assert test="normalize-space(./premis:originalName)='varmiste.sig' or normalize-space(./premis:originalName)='signature.sig'">
+                Original name must be 'varmiste.sig' or 'signature.sig' in '<sch:value-of select=".//premis:objectIdentifierValue"/>'.
+            </sch:assert>
 			<sch:assert test="not(./premis:environment)">
 				&lt;environment&gt; element not allowed in '<sch:value-of select=".//premis:objectIdentifierValue"/>'.
 			</sch:assert>
