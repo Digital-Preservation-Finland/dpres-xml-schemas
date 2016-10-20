@@ -77,4 +77,24 @@ DIRECTORIES:
 +------------------------------+----------------------------------------------------------------+
 
 
+USAGE:
+------
 
+In KDK-PAS project we have utilized xmllint commandline tool for xsd-schema validation. Following parameters were given
+for xml validation:
+
+::
+
+  xmllint --valid --huge --noout --catalogs --schema <schema path> <xml file path>
+
+In addition, set an envirnonment variable $SGML_CATALOG_FILES:
+
+::
+
+  export SGML_CATALOG_FILES=<catalog path>
+
+where <catalog path> is the path of catalog-local.xml provided in this repository in the
+location of your installation. In similar way <schema path> is the path of mets/mets.xml provided in this repository.
+
+
+for further information please read http://xmlsoft.org/xmllint.html fpr xmllint documentation.
