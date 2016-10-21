@@ -1,7 +1,8 @@
 KDK SCHEMA CATALOG
 ==================
 Current catalog version is 1.5.0, and it includes the following files and directories.
-The catalog can be used with KDK specifications 1.5.0 and 1.4.
+The catalog can be used with KDK specifications 1.5.0 and 1.4. These catalogs paths are relative
+to kdk-mets-catalog subdirectory.
 
 
 CATALOGS:
@@ -31,8 +32,8 @@ KDK XSD FILES:
 +------------------------------+----------------------------------------------------------------+
 
 
-DIRECTORIES:
-------------
+INCLUDED SCHEMAS:
+-----------------
 
 +------------------------------+----------------------------------------------------------------+
 |./addml                       | ADDML 8.3 schema files (unchanged)                             |
@@ -77,8 +78,8 @@ DIRECTORIES:
 +------------------------------+----------------------------------------------------------------+
 
 
-USAGE:
-------
+SCHEMAS USAGE:
+--------------
 
 In KDK-PAS project we have utilized xmllint commandline tool for xsd-schema validation. Following parameters were given
 for xml validation:
@@ -98,3 +99,31 @@ location of your installation. In similar way <schema path> is the path of mets/
 
 
 for further information please read http://xmlsoft.org/xmllint.html fpr xmllint documentation.
+
+
+SCHEMATRON SCHEMAS:
+===================
+
+The schematron schemas paths are described in relation to schematron/kdk-schematron path.
+
+SCHEMATRON USAGE:
+-----------------
+
+In schematron validation is done using xsltproc for xslt conversion. A generic way of doing single
+xslt conversion with xsltproc is described below. 
+
+::
+
+   xsltproc -o <output_filename> <xslt_template> <input_filename>
+
+Conversions in schematron validation are done in three steps:
+
+::
+
+  xsltproc -o tempfile1 iso_dsdl_include.xsl schematron_schema.sch
+  xsltproc -o tempfile2 iso_abstract_expand.xsl tempfile1
+  xsltproc -o validator.xsl iso_svrl_for_xslt<schematron version>.xsl tempfile2
+  xsltproc -o outputfile validator.xsl mets.xml
+
+If all steps return 0 and no stderr is produced, validation is succesfull. These steps
+have to be repeated for all schematron schemas. 
