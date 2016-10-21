@@ -40,6 +40,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 	<sch:include href="./abstracts/disallowed_unsupported_metadata_pattern.incl"/>
 	<sch:include href="./abstracts/required_metadata_match_pattern.incl"/>
 	<sch:include href="./abstracts/required_metadata_pattern.incl"/>
+	<sch:include href="./abstracts/deprecated_element_pattern.incl"/>
 
 	<sch:let name="addml_types" value="string('text/csv')"/>
 	<sch:let name="textmd_types" value="string('application/xhtml+xml text/xml text/plain')"/>
@@ -51,6 +52,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 	<sch:pattern id="mets_mdtype_content" is-a="required_metadata_match_pattern">
 		<sch:param name="context_condition" value="not(@OTHERMDTYPE)"/>
 		<sch:param name="required_condition" value="(number(normalize-space(@MDTYPE)='PREMIS:OBJECT')*count(mets:xmlData/premis:object)*count(mets:xmlData/*)
+			  + number(normalize-space(@MDTYPE)='PREMIS:RIGHTS')*count(mets:xmlData/premis:rights)*count(mets:xmlData/*)
 			  + number(normalize-space(@MDTYPE)='PREMIS:RIGHTS')*count(mets:xmlData/premis:rightsStatement)*count(mets:xmlData/*)
 			  + number(normalize-space(@MDTYPE)='PREMIS:EVENT')*count(mets:xmlData/premis:event)*count(mets:xmlData/*)
 			  + number(normalize-space(@MDTYPE)='PREMIS:AGENT')*count(mets:xmlData/premis:agent)*count(mets:xmlData/*)
@@ -73,7 +75,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 	<sch:pattern id="mets14_mdtype_content" is-a="required_metadata_match_pattern">
 		<sch:param name="context_condition" value="not(@OTHERMDTYPE)"/>
 		<sch:param name="required_condition" value="(number(normalize-space(@MDTYPE)='PREMIS:OBJECT')*count(mets:xmlData/premis:object)*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='PREMIS:RIGHTS')*count(mets:xmlData/premis:rightsStatement)*count(mets:xmlData/*)
+			  + number(normalize-space(@MDTYPE)='PREMIS:RIGHTS')*count(mets:xmlData/premis:rights)*count(mets:xmlData/*)
 			  + number(normalize-space(@MDTYPE)='PREMIS:EVENT')*count(mets:xmlData/premis:event)*count(mets:xmlData/*)
 			  + number(normalize-space(@MDTYPE)='PREMIS:AGENT')*count(mets:xmlData/premis:agent)*count(mets:xmlData/*)
 			  + number(normalize-space(@MDTYPE)='METSRIGHTS')*number(boolean(mets:xmlData/metsrights:*))*count(mets:xmlData/*)
@@ -110,12 +112,20 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 	</sch:pattern>
 	
 	<!-- Notify the existence of unsupported metadata -->
-	<sch:pattern id="mets_allowed_unsupported" is-a="allowed_unsupported_metadata_pattern">
+	<sch:pattern id="mets_allowedmd_unsupported" is-a="allowed_unsupported_metadata_pattern">
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_condition" value="@OTHERMDTYPE!='AudioMD' and @OTHERMDTYPE!='VideoMD' and @OTHERMDTYPE!='EN15744' and @OTHERMDTYPE!='EAD3' and @OTHERMDTYPE!='ADDML'"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
-
+	
+	<!-- Notify the existence of deprecated element -->
+	<sch:pattern id="mets_deprecated_rightsStatement" is-a="deprecated_element_pattern">
+		<sch:param name="context_element" value="mets:xmlData"/>
+		<sch:param name="context_condition" value="../@MDTYPE='PREMIS:RIGHTS'"/>
+		<sch:param name="deprecated_element" value="premis:rightsStatement"/>
+		<sch:param name="specifications" value="string('1.5.0')"/>
+	</sch:pattern>
+	
 	<!-- Standard portfolio schemas -->
 	<sch:pattern id="mets_object_exists" is-a="required_metadata_pattern">
 		<sch:param name="context_condition" value="true()"/>
@@ -141,19 +151,19 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 	<sch:pattern id="dmdsec_no_rights" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:dmdSec/mets:mdWrap/mets:xmlData"/>
 		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_element" value="premis:rightsStatement"/>
+		<sch:param name="disallowed_element" value="premis:rights"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern> 
 	<sch:pattern id="techmd_no_rights" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData"/>
 		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_element" value="premis:rightsStatement"/>
+		<sch:param name="disallowed_element" value="premis:rights"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern> 
 	<sch:pattern id="digiprovmd_no_rights" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap/mets:xmlData"/>
 		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_element" value="premis:rightsStatement"/>
+		<sch:param name="disallowed_element" value="premis:rights"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern> 
 	<sch:pattern id="dmdsec_no_tech" is-a="disallowed_element_pattern">

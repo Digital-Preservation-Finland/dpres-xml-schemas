@@ -78,52 +78,60 @@ INCLUDED SCHEMAS:
 +------------------------------+----------------------------------------------------------------+
 
 
-SCHEMAS USAGE:
---------------
+SCHEMA CATALOG USAGE:
+---------------------
 
-In KDK-PAS project we have utilized xmllint commandline tool for xsd-schema validation. Following parameters were given
-for xml validation:
+In KDK-PAS project we have utilized xmllint commandline tool for xsd-schema validation.
+Following parameters are given for xml validation:
 
 ::
 
-  xmllint --valid --huge --noout --catalogs --schema <schema path> <xml file path>
+  xmllint --valid --huge --noout --catalogs --schema <schema_path> <mets_xml_file_path>
 
 In addition, set an envirnonment variable $SGML_CATALOG_FILES:
 
 ::
 
-  export SGML_CATALOG_FILES=<catalog path>
+  export SGML_CATALOG_FILES=<catalog_path>
 
-where <catalog path> is the path of catalog-local.xml provided in this repository in the
-location of your installation. In similar way <schema path> is the path of mets/mets.xml provided in this repository.
+where <catalog_path> is the path of catalog-local.xml provided in this repository in the
+location of your installation. In similar way <schema_path> is the path of ./mets/mets.xsd provided in this repository.
 
 
-for further information please read http://xmlsoft.org/xmllint.html fpr xmllint documentation.
+For further information, see: http://xmlsoft.org/xmllint.html
 
 
 SCHEMATRON SCHEMAS:
 ===================
 
-The schematron schemas paths are described in relation to schematron/kdk-schematron path.
-
 SCHEMATRON USAGE:
 -----------------
 
-In schematron validation is done using xsltproc for xslt conversion. A generic way of doing single
+The schematron schemas paths are described in relation to schematron/kdk-schematron path.
+
+Schematron validation is done using xsltproc for xslt conversion. A generic way of doing single
 xslt conversion with xsltproc is described below. 
 
 ::
 
    xsltproc -o <output_filename> <xslt_template> <input_filename>
 
-Conversions in schematron validation are done in three steps:
+Conversions in schematron validation are done in following steps:
 
 ::
 
-  xsltproc -o tempfile1 iso_dsdl_include.xsl schematron_schema.sch
+  xsltproc -o tempfile1 iso_dsdl_include.xsl <schematron_schema>
   xsltproc -o tempfile2 iso_abstract_expand.xsl tempfile1
-  xsltproc -o validator.xsl iso_svrl_for_xslt<schematron version>.xsl tempfile2
-  xsltproc -o outputfile validator.xsl mets.xml
+  xsltproc -o validator.xsl iso_svrl_for_xslt1.xsl tempfile2
+  xsltproc -o outputfile validator.xsl /path-to/mets.xml
+
+where <schematron_schema> is a schematron file provided in this repository.
+
+XSLT conversion files are required to make conversions, see file iso-schematron-xslt1.zip
+which can be downloaded from http://www.schematron.com/implementation.html
+Additionally, EXSLT extensions for XSLT are required, see http://exslt.org/
 
 If all steps return 0 and no stderr is produced, validation is succesfull. These steps
-have to be repeated for all schematron schemas. 
+have to be repeated for all schematron schemas.
+
+For further information, see: http://www.schematron.com/ and http://exslt.org/
