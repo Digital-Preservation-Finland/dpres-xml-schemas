@@ -1,61 +1,42 @@
 KDK-METS-SCHEMAS
 ================
 
-This repository is currently used in `National Digital Library <http://www.kdk.fi/en/>`_ and `Open Science and Research Initiative <http://openscience.fi/frontpage>`_ for metadata validation of digital preservation. Kdk-mets-schemas is a collection of xsd-schemas and catalogs as well as schmematron files which together validate all xml metadata compiled in mets.xml used in digital preservation
+This repository is currently used in `National Digital Library <http://www.kdk.fi/en/>`_ and `Open Science and Research Initiative <http://openscience.fi/frontpage>`_ for metadata validation in digital preservation services. Kdk-mets-schemas is a collection of XML schema catalog and schmematron files which together can be used to validate all metadata combined in METS document against the national specifications.
 
-Current catalog version is 1.5.0, and it includes the following files and directories.
-The catalog can be used with KDK specifications 1.5.0 and 1.4. These catalogs paths are relative
-to kdk-mets-catalog subdirectory.
+Current catalog version is 1.5.0. The catalog can be used with specifications 1.5.0 and 1.4.
 
 -------------------
 
 USAGE:
 ------
 
-In KDK-PAS project we have utilized xmllint commandline tool for xsd-schema validation.
-Following parameters are given for xml validation:
-
-::
-
-  xmllint --valid --huge --noout --catalogs --schema <schema_path> <mets_xml_file_path>
-
-In addition, set an envirnonment variable $SGML_CATALOG_FILES:
+We have utilized xmllint commandline tool for XML schema validation.
+Use the following commands to validate METS documets:
 
 ::
 
   export SGML_CATALOG_FILES=<catalog_path>
-
-where <catalog_path> is the path of catalog-local.xml provided in this repository in the
-location of your installation. In similar way <schema_path> is the path of ./mets/mets.xsd provided in this repository.
-
+  xmllint --valid --huge --noout --catalogs --schema  kdk-mets-catalog/mets/mets.xsd <METS document path>
 
 For further information, see: http://xmlsoft.org/xmllint.html
 
------------------
+Schematron validation is done using xsltproc for xslt conversions. XSLT conversion files are required to make conversions, see file iso-schematron-xslt1.zip which can be downloaded from http://www.schematron.com/implementation.html. Additionally, EXSLT extensions for XSLT are required, see http://exslt.org/
 
-Schematron validation is done using xsltproc for xslt conversion. A generic way of doing single
-xslt conversion with xsltproc is described below. 
-
-::
-
-   xsltproc -o <output_filename> <xslt_template> <input_filename>
-
-Conversions in schematron validation are done in following steps:
+Use the following commands to compile schematron files:
 
 ::
 
-  xsltproc -o tempfile1 iso_dsdl_include.xsl <schematron_schema>
+  xsltproc -o tempfile1 iso_dsdl_include.xsl schematron/kdk-schematron/<schematron schema name>
   xsltproc -o tempfile2 iso_abstract_expand.xsl tempfile1
-  xsltproc -o validator.xsl iso_svrl_for_xslt1.xsl tempfile2
-  xsltproc -o outputfile validator.xsl /path-to/mets.xml
+  xsltproc -o <compiled validator name>.xsl iso_svrl_for_xslt1.xsl tempfile2
 
-where <schematron_schema> is a schematron file provided in this repository.
+Use the following command to validate METS document.
 
-XSLT conversion files are required to make conversions, see file iso-schematron-xslt1.zip
-which can be downloaded from http://www.schematron.com/implementation.html
-Additionally, EXSLT extensions for XSLT are required, see http://exslt.org/
+::
 
-If all steps return 0 and no stderr is produced, validation is succesfull. These steps
+  xsltproc -o outputfile <compiled validator name>.xsl <METS document path>
+
+If all steps return 0 and no "<svrl:failed-assert>" elements are produced to stdout, validation is succesful. These steps
 have to be repeated for all schematron schemas.
 
 For further information, see: http://www.schematron.com/ and http://exslt.org/
@@ -63,7 +44,7 @@ For further information, see: http://www.schematron.com/ and http://exslt.org/
 
 INCLUDED FILES
 --------------
-Paths other than schematron schemas are described in relation to base path kdk-mets-catalog
+Paths other than schematron schemas are described in relation to base path kdk-mets-catalog.
 
 CATALOGS:
 +++++++++
@@ -141,12 +122,28 @@ SCHEMAS:
 SCHEMATRON:
 +++++++++++
 
-+--------------------------------+--------------------------------------------------------------+
-|schematron/kdk-schematron/addml | ADDML 8.3 schema files (unchanged)                           |
-+--------------------------------+--------------------------------------------------------------+
-|schematron/kdk-schematron/avmd  |  AudioMD 2.0 and VideoMD 2.0 schema files (unchanged)        |
-+--------------------------------+--------------------------------------------------------------+
+<base path> is schematron/kdk-schematron
+
++--------------------------------+--------------------------------------------------------+
+| <base path>/abstracts/*        | Abstract patterns used by schematron schemas           |
++--------------------------------+--------------------------------------------------------+
+| <base path>/mets_addml.sch     | Schematron schema for ADDML                            |
++--------------------------------+--------------------------------------------------------+
+| <base path>/mets_avmd.sch      | Schematron schema for AudioMD and VideoMD              | 
++--------------------------------+--------------------------------------------------------+
+| <base path>/mets_ead3.sch      | Schematron schema for EAD3                             |
++--------------------------------+--------------------------------------------------------+
+| <base path>/mets_internal.sch  | Schematron schema for METS internal checks             |
++--------------------------------+--------------------------------------------------------+
+| <base path>/mets_mdtype.sch    | Schematron schema for metadata wrapping in METS        |
++--------------------------------+--------------------------------------------------------+
+| <base path>/mets_mix.sch       | Schematron schema for MIX                              |
++--------------------------------+--------------------------------------------------------+
+| <base path>/mets_mods.sch      | Schematron schema for MODS                             |
++--------------------------------+--------------------------------------------------------+
+| <base path>/mets_premis.sch    | Schematron schema for PREMIS                           |
++--------------------------------+--------------------------------------------------------+
 
 CONTRIBUTION
 ------------
-All contribution is wellcome and we can provide more information through our email address pas-support@csc.fi on issues related to this repository. Pull requests are handled according our schedule by our specialists and we aim to be fairly active on this. Most on the development takes place in `CSC - IT Center for Science <www.csc.fi>`_. 
+All contribution is welcome. We can provide more information through our email address pas-support (ät) csc.fi on issues related to this repository. Pull requests are handled according our schedule by our specialists and we aim to be fairly active on this. Most on the development takes place in `CSC - IT Center for Science <www.csc.fi>`_. 
