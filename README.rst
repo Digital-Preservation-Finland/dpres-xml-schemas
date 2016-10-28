@@ -15,7 +15,7 @@ Use the following commands to validate METS documets:
 
 ::
 
-  export SGML_CATALOG_FILES=<catalog_path>
+  export SGML_CATALOG_FILES=/<base path>/kdk-mets-catalog/catalog-local.xml
   xmllint --valid --huge --noout --catalogs --schema  kdk-mets-catalog/mets/mets.xsd <METS document path>
 
 For further information, see: http://xmlsoft.org/xmllint.html
