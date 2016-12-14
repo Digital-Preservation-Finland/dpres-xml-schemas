@@ -12,5 +12,9 @@ rpm-sources:
 
 rpm-package:
 	build-rpm.sh ${MOCK_CONFIG}
+
+coverage:
+	mkdir htmlcov
+	touch htmlcov/index.html
 	
 rpm: rpm-sources rpm-package
