@@ -1,2 +1,3 @@
 rpmbuild
 *.sw?
+junit*.xml
