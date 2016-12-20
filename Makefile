@@ -5,6 +5,6 @@ SHAREDIR=${ROOT}${PREFIX}/share/${SOURCE}
 
 install:
 	mkdir -p "${SHAREDIR}"
-	cp -r "${SOURCE}" "${SHAREDIR}"
+	cp -r "${SOURCE}"/* "${SHAREDIR}/"
 	chmod -R 755 "${SHAREDIR}"
 	find "${SHAREDIR}" -type f -exec chmod 644 \{\} \;
