@@ -146,4 +146,4 @@ SCHEMATRON:
 
 CONTRIBUTION
 ------------
-All contribution is welcome. We can provide more information through our email address pas-support (ät) csc.fi on issues related to this repository. Pull requests are handled according our schedule by our specialists and we aim to be fairly active on this. Most on the development takes place in `CSC - IT Center for Science <www.csc.fi>`_. 
+All contribution is welcome. Pull requests are handled according our schedule by our specialists and we aim to be fairly active on this. Most on the development takes place in `CSC - IT Center for Science <www.csc.fi>`_. 
