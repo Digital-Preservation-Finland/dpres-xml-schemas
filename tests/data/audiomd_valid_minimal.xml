@@ -1,0 +1,29 @@
+<mets:mets fi:CATALOG="1.6.0" xmlns:mets="http://www.loc.gov/METS/"
+xmlns:fi="http://www.kdk.fi/standards/mets/kdk-extensions"
+xmlns:audiomd="http://www.loc.gov/audioMD/">
+<mets:amdSec><mets:techMD>
+<mets:mdWrap MDTYPE="OTHER" OTHERMDTYPE="AudioMD" MDTYPEVERSION="2.0">
+<mets:xmlData>
+
+	<audiomd:AUDIOMD>
+		<audiomd:fileData>
+			<audiomd:audioDataEncoding/>
+			<audiomd:bitsPerSample/>
+			<audiomd:compression>
+				<audiomd:codecCreatorApp/>
+				<audiomd:codecCreatorAppVersion/>
+				<audiomd:codecName/>
+				<audiomd:codecQuality/>
+			</audiomd:compression>
+			<audiomd:dataRate/>
+			<audiomd:dataRateMode/>
+			<audiomd:samplingFrequency/>
+		</audiomd:fileData>
+		<audiomd:audioInfo>
+			<audiomd:duration/>
+			<audiomd:numChannels/>
+		</audiomd:audioInfo>
+</audiomd:AUDIOMD>
+               
+</mets:xmlData></mets:mdWrap></mets:techMD>
+</mets:amdSec></mets:mets>

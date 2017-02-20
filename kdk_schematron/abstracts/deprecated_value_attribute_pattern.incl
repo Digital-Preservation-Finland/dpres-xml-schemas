@@ -5,7 +5,7 @@
 	context_element - Context element, where the given attribute exists
 	context_attribute - Attribute in context element, which value is checked
 	deprectated_value - Deprecated value of the attribute
-	valid_values - Valid non-deprecated values of the attribute listed with space+semicolon delimiter.
+	valid_values - Valid non-deprecated values of the attribute listed with semicolon+space delimiter.
 	context_condition - Rule launched only, if this condition is true
 	specifications - Catalog/specification versions for which the rule is launched.
 		List the affected versions with space+semicolon delimiter.

@@ -19,14 +19,21 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:attribute>
-	<xsd:attribute name="PID" type="kdkGraphChar">
+	<xsd:attribute name="CONTENTID" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en">
+				CONTENTID (string/O): Identifier for the content.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:attribute>
+	<xsd:attribute name="PID" type="xsd:string">
 		<xsd:annotation>
 			<xsd:documentation xml:lang="en">
 				PID (string/O): Unique identifier for the metadata.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:attribute>
-	<xsd:attribute name="PIDTYPE" type="kdkGraphChar">
+	<xsd:attribute name="PIDTYPE" type="xsd:string">
 		<xsd:annotation>
 			<xsd:documentation xml:lang="en">
 				PIDTYPE (string/O): The identifier type used in the PID attribute.
@@ -47,6 +54,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 			<xsd:enumeration value="1.4"/>
 			<xsd:enumeration value="1.4.1"/>
 			<xsd:enumeration value="1.5.0"/>
+			<xsd:enumeration value="1.6.0"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 
@@ -55,6 +63,8 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 		<xsd:restriction base="xsd:string">
 			<xsd:enumeration value="1.4"/>
 			<xsd:enumeration value="1.5.0"/>			
+			<xsd:enumeration value="1.6.0"/>
+			<xsd:enumeration value="1.6.1"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	
@@ -72,12 +82,6 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 			<xsd:pattern value="OPEN"/>
 		</xsd:restriction>
 	</xsd:simpleType>
-	
-	<!-- Graph characters -->
-	<xsd:simpleType name="kdkGraphChar">
-		<xsd:restriction base="xsd:string">
-			<xsd:pattern value="([!-~])+"/>
-		</xsd:restriction>
-	</xsd:simpleType>
+
 	
 </xsd:schema>

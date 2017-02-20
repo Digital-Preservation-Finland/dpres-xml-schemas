@@ -1,0 +1,100 @@
+<mets:mets fi:CATALOG="1.6.0" xmlns:mets="http://www.loc.gov/METS/"
+xmlns:fi="http://www.kdk.fi/standards/mets/kdk-extensions"
+xmlns:mix="http://www.loc.gov/mix/v20">
+<mets:amdSec><mets:techMD>
+<mets:mdWrap MDTYPE="NISOIMG" MDTYPEVERSION="2.0">
+<mets:xmlData>
+ 
+<mix:mix>
+	<mix:BasicDigitalObjectInformation>
+		<!-- byteOrder on pakollinen, jos tiedostomuotona image/tiff tai image/dpx:
+		<mix:byteOrder>{"big endian", "little endian"}</mix:byteOrder>
+		-->
+		<mix:Compression>
+			<mix:compressionScheme>Uncompressed</mix:compressionScheme>
+			<!-- Alla olevat ovat pakollisia, jos mix:compressionScheme = 'enumerated in local list':
+			<mix:compressionSchemeLocalList>[URI]</mix:compressionSchemeLocalList>
+			<mix:compressionSchemeLocalValue>[string]</mix:compressionSchemeLocalValue>
+			-->
+		</mix:Compression>
+	</mix:BasicDigitalObjectInformation>
+	<mix:BasicImageInformation>
+		<mix:BasicImageCharacteristics>
+			<mix:imageWidth>4000</mix:imageWidth>
+			<mix:imageHeight>3000</mix:imageHeight>
+			<mix:PhotometricInterpretation>
+				<mix:colorSpace>RGB</mix:colorSpace>
+				<!-- ColorProfile on pakollinen, jos mix:colorSpace = 'ICCBased' tai 'ICCLab':
+				<mix:ColorProfile>
+					<mix:IccProfile>
+						Alla olevista vähintään yksi on pakollinen:
+						<mix:iccProfileName>[string]</mix:iccProfileName>
+						<mix:iccProfileURI>[URI]</mix:iccProfileURI>
+					</mix:IccProfile>
+				</mix:ColorProfile>
+				-->				
+			</mix:PhotometricInterpretation>
+		</mix:BasicImageCharacteristics>
+		<!-- SpecialFormatCharacteristics on pakollinen, jos tiedostomuoto on image/jp2:
+		<mix:SpecialFormatCharacteristics>
+			JPEG2000 on kielletty, jos tiedostomuoto ei ole image/jp2:
+			<mix:JPEG2000>
+				<mix:EncodingOptions>
+					<mix:qualityLayers>[positive integer]</mix:qualityLayers>
+					<mix:resolutionLevels>[positive integer]</mix:resolutionLevels>			
+				</mix:EncodingOptions>			
+			</mix:JPEG2000>
+		</mix:SpecialFormatCharacteristics>
+		-->
+	</mix:BasicImageInformation>
+	<mix:ImageAssessmentMetadata>
+		<mix:ImageColorEncoding>
+			<mix:BitsPerSample>
+				<mix:bitsPerSampleValue>10</mix:bitsPerSampleValue>
+				<mix:bitsPerSampleUnit>integer</mix:bitsPerSampleUnit>
+			</mix:BitsPerSample>
+			<!-- samplesPerPixel:n vaadittu arvo riippuu colorSpace:sta. Ks. lopusta taulukko -->
+			<mix:samplesPerPixel>3</mix:samplesPerPixel>
+			<!-- extraSamples on pakollinen, jos samplesPerPixel on suurempi kuin vaadittu vähimmäisarvo, ks. taulukko lopusta:
+			<mix:extraSamples>{"unspecified data", "associated alpha data (with pre-multiplied color)", "unassociated alpha data", "range or depth data"}</mix:extraSamples>
+			-->
+			<!-- Colormap on pakollinen, jos mix:colorSpace = 'PaletteColor':
+			<mix:Colormap>
+				<mix:colormapReference>[URI]</mix:colormapReference>				
+			</mix:Colormap>
+			-->
+		</mix:ImageColorEncoding>
+	</mix:ImageAssessmentMetadata>
+</mix:mix>
+           
+</mets:xmlData></mets:mdWrap></mets:techMD>
+</mets:amdSec></mets:mets>
+
+<!--
+Vaaditut arvot elementtien <mix:colorSpace> ja <mix:samplesPerPixel> välillä.
+Jos elementin <mix:samplesPerPixel> arvo on taulukon vähimmäisarvoa suurempi,
+on elementti <mix:extraSamples> pakollinen.
+
+Mikäli colorSpace-elementin arvona käytetään jotakin muuta, kuin alla olevaa,
+ei samplesPerPixel- eikä extraSamples-tarkastuksia tehdä lainkaan.
+
+<mix:colorSpace>	<mix:samplesPerPixel>
+PaletteColor        1 (tasan)
+WhiteIsZero         1 (vähintään)
+BlackIsZero         1 (vähintään)
+RGB                 3 (vähintään)
+CMYK                4 (vähintään)
+YCbCr               3 (vähintään)
+CIELab              3 (vähintään)
+ICCLab              3 (vähintään)
+DeviceGray          1 (vähintään)
+DeviceRGB           3 (vähintään)
+DeviceCMYK          4 (vähintään)
+CalGray             1 (vähintään)
+CalRGB				3 (vähintään)
+Lab                 3 (vähintään)
+sRGB                3 (vähintään)
+e-sRGB              3 (vähintään)
+sYCC                3 (vähintään)
+YCCK                4 (vähintään)
+-->

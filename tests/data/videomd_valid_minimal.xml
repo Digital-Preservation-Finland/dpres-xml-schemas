@@ -1,0 +1,35 @@
+<mets:mets fi:CATALOG="1.6.0" xmlns:mets="http://www.loc.gov/METS/"
+xmlns:fi="http://www.kdk.fi/standards/mets/kdk-extensions"
+xmlns:videomd="http://www.loc.gov/videoMD/">
+<mets:amdSec><mets:techMD>
+<mets:mdWrap MDTYPE="OTHER" OTHERMDTYPE="VideoMD" MDTYPEVERSION="2.0">
+<mets:xmlData>
+
+	<videomd:VIDEOMD>
+		<videomd:fileData>
+			<videomd:duration/>
+			<videomd:dataRate/>
+			<videomd:bitsPerSample/>
+			<videomd:color/>
+			<videomd:compression>
+				<videomd:codecCreatorApp/>
+				<videomd:codecCreatorAppVersion/>
+				<videomd:codecName/>
+				<videomd:codecQuality/>
+			</videomd:compression>
+			<videomd:dataRateMode/>
+			<videomd:frameRate/>
+			<videomd:frame>
+				<videomd:pixelsHorizontal/>
+				<videomd:pixelsVertical/>
+				<videomd:PAR/>
+				<videomd:DAR/>
+			</videomd:frame>
+			<videomd:sampling/>
+			<videomd:signalFormat/>
+			<videomd:sound/>
+		</videomd:fileData>
+	</videomd:VIDEOMD>
+               
+</mets:xmlData></mets:mdWrap></mets:techMD>
+</mets:amdSec></mets:mets>

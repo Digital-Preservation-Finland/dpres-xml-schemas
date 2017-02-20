@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mets:mets xmlns:mets="http://www.loc.gov/METS/"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.loc.gov/METS/
+                          http://www.kdk.fi/standards/mets/mets.xsd">
+
+	<mets:structMap>
+		<mets:div/>
+	</mets:structMap>
+
+</mets:mets>

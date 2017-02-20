@@ -1,0 +1,32 @@
+<mets:mets fi:CATALOG="1.6.0" xmlns:mets="http://www.loc.gov/METS/"
+xmlns:fi="http://www.kdk.fi/standards/mets/kdk-extensions"
+xmlns:premis="info:lc/xmlns/premis-v2"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<mets:amdSec><mets:techMD>
+<mets:mdWrap MDTYPE="PREMIS:OBJECT" MDTYPEVERSION="2.3">
+<mets:xmlData>
+
+	<premis:object xsi:type="premis:file">
+		<premis:objectIdentifier>
+			<premis:objectIdentifierType>local</premis:objectIdentifierType>
+			<premis:objectIdentifierValue>object01</premis:objectIdentifierValue>
+		</premis:objectIdentifier>
+		<premis:objectCharacteristics>
+			<premis:compositionLevel>0</premis:compositionLevel>
+			<premis:fixity>
+				<premis:messageDigestAlgorithm>MD5</premis:messageDigestAlgorithm>
+				<premis:messageDigest/>
+			</premis:fixity>
+			<premis:format>
+				<premis:formatDesignation>
+					<premis:formatName>xxx/xxx</premis:formatName>
+				</premis:formatDesignation>
+			</premis:format>
+			<premis:creatingApplication>
+				<premis:dateCreatedByApplication>OPEN</premis:dateCreatedByApplication>
+			</premis:creatingApplication>
+		</premis:objectCharacteristics>
+	</premis:object>
+               
+</mets:xmlData></mets:mdWrap></mets:techMD>
+</mets:amdSec></mets:mets>
