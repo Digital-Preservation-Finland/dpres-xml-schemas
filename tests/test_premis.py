@@ -161,11 +161,11 @@ def test_identifier_value(
     ('application/postscript', ['fmt/124']),
     ('image/gif', ['fmt/3', 'fmt/4']),
     ('application/x-internet-archive', ['x-fmt/219', 'fmt/410']),
-    ('application/vnd.openxmlformatsofficedocument.wordprocessingml.document',
+    ('application/vnd.openxmlformats-officedocument.wordprocessingml.document',
      ['fmt/412']),
-    ('application/vnd.openxmlformatsofficedocument.spreadsheetml.sheet',
+    ('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
      ['fmt/214']),
-    ('application/vnd.openxmlformatsofficedocument.presentationml.' +
+    ('application/vnd.openxmlformats-officedocument.presentationml.' +
      'presentation', ['fmt/215']),
     ('image/dpx', ['fmt/541']),
     ('application/gml+xml;charset=utf-8', ['x-fmt/227']),
