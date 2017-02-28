@@ -43,26 +43,14 @@ echo "--"
 %post
 # Add our catalogs to the system centralised catalog
 %{_bindir}/xmlcatalog --noout --add "nextCatalog" "catalog" \
-"/etc/xml/information-package-tools/digital-object-catalog/digital-object-catalog.xml" \
-/etc/xml/catalog
-%{_bindir}/xmlcatalog --noout --add "nextCatalog" "catalog" \
 "/etc/xml/information-package-tools/kdk-mets-catalog/catalog-local.xml" \
-/etc/xml/catalog
-%{_bindir}/xmlcatalog --noout --add "nextCatalog" "catalog" \
-"/etc/xml/information-package-tools/private-catalog/private-catalog.xml" \
 /etc/xml/catalog
 
 %postun
 # When the package is uninstalled, remove the catalogs
 if [ "$1" = 0 ]; then
   %{_bindir}/xmlcatalog --noout --del \
-  "/etc/xml/information-package-tools/digital-object-catalog/digital-object-catalog.xml" \
-  /etc/xml/catalog
-  %{_bindir}/xmlcatalog --noout --del \
   "/etc/xml/information-package-tools/kdk-mets-catalog/catalog-local.xml" \
-  /etc/xml/catalog
-  %{_bindir}/xmlcatalog --noout --del \
-  "/etc/xml/information-package-tools/private-catalog/private-catalog.xml" \
   /etc/xml/catalog
 fi
 
