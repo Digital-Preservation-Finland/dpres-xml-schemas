@@ -1,12 +1,9 @@
-================
-KDK-METS-SCHEMAS
-================
+KDK METS Schema Catalog and Schematron Rules
+============================================
 
 This repository is currently used in `National Digital Library <http://www.kdk.fi/en/>`_ and `Open Science and Research Initiative <http://openscience.fi/frontpage>`_ for metadata validation in digital preservation services. Kdk-mets-schemas is a collection of XML schema catalog and schmematron files which together can be used to validate all metadata combined in METS document against the national specifications.
 
 The current catalog version is 1.6.0. The same catalog can be used also with older specifications, starting from version 1.4.
-
--------------------
 
 USAGE
 -----
