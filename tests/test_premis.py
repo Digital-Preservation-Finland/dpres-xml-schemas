@@ -167,7 +167,7 @@ def test_identifier_value(
      ['fmt/214']),
     ('application/vnd.openxmlformats-officedocument.presentationml.' +
      'presentation', ['fmt/215']),
-    ('image/dpx', ['fmt/541']),
+    ('image/x-dpx', ['fmt/541']),
     ('application/gml+xml;charset=utf-8', ['x-fmt/227']),
     ('application/vnd.google-earth.kml+xml;charset=utf-8', ['fmt/224']),
     ('application/x-spss-por', ['']),

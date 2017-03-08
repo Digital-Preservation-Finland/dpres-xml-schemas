@@ -491,7 +491,7 @@ Validates NISOIMG (MIX) metadata.
 	</sch:pattern>
 		
 	<!-- TIFF and DPX specific check -->
-	<sch:let name="tiff_fileid" value="/mets:mets/mets:amdSec/mets:techMD[./mets:mdWrap/mets:xmlData/premis:object//premis:formatName='image/tiff' or .//premis:formatName='image/dpx']/@ID"/>
+	<sch:let name="tiff_fileid" value="/mets:mets/mets:amdSec/mets:techMD[./mets:mdWrap/mets:xmlData/premis:object//premis:formatName='image/tiff' or .//premis:formatName='image/x-dpx']/@ID"/>
 	<sch:let name="tiff_mixids" value="/mets:mets/mets:amdSec/mets:techMD[./mets:mdWrap/mets:xmlData/mix:mix/mix:BasicDigitalObjectInformation/mix:byteOrder]/@ID"/>
 	<sch:let name="tiff_countfiles" value="count(sets:distinct(exsl:node-set($tiff_fileid)))"/>
 	<sch:let name="tiff_countmix" value="count(sets:distinct(exsl:node-set($tiff_mixids)))"/>

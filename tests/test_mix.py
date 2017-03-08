@@ -253,7 +253,7 @@ def test_mix_with_tiff_dpx(schematron_fx):
 
     # byteOrder missing with DPX
     elem_handler = root.find_element('formatName', 'premis')
-    elem_handler.text = 'image/dpx'
+    elem_handler.text = 'image/x-dpx'
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 

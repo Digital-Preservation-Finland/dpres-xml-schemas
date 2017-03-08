@@ -54,7 +54,7 @@ Validates PREMIS metadata.
 		'application/vnd.openxmlformats-officedocument.wordprocessingml.document', '; ',
 		'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', '; ',
 		'application/vnd.openxmlformats-officedocument.presentationml.presentation', '; ',
-		'image/dpx', '; ',
+		'image/x-dpx', '; ',
 		'application/gml+xml', '; ',
 		'application/vnd.google-earth.kml+xml', '; ',
 		'application/x-spss-por', '; ',

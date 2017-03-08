@@ -9,7 +9,7 @@ from tests.common import NAMESPACES, parse_xml_file
 def prepare_xml_for_tests():
     """Prepare XML file for the catalog tests
     """
-    ET._namespace_map[NAMESPACES['premis']] = 'premis'
+    ET.register_namespace('premis', NAMESPACES['premis'])
     (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
     return (mets, root)
 

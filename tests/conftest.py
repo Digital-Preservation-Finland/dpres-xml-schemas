@@ -1,4 +1,4 @@
-"""Fixtures for Schematron compilation and MIX colorspace test"""
+"""Fixtures for Schematron compilation and schema catalog tests"""
 
 import subprocess
 import os
@@ -10,7 +10,7 @@ import pytest
 SCH_DIRECTORY = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..', 'kdk_schematron'))
 ISO_DIRECTORY = os.path.abspath(
-   os.path.join(os.sep, 'usr', 'share', 'iso-schematron-xslt1'))
+    os.path.join(os.sep, 'usr', 'share', 'iso-schematron-xslt1'))
 CATALOG_DIRECTORY = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..', 'kdk_mets_catalog'))
 CACHE_DIRECTORY = os.path.abspath(
@@ -26,7 +26,7 @@ def schematron_fx(request):
     :returns: Schematron validation result
     """
     def _fin():
-        """Finalize fixture.
+        """Finalize fixture, remove temp directory
         """
         if os.path.isdir(tmp_directory):
             shutil.rmtree(tmp_directory)
@@ -116,7 +116,7 @@ def catalog_fx(request):
     :returns: Schema validation result
     """
     def _fin():
-        """Finalize fixture.
+        """Finalize fixture, remove temp directory
         """
         if os.path.isdir(tmp_directory):
             shutil.rmtree(tmp_directory)
