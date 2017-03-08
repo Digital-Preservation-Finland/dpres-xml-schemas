@@ -59,7 +59,7 @@ install_deps:
 	yum -y install zip unzip
 	
 test:
-	py.test tests
+	py.test --junitprefix=kdk-mets-schemas --junitxml=junit.xml tests
 
 docs:
 	make -C doc html
@@ -72,10 +72,8 @@ killdocserver:
 	make -C doc killdocserver
 
 coverage:
-	coverage -e
-	coverage -x test.py
-	coverage -r -m
-	coverage -b -d coverage-html
+	mkdir htmlcov
+	touch htmlcov/index.html
 
 clean: clean-rpm
 	find . -iname '*.pyc' -type f -delete
