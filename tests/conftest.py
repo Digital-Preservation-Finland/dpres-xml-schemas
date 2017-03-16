@@ -98,8 +98,8 @@ def schematron_fx(request):
                 os.path.join(tmp_directory, 'step2.sch'),
                 os.path.join(CACHE_DIRECTORY, schfile+'.xsl'))
 
-            # After compiling a file, we'll cache also the schematron file
-            shutil.copyfile(sch_path, sch_cache_path)
+            # After compiling a file, we'll cache the schecksum of sch file
+            open(sch_cache_path, 'w').close()
             # Remove all old cached schematron files
             for entry in os.listdir(CACHE_DIRECTORY):
                 if entry.endswith(schfile) and not entry.startswith(sch_hash):
