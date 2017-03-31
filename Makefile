@@ -1,7 +1,7 @@
 MOCK_CONFIG=stable-6-x86_64
 
 test:
-	echo '<testsuite tests="1"><testcase classname="none! name="DummyTest"/></testsuite>' > junit-preservation-schemas.xml
+	echo '<testsuite tests="1"><testcase classname="none" name="DummyTest"/></testsuite>' > junit-preservation-schemas.xml
 
 clean:
 	rm -rf rpmbuild
