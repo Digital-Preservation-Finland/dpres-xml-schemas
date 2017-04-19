@@ -7,7 +7,7 @@ xmlns:mix="http://www.loc.gov/mix/v20">
  
 <mix:mix>
 	<mix:BasicDigitalObjectInformation>
-		<!-- byteOrder on pakollinen, jos tiedostomuotona image/tiff tai image/dpx:
+		<!-- byteOrder on pakollinen, jos tiedostomuotona image/tiff tai image/x-dpx:
 		<mix:byteOrder>{"big endian", "little endian"}</mix:byteOrder>
 		-->
 		<mix:Compression>

@@ -264,7 +264,7 @@ def test_mandatory_sections(schematron_fx):
     ('video/dv', ['OTHER', 'VideoMD', 'VIDEOMD', 'videomd'], None),
     ('video/mpeg', ['OTHER', 'VideoMD', 'VIDEOMD', 'videomd'], None),
     ('video/x-ms-wmv', ['OTHER', 'VideoMD', 'VIDEOMD', 'videomd'], None),
-    ('image/dpx', ['NISOIMG', None, 'mix', 'mix'], None),
+    ('image/x-dpx', ['NISOIMG', None, 'mix', 'mix'], None),
     ('image/tiff', ['NISOIMG', None, 'mix', 'mix'], None),
     ('image/jpeg', ['NISOIMG', None, 'mix', 'mix'], None),
     ('image/jp2', ['NISOIMG', None, 'mix', 'mix'], None),
