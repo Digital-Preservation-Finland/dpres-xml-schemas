@@ -47,7 +47,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 	<sch:let name="textmd_types" value="string('application/xhtml+xml text/html text/xml text/plain')"/>
 	<sch:let name="audiomd_types" value="string('audio/x-aiff audio/x-wave audio/flac audio/mp4 audio/x-wav audio/mpeg audio/x-ms-wma')"/>
 	<sch:let name="videomd_types" value="string('video/jpeg2000 video/mp4 video/dv video/mpeg video/x-ms-wmv')"/>
-	<sch:let name="mix_types" value="string('image/tiff image/jpeg image/jp2 image/png image/gif image/dpx')"/>
+	<sch:let name="mix_types" value="string('image/tiff image/jpeg image/jp2 image/png image/gif image/x-dpx')"/>
 
 	<!-- Check metadata content in mdWrap -->
 	<sch:pattern id="mets_mdtype_content" is-a="required_metadata_match_pattern">
