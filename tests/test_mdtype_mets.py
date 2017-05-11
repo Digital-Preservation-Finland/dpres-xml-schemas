@@ -4,6 +4,7 @@ rules located in mets_mdtype.sch.
 .. seealso:: mets_mdtype.sch
 """
 
+import xml.etree.ElementTree as ET
 import pytest
 from tests.common import SVRL_FAILED, SVRL_REPORT, NAMESPACES, parse_xml_string
 
@@ -113,6 +114,42 @@ def test_mdtype_namespace(schematron_fx, section, mdinfo):
             svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
             assert svrl.count(SVRL_FAILED) == 1
 
+def test_digiprov_object(schematron_fx):
+    """PREMIS:OBJECT is allowed in digiprovMD, if it's type is representation.
+
+    :schematron_fx: Schematron compile fixture
+    """
+    xml = '''<mets:mets fi:CATALOG="1.6.0" xmlns:mets="%(mets)s"
+             xmlns:premis="%(premis)s" xmlns:xsi="%(xsi)s"
+             xmlns:fi="%(fi)s" xmlns:dc="%(dc)s">
+               <mets:dmdSec><mets:mdWrap MDTYPE='DC'><mets:xmlData>
+                 <dc:subject/></mets:xmlData></mets:mdWrap></mets:dmdSec>
+               <mets:techMD><mets:mdWrap MDTYPE='PREMIS:OBJECT'><mets:xmlData>
+                 <premis:object/></mets:xmlData></mets:mdWrap></mets:techMD>
+               <mets:digiprovMD><mets:mdWrap MDTYPE='PREMIS:OBJECT'>
+                 <mets:xmlData>
+                   <premis:object xsi:type='premis:representation'/>
+                 </mets:xmlData></mets:mdWrap></mets:digiprovMD>
+               <mets:digiprovMD><mets:mdWrap MDTYPE='PREMIS:EVENT'>
+                 <mets:xmlData><premis:event/></mets:xmlData></mets:mdWrap>
+             </mets:digiprovMD></mets:mets>''' % NAMESPACES
+    ET.register_namespace('premis', NAMESPACES['premis'])
+    (mets, root) = parse_xml_string(xml)
+
+    # Works with premis:representation
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 0
+
+    # Fails with other values
+    elem_handler = root.find_element('digiprovMD', 'mets')
+    elem_handler = elem_handler.find_element('object', 'premis')
+    elem_handler.set_attribute('type', 'xsi', 'premis:file')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 1
+
+    elem_handler.set_attribute('type', 'xsi', 'premis:bitstream')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 1
 
 def test_textmd(schematron_fx):
     """When TEXTMD is used, the KDK version is required in 1.4, but standard

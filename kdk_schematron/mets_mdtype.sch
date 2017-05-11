@@ -154,19 +154,19 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 	<!-- Standard portfolio schemas -->
 	<sch:pattern id="mets_object_exists" is-a="required_metadata_pattern">
 		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="required_metadata" value="mets:mdWrap[@MDTYPE='PREMIS:OBJECT']"/>
+		<sch:param name="required_metadata" value="mets:techMD/mets:mdWrap[@MDTYPE='PREMIS:OBJECT']"/>
 		<sch:param name="metadata_name" value="string('PREMIS:OBJECT')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_event_exists" is-a="required_metadata_pattern">
 		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="required_metadata" value="mets:mdWrap[@MDTYPE='PREMIS:EVENT']"/>
+		<sch:param name="required_metadata" value="mets:digiprovMD/mets:mdWrap[@MDTYPE='PREMIS:EVENT']"/>
 		<sch:param name="metadata_name" value="string('PREMIS:EVENT')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_descriptive_exists" is-a="required_metadata_pattern">
 		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="required_metadata" value="mets:mdWrap[@MDTYPE='LIDO' or @MDTYPE='EAC-CPF' or @MDTYPE='EAD' or @OTHERMDTYPE='EAD3'
+		<sch:param name="required_metadata" value="mets:dmdSec/mets:mdWrap[@MDTYPE='LIDO' or @MDTYPE='EAC-CPF' or @MDTYPE='EAD' or @OTHERMDTYPE='EAD3'
 		or @MDTYPE='VRA' or @MDTYPE='MODS' or @MDTYPE='MARC' or @MDTYPE='DC' or @MDTYPE='DDI' or @OTHERMDTYPE='EN15744']"/>
 		<sch:param name="metadata_name" value="string('Standard portfolio descriptive')"/>
 		<sch:param name="specifications" value="string('')"/>
@@ -206,9 +206,15 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 	<sch:pattern id="digiprovmd_no_tech" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap/mets:xmlData"/>
 		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_element" value="premis:object or addml:* or textmd:* or textmd_kdk:* or mix:* or audiomd:* or videomd:*"/>
+		<sch:param name="disallowed_element" value="addml:* or textmd:* or textmd_kdk:* or mix:* or audiomd:* or videomd:*"/>
 		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern> 
+	</sch:pattern>
+	<sch:pattern id="digiprovmd_only_representation" is-a="disallowed_element_pattern">
+		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap/mets:xmlData"/>
+		<sch:param name="context_condition" value="premis:object[not(normalize-space(@xsi:type)='premis:representation')]"/>
+		<sch:param name="disallowed_element" value="premis:object"/>
+		<sch:param name="specifications" value="string('')"/>
+	</sch:pattern>
 	<sch:pattern id="dmdsec_no_digiprov" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:dmdSec/mets:mdWrap/mets:xmlData"/>
 		<sch:param name="context_condition" value="true()"/>

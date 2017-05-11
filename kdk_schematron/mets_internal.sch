@@ -335,7 +335,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="context_attribute" value="@MDTYPE"/>
-		<sch:param name="valid_values" value="string('PREMIS:EVENT; PREMIS:AGENT; OTHER')"/>
+		<sch:param name="valid_values" value="string('PREMIS:OBJECT; PREMIS:EVENT; PREMIS:AGENT; OTHER')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_dmdSec_PID" is-a="required_attribute_pattern">
@@ -439,6 +439,20 @@ Validates METS metadata elements and attributes, their values, and METS internal
 	<sch:pattern id="mets15_rightsMD_MDTYPEVERSION_values_RIGHTS" is-a="required_values_attribute_pattern">
 		<sch:param name="context_element" value="mets:rightsMD/mets:mdWrap"/>
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:RIGHTS'"/>
+		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
+		<sch:param name="valid_values" value="string('2.1; 2.2; 2.3')"/>
+		<sch:param name="specifications" value="string('1.5.0')"/>
+	</sch:pattern>
+	<sch:pattern id="mets_digiprovMD_MDTYPEVERSION_values_OBJECT" is-a="required_values_attribute_pattern">
+		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
+		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:OBJECT'"/>
+		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
+		<sch:param name="valid_values" value="string('2.2; 2.3')"/>
+		<sch:param name="specifications" value="string('not: 1.4.1; 1.4; 1.5.0')"/>
+	</sch:pattern>
+	<sch:pattern id="mets15_digiprovMD_MDTYPEVERSION_values_OBJECT" is-a="required_values_attribute_pattern">
+		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
+		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:OBJECT'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2.1; 2.2; 2.3')"/>
 		<sch:param name="specifications" value="string('1.5.0')"/>
