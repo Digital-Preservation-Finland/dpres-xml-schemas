@@ -29,28 +29,28 @@ xmlns:ddicb21="http://www.icpsr.umich.edu/DDI"
 
 elementFormDefault="qualified" attributeFormDefault="unqualified">
 
-	<xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="../w3/xml.xsd"/>
+	<xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/xml.xsd"/>
 	<xsd:import namespace="http://www.kdk.fi/standards/mets/kdk-extensions" schemaLocation="./kdk-mets-extensions.xsd"/>
 	
-	<xsd:import namespace="info:lc/xmlns/premis-v2" schemaLocation="../premis/premis.xsd"/>
-	<xsd:import namespace="http://www.loc.gov/mix/v20" schemaLocation="../mix/mix.xsd"/>
-	<xsd:import namespace="info:lc/xmlns/textMD-v3" schemaLocation="../textmd/textmd.xsd"/>
+	<xsd:import namespace="info:lc/xmlns/premis-v2" schemaLocation="http://www.loc.gov/standards/premis/v2/premis.xsd"/>
+	<xsd:import namespace="http://www.loc.gov/mix/v20" schemaLocation="http://www.loc.gov/standards/mix/mix20/mix20.xsd"/>
+	<xsd:import namespace="info:lc/xmlns/textMD-v3" schemaLocation="http://www.loc.gov/standards/textMD/textMD-v3.01a.xsd"/>
 	<xsd:import namespace="http://www.kdk.fi/standards/textmd" schemaLocation="../textmd/textmd_kdk.xsd"/>
-	<xsd:import namespace="http://www.arkivverket.no/standarder/addml" schemaLocation="../addml/addml.xsd"/>
-	<xsd:import namespace="http://www.loc.gov/audioMD/" schemaLocation="../avmd/audiomd.xsd"/>
-	<xsd:import namespace="http://www.loc.gov/videoMD/" schemaLocation="../avmd/videomd.xsd"/>
-	<xsd:import namespace="http://www.loc.gov/MARC21/slim" schemaLocation="../marc/MARC21slim.xsd"/>
-	<xsd:import namespace="http://www.loc.gov/mods/v3" schemaLocation="../mods/mods.xsd"/>
-	<xsd:import namespace="http://purl.org/dc/terms/" schemaLocation="../dc/dcterms.xsd"/>
-	<xsd:import namespace="urn:isbn:1-931666-22-9" schemaLocation="../ead/ead.xsd"/>
-	<xsd:import namespace="http://ead3.archivists.org/schema/" schemaLocation="../ead3/ead3.xsd"/>
-	<xsd:import namespace="urn:isbn:1-931666-33-4" schemaLocation="../eac/cpf.xsd"/>
-	<xsd:import namespace="http://www.vraweb.org/vracore4.htm" schemaLocation="../vra/vra-strict.xsd"/>
-	<xsd:import namespace="http://www.lido-schema.org" schemaLocation="../lido/lido.xsd"/>
-	<xsd:import namespace="ddi:instance:3_2" schemaLocation="../ddi-lifecycle/3.2/instance.xsd"/>
-	<xsd:import namespace="ddi:instance:3_1" schemaLocation="../ddi-lifecycle/3.1/instance.xsd"/>
-	<xsd:import namespace="ddi:codebook:2_5" schemaLocation="../ddi-codebook/2.5/codebook.xsd"/>
-	<xsd:import namespace="http://www.icpsr.umich.edu/DDI" schemaLocation="../ddi-codebook/2.1/codebook.xsd"/>
+	<xsd:import namespace="http://www.arkivverket.no/standarder/addml" schemaLocation="http://schema.arkivverket.no/ADDML/v8.3/addml.xsd"/>
+	<xsd:import namespace="http://www.loc.gov/audioMD/" schemaLocation="http://www.loc.gov/standards/amdvmd/audioMD.xsd"/>
+	<xsd:import namespace="http://www.loc.gov/videoMD/" schemaLocation="http://www.loc.gov/standards/amdvmd/videoMD.xsd"/>
+	<xsd:import namespace="http://www.loc.gov/MARC21/slim" schemaLocation="http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd"/>
+	<xsd:import namespace="http://www.loc.gov/mods/v3" schemaLocation="http://www.loc.gov/standards/mods/v3/mods.xsd"/>
+	<xsd:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/dcterms.xsd"/>
+	<xsd:import namespace="urn:isbn:1-931666-22-9" schemaLocation="http://www.loc.gov/ead/ead.xsd"/>
+	<xsd:import namespace="http://ead3.archivists.org/schema/" schemaLocation="http://www.loc.gov/ead/ead3.xsd"/>
+	<xsd:import namespace="urn:isbn:1-931666-33-4" schemaLocation="http://eac.staatsbibliothek-berlin.de/schema/cpf.xsd"/>
+	<xsd:import namespace="http://www.vraweb.org/vracore4.htm" schemaLocation="http://www.loc.gov/standards/vracore/vra-strict.xsd"/>
+	<xsd:import namespace="http://www.lido-schema.org" schemaLocation="http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd"/>
+	<xsd:import namespace="ddi:instance:3_2" schemaLocation="http://www.ddialliance.org/Specification/DDI-Lifecycle/3.2/XMLSchema/instance.xsd"/>
+	<xsd:import namespace="ddi:instance:3_1" schemaLocation="http://www.ddialliance.org/Specification/DDI-Lifecycle/3.1/XMLSchema/instance.xsd"/>
+	<xsd:import namespace="ddi:codebook:2_5" schemaLocation="http://www.ddialliance.org/Specification/DDI-Codebook/2.5/XMLSchema/codebook.xsd"/>
+	<xsd:import namespace="http://www.icpsr.umich.edu/DDI" schemaLocation="http://www.ddialliance.org/Specification/DDI-Codebook/2.1/XMLSchema/Version2-1.xsd"/>
 
 	<xsd:redefine schemaLocation="./mets-1-11.xsd">
 		<xsd:complexType name="metsType">
