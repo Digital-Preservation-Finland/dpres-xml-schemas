@@ -1,8 +1,8 @@
 MOCK_CONFIG=stable-6-x86_64
 ROOT=/
 PREFIX=/usr
-SHAREDIR=${PREFIX}/share/information-package-tools
-XMLCATALOGDIR=/etc/xml/information-package-tools
+SHAREDIR=${PREFIX}/share/dpres-xml-schemas
+XMLCATALOGDIR=/etc/xml/dpres-xml-schemas
 PYTHONDIR=${PREFIX}/lib/python2.6/site-packages
 SHELLDIR=${PREFIX}/bin
 
@@ -12,11 +12,11 @@ all: info
 
 info:
 	@echo
-	@echo "kdk-mets-schemas"
+	@echo "dpres-xml-schemas"
 	@echo
 	@echo "Usage:"
 	@echo "  make test 			- Run all unit tests"
-	@echo "  make install		- Install information-package-tools"
+	@echo "  make install		- Install dpres-xml-schemas"
 	@echo "  make devinstall	- Quick and Dirty development installation"
 	@echo "  make install_deps	- Install required packages with yum"
 	@echo
@@ -26,14 +26,27 @@ install:
 	rm -f INSTALLED_FILES
 
 	# XML Schema catalogs
-	mkdir -p "${ROOT}${XMLCATALOGDIR}/kdk-mets-catalog"
-	cp -r --preserve=timestamp kdk_mets_catalog/* "${ROOT}${XMLCATALOGDIR}/kdk-mets-catalog"
+	mkdir -p "${ROOT}${XMLCATALOGDIR}/xml_catalog"
+	cp -r --preserve=timestamp xml_catalog/* "${ROOT}${XMLCATALOGDIR}/xml_catalog"
+	rm -rf "${XMLCATALOGDIR}"/.git*
+
+	mkdir -p "${ROOT}${XMLCATALOGDIR}/xml_schemas"
+	cp -r --preserve=timestamp xml_schemas/* "${ROOT}${XMLCATALOGDIR}/xml_schemas"
+	rm -rf "${XMLCATALOGDIR}"/.git*
+
+	mkdir -p "${ROOT}${XMLCATALOGDIR}/general_xml_schemas"
+	cp -r --preserve=timestamp general_xml_schemas/* "${ROOT}${XMLCATALOGDIR}/general_xml_schemas"
 	rm -rf "${XMLCATALOGDIR}"/.git*
 
 	# Common data files
-	mkdir -p "${ROOT}${SHAREDIR}/kdk-schematron"
-	cp -r --preserve=timestamp kdk_schematron/* "${ROOT}${SHAREDIR}/kdk-schematron"
+	mkdir -p "${ROOT}${SHAREDIR}/schematron_rules"
+	cp -r --preserve=timestamp schematron_rules/* "${ROOT}${SHAREDIR}/schematron_rules"
 	rm -rf "${SHAREDIR}"/.git*
+
+	mkdir -p "${SHAREDIR}/iso_schematron_xslt1"
+	cp -r "${SOURCE}"/* "${SHAREDIR}/iso_schematron_xslt1/"
+	chmod -R 755 "${SHAREDIR}/iso_schematron_xslt1"
+	find "${SHAREDIR}/iso_schematron_xslt1" -type f -exec chmod 644 \{\} \;
 
 	chmod -R 755 "${ROOT}${XMLCATALOGDIR}"
 	find "${ROOT}${XMLCATALOGDIR}" -type f -exec chmod 644 \{\} \;
@@ -59,7 +72,7 @@ install_deps:
 	yum -y install zip unzip
 	
 test:
-	py.test --junitprefix=kdk-mets-schemas --junitxml=junit.xml tests
+	py.test --junitprefix=dpres-xml-schemas --junitxml=junit.xml tests
 
 docs:
 	make -C doc html

@@ -4,7 +4,7 @@
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="public">
 
 	<!-- KDK references as local -->
-  <group xml:base="./">	
+  <group xml:base="../xml_schemas/">	
 	<rewriteURI uriStartString="http://www.loc.gov/standards/xlink/xlink.xsd" rewritePrefix="w3/xlink.xsd"/>
 	<rewriteURI uriStartString="http://www.w3.org/1999/xlink.xsd" rewritePrefix="w3/xlink.xsd"/>
 	<rewriteURI uriStartString="http://www.kdk.fi/standards/textmd/textmd.xsd" rewritePrefix="textmd/textmd_kdk.xsd"/>
@@ -20,11 +20,7 @@
 	<rewriteURI uriStartString="http://www.loc.gov/standards/mods/v3/mods.xsd" rewritePrefix="mods/mods.xsd"/>
 	<rewriteURI uriStartString="http://www.loc.gov/standards/mods/mods.xsd" rewritePrefix="mods/mods.xsd"/>
   </group>
-  <group xml:base="/etc/xml/information-package-tools/digital-object-catalog/">
-
-    <!-- Virtual URIs -->
-	<rewriteURI uriStartString="http://kdk.fi/standards/mods/mods.xsd" rewritePrefix="mods/3.6/mods-3-6.xsd"/>
-	<rewriteURI uriStartString="http://kdk.fi/standards/xlink/xlink.xsd" rewritePrefix="shared/xlink/w3.org.1999/xlink.xsd"/>
+  <group xml:base="../general_xml_schemas/">
 
 	<!-- W3C XML Related schema -->
 	<rewriteURI uriStartString="http://www.w3.org/2001/xml.xsd" rewritePrefix="shared/xml/w3.org.2001/xml.xsd"/>

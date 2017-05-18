@@ -52,7 +52,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xsd:import namespace="ddi:codebook:2_5" schemaLocation="http://www.ddialliance.org/Specification/DDI-Codebook/2.5/XMLSchema/codebook.xsd"/>
 	<xsd:import namespace="http://www.icpsr.umich.edu/DDI" schemaLocation="http://www.ddialliance.org/Specification/DDI-Codebook/2.1/XMLSchema/Version2-1.xsd"/>
 
-	<xsd:redefine schemaLocation="./mets-1-11.xsd">
+	<xsd:redefine schemaLocation="../../general_xml_schemas/mets/1.11/mets-1-11.xsd">
 		<xsd:complexType name="metsType">
 			<xsd:complexContent>
 				<xsd:extension base="metsType">

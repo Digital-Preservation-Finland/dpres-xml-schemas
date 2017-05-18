@@ -8,11 +8,13 @@ import tempfile
 import pytest
 
 SCH_DIRECTORY = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '..', 'kdk_schematron'))
+    os.path.join(os.path.dirname(__file__), '..', 'schematron_rules'))
 ISO_DIRECTORY = os.path.abspath(
-    os.path.join(os.sep, 'usr', 'share', 'iso-schematron-xslt1'))
+    os.path.join(os.path.dirname(__file__), '..', 'iso_schematron_xslt1'))
 CATALOG_DIRECTORY = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '..', 'kdk_mets_catalog'))
+    os.path.join(os.path.dirname(__file__), '..', 'xml_catalogs'))
+SCHEMA_DIRECTORY = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '..', 'xml_schemas'))
 CACHE_DIRECTORY = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..', '.sch_cache'))
 
@@ -135,10 +137,10 @@ def catalog_fx(request):
         proc = subprocess.Popen(
             ['xmllint', '--huge', '--nonet', '--noout',
              '--catalogs', '--nowarning', '--schema',
-             os.path.join(CATALOG_DIRECTORY, 'mets', 'mets.xsd'),
+             os.path.join(SCHEMA_DIRECTORY, 'mets', 'mets.xsd'),
              xmlfile],
             env={'SGML_CATALOG_FILES':
-                 os.path.join(CATALOG_DIRECTORY, 'catalog-local.xml')},
+                 os.path.join(CATALOG_DIRECTORY, 'mets_catalog.xml')},
             stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
         (stdout, stderr) = proc.communicate()
         returncode = proc.returncode
