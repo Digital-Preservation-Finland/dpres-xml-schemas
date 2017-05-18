@@ -1,0 +1,1460 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<premis:premis xmlns:premis="info:lc/xmlns/premis-v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="info:lc/xmlns/premis-v2 http://www.loc.gov/standards/premis/premis.xsd" version="2.2">
+  <premis:object xsi:type="premis:representation">
+    <premis:objectIdentifier>
+      <premis:objectIdentifierType>preservation-sip-id</premis:objectIdentifierType>
+      <premis:objectIdentifierValue>201583eb-cda9-4e1a-a711-637133ca2317</premis:objectIdentifierValue>
+    </premis:objectIdentifier>
+    <premis:originalName>csc_test_valid_sip_001.zip</premis:originalName>
+    <premis:environment>
+      <premis:dependency>
+        <premis:dependencyIdentifier>
+          <premis:dependencyIdentifierType>mets:OBJID</premis:dependencyIdentifierType>
+          <premis:dependencyIdentifierValue>kdk-csc-sip001</premis:dependencyIdentifierValue>
+        </premis:dependencyIdentifier>
+      </premis:dependency>
+    </premis:environment>
+  </premis:object>
+  <premis:object xsi:type="premis:representation">
+    <premis:objectIdentifier>
+      <premis:objectIdentifierType>preservation-signature-id</premis:objectIdentifierType>
+      <premis:objectIdentifierValue>68cba415-5a28-43db-bae9-443498fba186</premis:objectIdentifierValue>
+    </premis:objectIdentifier>
+    <premis:originalName>varmiste.sig</premis:originalName>
+    <premis:relationship>
+      <premis:relationshipType>structural</premis:relationshipType>
+      <premis:relationshipSubType>is included in</premis:relationshipSubType>
+      <premis:relatedObjectIdentification>
+        <premis:relatedObjectIdentifierType>preservation-sip-id</premis:relatedObjectIdentifierType>
+        <premis:relatedObjectIdentifierValue>201583eb-cda9-4e1a-a711-637133ca2317</premis:relatedObjectIdentifierValue>
+      </premis:relatedObjectIdentification>
+    </premis:relationship>
+  </premis:object>
+  <premis:object xsi:type="premis:representation">
+    <premis:objectIdentifier>
+      <premis:objectIdentifierType>preservation-mets-id</premis:objectIdentifierType>
+      <premis:objectIdentifierValue>6fa53ebc-1458-4f62-b7be-052d38b47132</premis:objectIdentifierValue>
+    </premis:objectIdentifier>
+    <premis:originalName>mets.xml</premis:originalName>
+    <premis:relationship>
+      <premis:relationshipType>structural</premis:relationshipType>
+      <premis:relationshipSubType>is included in</premis:relationshipSubType>
+      <premis:relatedObjectIdentification>
+        <premis:relatedObjectIdentifierType>preservation-sip-id</premis:relatedObjectIdentifierType>
+        <premis:relatedObjectIdentifierValue>201583eb-cda9-4e1a-a711-637133ca2317</premis:relatedObjectIdentifierValue>
+      </premis:relatedObjectIdentification>
+    </premis:relationship>
+  </premis:object>
+  <premis:object xsi:type="premis:representation">
+    <premis:objectIdentifier>
+      <premis:objectIdentifierType>preservation-object-id</premis:objectIdentifierType>
+      <premis:objectIdentifierValue>302fd553-f3b3-4d0a-89e8-0255cc432267</premis:objectIdentifierValue>
+    </premis:objectIdentifier>
+    <premis:originalName>KDK_paatosseminaarin_ohjelma_10_12_2013.pdf</premis:originalName>
+    <premis:environment>
+      <premis:dependency>
+        <premis:dependencyIdentifier>
+          <premis:dependencyIdentifierType>local</premis:dependencyIdentifierType>
+          <premis:dependencyIdentifierValue>kdk-sip-premis-object001</premis:dependencyIdentifierValue>
+        </premis:dependencyIdentifier>
+      </premis:dependency>
+    </premis:environment>
+    <premis:relationship>
+      <premis:relationshipType>structural</premis:relationshipType>
+      <premis:relationshipSubType>is included in</premis:relationshipSubType>
+      <premis:relatedObjectIdentification>
+        <premis:relatedObjectIdentifierType>preservation-sip-id</premis:relatedObjectIdentifierType>
+        <premis:relatedObjectIdentifierValue>201583eb-cda9-4e1a-a711-637133ca2317</premis:relatedObjectIdentifierValue>
+      </premis:relatedObjectIdentification>
+    </premis:relationship>
+  </premis:object>
+  <premis:object xsi:type="premis:representation">
+    <premis:objectIdentifier>
+      <premis:objectIdentifierType>preservation-aip-id</premis:objectIdentifierType>
+      <premis:objectIdentifierValue>2598b95a-e9a3-422d-9a9d-4812a12795d7</premis:objectIdentifierValue>
+    </premis:objectIdentifier>
+    <premis:originalName>csc_test_valid_sip_001.zip-201583eb-cda9-4e1a-a711-637133ca2317.tar.gz</premis:originalName>
+    <premis:relationship>
+      <premis:relationshipType>derivation</premis:relationshipType>
+      <premis:relationshipSubType>has source</premis:relationshipSubType>
+      <premis:relatedObjectIdentification>
+        <premis:relatedObjectIdentifierType>preservation-sip-id</premis:relatedObjectIdentifierType>
+        <premis:relatedObjectIdentifierValue>201583eb-cda9-4e1a-a711-637133ca2317</premis:relatedObjectIdentifierValue>
+      </premis:relatedObjectIdentification>
+    </premis:relationship>
+  </premis:object>
+  <premis:event>
+    <premis:eventIdentifier>
+      <premis:eventIdentifierType>preservation-event-id</premis:eventIdentifierType>
+      <premis:eventIdentifierValue>cf0c6553-ee9c-4fa4-b048-4624dc297cec</premis:eventIdentifierValue>
+    </premis:eventIdentifier>
+    <premis:eventType>decompression</premis:eventType>
+    <premis:eventDateTime>2015-09-23T09:50:44</premis:eventDateTime>
+    <premis:eventDetail>Decompression of submission information package</premis:eventDetail>
+    <premis:eventOutcomeInformation><premis:eventOutcome>success</premis:eventOutcome><premis:eventOutcomeDetail><premis:eventOutcomeDetailNote>Archive:  /var/archivematica/sharedDirectory/currentlyProcessing/csc_test_valid_sip_001.zip-201583eb-cda9-4e1a-a711-637133ca2317
+   creating: /var/archivematica/sharedDirectory/currentlyProcessing/extract-201583eb-cda9-4e1a-a711-637133ca2317PBqWJ4/csc_test_valid_sip_001/
+  inflating: /var/archivematica/sharedDirectory/currentlyProcessing/extract-201583eb-cda9-4e1a-a711-637133ca2317PBqWJ4/csc_test_valid_sip_001/KDK_paatosseminaarin_ohjelma_10_12_2013.pdf  
+  inflating: /var/archivematica/sharedDirectory/currentlyProcessing/extract-201583eb-cda9-4e1a-a711-637133ca2317PBqWJ4/csc_test_valid_sip_001/varmiste.sig  
+  inflating: /var/archivematica/sharedDirectory/currentlyProcessing/extract-201583eb-cda9-4e1a-a711-637133ca2317PBqWJ4/csc_test_valid_sip_001/mets.xml  
+</premis:eventOutcomeDetailNote></premis:eventOutcomeDetail></premis:eventOutcomeInformation>
+    <premis:linkingAgentIdentifier>
+      <premis:linkingAgentIdentifierType>preservation-agent-id</premis:linkingAgentIdentifierType>
+      <premis:linkingAgentIdentifierValue>extract_sip.pyc-0.65-1441468673-ga5e2ad3</premis:linkingAgentIdentifierValue>
+    </premis:linkingAgentIdentifier>
+    <premis:linkingObjectIdentifier><premis:linkingObjectIdentifierType>preservation-sip-id</premis:linkingObjectIdentifierType><premis:linkingObjectIdentifierValue>201583eb-cda9-4e1a-a711-637133ca2317</premis:linkingObjectIdentifierValue></premis:linkingObjectIdentifier>
+  </premis:event>
+  <premis:event>
+    <premis:eventIdentifier>
+      <premis:eventIdentifierType>preservation-event-id</premis:eventIdentifierType>
+      <premis:eventIdentifierValue>bfef736f-ea1a-4dac-88a2-37da6f4b328f</premis:eventIdentifierValue>
+    </premis:eventIdentifier>
+    <premis:eventType>digital signature validation</premis:eventType>
+    <premis:eventDateTime>2015-09-23T09:51:02</premis:eventDateTime>
+    <premis:eventDetail>Submission information package digital signature validation</premis:eventDetail>
+    <premis:eventOutcomeInformation><premis:eventOutcome>success</premis:eventOutcome><premis:eventOutcomeDetail><premis:eventOutcomeDetailNote>mets.xml sha1 4d0c38dedcb5e5fc93618c1586cfa2b7ebedbd63 OK
+</premis:eventOutcomeDetailNote></premis:eventOutcomeDetail></premis:eventOutcomeInformation>
+    <premis:linkingAgentIdentifier>
+      <premis:linkingAgentIdentifierType>preservation-agent-id</premis:linkingAgentIdentifierType>
+      <premis:linkingAgentIdentifierValue>check_signature.pyc-0.65-1441468673-ga5e2ad3</premis:linkingAgentIdentifierValue>
+    </premis:linkingAgentIdentifier>
+    <premis:linkingObjectIdentifier><premis:linkingObjectIdentifierType>preservation-signature-id</premis:linkingObjectIdentifierType><premis:linkingObjectIdentifierValue>68cba415-5a28-43db-bae9-443498fba186</premis:linkingObjectIdentifierValue></premis:linkingObjectIdentifier>
+  </premis:event>
+  <premis:event>
+    <premis:eventIdentifier>
+      <premis:eventIdentifierType>preservation-event-id</premis:eventIdentifierType>
+      <premis:eventIdentifierValue>1890b064-e8ac-44af-abc4-fa4011951d99</premis:eventIdentifierValue>
+    </premis:eventIdentifier>
+    <premis:eventType>virus check</premis:eventType>
+    <premis:eventDateTime>2015-09-23T09:51:00</premis:eventDateTime>
+    <premis:eventDetail>Virus check of transferred files</premis:eventDetail>
+    <premis:eventOutcomeInformation><premis:eventOutcome>success</premis:eventOutcome><premis:eventOutcomeDetail><premis:eventOutcomeDetailNote>program="Clam AV"; version="ClamAV 0.98.5"; virusDefinitions="19651/Wed Nov 19 07:40:03 2014
+"/var/archivematica/sharedDirectory/currentlyProcessing/csc_test_valid_sip_001.zip-201583eb-cda9-4e1a-a711-637133ca2317/KDK_paatosseminaarin_ohjelma_10_12_2013.pdf: OK
+/var/archivematica/sharedDirectory/currentlyProcessing/csc_test_valid_sip_001.zip-201583eb-cda9-4e1a-a711-637133ca2317/varmiste.sig: OK
+/var/archivematica/sharedDirectory/currentlyProcessing/csc_test_valid_sip_001.zip-201583eb-cda9-4e1a-a711-637133ca2317/mets.xml: OK
+
+----------- SCAN SUMMARY -----------
+Known viruses: 3684424
+Engine version: 0.98.5
+Scanned directories: 1
+Scanned files: 3
+Infected files: 0
+Data scanned: 0.56 MB
+Data read: 0.33 MB (ratio 1.70:1)
+Time: 15.320 sec (0 m 15 s)
+
+LibClamAV Warning: **************************************************
+LibClamAV Warning: ***  The virus database is older than 7 days!  ***
+LibClamAV Warning: ***   Please update it as soon as possible.    ***
+LibClamAV Warning: **************************************************
+</premis:eventOutcomeDetailNote></premis:eventOutcomeDetail></premis:eventOutcomeInformation>
+    <premis:linkingAgentIdentifier>
+      <premis:linkingAgentIdentifierType>preservation-agent-id</premis:linkingAgentIdentifierType>
+      <premis:linkingAgentIdentifierValue>check_virus.pyc-0.65-1441468673-ga5e2ad3</premis:linkingAgentIdentifierValue>
+    </premis:linkingAgentIdentifier>
+    <premis:linkingObjectIdentifier><premis:linkingObjectIdentifierType>preservation-sip-id</premis:linkingObjectIdentifierType><premis:linkingObjectIdentifierValue>201583eb-cda9-4e1a-a711-637133ca2317</premis:linkingObjectIdentifierValue></premis:linkingObjectIdentifier>
+  </premis:event>
+  <premis:event>
+    <premis:eventIdentifier>
+      <premis:eventIdentifierType>preservation-event-id</premis:eventIdentifierType>
+      <premis:eventIdentifierValue>61a46c92-0c93-4874-8cbf-60ecf4cd00d5</premis:eventIdentifierValue>
+    </premis:eventIdentifier>
+    <premis:eventType>fixity check</premis:eventType>
+    <premis:eventDateTime>2015-09-23T09:51:07</premis:eventDateTime>
+    <premis:eventDetail>Fixity check of digital objects in submission information package</premis:eventDetail>
+    <premis:eventOutcomeInformation><premis:eventOutcome>success</premis:eventOutcome><premis:eventOutcomeDetail><premis:eventOutcomeDetailNote>Collecting list of files in '/var/archivematica/sharedDirectory/currentlyProcessing/csc_test_valid_sip_001.zip-201583eb-cda9-4e1a-a711-637133ca2317/mets.xml'
+files [['KDK_paatosseminaarin_ohjelma_10_12_2013.pdf', 'md5', '10f90a1b7fa6c9575f6141a310097652']]
+/var/archivematica/sharedDirectory/currentlyProcessing/csc_test_valid_sip_001.zip-201583eb-cda9-4e1a-a711-637133ca2317
+KDK_paatosseminaarin_ohjelma_10_12_2013.pdf
+files:  ['KDK_paatosseminaarin_ohjelma_10_12_2013.pdf', 'varmiste.sig', 'mets.xml']
+Checksum OK md5 KDK_paatosseminaarin_ohjelma_10_12_2013.pdf
+</premis:eventOutcomeDetailNote></premis:eventOutcomeDetail></premis:eventOutcomeInformation>
+    <premis:linkingAgentIdentifier>
+      <premis:linkingAgentIdentifierType>preservation-agent-id</premis:linkingAgentIdentifierType>
+      <premis:linkingAgentIdentifierValue>check_checksums.pyc-0.65-1441468673-ga5e2ad3</premis:linkingAgentIdentifierValue>
+    </premis:linkingAgentIdentifier>
+    <premis:linkingObjectIdentifier><premis:linkingObjectIdentifierType>preservation-sip-id</premis:linkingObjectIdentifierType><premis:linkingObjectIdentifierValue>201583eb-cda9-4e1a-a711-637133ca2317</premis:linkingObjectIdentifierValue></premis:linkingObjectIdentifier>
+  </premis:event>
+  <premis:event>
+    <premis:eventIdentifier>
+      <premis:eventIdentifierType>preservation-event-id</premis:eventIdentifierType>
+      <premis:eventIdentifierValue>1b9f095a-9177-4de1-92d4-b7772df0ce97</premis:eventIdentifierValue>
+    </premis:eventIdentifier>
+    <premis:eventType>validation</premis:eventType>
+    <premis:eventDateTime>2015-09-23T09:51:06</premis:eventDateTime>
+    <premis:eventDetail>Additional METS validation of required features</premis:eventDetail>
+    <premis:eventOutcomeInformation><premis:eventOutcome>success</premis:eventOutcome><premis:eventOutcomeDetail><premis:eventOutcomeDetailExtension><svrl:schematron-output xmlns:svrl="http://purl.oclc.org/dsdl/svrl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:schold="http://www.ascc.net/xml/schematron" xmlns:saxon="http://icl.com/saxon" xmlns:sch="http://www.ascc.net/xml/schematron" xmlns:iso="http://purl.oclc.org/dsdl/schematron" xmlns:mets="http://www.loc.gov/METS/" xmlns:kdk="http://www.kdk.fi/standards/mets/kdk-extensions" xmlns:exsl="http://exslt.org/common" xmlns:sets="http://exslt.org/sets" xmlns:str="http://exslt.org/strings" title="METS internal inspection" schemaVersion="1.4.1">
+  <!--   
+		   
+		   
+		 -->
+  <svrl:ns-prefix-in-attribute-values uri="http://www.loc.gov/METS/" prefix="mets"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.kdk.fi/standards/mets/kdk-extensions" prefix="kdk"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://exslt.org/common" prefix="exsl"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://exslt.org/sets" prefix="sets"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://exslt.org/strings" prefix="str"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:mets"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:metsHdr"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:dmdSec"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:techMD"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:rightsMD"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:dmdSec"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:techMD"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:rightsMD"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE!='OTHER']"/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE!='OTHER']"/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE!='OTHER']"/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE!='OTHER']"/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE!='OTHER']"/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE!='OTHER']"/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE!='OTHER']"/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE!='OTHER']"/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE!='OTHER']"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:mdWrap"/>
+  <svrl:fired-rule context="mets:mdWrap"/>
+  <svrl:fired-rule context="mets:mdWrap"/>
+  <svrl:fired-rule context="mets:mdWrap"/>
+  <svrl:fired-rule context="mets:mdWrap"/>
+  <svrl:fired-rule context="mets:mdWrap"/>
+  <svrl:fired-rule context="mets:mdWrap"/>
+  <svrl:fired-rule context="mets:mdWrap"/>
+  <svrl:fired-rule context="mets:mdWrap"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:file"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:div[@DMDID]"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:file[@ADMID]"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:fptr[@FILEID]"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:dmdSec"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:techMD"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:rightsMD"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:fired-rule context="mets:digiprovMD"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:file"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:mets"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:fptr"/>
+</svrl:schematron-output>
+
+<svrl:schematron-output xmlns:svrl="http://purl.oclc.org/dsdl/svrl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:schold="http://www.ascc.net/xml/schematron" xmlns:saxon="http://icl.com/saxon" xmlns:sch="http://www.ascc.net/xml/schematron" xmlns:iso="http://purl.oclc.org/dsdl/schematron" xmlns:mets="http://www.loc.gov/METS/" xmlns:mix="http://www.loc.gov/mix/v20" xmlns:textmd="http://www.kdk.fi/standards/textmd" xmlns:audiomd="http://www.loc.gov/audioMD/" xmlns:videomd="http://www.loc.gov/videoMD/" xmlns:metsrights="http://cosimo.stanford.edu/sdr/metsrights/" xmlns:marc21="http://www.loc.gov/MARC21/slim" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:ead="urn:isbn:1-931666-22-9" xmlns:eac="urn:isbn:1-931666-33-4" xmlns:vra="http://www.vraweb.org/vracore4.htm" xmlns:lido="http://www.lido-schema.org" xmlns:ddilc="ddi:instance:3_2" xmlns:ddicb="ddi:codebook:2_5" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:exsl="http://exslt.org/common" xmlns:sets="http://exslt.org/sets" xmlns:str="http://exslt.org/strings" title="METS external metadata type check" schemaVersion="1.4.1">
+  <!--   
+		   
+		   
+		 -->
+  <svrl:ns-prefix-in-attribute-values uri="http://www.loc.gov/METS/" prefix="mets"/>
+  <svrl:ns-prefix-in-attribute-values uri="info:lc/xmlns/premis-v2" prefix="premis"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.loc.gov/mix/v20" prefix="mix"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.kdk.fi/standards/textmd" prefix="textmd"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.loc.gov/audioMD/" prefix="audiomd"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.loc.gov/videoMD/" prefix="videomd"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://cosimo.stanford.edu/sdr/metsrights/" prefix="metsrights"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.loc.gov/MARC21/slim" prefix="marc21"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.loc.gov/mods/v3" prefix="mods"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://purl.org/dc/elements/1.1/" prefix="dc"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://purl.org/dc/terms/" prefix="dcterms"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://purl.org/dc/dcmitype/" prefix="dcmitype"/>
+  <svrl:ns-prefix-in-attribute-values uri="urn:isbn:1-931666-22-9" prefix="ead"/>
+  <svrl:ns-prefix-in-attribute-values uri="urn:isbn:1-931666-33-4" prefix="eac"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.vraweb.org/vracore4.htm" prefix="vra"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.lido-schema.org" prefix="lido"/>
+  <svrl:ns-prefix-in-attribute-values uri="ddi:instance:3_2" prefix="ddilc"/>
+  <svrl:ns-prefix-in-attribute-values uri="ddi:codebook:2_5" prefix="ddicb"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/1999/xlink" prefix="xlink"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://exslt.org/common" prefix="exsl"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://exslt.org/sets" prefix="sets"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://exslt.org/strings" prefix="str"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE='PREMIS:OBJECT']"/>
+  <svrl:fired-rule context="mets:xmlData/premis:object"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE='PREMIS:EVENT']"/>
+  <svrl:fired-rule context="mets:xmlData/premis:event"/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE='PREMIS:EVENT']"/>
+  <svrl:fired-rule context="mets:xmlData/premis:event"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE='PREMIS:AGENT']"/>
+  <svrl:fired-rule context="mets:xmlData/premis:agent"/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE='PREMIS:AGENT']"/>
+  <svrl:fired-rule context="mets:xmlData/premis:agent"/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE='PREMIS:AGENT']"/>
+  <svrl:fired-rule context="mets:xmlData/premis:agent"/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE='PREMIS:AGENT']"/>
+  <svrl:fired-rule context="mets:xmlData/premis:agent"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE='METSRIGHTS']"/>
+  <svrl:fired-rule context="mets:xmlData/metsrights:*"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:mdWrap[@MDTYPE='DC']"/>
+  <svrl:fired-rule context="mets:xmlData/dc:*"/>
+  <svrl:fired-rule context="mets:xmlData/dc:*"/>
+  <svrl:fired-rule context="mets:xmlData/dc:*"/>
+  <svrl:fired-rule context="mets:xmlData/dc:*"/>
+  <svrl:fired-rule context="mets:xmlData/dc:*"/>
+  <svrl:fired-rule context="mets:xmlData/dc:*"/>
+  <svrl:fired-rule context="mets:xmlData/dc:*"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:mets"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:dmdSec"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:rightsMD"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:file"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:file"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:file"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:file"/>
+</svrl:schematron-output>
+
+<svrl:schematron-output xmlns:svrl="http://purl.oclc.org/dsdl/svrl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:schold="http://www.ascc.net/xml/schematron" xmlns:saxon="http://icl.com/saxon" xmlns:sch="http://www.ascc.net/xml/schematron" xmlns:iso="http://purl.oclc.org/dsdl/schematron" xmlns:mets="http://www.loc.gov/METS/" xmlns:mix="http://www.loc.gov/mix/v20" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:exsl="http://exslt.org/common" xmlns:sets="http://exslt.org/sets" xmlns:str="http://exslt.org/strings" title="NISOIMG (MIX) metadata issues" schemaVersion="1.4">
+  <!--   
+		   
+		   
+		 -->
+  <svrl:ns-prefix-in-attribute-values uri="http://www.loc.gov/METS/" prefix="mets"/>
+  <svrl:ns-prefix-in-attribute-values uri="info:lc/xmlns/premis-v2" prefix="premis"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.loc.gov/mix/v20" prefix="mix"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/1999/xlink" prefix="xlink"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://exslt.org/common" prefix="exsl"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://exslt.org/sets" prefix="sets"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://exslt.org/strings" prefix="str"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:file"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:file"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:file"/>
+</svrl:schematron-output>
+
+<svrl:schematron-output xmlns:svrl="http://purl.oclc.org/dsdl/svrl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:schold="http://www.ascc.net/xml/schematron" xmlns:saxon="http://icl.com/saxon" xmlns:sch="http://www.ascc.net/xml/schematron" xmlns:iso="http://purl.oclc.org/dsdl/schematron" xmlns:mets="http://www.loc.gov/METS/" xmlns:exsl="http://exslt.org/common" xmlns:str="http://exslt.org/strings" xmlns:sets="http://exslt.org/sets" title="PREMIS metadata check" schemaVersion="1.4">
+  <!--   
+		   
+		   
+		 -->
+  <svrl:ns-prefix-in-attribute-values uri="http://www.loc.gov/METS/" prefix="mets"/>
+  <svrl:ns-prefix-in-attribute-values uri="info:lc/xmlns/premis-v2" prefix="premis"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/2001/XMLSchema-instance" prefix="xsi"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://exslt.org/common" prefix="exsl"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://exslt.org/strings" prefix="str"/>
+  <svrl:ns-prefix-in-attribute-values uri="http://exslt.org/sets" prefix="sets"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="premis:objectCharacteristics"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="mets:techMD//premis:format"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="premis:messageDigestAlgorithm"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="premis:objectIdentifierValue"/>
+  <svrl:fired-rule context="premis:linkingObjectIdentifierValue"/>
+  <svrl:fired-rule context="premis:linkingObjectIdentifierValue"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="premis:eventIdentifierValue"/>
+  <svrl:fired-rule context="premis:eventIdentifierValue"/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="premis:linkingAgentIdentifierValue"/>
+  <svrl:fired-rule context="premis:linkingAgentIdentifierValue"/>
+  <svrl:fired-rule context="premis:linkingAgentIdentifierValue"/>
+  <svrl:fired-rule context="premis:linkingAgentIdentifierValue"/>
+  <svrl:fired-rule context="premis:agentIdentifierValue"/>
+  <svrl:fired-rule context="premis:agentIdentifierValue"/>
+  <svrl:fired-rule context="premis:agentIdentifierValue"/>
+  <svrl:fired-rule context="premis:agentIdentifierValue"/>
+  <svrl:active-pattern/>
+  <svrl:active-pattern/>
+  <svrl:fired-rule context="premis:objectIdentifierType"/>
+  <svrl:fired-rule context="premis:objectIdentifierValue"/>
+  <svrl:fired-rule context="premis:eventIdentifierType"/>
+  <svrl:fired-rule context="premis:eventIdentifierValue"/>
+  <svrl:fired-rule context="premis:eventIdentifierType"/>
+  <svrl:fired-rule context="premis:eventIdentifierValue"/>
+  <svrl:fired-rule context="premis:agentIdentifierType"/>
+  <svrl:fired-rule context="premis:agentIdentifierValue"/>
+  <svrl:fired-rule context="premis:agentIdentifierType"/>
+  <svrl:fired-rule context="premis:agentIdentifierValue"/>
+  <svrl:fired-rule context="premis:agentIdentifierType"/>
+  <svrl:fired-rule context="premis:agentIdentifierValue"/>
+  <svrl:fired-rule context="premis:agentIdentifierType"/>
+  <svrl:fired-rule context="premis:agentIdentifierValue"/>
+</svrl:schematron-output>
+
+</premis:eventOutcomeDetailExtension></premis:eventOutcomeDetail></premis:eventOutcomeInformation>
+    <premis:linkingAgentIdentifier>
+      <premis:linkingAgentIdentifierType>preservation-agent-id</premis:linkingAgentIdentifierType>
+      <premis:linkingAgentIdentifierValue>validate_mets_schematron.pyc-0.65-1441468673-ga5e2ad3</premis:linkingAgentIdentifierValue>
+    </premis:linkingAgentIdentifier>
+    <premis:linkingObjectIdentifier><premis:linkingObjectIdentifierType>preservation-mets-id</premis:linkingObjectIdentifierType><premis:linkingObjectIdentifierValue>6fa53ebc-1458-4f62-b7be-052d38b47132</premis:linkingObjectIdentifierValue></premis:linkingObjectIdentifier>
+  </premis:event>
+  <premis:event>
+    <premis:eventIdentifier>
+      <premis:eventIdentifierType>preservation-event-id</premis:eventIdentifierType>
+      <premis:eventIdentifierValue>3b6eb15d-0292-4be3-ba51-9f190513aed3</premis:eventIdentifierValue>
+    </premis:eventIdentifier>
+    <premis:eventType>transfer</premis:eventType>
+    <premis:eventDateTime>2015-09-23T09:50:42</premis:eventDateTime>
+    <premis:eventDetail>Transfer of submission information package</premis:eventDetail>
+    <premis:eventOutcomeInformation><premis:eventOutcome>success</premis:eventOutcome><premis:eventOutcomeDetail><premis:eventOutcomeDetailNote>Transfer received by digital preservation system</premis:eventOutcomeDetailNote></premis:eventOutcomeDetail></premis:eventOutcomeInformation>
+    <premis:linkingAgentIdentifier>
+      <premis:linkingAgentIdentifierType>preservation-user-id</premis:linkingAgentIdentifierType>
+      <premis:linkingAgentIdentifierValue>organisaatio1</premis:linkingAgentIdentifierValue>
+    </premis:linkingAgentIdentifier>
+    <premis:linkingObjectIdentifier><premis:linkingObjectIdentifierType>preservation-sip-id</premis:linkingObjectIdentifierType><premis:linkingObjectIdentifierValue>201583eb-cda9-4e1a-a711-637133ca2317</premis:linkingObjectIdentifierValue></premis:linkingObjectIdentifier>
+  </premis:event>
+  <premis:event>
+    <premis:eventIdentifier>
+      <premis:eventIdentifierType>preservation-event-id</premis:eventIdentifierType>
+      <premis:eventIdentifierValue>7eebc917-b1d0-48fc-a169-80065fcc4f38</premis:eventIdentifierValue>
+    </premis:eventIdentifier>
+    <premis:eventType>preservation responsibility change</premis:eventType>
+    <premis:eventDateTime>2015-09-23T09:51:10</premis:eventDateTime>
+    <premis:eventDetail>Preservation responsibility change to the digital preservation system</premis:eventDetail>
+    <premis:eventOutcomeInformation><premis:eventOutcome>success</premis:eventOutcome><premis:eventOutcomeDetail><premis:eventOutcomeDetailNote>Preservation responsibility changed to digital preservation system</premis:eventOutcomeDetailNote></premis:eventOutcomeDetail></premis:eventOutcomeInformation>
+    <premis:linkingAgentIdentifier>
+      <premis:linkingAgentIdentifierType>preservation-agent-id</premis:linkingAgentIdentifierType>
+      <premis:linkingAgentIdentifierValue>create_premis_report.pyc-0.65-1441468673-ga5e2ad3</premis:linkingAgentIdentifierValue>
+    </premis:linkingAgentIdentifier>
+    <premis:linkingObjectIdentifier><premis:linkingObjectIdentifierType>preservation-aip-id</premis:linkingObjectIdentifierType><premis:linkingObjectIdentifierValue>2598b95a-e9a3-422d-9a9d-4812a12795d7</premis:linkingObjectIdentifierValue></premis:linkingObjectIdentifier>
+  </premis:event>
+  <premis:event>
+    <premis:eventIdentifier>
+      <premis:eventIdentifierType>preservation-event-id</premis:eventIdentifierType>
+      <premis:eventIdentifierValue>c847f4a2-7cdf-45fa-b703-8c4b5bb9b76f</premis:eventIdentifierValue>
+    </premis:eventIdentifier>
+    <premis:eventType>validation</premis:eventType>
+    <premis:eventDateTime>2015-09-23T09:51:10</premis:eventDateTime>
+    <premis:eventDetail>Validation compilation of submission information package</premis:eventDetail>
+    <premis:eventOutcomeInformation><premis:eventOutcome>success</premis:eventOutcome><premis:eventOutcomeDetail><premis:eventOutcomeDetailNote>All events completed successfully</premis:eventOutcomeDetailNote></premis:eventOutcomeDetail></premis:eventOutcomeInformation>
+    <premis:linkingAgentIdentifier>
+      <premis:linkingAgentIdentifierType>preservation-agent-id</premis:linkingAgentIdentifierType>
+      <premis:linkingAgentIdentifierValue>create_premis_report.pyc-0.65-1441468673-ga5e2ad3</premis:linkingAgentIdentifierValue>
+    </premis:linkingAgentIdentifier>
+    <premis:linkingObjectIdentifier><premis:linkingObjectIdentifierType>preservation-sip-id</premis:linkingObjectIdentifierType><premis:linkingObjectIdentifierValue>201583eb-cda9-4e1a-a711-637133ca2317</premis:linkingObjectIdentifierValue></premis:linkingObjectIdentifier>
+  </premis:event>
+  <premis:event>
+    <premis:eventIdentifier>
+      <premis:eventIdentifierType>preservation-event-id</premis:eventIdentifierType>
+      <premis:eventIdentifierValue>004cefec-0262-440e-b23d-2900a1fbeea3</premis:eventIdentifierValue>
+    </premis:eventIdentifier>
+    <premis:eventType>validation</premis:eventType>
+    <premis:eventDateTime>2015-09-23T09:51:09</premis:eventDateTime>
+    <premis:eventDetail>Digital object validation</premis:eventDetail>
+    <premis:eventOutcomeInformation><premis:eventOutcome>success</premis:eventOutcome><premis:eventOutcomeDetail><premis:eventOutcomeDetailExtension><ns0:date xmlns:ns0="http://hul.harvard.edu/ois/xml/ns/jhove">2015-09-23T12:51:08+03:00</ns0:date>
+ <ns1:repInfo xmlns:ns1="http://hul.harvard.edu/ois/xml/ns/jhove" uri="/var/archivematica/sharedDirectory/currentlyProcessing/csc_test_valid_sip_001.zip-201583eb-cda9-4e1a-a711-637133ca2317/KDK_paatosseminaarin_ohjelma_10_12_2013.pdf">
+  <ns1:reportingModule release="1.7" date="2012-08-12">PDF-hul</ns1:reportingModule>
+  <ns1:lastModified>2014-04-01T12:44:44+03:00</ns1:lastModified>
+  <ns1:size>337684</ns1:size>
+  <ns1:format>PDF</ns1:format>
+  <ns1:version>1.4</ns1:version>
+  <ns1:status>Well-Formed and valid</ns1:status>
+  <ns1:sigMatch>
+  <ns1:module>PDF-hul</ns1:module>
+  </ns1:sigMatch>
+  <ns1:mimeType>application/pdf</ns1:mimeType>
+  <ns1:profiles>
+   <ns1:profile>ISO PDF/A-1, Level B</ns1:profile>
+  </ns1:profiles>
+  <ns1:properties>
+   <ns1:property>
+    <ns1:name>PDFMetadata</ns1:name>
+    <ns1:values arity="List" type="Property">
+    <ns1:property>
+     <ns1:name>Objects</ns1:name>
+     <ns1:values arity="Scalar" type="Integer">
+      <ns1:value>66</ns1:value>
+     </ns1:values>
+    </ns1:property>
+    <ns1:property>
+     <ns1:name>FreeObjects</ns1:name>
+     <ns1:values arity="Scalar" type="Integer">
+      <ns1:value>1</ns1:value>
+     </ns1:values>
+    </ns1:property>
+    <ns1:property>
+     <ns1:name>IncrementalUpdates</ns1:name>
+     <ns1:values arity="Scalar" type="Integer">
+      <ns1:value>0</ns1:value>
+     </ns1:values>
+    </ns1:property>
+    <ns1:property>
+     <ns1:name>DocumentCatalog</ns1:name>
+     <ns1:values arity="List" type="Property">
+     <ns1:property>
+      <ns1:name>PageLayout</ns1:name>
+      <ns1:values arity="Scalar" type="String">
+       <ns1:value>SinglePage</ns1:value>
+      </ns1:values>
+     </ns1:property>
+     <ns1:property>
+      <ns1:name>PageMode</ns1:name>
+      <ns1:values arity="Scalar" type="String">
+       <ns1:value>UseNone</ns1:value>
+      </ns1:values>
+     </ns1:property>
+     </ns1:values>
+    </ns1:property>
+    <ns1:property>
+     <ns1:name>Info</ns1:name>
+     <ns1:values arity="List" type="Property">
+     <ns1:property>
+      <ns1:name>Title</ns1:name>
+      <ns1:values arity="Scalar" type="String">
+       <ns1:value>くぐぅごさこ〭〠おぁ〠かさがごごささげぉきぉぎぉこごぅげぉぜ㌲㙜〰ぎ〠かぉげおぁこごくぐぜ㌰㑜〰ぉざぜ㌰㑜〰ご〠〲〰〱〱</ns1:value>
+      </ns1:values>
+     </ns1:property>
+     <ns1:property>
+      <ns1:name>Author</ns1:name>
+      <ns1:values arity="Scalar" type="String">
+       <ns1:value>sulinha1</ns1:value>
+      </ns1:values>
+     </ns1:property>
+     <ns1:property>
+      <ns1:name>Creator</ns1:name>
+      <ns1:values arity="Scalar" type="String">
+       <ns1:value>きどっひはびはてぴぜ㈵㙜〰〠しはひつ〠〲〰〱〰</ns1:value>
+      </ns1:values>
+     </ns1:property>
+     <ns1:property>
+      <ns1:name>Producer</ns1:name>
+      <ns1:values arity="Scalar" type="String">
+       <ns1:value>GPL Ghostscript 9.10</ns1:value>
+      </ns1:values>
+     </ns1:property>
+     <ns1:property>
+      <ns1:name>CreationDate</ns1:name>
+      <ns1:values arity="Scalar" type="Date">
+       <ns1:value>Tue Nov 19 16:33:26 EET 2013</ns1:value>
+      </ns1:values>
+     </ns1:property>
+     <ns1:property>
+      <ns1:name>ModDate</ns1:name>
+      <ns1:values arity="Scalar" type="Date">
+       <ns1:value>Tue Nov 19 16:33:26 EET 2013</ns1:value>
+      </ns1:values>
+     </ns1:property>
+     </ns1:values>
+    </ns1:property>
+    <ns1:property>
+     <ns1:name>ID</ns1:name>
+     <ns1:values arity="Array" type="String">
+      <ns1:value>0xff37925fad2347d805ec832088078b3e</ns1:value>
+      <ns1:value>0xff37925fad2347d805ec832088078b3e</ns1:value>
+     </ns1:values>
+    </ns1:property>
+    <ns1:property>
+     <ns1:name>Filters</ns1:name>
+     <ns1:values arity="List" type="Property">
+     <ns1:property>
+      <ns1:name>FilterPipeline</ns1:name>
+      <ns1:values arity="Scalar" type="String">
+       <ns1:value>FlateDecode</ns1:value>
+      </ns1:values>
+     </ns1:property>
+     </ns1:values>
+    </ns1:property>
+    <ns1:property>
+     <ns1:name>Images</ns1:name>
+     <ns1:values arity="List" type="Property">
+     <ns1:property>
+      <ns1:name>Image</ns1:name>
+      <ns1:values arity="List" type="Property">
+      <ns1:property>
+       <ns1:name>NisoImageMetadata</ns1:name>
+       <ns1:values arity="Scalar" type="NISOImageMetadata">
+        <ns1:value>
+      <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/standards/mix/mix20/mix20.xsd">
+       <mix:BasicDigitalObjectInformation>
+        <mix:ObjectIdentifier>
+         <mix:objectIdentifierType>JHOVE</mix:objectIdentifierType>
+        </mix:ObjectIdentifier>
+        <mix:Compression>
+         <mix:compressionScheme>Uncompressed</mix:compressionScheme>
+        </mix:Compression>
+       </mix:BasicDigitalObjectInformation>
+       <mix:BasicImageInformation>
+        <mix:BasicImageCharacteristics>
+         <mix:imageWidth>253</mix:imageWidth>
+         <mix:imageHeight>351</mix:imageHeight>
+         <mix:PhotometricInterpretation>
+          <mix:colorSpace>RGB</mix:colorSpace>
+         </mix:PhotometricInterpretation>
+        </mix:BasicImageCharacteristics>
+       </mix:BasicImageInformation>
+       <mix:ImageAssessmentMetadata>
+        <mix:ImageColorEncoding>
+         <mix:BitsPerSample>
+          <mix:bitsPerSampleUnit>integer</mix:bitsPerSampleUnit>
+         </mix:BitsPerSample>
+        </mix:ImageColorEncoding>
+       </mix:ImageAssessmentMetadata>
+      </mix:mix>
+        </ns1:value>
+       </ns1:values>
+      </ns1:property>
+      </ns1:values>
+     </ns1:property>
+     </ns1:values>
+    </ns1:property>
+    <ns1:property>
+     <ns1:name>Fonts</ns1:name>
+     <ns1:values arity="List" type="Property">
+     <ns1:property>
+      <ns1:name>Type0</ns1:name>
+      <ns1:values arity="List" type="Property">
+      <ns1:property>
+       <ns1:name>Font</ns1:name>
+       <ns1:values arity="List" type="Property">
+       <ns1:property>
+        <ns1:name>BaseFont</ns1:name>
+        <ns1:values arity="Scalar" type="String">
+         <ns1:value>JDVYLO+Arial-OneByteIdentityH</ns1:value>
+        </ns1:values>
+       </ns1:property>
+        <ns1:property>
+         <ns1:name>ToUnicode</ns1:name>
+         <ns1:values arity="Scalar" type="Boolean">
+          <ns1:value>true</ns1:value>
+         </ns1:values>
+        </ns1:property>
+       </ns1:values>
+      </ns1:property>
+       <ns1:property>
+        <ns1:name>Font</ns1:name>
+        <ns1:values arity="List" type="Property">
+        <ns1:property>
+         <ns1:name>BaseFont</ns1:name>
+         <ns1:values arity="Scalar" type="String">
+          <ns1:value>PCUVIO+Calibri-OneByteIdentityH</ns1:value>
+         </ns1:values>
+        </ns1:property>
+         <ns1:property>
+          <ns1:name>ToUnicode</ns1:name>
+          <ns1:values arity="Scalar" type="Boolean">
+           <ns1:value>true</ns1:value>
+          </ns1:values>
+         </ns1:property>
+        </ns1:values>
+       </ns1:property>
+        <ns1:property>
+         <ns1:name>Font</ns1:name>
+         <ns1:values arity="List" type="Property">
+         <ns1:property>
+          <ns1:name>BaseFont</ns1:name>
+          <ns1:values arity="Scalar" type="String">
+           <ns1:value>OURMWC+Calibri-Identity-H</ns1:value>
+          </ns1:values>
+         </ns1:property>
+         <ns1:property>
+          <ns1:name>Encoding</ns1:name>
+          <ns1:values arity="Scalar" type="String">
+           <ns1:value>Identity-H</ns1:value>
+          </ns1:values>
+         </ns1:property>
+         <ns1:property>
+          <ns1:name>ToUnicode</ns1:name>
+          <ns1:values arity="Scalar" type="Boolean">
+           <ns1:value>true</ns1:value>
+          </ns1:values>
+         </ns1:property>
+         </ns1:values>
+        </ns1:property>
+        <ns1:property>
+         <ns1:name>Font</ns1:name>
+         <ns1:values arity="List" type="Property">
+         <ns1:property>
+          <ns1:name>BaseFont</ns1:name>
+          <ns1:values arity="Scalar" type="String">
+           <ns1:value>RDEUZY+Calibri,Bold-OneByteIdentityH</ns1:value>
+          </ns1:values>
+         </ns1:property>
+          <ns1:property>
+           <ns1:name>ToUnicode</ns1:name>
+           <ns1:values arity="Scalar" type="Boolean">
+            <ns1:value>true</ns1:value>
+           </ns1:values>
+          </ns1:property>
+         </ns1:values>
+        </ns1:property>
+         <ns1:property>
+          <ns1:name>Font</ns1:name>
+          <ns1:values arity="List" type="Property">
+          <ns1:property>
+           <ns1:name>BaseFont</ns1:name>
+           <ns1:values arity="Scalar" type="String">
+            <ns1:value>TGCTLE+Arial-Identity-H</ns1:value>
+           </ns1:values>
+          </ns1:property>
+          <ns1:property>
+           <ns1:name>Encoding</ns1:name>
+           <ns1:values arity="Scalar" type="String">
+            <ns1:value>Identity-H</ns1:value>
+           </ns1:values>
+          </ns1:property>
+          <ns1:property>
+           <ns1:name>ToUnicode</ns1:name>
+           <ns1:values arity="Scalar" type="Boolean">
+            <ns1:value>true</ns1:value>
+           </ns1:values>
+          </ns1:property>
+          </ns1:values>
+         </ns1:property>
+         <ns1:property>
+          <ns1:name>Font</ns1:name>
+          <ns1:values arity="List" type="Property">
+          <ns1:property>
+           <ns1:name>BaseFont</ns1:name>
+           <ns1:values arity="Scalar" type="String">
+            <ns1:value>UNHKCF+Tahoma-OneByteIdentityH</ns1:value>
+           </ns1:values>
+          </ns1:property>
+           <ns1:property>
+            <ns1:name>ToUnicode</ns1:name>
+            <ns1:values arity="Scalar" type="Boolean">
+             <ns1:value>true</ns1:value>
+            </ns1:values>
+           </ns1:property>
+          </ns1:values>
+         </ns1:property>
+          <ns1:property>
+           <ns1:name>Font</ns1:name>
+           <ns1:values arity="List" type="Property">
+           <ns1:property>
+            <ns1:name>BaseFont</ns1:name>
+            <ns1:values arity="Scalar" type="String">
+             <ns1:value>DDMERA+Calibri,Bold-Identity-H</ns1:value>
+            </ns1:values>
+           </ns1:property>
+           <ns1:property>
+            <ns1:name>Encoding</ns1:name>
+            <ns1:values arity="Scalar" type="String">
+             <ns1:value>Identity-H</ns1:value>
+            </ns1:values>
+           </ns1:property>
+           <ns1:property>
+            <ns1:name>ToUnicode</ns1:name>
+            <ns1:values arity="Scalar" type="Boolean">
+             <ns1:value>true</ns1:value>
+            </ns1:values>
+           </ns1:property>
+           </ns1:values>
+          </ns1:property>
+      </ns1:values>
+     </ns1:property>
+         <ns1:property>
+          <ns1:name>CIDFontType2</ns1:name>
+          <ns1:values arity="List" type="Property">
+          <ns1:property>
+           <ns1:name>Font</ns1:name>
+           <ns1:values arity="List" type="Property">
+           <ns1:property>
+            <ns1:name>BaseFont</ns1:name>
+            <ns1:values arity="Scalar" type="String">
+             <ns1:value>UNHKCF+Tahoma</ns1:value>
+            </ns1:values>
+           </ns1:property>
+           <ns1:property>
+            <ns1:name>CIDSystemInfo</ns1:name>
+            <ns1:values arity="List" type="Property">
+            <ns1:property>
+             <ns1:name>Registry</ns1:name>
+             <ns1:values arity="Scalar" type="String">
+              <ns1:value>Adobe</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>Registry</ns1:name>
+             <ns1:values arity="Scalar" type="String">
+              <ns1:value>Identity</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>Supplement</ns1:name>
+             <ns1:values arity="Scalar" type="Integer">
+              <ns1:value>0</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            </ns1:values>
+           </ns1:property>
+           <ns1:property>
+            <ns1:name>FontDescriptor</ns1:name>
+            <ns1:values arity="List" type="Property">
+            <ns1:property>
+             <ns1:name>FontName</ns1:name>
+             <ns1:values arity="Scalar" type="String">
+              <ns1:value>UNHKCF+Tahoma</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>Flags</ns1:name>
+             <ns1:values arity="List" type="String">
+              <ns1:value>Nonsymbolic</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>FontBBox</ns1:name>
+             <ns1:values arity="Array" type="Integer">
+              <ns1:value>0</ns1:value>
+              <ns1:value>0</ns1:value>
+              <ns1:value>875</ns1:value>
+              <ns1:value>750</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>FontFile2</ns1:name>
+             <ns1:values arity="Scalar" type="Boolean">
+              <ns1:value>true</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            </ns1:values>
+           </ns1:property>
+           </ns1:values>
+          </ns1:property>
+          <ns1:property>
+           <ns1:name>Font</ns1:name>
+           <ns1:values arity="List" type="Property">
+           <ns1:property>
+            <ns1:name>BaseFont</ns1:name>
+            <ns1:values arity="Scalar" type="String">
+             <ns1:value>JDVYLO+Arial</ns1:value>
+            </ns1:values>
+           </ns1:property>
+           <ns1:property>
+            <ns1:name>CIDSystemInfo</ns1:name>
+            <ns1:values arity="List" type="Property">
+            <ns1:property>
+             <ns1:name>Registry</ns1:name>
+             <ns1:values arity="Scalar" type="String">
+              <ns1:value>Adobe</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>Registry</ns1:name>
+             <ns1:values arity="Scalar" type="String">
+              <ns1:value>Identity</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>Supplement</ns1:name>
+             <ns1:values arity="Scalar" type="Integer">
+              <ns1:value>0</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            </ns1:values>
+           </ns1:property>
+           <ns1:property>
+            <ns1:name>FontDescriptor</ns1:name>
+            <ns1:values arity="List" type="Property">
+            <ns1:property>
+             <ns1:name>FontName</ns1:name>
+             <ns1:values arity="Scalar" type="String">
+              <ns1:value>JDVYLO+Arial</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>Flags</ns1:name>
+             <ns1:values arity="List" type="String">
+              <ns1:value>Symbolic</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>FontBBox</ns1:name>
+             <ns1:values arity="Array" type="Integer">
+              <ns1:value>-44</ns1:value>
+              <ns1:value>-210</ns1:value>
+              <ns1:value>769</ns1:value>
+              <ns1:value>728</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>FontFile2</ns1:name>
+             <ns1:values arity="Scalar" type="Boolean">
+              <ns1:value>true</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            </ns1:values>
+           </ns1:property>
+           </ns1:values>
+          </ns1:property>
+          <ns1:property>
+           <ns1:name>Font</ns1:name>
+           <ns1:values arity="List" type="Property">
+           <ns1:property>
+            <ns1:name>BaseFont</ns1:name>
+            <ns1:values arity="Scalar" type="String">
+             <ns1:value>PCUVIO+Calibri</ns1:value>
+            </ns1:values>
+           </ns1:property>
+           <ns1:property>
+            <ns1:name>CIDSystemInfo</ns1:name>
+            <ns1:values arity="List" type="Property">
+            <ns1:property>
+             <ns1:name>Registry</ns1:name>
+             <ns1:values arity="Scalar" type="String">
+              <ns1:value>Adobe</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>Registry</ns1:name>
+             <ns1:values arity="Scalar" type="String">
+              <ns1:value>Identity</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>Supplement</ns1:name>
+             <ns1:values arity="Scalar" type="Integer">
+              <ns1:value>0</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            </ns1:values>
+           </ns1:property>
+           <ns1:property>
+            <ns1:name>FontDescriptor</ns1:name>
+            <ns1:values arity="List" type="Property">
+            <ns1:property>
+             <ns1:name>FontName</ns1:name>
+             <ns1:values arity="Scalar" type="String">
+              <ns1:value>PCUVIO+Calibri</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>Flags</ns1:name>
+             <ns1:values arity="List" type="String">
+              <ns1:value>Nonsymbolic</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>FontBBox</ns1:name>
+             <ns1:values arity="Array" type="Integer">
+              <ns1:value>0</ns1:value>
+              <ns1:value>-178</ns1:value>
+              <ns1:value>726</ns1:value>
+              <ns1:value>680</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>FontFile2</ns1:name>
+             <ns1:values arity="Scalar" type="Boolean">
+              <ns1:value>true</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            </ns1:values>
+           </ns1:property>
+           </ns1:values>
+          </ns1:property>
+          <ns1:property>
+           <ns1:name>Font</ns1:name>
+           <ns1:values arity="List" type="Property">
+           <ns1:property>
+            <ns1:name>BaseFont</ns1:name>
+            <ns1:values arity="Scalar" type="String">
+             <ns1:value>OURMWC+Calibri</ns1:value>
+            </ns1:values>
+           </ns1:property>
+           <ns1:property>
+            <ns1:name>CIDSystemInfo</ns1:name>
+            <ns1:values arity="List" type="Property">
+            <ns1:property>
+             <ns1:name>Registry</ns1:name>
+             <ns1:values arity="Scalar" type="String">
+              <ns1:value>Adobe</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>Registry</ns1:name>
+             <ns1:values arity="Scalar" type="String">
+              <ns1:value>Identity</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>Supplement</ns1:name>
+             <ns1:values arity="Scalar" type="Integer">
+              <ns1:value>0</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            </ns1:values>
+           </ns1:property>
+           <ns1:property>
+            <ns1:name>FontDescriptor</ns1:name>
+            <ns1:values arity="List" type="Property">
+            <ns1:property>
+             <ns1:name>FontName</ns1:name>
+             <ns1:values arity="Scalar" type="String">
+              <ns1:value>OURMWC+Calibri</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>Flags</ns1:name>
+             <ns1:values arity="List" type="String">
+              <ns1:value>Nonsymbolic</ns1:value>
+              <ns1:value>AllCap</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>FontBBox</ns1:name>
+             <ns1:values arity="Array" type="Integer">
+              <ns1:value>-502</ns1:value>
+              <ns1:value>-307</ns1:value>
+              <ns1:value>1240</ns1:value>
+              <ns1:value>963</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>FontFile2</ns1:name>
+             <ns1:values arity="Scalar" type="Boolean">
+              <ns1:value>true</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            </ns1:values>
+           </ns1:property>
+           </ns1:values>
+          </ns1:property>
+          <ns1:property>
+           <ns1:name>Font</ns1:name>
+           <ns1:values arity="List" type="Property">
+           <ns1:property>
+            <ns1:name>BaseFont</ns1:name>
+            <ns1:values arity="Scalar" type="String">
+             <ns1:value>RDEUZY+Calibri,Bold</ns1:value>
+            </ns1:values>
+           </ns1:property>
+           <ns1:property>
+            <ns1:name>CIDSystemInfo</ns1:name>
+            <ns1:values arity="List" type="Property">
+            <ns1:property>
+             <ns1:name>Registry</ns1:name>
+             <ns1:values arity="Scalar" type="String">
+              <ns1:value>Adobe</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>Registry</ns1:name>
+             <ns1:values arity="Scalar" type="String">
+              <ns1:value>Identity</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>Supplement</ns1:name>
+             <ns1:values arity="Scalar" type="Integer">
+              <ns1:value>0</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            </ns1:values>
+           </ns1:property>
+           <ns1:property>
+            <ns1:name>FontDescriptor</ns1:name>
+            <ns1:values arity="List" type="Property">
+            <ns1:property>
+             <ns1:name>FontName</ns1:name>
+             <ns1:values arity="Scalar" type="String">
+              <ns1:value>RDEUZY+Calibri,Bold</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>Flags</ns1:name>
+             <ns1:values arity="List" type="String">
+              <ns1:value>Symbolic</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>FontBBox</ns1:name>
+             <ns1:values arity="Array" type="Integer">
+              <ns1:value>-17</ns1:value>
+              <ns1:value>-178</ns1:value>
+              <ns1:value>805</ns1:value>
+              <ns1:value>679</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>FontFile2</ns1:name>
+             <ns1:values arity="Scalar" type="Boolean">
+              <ns1:value>true</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            </ns1:values>
+           </ns1:property>
+           </ns1:values>
+          </ns1:property>
+          <ns1:property>
+           <ns1:name>Font</ns1:name>
+           <ns1:values arity="List" type="Property">
+           <ns1:property>
+            <ns1:name>BaseFont</ns1:name>
+            <ns1:values arity="Scalar" type="String">
+             <ns1:value>TGCTLE+Arial</ns1:value>
+            </ns1:values>
+           </ns1:property>
+           <ns1:property>
+            <ns1:name>CIDSystemInfo</ns1:name>
+            <ns1:values arity="List" type="Property">
+            <ns1:property>
+             <ns1:name>Registry</ns1:name>
+             <ns1:values arity="Scalar" type="String">
+              <ns1:value>Adobe</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>Registry</ns1:name>
+             <ns1:values arity="Scalar" type="String">
+              <ns1:value>Identity</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>Supplement</ns1:name>
+             <ns1:values arity="Scalar" type="Integer">
+              <ns1:value>0</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            </ns1:values>
+           </ns1:property>
+           <ns1:property>
+            <ns1:name>FontDescriptor</ns1:name>
+            <ns1:values arity="List" type="Property">
+            <ns1:property>
+             <ns1:name>FontName</ns1:name>
+             <ns1:values arity="Scalar" type="String">
+              <ns1:value>TGCTLE+Arial</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>Flags</ns1:name>
+             <ns1:values arity="List" type="String">
+              <ns1:value>Nonsymbolic</ns1:value>
+              <ns1:value>AllCap</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>FontBBox</ns1:name>
+             <ns1:values arity="Array" type="Integer">
+              <ns1:value>-664</ns1:value>
+              <ns1:value>-324</ns1:value>
+              <ns1:value>2000</ns1:value>
+              <ns1:value>1005</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>FontFile2</ns1:name>
+             <ns1:values arity="Scalar" type="Boolean">
+              <ns1:value>true</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            </ns1:values>
+           </ns1:property>
+           </ns1:values>
+          </ns1:property>
+          <ns1:property>
+           <ns1:name>Font</ns1:name>
+           <ns1:values arity="List" type="Property">
+           <ns1:property>
+            <ns1:name>BaseFont</ns1:name>
+            <ns1:values arity="Scalar" type="String">
+             <ns1:value>DDMERA+Calibri,Bold</ns1:value>
+            </ns1:values>
+           </ns1:property>
+           <ns1:property>
+            <ns1:name>CIDSystemInfo</ns1:name>
+            <ns1:values arity="List" type="Property">
+            <ns1:property>
+             <ns1:name>Registry</ns1:name>
+             <ns1:values arity="Scalar" type="String">
+              <ns1:value>Adobe</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>Registry</ns1:name>
+             <ns1:values arity="Scalar" type="String">
+              <ns1:value>Identity</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>Supplement</ns1:name>
+             <ns1:values arity="Scalar" type="Integer">
+              <ns1:value>0</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            </ns1:values>
+           </ns1:property>
+           <ns1:property>
+            <ns1:name>FontDescriptor</ns1:name>
+            <ns1:values arity="List" type="Property">
+            <ns1:property>
+             <ns1:name>FontName</ns1:name>
+             <ns1:values arity="Scalar" type="String">
+              <ns1:value>DDMERA+Calibri,Bold</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>Flags</ns1:name>
+             <ns1:values arity="List" type="String">
+              <ns1:value>Nonsymbolic</ns1:value>
+              <ns1:value>AllCap</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>FontBBox</ns1:name>
+             <ns1:values arity="Array" type="Integer">
+              <ns1:value>-518</ns1:value>
+              <ns1:value>-306</ns1:value>
+              <ns1:value>1240</ns1:value>
+              <ns1:value>971</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            <ns1:property>
+             <ns1:name>FontFile2</ns1:name>
+             <ns1:values arity="Scalar" type="Boolean">
+              <ns1:value>true</ns1:value>
+             </ns1:values>
+            </ns1:property>
+            </ns1:values>
+           </ns1:property>
+           </ns1:values>
+          </ns1:property>
+          </ns1:values>
+         </ns1:property>
+     </ns1:values>
+    </ns1:property>
+        <ns1:property>
+         <ns1:name>XMP</ns1:name>
+         <ns1:values arity="Scalar" type="String">
+          <ns1:value>&lt;?adobe-xap-filters esc="CRLF"?&gt;
+&lt;x:xmpmeta xmlns:x='adobe:ns:meta/' x:xmptk='XMP toolkit 2.9.1-13, framework 1.6'&gt;
+&lt;rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' xmlns:iX='http://ns.adobe.com/iX/1.0/'&gt;
+&lt;rdf:Description rdf:about='' xmlns:pdf='http://ns.adobe.com/pdf/1.3/' pdf:Producer='GPL Ghostscript 9.10'/&gt;
+&lt;rdf:Description rdf:about='' xmlns:xmp='http://ns.adobe.com/xap/1.0/'&gt;&lt;xmp:ModifyDate&gt;2013-11-19T16:33:26+02:00&lt;/xmp:ModifyDate&gt;
+&lt;xmp:CreateDate&gt;2013-11-19T16:33:26+02:00&lt;/xmp:CreateDate&gt;
+&lt;xmp:CreatorTool&gt;Microsoft® Word 2010&lt;/xmp:CreatorTool&gt;&lt;/rdf:Description&gt;
+&lt;rdf:Description rdf:about='' xmlns:xapMM='http://ns.adobe.com/xap/1.0/mm/' xapMM:DocumentID='uuid:1982cf8c-8944-11ee-0000-539a3581d746'/&gt;
+&lt;rdf:Description rdf:about='' xmlns:dc='http://purl.org/dc/elements/1.1/' dc:format='application/pdf'&gt;&lt;dc:title&gt;&lt;rdf:Alt&gt;&lt;rdf:li xml:lang='x-default'&gt;OPETUS- JA KULTTUURIMINISTERIÖN KIRJASTOPÄIVÄT 2011&lt;/rdf:li&gt;&lt;/rdf:Alt&gt;&lt;/dc:title&gt;&lt;dc:creator&gt;&lt;rdf:Seq&gt;&lt;rdf:li&gt;sulinha1&lt;/rdf:li&gt;&lt;/rdf:Seq&gt;&lt;/dc:creator&gt;&lt;/rdf:Description&gt;
+&lt;rdf:Description rdf:about='' xmlns:pdfaid='http://www.aiim.org/pdfa/ns/id/' pdfaid:part='1' pdfaid:conformance='B'/&gt;&lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;</ns1:value>
+         </ns1:values>
+        </ns1:property>
+        <ns1:property>
+         <ns1:name>Pages</ns1:name>
+         <ns1:values arity="List" type="Property">
+         <ns1:property>
+          <ns1:name>Page</ns1:name>
+          <ns1:values arity="List" type="Property">
+          <ns1:property>
+           <ns1:name>Sequence</ns1:name>
+           <ns1:values arity="Scalar" type="Integer">
+            <ns1:value>1</ns1:value>
+           </ns1:values>
+          </ns1:property>
+          </ns1:values>
+         </ns1:property>
+         </ns1:values>
+        </ns1:property>
+    </ns1:values>
+   </ns1:property>
+  </ns1:properties>
+ </ns1:repInfo>
+    </premis:eventOutcomeDetailExtension></premis:eventOutcomeDetail></premis:eventOutcomeInformation>
+    <premis:linkingAgentIdentifier>
+      <premis:linkingAgentIdentifierType>preservation-agent-id</premis:linkingAgentIdentifierType>
+      <premis:linkingAgentIdentifierValue>/usr/lib/python2.6/site-packages/ipt/scripts/check_sip_digital_objects.pyc-development</premis:linkingAgentIdentifierValue>
+    </premis:linkingAgentIdentifier>
+    <premis:linkingObjectIdentifier><premis:linkingObjectIdentifierType>preservation-object-id</premis:linkingObjectIdentifierType><premis:linkingObjectIdentifierValue>302fd553-f3b3-4d0a-89e8-0255cc432267</premis:linkingObjectIdentifierValue></premis:linkingObjectIdentifier>
+  </premis:event>
+  <premis:event>
+    <premis:eventIdentifier>
+      <premis:eventIdentifierType>preservation-event-id</premis:eventIdentifierType>
+      <premis:eventIdentifierValue>5aef1127-cfad-4f89-8f59-cf9fee60aeb1</premis:eventIdentifierValue>
+    </premis:eventIdentifier>
+    <premis:eventType>creation</premis:eventType>
+    <premis:eventDateTime>2015-09-23T09:51:10</premis:eventDateTime>
+    <premis:eventDetail>Creation of archival information package</premis:eventDetail>
+    <premis:eventOutcomeInformation><premis:eventOutcome>success</premis:eventOutcome><premis:eventOutcomeDetail><premis:eventOutcomeDetailNote>Archival information package created succesfully</premis:eventOutcomeDetailNote></premis:eventOutcomeDetail></premis:eventOutcomeInformation>
+    <premis:linkingAgentIdentifier>
+      <premis:linkingAgentIdentifierType>preservation-agent-id</premis:linkingAgentIdentifierType>
+      <premis:linkingAgentIdentifierValue>create_premis_report.pyc-0.65-1441468673-ga5e2ad3</premis:linkingAgentIdentifierValue>
+    </premis:linkingAgentIdentifier>
+    <premis:linkingObjectIdentifier><premis:linkingObjectIdentifierType>preservation-aip-id</premis:linkingObjectIdentifierType><premis:linkingObjectIdentifierValue>2598b95a-e9a3-422d-9a9d-4812a12795d7</premis:linkingObjectIdentifierValue></premis:linkingObjectIdentifier>
+  </premis:event>
+  <premis:event>
+    <premis:eventIdentifier>
+      <premis:eventIdentifierType>preservation-event-id</premis:eventIdentifierType>
+      <premis:eventIdentifierValue>2d5c4dd1-575f-4137-af6c-f4179f79f9af</premis:eventIdentifierValue>
+    </premis:eventIdentifier>
+    <premis:eventType>validation</premis:eventType>
+    <premis:eventDateTime>2015-09-23T09:51:04</premis:eventDateTime>
+    <premis:eventDetail>METS schema validation</premis:eventDetail>
+    <premis:eventOutcomeInformation><premis:eventOutcome>success</premis:eventOutcome><premis:eventOutcomeDetail><premis:eventOutcomeDetailNote>/usr/share/information-package-tools/schema/mets/mets.xsd:16: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/w3/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/premis/premis.xsd:39: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at 'http://www.loc.gov/standards/xlink/xlink.xsd' for the namespace 'http://www.w3.org/1999/xlink', since this namespace was already imported with the schema located at '/usr/share/information-package-tools/schema/w3/xlink.xsd'.
+/usr/share/information-package-tools/schema/external/mods/mods.xsd:1: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at 'http://www.loc.gov/mods/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/mods/mods.xsd:1: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at 'http://www.loc.gov/standards/xlink/xlink.xsd' for the namespace 'http://www.w3.org/1999/xlink', since this namespace was already imported with the schema located at '/usr/share/information-package-tools/schema/w3/xlink.xsd'.
+/usr/share/information-package-tools/schema/external/dc/dcterms.xsd:66: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at 'http://www.w3.org/2001/03/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/dc/dc.xsd:42: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at 'http://www.w3.org/2001/03/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ead/ead.xsd:72: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at 'http://www.loc.gov/standards/xlink/xlink.xsd' for the namespace 'http://www.w3.org/1999/xlink', since this namespace was already imported with the schema located at '/usr/share/information-package-tools/schema/w3/xlink.xsd'.
+/usr/share/information-package-tools/schema/external/eac/cpf.xsd:63: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at 'http://www.loc.gov/standards/xlink/xlink.xsd' for the namespace 'http://www.w3.org/1999/xlink', since this namespace was already imported with the schema located at '/usr/share/information-package-tools/schema/w3/xlink.xsd'.
+/usr/share/information-package-tools/schema/external/eac/cpf.xsd:65: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at 'http://www.w3.org/2007/08/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/lido/lido.xsd:60: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at 'http://www.w3.org/2001/03/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/instance.xsd:43: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/reusable.xsd:25: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/ddi-xhtml11.xsd:64: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/XHTML/xhtml-attribs-1.xsd:16: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/XHTML/xhtml-blkphras-1.xsd:27: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/XHTML/xhtml-bdo-1.xsd:23: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/reusable.xsd:27: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/dcterms.xsd' for the namespace 'http://purl.org/dc/terms/', since this namespace was already imported with the schema located at '/usr/share/information-package-tools/schema/external/dc/dcterms.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/archive.xsd:25: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/datacollection.xsd:24: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/instance.xsd:49: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/dcterms.xsd' for the namespace 'http://purl.org/dc/terms/', since this namespace was already imported with the schema located at '/usr/share/information-package-tools/schema/external/dc/dcterms.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/physicaldataproduct_ncube_inline.xsd:25: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/physicaldataproduct_ncube_normal.xsd:25: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/physicaldataproduct_ncube_tabular.xsd:25: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-lifecycle/physicaldataproduct_proprietary.xsd:24: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/ddi-codebook/dcterms.xsd:65: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-codebook/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/ddi-codebook/dcterms.xsd:69: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-codebook/dc.xsd' for the namespace 'http://purl.org/dc/elements/1.1/', since this namespace was already imported with the schema located at '/usr/share/information-package-tools/schema/external/dc/dc.xsd'.
+/usr/share/information-package-tools/schema/ddi-codebook/dcterms.xsd:72: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-codebook/dcmitype.xsd' for the namespace 'http://purl.org/dc/dcmitype/', since this namespace was already imported with the schema located at '/usr/share/information-package-tools/schema/external/dc/dcmitype.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-codebook/codebook.xsd:51: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-codebook/xml.xsd' for the namespace 'http://www.w3.org/XML/1998/namespace', since this namespace was already imported with the schema located at 'http://www.w3.org/2001/xml.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-codebook/codebook.xsd:52: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-codebook/ddi-xhtml11.xsd' for the namespace 'http://www.w3.org/1999/xhtml', since this namespace was already imported with the schema located at '/usr/share/information-package-tools/schema/external/ddi-lifecycle/ddi-xhtml11.xsd'.
+/usr/share/information-package-tools/schema/external/ddi-codebook/codebook.xsd:53: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at '/usr/share/information-package-tools/schema/external/ddi-codebook/dcterms.xsd' for the namespace 'http://purl.org/dc/terms/', since this namespace was already imported with the schema located at '/usr/share/information-package-tools/schema/external/dc/dcterms.xsd'.
+/var/archivematica/sharedDirectory/currentlyProcessing/csc_test_valid_sip_001.zip-201583eb-cda9-4e1a-a711-637133ca2317/mets.xml validates
+
+</premis:eventOutcomeDetailNote></premis:eventOutcomeDetail></premis:eventOutcomeInformation>
+    <premis:linkingAgentIdentifier>
+      <premis:linkingAgentIdentifierType>preservation-agent-id</premis:linkingAgentIdentifierType>
+      <premis:linkingAgentIdentifierValue>validate_mets_schema.pyc-0.65-1441468673-ga5e2ad3</premis:linkingAgentIdentifierValue>
+    </premis:linkingAgentIdentifier>
+    <premis:linkingObjectIdentifier><premis:linkingObjectIdentifierType>preservation-mets-id</premis:linkingObjectIdentifierType><premis:linkingObjectIdentifierValue>6fa53ebc-1458-4f62-b7be-052d38b47132</premis:linkingObjectIdentifierValue></premis:linkingObjectIdentifier>
+  </premis:event>
+  <premis:agent>
+    <premis:agentIdentifier>
+      <premis:agentIdentifierType>preservation-agent-id</premis:agentIdentifierType>
+      <premis:agentIdentifierValue>extract_sip.pyc-0.65-1441468673-ga5e2ad3</premis:agentIdentifierValue>
+    </premis:agentIdentifier>
+    <premis:agentName>extract_sip.pyc</premis:agentName>
+    <premis:agentType>software</premis:agentType>
+  </premis:agent>
+  <premis:agent>
+    <premis:agentIdentifier>
+      <premis:agentIdentifierType>preservation-agent-id</premis:agentIdentifierType>
+      <premis:agentIdentifierValue>check_signature.pyc-0.65-1441468673-ga5e2ad3</premis:agentIdentifierValue>
+    </premis:agentIdentifier>
+    <premis:agentName>check_signature.pyc</premis:agentName>
+    <premis:agentType>software</premis:agentType>
+  </premis:agent>
+  <premis:agent>
+    <premis:agentIdentifier>
+      <premis:agentIdentifierType>preservation-agent-id</premis:agentIdentifierType>
+      <premis:agentIdentifierValue>check_virus.pyc-0.65-1441468673-ga5e2ad3</premis:agentIdentifierValue>
+    </premis:agentIdentifier>
+    <premis:agentName>check_virus.pyc</premis:agentName>
+    <premis:agentType>software</premis:agentType>
+  </premis:agent>
+  <premis:agent>
+    <premis:agentIdentifier>
+      <premis:agentIdentifierType>preservation-agent-id</premis:agentIdentifierType>
+      <premis:agentIdentifierValue>check_checksums.pyc-0.65-1441468673-ga5e2ad3</premis:agentIdentifierValue>
+    </premis:agentIdentifier>
+    <premis:agentName>check_checksums.pyc</premis:agentName>
+    <premis:agentType>software</premis:agentType>
+  </premis:agent>
+  <premis:agent>
+    <premis:agentIdentifier>
+      <premis:agentIdentifierType>preservation-agent-id</premis:agentIdentifierType>
+      <premis:agentIdentifierValue>validate_mets_schematron.pyc-0.65-1441468673-ga5e2ad3</premis:agentIdentifierValue>
+    </premis:agentIdentifier>
+    <premis:agentName>validate_mets_schematron.pyc</premis:agentName>
+    <premis:agentType>software</premis:agentType>
+  </premis:agent>
+  <premis:agent>
+    <premis:agentIdentifier>
+      <premis:agentIdentifierType>preservation-user-id</premis:agentIdentifierType>
+      <premis:agentIdentifierValue>organisaatio1</premis:agentIdentifierValue>
+    </premis:agentIdentifier>
+    <premis:agentName>organisaatio1</premis:agentName>
+    <premis:agentType>organization</premis:agentType>
+  </premis:agent>
+  <premis:agent>
+    <premis:agentIdentifier>
+      <premis:agentIdentifierType>preservation-agent-id</premis:agentIdentifierType>
+      <premis:agentIdentifierValue>create_premis_report.pyc-0.65-1441468673-ga5e2ad3</premis:agentIdentifierValue>
+    </premis:agentIdentifier>
+    <premis:agentName>create_premis_report.pyc</premis:agentName>
+    <premis:agentType>software</premis:agentType>
+  </premis:agent>
+  <premis:agent>
+    <premis:agentIdentifier>
+      <premis:agentIdentifierType>preservation-agent-id</premis:agentIdentifierType>
+      <premis:agentIdentifierValue>/usr/lib/python2.6/site-packages/ipt/scripts/check_sip_digital_objects.pyc-development</premis:agentIdentifierValue>
+    </premis:agentIdentifier>
+    <premis:agentName>/usr/lib/python2.6/site-packages/ipt/scripts/check_sip_digital_objects.pyc-development</premis:agentName>
+    <premis:agentType>software</premis:agentType>
+  </premis:agent>
+  <premis:agent>
+    <premis:agentIdentifier>
+      <premis:agentIdentifierType>preservation-agent-id</premis:agentIdentifierType>
+      <premis:agentIdentifierValue>validate_mets_schema.pyc-0.65-1441468673-ga5e2ad3</premis:agentIdentifierValue>
+    </premis:agentIdentifier>
+    <premis:agentName>validate_mets_schema.pyc</premis:agentName>
+    <premis:agentType>software</premis:agentType>
+  </premis:agent>
+</premis:premis>
