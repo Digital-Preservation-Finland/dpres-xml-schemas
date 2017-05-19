@@ -1,5 +1,5 @@
 MOCK_CONFIG=stable-6-x86_64
-ROOT=/
+ROOT=
 PREFIX=/usr
 SHAREDIR=${PREFIX}/share/dpres-xml-schemas
 XMLCATALOGDIR=/etc/xml/dpres-xml-schemas
@@ -44,7 +44,7 @@ install:
 	rm -rf "${SHAREDIR}"/.git*
 
 	mkdir -p "${SHAREDIR}/iso_schematron_xslt1"
-	cp -r "${SOURCE}"/* "${SHAREDIR}/iso_schematron_xslt1/"
+	cp -r iso_schematron_xslt1/* "${SHAREDIR}/iso_schematron_xslt1/"
 	chmod -R 755 "${SHAREDIR}/iso_schematron_xslt1"
 	find "${SHAREDIR}/iso_schematron_xslt1" -type f -exec chmod 644 \{\} \;
 
@@ -54,7 +54,7 @@ install:
 	find "${ROOT}${SHAREDIR}" -type f -exec chmod 644 \{\} \;
 
 	# write version module
-	#python version.py > "kdk_mets_catalog/version.py"
+	#python version.py > "xml_catalogs/version.py"
 
 	# Use Python setuptools
 	python setup.py build ; python ./setup.py install -O1 --prefix="${PREFIX}" --root="${ROOT}" --record=INSTALLED_FILES
