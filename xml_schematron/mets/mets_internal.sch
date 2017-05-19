@@ -28,6 +28,15 @@ Validates METS metadata elements and attributes, their values, and METS internal
 	<sch:include href="./abstracts/required_agent_pattern.incl"/>
 	<sch:include href="./abstracts/required_nonempty_attribute_pattern.incl"/>
 
+	<!-- METS root -->
+	<sch:pattern id="mets_root">
+		<sch:rule context="/">
+			<sch:assert test="mets:mets">
+				This is not a METS document.
+			</sch:assert>
+		</sch:rule>
+	</sch:pattern>
+
 	<!-- Specification attributes -->
 	<sch:pattern id="mets_CATALOG_SPECIFICATION" is-a="required_attribute_or_attribute_pattern">
 		<sch:param name="context_element" value="mets:mets"/>

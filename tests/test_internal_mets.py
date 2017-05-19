@@ -5,7 +5,8 @@ in mets_internal.sch.
 """
 
 import pytest
-from tests.common import SVRL_FAILED, SVRL_REPORT, parse_xml_file
+from tests.common import SVRL_FAILED, SVRL_REPORT, parse_xml_file, \
+    parse_xml_string, NAMESPACES
 
 SCHFILE = 'mets_internal.sch'
 
@@ -34,6 +35,16 @@ def test_valid_overall_mets(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 0
     assert svrl.count(SVRL_REPORT) == 0
 
+
+def test_mets_root(schematron_fx):
+    """Test that other root elements than METS are not allowed.
+
+    :schematron_fx: Schematron compile fixture
+    """
+    xml = '''<premis:premis xmlns:premis="%(premis)s"/>''' % NAMESPACES
+    (xmltree, _) = parse_xml_string(xml)
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=xmltree)
+    assert svrl.count(SVRL_FAILED) == 1
 
 def test_catalogs(schematron_fx):
     """Test the Schema catalog version numbering in METS.
