@@ -8,7 +8,7 @@ import tempfile
 import pytest
 
 SCH_DIRECTORY = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '..', 'schematron_rules'))
+    os.path.join(os.path.dirname(__file__), '..', 'xml_schematron', 'mets'))
 ISO_DIRECTORY = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..', 'iso_schematron_xslt1'))
 CATALOG_DIRECTORY = os.path.abspath(
@@ -140,7 +140,7 @@ def catalog_fx(request):
              os.path.join(SCHEMA_DIRECTORY, 'mets', 'mets.xsd'),
              xmlfile],
             env={'SGML_CATALOG_FILES':
-                 os.path.join(CATALOG_DIRECTORY, 'mets_catalog.xml')},
+                 os.path.join(CATALOG_DIRECTORY, 'xml_catalog.xml')},
             stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
         (stdout, stderr) = proc.communicate()
         returncode = proc.returncode

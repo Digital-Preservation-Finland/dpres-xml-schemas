@@ -34,13 +34,13 @@ install:
 	cp -r --preserve=timestamp xml_schemas/* "${ROOT}${XMLCATALOGDIR}/xml_schemas"
 	rm -rf "${XMLCATALOGDIR}"/.git*
 
-	mkdir -p "${ROOT}${XMLCATALOGDIR}/general_xml_schemas"
-	cp -r --preserve=timestamp general_xml_schemas/* "${ROOT}${XMLCATALOGDIR}/general_xml_schemas"
+	mkdir -p "${ROOT}${XMLCATALOGDIR}/xml_schemas_general"
+	cp -r --preserve=timestamp xml_schemas_general/* "${ROOT}${XMLCATALOGDIR}/xml_schemas_general"
 	rm -rf "${XMLCATALOGDIR}"/.git*
 
 	# Common data files
-	mkdir -p "${ROOT}${SHAREDIR}/schematron_rules"
-	cp -r --preserve=timestamp schematron_rules/* "${ROOT}${SHAREDIR}/schematron_rules"
+	mkdir -p "${ROOT}${SHAREDIR}/xml_schematron"
+	cp -r --preserve=timestamp xml_schematron/mets/* "${ROOT}${SHAREDIR}/xml_schematron"
 	rm -rf "${SHAREDIR}"/.git*
 
 	mkdir -p "${SHAREDIR}/iso_schematron_xslt1"

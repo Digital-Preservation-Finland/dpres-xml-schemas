@@ -1,7 +1,10 @@
 <!DOCTYPE catalog PUBLIC "-//OASIS//DTD XML Catalogs V1.0//EN" "catalog.dtd">
 
 <!-- XML Catalog for digital object XML files. -->
-<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="public" xml:base="../general_xml_schemas">
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="public" xml:base="../xml_schemas_general/">
+
+	<!-- NOTE: DO NOT add METS schema here, since it is used in another catalog, which uses this one -->
+
 
 	<!-- Shared schema -->
 	<rewriteURI uriStartString="http://www.loc.gov/mods/xml.xsd" rewritePrefix="shared/xml/loc.gov.mods/xml.xsd"/>
@@ -59,8 +62,6 @@
 	<rewriteURI uriStartString="http://www.loc.gov/standards/mods/v3/mods-3-4.xsd" rewritePrefix="mods/3.4/mods-3-4.xsd"/>
 	<rewriteURI uriStartString="http://www.loc.gov/standards/mods/v3/mods-3-5.xsd" rewritePrefix="mods/3.5/mods-3-5.xsd"/>
 	<rewriteURI uriStartString="http://www.loc.gov/standards/mods/v3/mods-3-6.xsd" rewritePrefix="mods/3.6/mods-3-6.xsd"/>
-	<rewriteURI uriStartString="http://www.loc.gov/standards/mods/v3/mods.xsd" rewritePrefix="mods/3.6/mods-3-6.xsd"/>
-	<rewriteURI uriStartString="http://www.loc.gov/standards/mods/mods.xsd" rewritePrefix="mods/3.6/mods-3-6.xsd"/>
 
 	<!-- MADS -->
 	<rewriteURI uriStartString="http://www.loc.gov/standards/mads/mads-1-0.xsd" rewritePrefix="mads/1.0/mads-1-0.xsd"/>
@@ -101,8 +102,8 @@
 	<rewriteURI uriStartString="http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd" rewritePrefix="lido/1.0/lido-v1.0.xsd"/>
 	<rewriteURI uriStartString="http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd" rewritePrefix="marc/1.2/MARC21slim.xsd"/>
 	<rewriteURI uriStartString="http://www.loc.gov/standards/vracore/" rewritePrefix="vra/4.0/"/>
-	<rewriteURI uriStartString="http://www.loc.gov/standards/textMD/textmd.xsd" rewritePrefix="textmd/2.2/textmd.xsd"/>
-	<rewriteURI uriStartString="http://www.loc.gov/standards/textMD/textmd-v3.01a.xsd" rewritePrefix="textmd/3.01a/textMD-v3.01a.xsd"/>
+	<rewriteURI uriStartString="http://www.loc.gov/standards/textMD/textMD.xsd" rewritePrefix="textmd/2.2/textmd.xsd"/>
+	<rewriteURI uriStartString="http://www.loc.gov/standards/textMD/textMD-v3.01a.xsd" rewritePrefix="textmd/3.01a/textMD-v3.01a.xsd"/>
 	<rewriteURI uriStartString="http://www.loc.gov/standards/rights/METSRights.xsd" rewritePrefix="metsrights/METSRights.xsd"/>
 	<rewriteURI uriStartString="http://schemas.opengis.net/gml/3.1.1/smil/smil20.xsd" rewritePrefix="opengis.gml/3.1.1/smil/smil20.xsd"/>
 	<rewriteURI uriStartString="http://schemas.opengis.net/gml/3.1.1/base/feature.xsd" rewritePrefix="opengis.gml/3.1.1/base/feature.xsd"/>

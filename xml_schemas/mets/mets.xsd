@@ -31,7 +31,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 
 	<xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/xml.xsd"/>
 	<xsd:import namespace="http://www.kdk.fi/standards/mets/kdk-extensions" schemaLocation="./kdk-mets-extensions.xsd"/>
-	
+
 	<xsd:import namespace="info:lc/xmlns/premis-v2" schemaLocation="http://www.loc.gov/standards/premis/v2/premis.xsd"/>
 	<xsd:import namespace="http://www.loc.gov/mix/v20" schemaLocation="http://www.loc.gov/standards/mix/mix20/mix20.xsd"/>
 	<xsd:import namespace="info:lc/xmlns/textMD-v3" schemaLocation="http://www.loc.gov/standards/textMD/textMD-v3.01a.xsd"/>
@@ -52,7 +52,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xsd:import namespace="ddi:codebook:2_5" schemaLocation="http://www.ddialliance.org/Specification/DDI-Codebook/2.5/XMLSchema/codebook.xsd"/>
 	<xsd:import namespace="http://www.icpsr.umich.edu/DDI" schemaLocation="http://www.ddialliance.org/Specification/DDI-Codebook/2.1/XMLSchema/Version2-1.xsd"/>
 
-	<xsd:redefine schemaLocation="../../general_xml_schemas/mets/1.11/mets-1-11.xsd">
+	<xsd:redefine schemaLocation="../../xml_schemas_general/mets/1.11/mets-1-11.xsd">
 		<xsd:complexType name="metsType">
 			<xsd:complexContent>
 				<xsd:extension base="metsType">

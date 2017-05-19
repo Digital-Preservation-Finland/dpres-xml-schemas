@@ -10,7 +10,7 @@ original METS XLINK, practically as a non-used attribute group.
  -->
 <schema targetNamespace="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink" elementFormDefault="qualified">
 
-  <redefine schemaLocation="../../general_xml_schemas/shared/xlink/w3.org.1999/xlink.xsd"/>
+  <redefine schemaLocation="../../xml_schemas_general/shared/xlink/w3.org.1999/xlink.xsd"/>
   
   <attributeGroup name="simpleLink">
     <attribute ref="xlink:type" fixed="simple"/>

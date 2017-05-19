@@ -42,7 +42,9 @@ SHAREDIR=${ROOT}${PREFIX}/share/dpres-xml-schemas/preservation_schemas
 [ -d "%{buildroot}/${SHAREDIR}" ] || mkdir -p "%{buildroot}/${SHAREDIR}"
 
 mkdir -p "%{buildroot}/${SHAREDIR}"
-cp -r preservation_schemas/* "%{buildroot}/${SHAREDIR}/"
+cp -r stylesheets/ingest_report/* "%{buildroot}/${SHAREDIR}/"
+cp -r xml_schemas/ingest_report/* "%{buildroot}/${SHAREDIR}/"
+cp -r xml_schematron/ingest_report/* "%{buildroot}/${SHAREDIR}/"
 
 chmod -R 755 "%{buildroot}/${SHAREDIR}"
 find "%{buildroot}/${SHAREDIR}" -type f -exec chmod 644 \{\} \;
@@ -55,20 +57,14 @@ echo "--"
 %post
 # Add our catalogs to the system centralised catalog
 %{_bindir}/xmlcatalog --noout --add "nextCatalog" "catalog" \
-"/etc/xml/dpres-xml-schemas/xml_catalogs/digital_object_catalog.xml" \
-/etc/xml/catalog
-%{_bindir}/xmlcatalog --noout --add "nextCatalog" "catalog" \
-"/etc/xml/dpres-xml-schemas/xml_catalogs/mets_catalog.xml" \
+"/etc/xml/dpres-xml-schemas/xml_catalogs/xml_catalog.xml" \
 /etc/xml/catalog
 
 %postun
 # When the package is uninstalled, remove the catalogs
 if [ "$1" = 0 ]; then
   %{_bindir}/xmlcatalog --noout --del \
-  "/etc/xml/dpres-xml-schemas/xml_catalogs/digital_object_catalog.xml" \
-  /etc/xml/catalog
-  %{_bindir}/xmlcatalog --noout --del \
-  "/etc/xml/dpres-xml-schemas/xml_catalogs/mets_catalog.xml" \
+  "/etc/xml/dpres-xml-schemas/xml_catalogs/xml_catalog.xml" \
   /etc/xml/catalog
 fi
 
