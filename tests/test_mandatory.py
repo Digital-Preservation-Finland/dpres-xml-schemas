@@ -9,10 +9,10 @@ from tests.common import SVRL_FIRED, SVRL_FAILED, parse_xml_file
 
 
 @pytest.mark.parametrize("testset, namespace, filename, schfile", [
-    ([(None, 63, 0), ('mdWrap', 61, 2), ('mdWrap', 61, 2), ('mdWrap', 61, 2),
-      ('digiprovMD', 54, 6), ('techMD', 47, 9), ('agent', 47, 12),
-      ('structMap', 43, 13), ('amdSec', 36, 9), ('dmdSec', 31, 9),
-      ('metsHdr', 29, 9), ('mets', 10, 7)], 'mets', 'mets_valid_minimal.xml',
+    ([(None, 64, 0), ('mdWrap', 62, 2), ('mdWrap', 62, 2), ('mdWrap', 62, 2),
+      ('digiprovMD', 55, 6), ('techMD', 48, 9), ('agent', 48, 12),
+      ('structMap', 44, 13), ('amdSec', 37, 9), ('dmdSec', 32, 9),
+      ('metsHdr', 30, 9), ('mets', 11, 7)], 'mets', 'mets_valid_minimal.xml',
      'mets_internal.sch'),
     ([(None, 10, 0), ('creatingApplication', 10, 1), ('format', 8, 2),
       ('objectCharacteristics', 5, 2)], 'premis', 'premis_valid_minimal.xml',
