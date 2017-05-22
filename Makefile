@@ -26,8 +26,8 @@ install:
 	rm -f INSTALLED_FILES
 
 	# XML Schema catalogs
-	mkdir -p "${ROOT}${XMLCATALOGDIR}/xml_catalog"
-	cp -r --preserve=timestamp xml_catalog/* "${ROOT}${XMLCATALOGDIR}/xml_catalog"
+	mkdir -p "${ROOT}${XMLCATALOGDIR}/xml_catalogs"
+	cp -r --preserve=timestamp xml_catalogs/* "${ROOT}${XMLCATALOGDIR}/xml_catalogs"
 	rm -rf "${XMLCATALOGDIR}"/.git*
 
 	mkdir -p "${ROOT}${XMLCATALOGDIR}/xml_schemas"
