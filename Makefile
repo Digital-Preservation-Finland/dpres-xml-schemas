@@ -15,12 +15,12 @@ info:
 install:
 	# XML Schema catalogs
 	mkdir -p "${XMLCATALOGDIR}/schema_catalogs"
-	cp -r --preserve=timestamp xml_catalogs/* "${XMLCATALOGDIR}/schema_catalogs"
+	cp -r --preserve=timestamp schema_catalogs/* "${XMLCATALOGDIR}/schema_catalogs"
 	rm -rf "${XMLCATALOGDIR}"/.git*
 
 	# Common data files
 	mkdir -p "${SHAREDIR}/schematron"
-	cp -r --preserve=timestamp xml_schematron/mets/* "${SHAREDIR}/schematron"
+	cp -r --preserve=timestamp schematron/* "${SHAREDIR}/schematron"
 	rm -rf "${SHAREDIR}"/.git*
 
 	chmod -R 755 "${XMLCATALOGDIR}"
