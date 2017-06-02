@@ -1,7 +1,7 @@
 <!DOCTYPE catalog PUBLIC "-//OASIS//DTD XML Catalogs V1.0//EN" "catalog.dtd">
 
 <!-- XML Catalog for digital object XML files. -->
-<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="public" xml:base="../xml_schemas_general/">
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="public" xml:base="./schemas_external/">
 
 	<!-- NOTE: DO NOT add METS schema here, since it is used in another catalog, which uses this one -->
 

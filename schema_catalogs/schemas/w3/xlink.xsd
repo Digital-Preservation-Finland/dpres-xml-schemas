@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-KDK XLINK Schema
 Necessary to avoid overlapping between METS XLINK and W3 XLINK, since those have
 practically nothing in common, but both carry the same namespace. This schema does not
 allow to use the attributeGroup "emptyLink", since the "type" attribute value "none" in
 that attribute group is not allowed by the W3 XLINK specifications. However, this
-attribute group is not used in any of the XML Schema related to KDK, but exists in the
-original METS XLINK, practically as a non-used attribute group.
+attribute group is not used in the Catalog, but exists in the original METS XLINK,
+practically as a non-used attribute group.
  -->
 <schema targetNamespace="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink" elementFormDefault="qualified">
 
-  <redefine schemaLocation="../../xml_schemas_general/shared/xlink/w3.org.1999/xlink.xsd"/>
+  <redefine schemaLocation="../../schemas_external/shared/xlink/w3.org.1999/xlink.xsd"/>
   
   <attributeGroup name="simpleLink">
     <attribute ref="xlink:type" fixed="simple"/>

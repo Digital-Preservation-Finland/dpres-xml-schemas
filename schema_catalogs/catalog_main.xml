@@ -3,7 +3,7 @@
 <!-- XML Catalog for local usage. -->
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="public">
 
-    <group xml:base="../xml_schemas/">
+    <group xml:base="./schemas/">
 	  <rewriteURI uriStartString="http://www.loc.gov/standards/xlink/xlink.xsd" rewritePrefix="w3/xlink.xsd"/>
 	  <rewriteURI uriStartString="http://www.w3.org/1999/xlink.xsd" rewritePrefix="w3/xlink.xsd"/>
 	  <rewriteURI uriStartString="http://www.kdk.fi/standards/textmd/textmd.xsd" rewritePrefix="textmd/textmd_kdk.xsd"/>
@@ -12,5 +12,5 @@
 	  <rewriteURI uriStartString="http://kdk.fi/standards/mets/mets.xsd" rewritePrefix="mets/mets.xsd"/>
 	  <rewriteURI uriStartString="http://www.loc.gov/standards/mets/mets.xsd" rewritePrefix="mets/mets.xsd"/>
 	</group>
-    <nextCatalog catalog="./xml_catalog_general.xml"/>
+    <nextCatalog catalog="./catalog_external.xml"/>
 </catalog>

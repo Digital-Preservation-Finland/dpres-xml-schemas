@@ -1,15 +1,15 @@
 LICENSES
 --------
 
-Paths related to schema catalog are described in relation to base path ./kdk_mets_catalog/
-
 SCHEMA CATALOG:
 +++++++++++++++
 
-./catalog-local.xml
+Paths related to schema catalog are described in relation to base path ./schema_catalogs/
+
+./catalog_main.xml
   | LGPL3
   | (c) CSC - IT Center for Science
-./catalog-web.xml
+./catalog_external.xml
   | LGPL3
   | (c) CSC - IT Center for Science
 ./catalog.dtd
@@ -17,8 +17,10 @@ SCHEMA CATALOG:
   | (c) 2000, 2001 The Organization for the Advancement of
     Structured Information Standards [OASIS].
 
-KDK EXTENSIONS TO CATALOG SCHEMAS:
-++++++++++++++++++++++++++++++++++
+MODIFICATIONS TO SCHEMAS:
++++++++++++++++++++++++++
+
+Paths related to schema catalog are described in relation to base path ./schema_catalogs/schemas/
 
 ./mets/mets.xsd
   | LGPL3
@@ -26,94 +28,123 @@ KDK EXTENSIONS TO CATALOG SCHEMAS:
 ./mets/kdk-mets-extensions.xsd
   | LGPL3
   | (c) CSC - IT Center for Science
-./w3/xlink.xsd
-  | Edited from W3 xlink and METS xlink
-  | (c) World Wide Web Consortium
 ./mods/mods.xsd
   | LGPL3
   | (c) CSC - IT Center for Science
 ./textmd/textmd_kdk.xsd
   | See license below.
   | Edited from https://www.loc.gov/standards/textMD/textMD-v3.01a.xsd
+./w3/xlink.xsd
+  | Edited from W3 xlink and METS xlink
+  | (c) World Wide Web Consortium
 
-CATALOG SCHEMAS:
-++++++++++++++++
+SCHEMAS:
+++++++++
+
+Paths related to schema catalog are described in relation to base path ./schema_catalogs/schemas_external/
 
 ./addml
   | License N/A
-  | http://schema.arkivverket.no/ADDML/v8.3/addml.xsd
+  | http://www.arkivverket.no/arkivverket/Arkivbevaring/Elektronisk-arkivmateriale/Standarder/ADDML
+  | Copyright N/A
+./alto
+  | License N/A
+  | https://www.loc.gov/standards/alto/
   | Copyright N/A
 ./avmd
   | License N/A
-  | https://www.loc.gov/standards/amdvmd/audiovideoMDschemas.html
+  | https://www.loc.gov/standards/amdvmd/
   | Copyright N/A
 ./dc
   | https://creativecommons.org/licenses/by/3.0/
-  | http://dublincore.org/schemas/xmls/
+  | http://dublincore.org/
   | (c) 1995-2016 DCMI
 ./ddi*
   | LGPL3
-  | http://www.ddialliance.org/Specification/
+  | http://www.ddialliance.org/
   | (c) 2014 DDI Alliance
 ./eac
   | License N/A
-  | http://eac.staatsbibliothek-berlin.de/schema/cpf.xsd
+  | http://eac.staatsbibliothek-berlin.de/
   | Copyright N/A
 ./ead
   | License N/A
-  | https://github.com/SAA-SDT/EAD2002/blob/master/ead.xsd
+  | https://www.loc.gov/ead/
   | Copyright N/A
 ./ead3
   | CC0 1.0
-  | https://github.com/SAA-SDT/EAD3/blob/master/LICENSE
+  | https://www.loc.gov/ead/
   | Copyright N/A
 ./gml
   | License: See ./gml/License
-  | http://www.opengeospatial.org/ogc/software
+  | http://www.opengeospatial.org/
   | (c) 2001,2005,2010 Open Geospatial Consortium.
 ./lido
   | http://creativecommons.org/licenses/by-sa/3.0/
   | http://www.lido-schema.org
   | Copyright 2009-2010 ICOM-CIDOC for the
-    Data Harvesting and Interchange Working Group.
+  | Data Harvesting and Interchange Working Group.
+./mads
+  | License N/A
+  | http://www.loc.gov/standards/mads/
+  | Copyright N/A
 ./marc
   | License N/A
-  | http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd
+  | http://www.loc.gov/standards/marcxml/
   | Copyright N/A
-./mets/mets-1-11.xsd
+./mets
   | Creative Commons CC0 1.0 Universal Public Domain Dedication
-  | http://www.loc.gov/standards/mets/mets.xsd
+  | http://www.loc.gov/standards/mets/
   | No copyright, see:
-    http://creativecommons.org/publicdomain/zero/1.0/legalcode
+  | http://creativecommons.org/publicdomain/zero/1.0/legalcode
+./metsrights
+  | License N/A
+  | http://www.loc.gov/standards/rights/METSRights.xsd
+  | Copyright N/A
 ./mix
   | License N/A
-  | https://www.loc.gov/standards/mix/mix.xsd
+  | https://www.loc.gov/standards/mix/
   | Copyright N/A
-./mods/mods-3-6.xsd
+./mods
   | License N/A
-  | http://www.loc.gov/standards/mods/mods.xsd
+  | http://www.loc.gov/standards/mods/
   | Copyright N/A
+./opengis.gml
+  | License N/A
+  | http://schemas.opengis.net/
+  | (c) 2011 Open Geospatial Consortium
 ./premis
   | License N/A
-  | https://www.loc.gov/standards/premis/v2/premis-v2-3.xsd
+  | https://www.loc.gov/standards/premis/
   | Copyright N/A
+./sahke2
+  | License N/A
+  | http://www.arkisto.fi/fi/palvelut/normit/maeaeraeykset/saehke2-maeaeraeys/
+  | Copyright N/A
+./shared
+  | License N/A
+  | https://www.w3.org/
+  | (c) World Wide Web Consortium
 ./textmd
   | License N/A
-  | https://www.loc.gov/standards/textMD/textMD-v3.01a.xsd
+  | https://www.loc.gov/standards/textMD/
   | Copyright N/A
 ./vra
   | Creative Commons Attribution 3.0 License
-  | https://www.loc.gov/standards/vracore/schemas.html
+  | https://www.loc.gov/standards/vracore/
   | (c) 2007 Visual Resources Association (VRA)
-./w3
-  | License N/A
-  | https://www.w3.org
-  | (c) World Wide Web Consortium
 
 SCHEMATRON SCHEMAS:
 +++++++++++++++++++
 
 ./kdk_schematron
+  | LGPL3
+  | (c) CSC - IT Center for Science
+
+OTHERS:
++++++++
+
+./ingest_report
   | LGPL3
   | (c) CSC - IT Center for Science
 

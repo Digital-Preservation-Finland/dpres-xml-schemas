@@ -8,13 +8,15 @@ import tempfile
 import pytest
 
 SCH_DIRECTORY = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '..', 'xml_schematron', 'mets'))
+    os.path.join(os.path.dirname(__file__), '..', 'schematron'))
 ISO_DIRECTORY = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '..', 'iso_schematron_xslt1'))
+    os.path.join(os.path.dirname(__file__),
+    '..', 'schematron', 'iso_schematron_xslt1'))
 CATALOG_DIRECTORY = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '..', 'xml_catalogs'))
+    os.path.join(os.path.dirname(__file__), '..', 'schema_catalogs'))
 SCHEMA_DIRECTORY = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '..', 'xml_schemas'))
+    os.path.join(os.path.dirname(__file__),
+    '..', 'schema_catalogs', 'schemas'))
 CACHE_DIRECTORY = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..', '.sch_cache'))
 
@@ -140,7 +142,7 @@ def catalog_fx(request):
              os.path.join(SCHEMA_DIRECTORY, 'mets', 'mets.xsd'),
              xmlfile],
             env={'SGML_CATALOG_FILES':
-                 os.path.join(CATALOG_DIRECTORY, 'xml_catalog.xml')},
+                 os.path.join(CATALOG_DIRECTORY, 'catalog_main.xml')},
             stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
         (stdout, stderr) = proc.communicate()
         returncode = proc.returncode
