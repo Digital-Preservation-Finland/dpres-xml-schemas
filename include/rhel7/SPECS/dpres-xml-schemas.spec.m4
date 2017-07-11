@@ -22,7 +22,6 @@ BuildArch:      noarch
 
 Requires: python xml-common
 Requires: libxslt python-setuptools
-BuildRequires:	pytest
 
 %description
 XML schema catalogs and schematron rules.
@@ -45,7 +44,7 @@ cp -r ingest_report/* "${SHAREDIR}/"
 chmod -R 755 "${SHAREDIR}"
 find "${SHAREDIR}" -type f -exec chmod 644 \{\} \;
 
-make install XMLCATALOGDIR=%{buildroot}%{_sysconfdir}/%{name} SHAREDIR=%{buildroot}%{_datadir}/%{name}
+make install XMLCATALOGDIR=%{buildroot}%{_sysconfdir}/xml/%{name} SHAREDIR=%{buildroot}%{_datadir}/%{name}
 
 %post
 # Add our catalogs to the system centralised catalog
