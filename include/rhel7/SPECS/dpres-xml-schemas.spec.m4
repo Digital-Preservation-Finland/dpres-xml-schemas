@@ -35,7 +35,7 @@ find %{_sourcedir}
 # do nothing
 
 %install
-SHAREDIR=%{_datadir}/dpres-xml-schemas/preservation_schemas
+SHAREDIR=%{buildroot}/%{_datadir}/dpres-xml-schemas/preservation_schemas
 # Common data files
 [ -d "${SHAREDIR}" ] || mkdir -p "${SHAREDIR}"
 
