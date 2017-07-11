@@ -45,6 +45,8 @@ cp -r ingest_report/* "${SHAREDIR}/"
 chmod -R 755 "${SHAREDIR}"
 find "${SHAREDIR}" -type f -exec chmod 644 \{\} \;
 
+make install XMLCATALOGDIR=%{buildroot}%{_sysconfdir}/%{name} SHAREDIR=%{buildroot}%{_datadir}/%{name}
+
 %post
 # Add our catalogs to the system centralised catalog
 %{_bindir}/xmlcatalog --noout --add "nextCatalog" "catalog" \
