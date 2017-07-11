@@ -35,8 +35,7 @@ find %{_sourcedir}
 # do nothing
 
 %install
-PREFIX=/usr
-SHAREDIR=${PREFIX}/share/dpres-xml-schemas/preservation_schemas
+SHAREDIR=%{_datadir}/dpres-xml-schemas/preservation_schemas
 # Common data files
 [ -d "${SHAREDIR}" ] || mkdir -p "${SHAREDIR}"
 
