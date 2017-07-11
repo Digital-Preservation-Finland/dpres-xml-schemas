@@ -61,7 +61,7 @@ fi
 
 %clean
 
-%files -f INSTALLED_FILES
+%files
 %defattr(-,root,root,-)
 /usr/share/dpres-xml-schemas
 /etc/xml/dpres-xml-schemas
