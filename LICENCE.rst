@@ -7,10 +7,10 @@ SCHEMA CATALOG:
 Paths related to schema catalog are described in relation to base path ./schema_catalogs/
 
 ./catalog_main.xml
-  | LGPL3
+  | LGPLv3+
   | (c) CSC - IT Center for Science
 ./catalog_external.xml
-  | LGPL3
+  | LGPLv3+
   | (c) CSC - IT Center for Science
 ./catalog.dtd
   | https://www.oasis-open.org/committees/entity/spec-2001-08-06.html
@@ -23,13 +23,13 @@ MODIFICATIONS TO SCHEMAS:
 Paths related to schema catalog are described in relation to base path ./schema_catalogs/schemas/
 
 ./mets/mets.xsd
-  | LGPL3
+  | LGPLv3+
   | (c) CSC - IT Center for Science
 ./mets/kdk-mets-extensions.xsd
-  | LGPL3
+  | LGPLv3+
   | (c) CSC - IT Center for Science
 ./mods/mods.xsd
-  | LGPL3
+  | LGPLv3+
   | (c) CSC - IT Center for Science
 ./textmd/textmd_kdk.xsd
   | See license below.
@@ -137,21 +137,21 @@ Paths related to schema catalog are described in relation to base path ./schema_
 SCHEMATRON SCHEMAS:
 +++++++++++++++++++
 
-./kdk_schematron
-  | LGPL3
+./schematron
+  | LGPLv3+
   | (c) CSC - IT Center for Science
 
 OTHERS:
 +++++++
 
 ./ingest_report
-  | LGPL3
+  | LGPLv3+
   | (c) CSC - IT Center for Science
 
 TESTS:
 ++++++
 
 ./tests
-  | LGPL3
+  | LGPLv3+
   | (c) CSC - IT Center for Science
 

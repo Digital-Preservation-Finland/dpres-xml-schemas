@@ -1,48 +1,54 @@
-KDK METS Schema Catalog and Schematron Rules
-============================================
+Schema Catalogs and Schematron Rules
+====================================
 
-This repository is currently used in `National Digital Library <http://www.kdk.fi/en/>`_ and `Open Science and Research Initiative <http://openscience.fi/frontpage>`_ for metadata validation in digital preservation services. Kdk-mets-schemas is a collection of XML schema catalog and schmematron files which together can be used to validate all metadata combined in METS document against the national specifications.
+This repository is currently used in `National Digital Library <http://www.kdk.fi/en/>`_ and `Open Science and Research Initiative <http://openscience.fi/frontpage>`_ for XML validation in digital preservation services. The dpres-xml-schemas is a collection of XML schema catalogs and schmematron files which together can be used to validate all metadata combined in METS document against the national specifications. The catalog can be used also for validating XML formatted digital objects.
 
-The current catalog version is 1.6.0. The same catalog can be used also with older specifications, starting from version 1.4.
+The current METS catalog version is 1.6.0. The same catalog can be used also with older specifications, starting from version 1.4.
 
-USAGE
+Installation
+------------
+
+We have utilized xmllint commandline tool for XML schema validation and xsltproc for XSLT conversions. Also EXSLT extension is required.
+For further information, see: http://xmlsoft.org/xmllint.html, http://xmlsoft.org/XSLT/xsltproc2.html, and http://xmlsoft.org/XSLT/EXSLT/index.html
+
+Install libxml2, mllint and xsltproc described above. After that, use the following commands::
+
+    make install
+    /usr/bin/xmlcatalog --noout --add "nextCatalog" "catalog" "/etc/xml/dpres-xml-schemas/schema_catalogs/catalog_main.xml" /etc/xml/catalog
+
+Usage
 -----
 
-We have utilized xmllint commandline tool for XML schema validation.
-Use the following commands to validate a METS document:
+We have utilized xmllint commandline tool for XML schema validation. Use the following command to validate a METS document::
 
-::
+    xmllint --huge --noout --catalogs --nowarning --schema /etc/xml/dpres-xml-schemas/schema_catalogs/schemas/mets/mets.xsd <METS document>
 
-  export SGML_CATALOG_FILES=/<base path>/schema_catalogs/catalog_main.xml
-  xmllint --valid --huge --noout --catalogs --schema  ./schema_catalogs/mets/mets.xsd <METS document>
+If no error messages are produced, schema validation is successful.
 
-For further information, see: http://xmlsoft.org/xmllint.html.
+METS documents require also schematron validation via XSLT conversions. Use the following commands to compile schematron files to XSL files::
 
-Schematron validation is done using xsltproc for XSLT conversions.
+    xsltproc -o tempfile1 /usr/share/dpres-xml-schemas/schematron/iso_schematron_xslt1/iso_dsdl_include.xsl \
+    /usr/share/dpres-xml-schemas/schematron/<schematron schema>.sch
+    xsltproc -o tempfile2 /usr/share/dpres-xml-schemas/schematron/iso_schematron_xslt1/iso_abstract_expand.xsl tempfile1
+    xsltproc -o <new compiled xsl>.xsl /usr/share/dpres-xml-schemas/schematron/iso_schematron_xslt1/iso_svrl_for_xslt1.xsl tempfile2
 
-Use the following commands to compile schematron files:
+Use the following command to validate a METS document::
 
-::
+    xsltproc -o outputfile <compiled xsl>.xsl <METS document>
 
-  xsltproc -o tempfile1 ./schematron/iso_schematron_xslt1/iso_dsdl_include.xsl ./schematron/<schematron schema>.sch
-  xsltproc -o tempfile2 ./schematron/iso_schematron_xslt1/iso_abstract_expand.xsl tempfile1
-  xsltproc -o <new compiled xsl>.xsl ./schematron/iso_schematron_xslt1/iso_svrl_for_xslt1.xsl tempfile2
+If all steps return 0 and no "<svrl:failed-assert>" elements are produced to output, validation is succesful. These steps have to be repeated for all schematron schemas (.sch) found in /usr/share/dpres-xml-schemas/schematron/
 
-Use the following command to validate a METS document.
+To validate other XML files (digital objects), use command::
 
-::
+    xmllint --huge --noout --catalogs --nowarning --schema <schema file> <XML file>
 
-  xsltproc -o outputfile <new compiled xsl>.xsl <METS document>
-
-If all steps return 0 and no "<svrl:failed-assert>" elements are produced to output, validation is succesful. These steps have to be repeated for all schematron schemas.
-
-For further information, see: http://xmlsoft.org/XSLT/xsltproc2.html, http://www.schematron.com/, and http://exslt.org/
+It is required that the schema file is found from the catalog, see: /etc/xml/dpres-xml-schemas/schema_catalogs/
 
 
-INCLUDED FILES
+Included files
 --------------
 
-SCHEMA CATALOG:
+Schema Catalog:
 +++++++++++++++
 
 Paths are described in relation to base path ./schema_catalogs/
@@ -56,7 +62,7 @@ Paths are described in relation to base path ./schema_catalogs/
 ./catalog.dtd
   OASIS Catalog specification file (unchanged)
 
-MODIFICATIONS TO SCHEMAS:
+Modifications to Schemas:
 +++++++++++++++++++++++++
 
 Paths are described in relation to base path ./schema_catalogs/schemas/
@@ -77,7 +83,7 @@ Paths are described in relation to base path ./schema_catalogs/schemas/
   Xlink patch file for the schema catalog
 
 
-SCHEMAS:
+Schemas:
 ++++++++
 
 Paths are described in relation to base path ./schema_catalogs/schemas_external/
@@ -149,7 +155,7 @@ Paths are described in relation to base path ./schema_catalogs/schemas_external/
   VRA Core schema files
 
 
-SCHEMATRON:
+Schematron:
 +++++++++++
 
 Paths related to schematron are described in relation to base path ./schematron/
@@ -184,6 +190,3 @@ Paths related to schematron are described in relation to base path ./schematron/
 ./mets_premis.sch
   Schematron schema for PREMIS
 
-CONTRIBUTION
-------------
-All contribution is welcome. Pull requests are handled according our schedule by our specialists and we aim to be fairly active on this. Most on the development takes place in `CSC - IT Center for Science <www.csc.fi>`_. 
