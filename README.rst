@@ -21,7 +21,7 @@ Installation and usage requires additional software:
         * GNU Make
         * libxml2 & libxslt / xmllint & xsltproc ( with exslt extension )
 
-Install with command::
+Install with commands::
 
         make install
         /usr/bin/xmlcatalog --noout --add "nextCatalog" "catalog" "/etc/xml/dpres-xml-schemas/schema_catalogs/catalog_main.xml" /etc/xml/catalog
