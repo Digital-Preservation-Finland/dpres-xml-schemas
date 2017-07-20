@@ -1,31 +1,44 @@
 Schema Catalogs and Schematron Rules
 ====================================
 
-This repository is currently used in `National Digital Library <http://www.kdk.fi/en/>`_ and `Open Science and Research Initiative <http://openscience.fi/frontpage>`_ for XML validation in digital preservation services. The dpres-xml-schemas is a collection of XML schema catalogs and schmematron files which together can be used to validate all metadata combined in METS document against the national specifications. The catalog can be used also for validating XML formatted digital objects.
+This repository is currently used in `National Digital Library <http://www.kdk.fi/en/>`_
+and `Open Science and Research Initiative <http://openscience.fi/frontpage>`_ for
+XML validation in digital preservation services. The dpres-xml-schemas is a collection
+of XML schema catalogs and schmematron files which together can be used to validate all
+metadata included in METS document against the national specifications. The catalog can
+be used also for validating XML formatted digital objects.
 
-The current METS catalog version is 1.6.0. The same catalog can be used also with older specifications, starting from version 1.4.
+The current METS catalog version is 1.6.0.
+The same catalog can be used also with older specifications, starting from version 1.4.
 
 Installation
 ------------
 
-We have utilized xmllint commandline tool for XML schema validation and xsltproc for XSLT conversions. Also EXSLT extension is required.
+This software is tested with Centos 7.x / RHEL 7.x releases.
+
+Installation and usage requires additional software:
+
+        * GNU Make
+        * libxml2 & libxslt / xmllint & xsltproc ( with exslt extension )
+
+Install with command::
+
+        make install
+        /usr/bin/xmlcatalog --noout --add "nextCatalog" "catalog" "/etc/xml/dpres-xml-schemas/schema_catalogs/catalog_main.xml" /etc/xml/catalog
+
+We have utilized xmllint commandline tool for XML schema validation and xsltproc for XSLT conversions.
 For further information, see: http://xmlsoft.org/xmllint.html, http://xmlsoft.org/XSLT/xsltproc2.html, and http://xmlsoft.org/XSLT/EXSLT/index.html
-
-Install libxml2, mllint and xsltproc described above. After that, use the following commands::
-
-    make install
-    /usr/bin/xmlcatalog --noout --add "nextCatalog" "catalog" "/etc/xml/dpres-xml-schemas/schema_catalogs/catalog_main.xml" /etc/xml/catalog
 
 Usage
 -----
 
-We have utilized xmllint commandline tool for XML schema validation. Use the following command to validate a METS document::
+Use the following command to validate a METS document::
 
-    xmllint --huge --noout --catalogs --nowarning --schema /etc/xml/dpres-xml-schemas/schema_catalogs/schemas/mets/mets.xsd <METS document>
+    xmllint --huge --noout --nonet --catalogs --nowarning --schema /etc/xml/dpres-xml-schemas/schema_catalogs/schemas/mets/mets.xsd <METS document>
 
 If no error messages are produced, schema validation is successful.
 
-METS documents require also schematron validation via XSLT conversions. Use the following commands to compile schematron files to XSL files::
+Use the following commands to compile schematron files to XSL files::
 
     xsltproc -o tempfile1 /usr/share/dpres-xml-schemas/schematron/iso_schematron_xslt1/iso_dsdl_include.xsl \
     /usr/share/dpres-xml-schemas/schematron/<schematron schema>.sch
@@ -38,11 +51,11 @@ Use the following command to validate a METS document::
 
 If all steps return 0 and no "<svrl:failed-assert>" elements are produced to output, validation is succesful. These steps have to be repeated for all schematron schemas (.sch) found in /usr/share/dpres-xml-schemas/schematron/
 
-To validate other XML files (digital objects), use command::
+To validate other XML files (i.e. digital objects), use command::
 
-    xmllint --huge --noout --catalogs --nowarning --schema <schema file> <XML file>
+    xmllint --huge --noout --nonet --catalogs --nowarning --schema <schema file> <XML file>
 
-It is required that the schema file is found from the catalog, see: /etc/xml/dpres-xml-schemas/schema_catalogs/
+It is required that the schema files are located in the local catalog, see: /etc/xml/dpres-xml-schemas/schema_catalogs/
 
 
 Included files
