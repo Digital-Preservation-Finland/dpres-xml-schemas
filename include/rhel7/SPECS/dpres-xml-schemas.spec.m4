@@ -47,6 +47,10 @@ find "${SHAREDIR}" -type f -exec chmod 644 \{\} \;
 make install XMLCATALOGDIR=%{buildroot}%{_sysconfdir}/xml/%{name} SHAREDIR=%{buildroot}%{_datadir}/%{name}
 
 %post
+# Remove any duplicates
+%{_bindir}/xmlcatalog --noout --del \
+"/etc/xml/dpres-xml-schemas/schema_catalogs/catalog_main.xml" \
+/etc/xml/catalog
 # Add our catalogs to the system centralised catalog
 %{_bindir}/xmlcatalog --noout --add "nextCatalog" "catalog" \
 "/etc/xml/dpres-xml-schemas/schema_catalogs/catalog_main.xml" \
