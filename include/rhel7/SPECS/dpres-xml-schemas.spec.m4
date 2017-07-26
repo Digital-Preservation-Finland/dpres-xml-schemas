@@ -22,6 +22,8 @@ BuildArch:      noarch
 
 Requires: python xml-common
 Requires: libxslt python-setuptools
+Obsoletes: kdk-mets-private
+Obsoletes: kdk-mets-schemas
 
 %description
 XML schema catalogs and schematron rules.
