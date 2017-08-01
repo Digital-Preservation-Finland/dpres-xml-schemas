@@ -49,6 +49,10 @@ find "${SHAREDIR}" -type f -exec chmod 644 \{\} \;
 make install XMLCATALOGDIR=%{buildroot}%{_sysconfdir}/xml/%{name} SHAREDIR=%{buildroot}%{_datadir}/%{name}
 
 %post
+# Remove obsolete XML schema entry
+%{_bindir}/xmlcatalog --noout --del \
+"/etc/xml/information-package-tools/digital-object-catalog/digital-object-catalog.xml" \
+/etc/xml/catalog
 # Remove any duplicates
 %{_bindir}/xmlcatalog --noout --del \
 "/etc/xml/dpres-xml-schemas/schema_catalogs/catalog_main.xml" \

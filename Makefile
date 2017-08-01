@@ -54,7 +54,7 @@ clean-rpm:
 
 rpm: clean-rpm
 	create-archive.sh
-	preprocess-spec-m4-macros.sh include/rhel6
+	preprocess-spec-m4-macros.sh include/rhel7
 	build-rpm.sh ${MOCK_CONFIG}
 
 e2e-localhost-cleanup: .e2e/ansible-fetch
