@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+	<!--
+	Check a parameter 
+	context - Element or attribute where parameters exist
+	check_parameter - Parameter name to check
+	required - true/false, whether rerquired parameter or not
+	given_params - Given parameter string
+	allowed_values - Allowed values of given parameter, use string('') if can not be listed.
+	profiles - METS profiles for which the rule is launched.
+		If empty, launch by default. Do not use profile parameters.
+        specifications - Catalog/specification versions for which the rule is launched.
+                List the affected versions with semicolon+space delimiter.
+                If begins with "not:", rule is launched with other but given versions.  
+                If empty, launch rule by default.
+	-->
+	<sch:pattern id="parameter_vocabulary_check" abstract="true" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:mets="http://www.loc.gov/METS/" xmlns:fi="http://www.kdk.fi/standards/mets/kdk-extensions" xmlns:exsl="http://exslt.org/common" xmlns:sets="http://exslt.org/sets" xmlns:str="http://exslt.org/strings">
+		<sch:rule context="$context">
+	   		<sch:let name="given_profile" value="str:split(normalize-space(/mets:mets/@PROFILE), '?')"/>
+			<sch:assert test="not(str:concat($profiles)='' or count($profiles) = count(sets:distinct(exsl:node-set($given_profile[1]) | $profiles)))
+			or not(starts-with($given_params, concat($check_parameter, '=')) or contains($given_params, concat('&amp;', $check_parameter, '='))) or $allowed_values=''
+			or count($allowed_values) = count(sets:distinct(str:tokenize(substring-after($given_params, concat($check_parameter, '=')), '&amp;')[1] | $allowed_values))
+			or count($allowed_values) = count(sets:distinct(str:tokenize(substring-after($given_params, concat('&amp;', $check_parameter, '=')), '&amp;')[1] | $allowed_values))
+			or not(normalize-space($specifications)=''
+			or ((normalize-space(substring($specifications,1,4))='not:') and ((not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ',normalize-space(ancestor-or-self::mets:mets/@fi:CATALOG),'; ')))) and not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ',normalize-space(ancestor-or-self::mets:mets/@fi:SPECIFICATION),'; ')))))
+			or ((normalize-space(substring($specifications,1,4))!='not:') and ((contains(concat('; ',normalize-space($specifications),'; '), concat('; ',normalize-space(ancestor-or-self::mets:mets/@fi:CATALOG),'; '))) or (contains(concat('; ',normalize-space($specifications),'; '), concat('; ',normalize-space(ancestor-or-self::mets:mets/@fi:SPECIFICATION),'; '))))))">
+				Unknown value in parameter '<sch:value-of select="$check_parameter"/>' in '<sch:name/>'.
+			</sch:assert>
+			<sch:assert test="not(str:concat($profiles)='' or count($profiles) = count(sets:distinct(exsl:node-set($given_profile[1]) | $profiles)))
+			or not(starts-with($given_params, concat($check_parameter, '=')) or contains($given_params, concat('&amp;', $check_parameter, '=')))
+			or count(str:tokenize(substring-after($given_params, concat($check_parameter, '=')), '&amp;')[1]) > 0
+			or count(str:tokenize(substring-after($given_params, concat('&amp;', $check_parameter, '=')), '&amp;')[1]) > 0
+			or not(normalize-space($specifications)=''
+			or ((normalize-space(substring($specifications,1,4))='not:') and ((not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ',normalize-space(ancestor-or-self::mets:mets/@fi:CATALOG),'; ')))) and not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ',normalize-space(ancestor-or-self::mets:mets/@fi:SPECIFICATION),'; ')))))
+			or ((normalize-space(substring($specifications,1,4))!='not:') and ((contains(concat('; ',normalize-space($specifications),'; '), concat('; ',normalize-space(ancestor-or-self::mets:mets/@fi:CATALOG),'; '))) or (contains(concat('; ',normalize-space($specifications),'; '), concat('; ',normalize-space(ancestor-or-self::mets:mets/@fi:SPECIFICATION),'; '))))))">
+				Empty value in parameter '<sch:value-of select="$check_parameter"/>' in '<sch:name/>'.
+			</sch:assert>
+			<sch:assert test="not($required)
+			or not(str:concat($profiles)='' or count($profiles) = count(sets:distinct(exsl:node-set($given_profile[1]) | $profiles)))
+			or starts-with($given_params, concat($check_parameter, '=')) or contains($given_params, concat('&amp;', $check_parameter, '='))
+			or not(normalize-space($specifications)=''
+			or ((normalize-space(substring($specifications,1,4))='not:') and ((not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ',normalize-space(ancestor-or-self::mets:mets/@fi:CATALOG),'; ')))) and not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ',normalize-space(ancestor-or-self::mets:mets/@fi:SPECIFICATION),'; ')))))
+			or ((normalize-space(substring($specifications,1,4))!='not:') and ((contains(concat('; ',normalize-space($specifications),'; '), concat('; ',normalize-space(ancestor-or-self::mets:mets/@fi:CATALOG),'; '))) or (contains(concat('; ',normalize-space($specifications),'; '), concat('; ',normalize-space(ancestor-or-self::mets:mets/@fi:SPECIFICATION),'; '))))))">
+				Parameter '<sch:value-of select="$check_parameter"/>' is required in '<sch:name/>'.
+			</sch:assert>
+		</sch:rule>
+	</sch:pattern>

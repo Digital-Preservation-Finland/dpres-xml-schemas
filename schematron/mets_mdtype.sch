@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.6.0">
+<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">
 	<sch:title>METS external metadata type validation</sch:title>
 
 <!--
@@ -71,6 +71,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 			  + number(normalize-space(@MDTYPE)='DDI' and normalize-space(@MDTYPEVERSION)='2.1')*number(boolean(mets:xmlData/ddicb21:*))*count(mets:xmlData/*)
 			  + number(normalize-space(@MDTYPE)='TEXTMD')*number(boolean(mets:xmlData/textmd:*))*count(mets:xmlData/*)) = 1"/>
 		<sch:param name="used_attribute" value="@MDTYPE"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4; 1.4.1; 1.5.0')"/>
 	</sch:pattern>
 	<sch:pattern id="mets15_mdtype_content" is-a="required_metadata_match_pattern">
@@ -95,6 +96,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 			  + number(normalize-space(@MDTYPE)='DDI' and normalize-space(@MDTYPEVERSION)='2.1')*number(boolean(mets:xmlData/ddicb21:*))*count(mets:xmlData/*)
 			  + number(normalize-space(@MDTYPE)='TEXTMD')*number(boolean(mets:xmlData/textmd:*))*count(mets:xmlData/*)) = 1"/>
 		<sch:param name="used_attribute" value="@MDTYPE"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('1.5.0')"/>
 	</sch:pattern>
 	<sch:pattern id="mets14_mdtype_content" is-a="required_metadata_match_pattern">
@@ -115,6 +117,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 			  + number(normalize-space(@MDTYPE)='DDI')*number(boolean(mets:xmlData/ddilc32:* or mets:xmlData/ddilc31:* or mets:xmlData/ddicb25:* or mets:xmlData/ddicb21:*))*count(mets:xmlData/*)
 			  + number(normalize-space(@MDTYPE)='TEXTMD')*number(boolean(mets:xmlData/textmd_kdk:*))*count(mets:xmlData/*)) = 1"/>
 		<sch:param name="used_attribute" value="@MDTYPE"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('1.4.1; 1.4')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_othermdtype_content" is-a="required_metadata_match_pattern">
@@ -125,6 +128,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 			  + number(normalize-space(@OTHERMDTYPE)='EAD3')*number(boolean(mets:xmlData/ead3:*))*count(mets:xmlData/*)
 			  + number(normalize-space(@OTHERMDTYPE)!='ADDML' and normalize-space(@OTHERMDTYPE)!='AudioMD' and normalize-space(@OTHERMDTYPE)!='VideoMD' and normalize-space(@OTHERMDTYPE)!='EAD3')*count(mets:xmlData/*)) = 1"/>
 		<sch:param name="used_attribute" value="@OTHERMDTYPE"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	
@@ -133,6 +137,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 	<sch:pattern id="mets_EN15744" is-a="disallowed_unsupported_metadata_pattern">
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="unsupported_mdname" value="string('EN15744')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	
@@ -140,6 +145,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 	<sch:pattern id="mets_allowedmd_unsupported" is-a="allowed_unsupported_metadata_pattern">
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_condition" value="@OTHERMDTYPE!='AudioMD' and @OTHERMDTYPE!='VideoMD' and @OTHERMDTYPE!='EN15744' and @OTHERMDTYPE!='EAD3' and @OTHERMDTYPE!='ADDML'"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	
@@ -148,6 +154,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 		<sch:param name="context_element" value="mets:xmlData"/>
 		<sch:param name="context_condition" value="../@MDTYPE='PREMIS:RIGHTS'"/>
 		<sch:param name="deprecated_element" value="premis:rightsStatement"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('1.5.0')"/>
 	</sch:pattern>
 	
@@ -156,12 +163,14 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_metadata" value="mets:techMD/mets:mdWrap[@MDTYPE='PREMIS:OBJECT']"/>
 		<sch:param name="metadata_name" value="string('PREMIS:OBJECT')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_event_exists" is-a="required_metadata_pattern">
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_metadata" value="mets:digiprovMD/mets:mdWrap[@MDTYPE='PREMIS:EVENT']"/>
 		<sch:param name="metadata_name" value="string('PREMIS:EVENT')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_descriptive_exists" is-a="required_metadata_pattern">
@@ -169,6 +178,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 		<sch:param name="required_metadata" value="mets:dmdSec/mets:mdWrap[@MDTYPE='LIDO' or @MDTYPE='EAC-CPF' or @MDTYPE='EAD' or @OTHERMDTYPE='EAD3'
 		or @MDTYPE='VRA' or @MDTYPE='MODS' or @MDTYPE='MARC' or @MDTYPE='DC' or @MDTYPE='DDI' or @OTHERMDTYPE='EN15744']"/>
 		<sch:param name="metadata_name" value="string('Standard portfolio descriptive')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
@@ -177,78 +187,92 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 		<sch:param name="context_element" value="mets:dmdSec/mets:mdWrap/mets:xmlData"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="premis:rights"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern> 
 	<sch:pattern id="techmd_no_rights" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="premis:rights"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern> 
 	<sch:pattern id="digiprovmd_no_rights" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap/mets:xmlData"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="premis:rights"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern> 
 	<sch:pattern id="dmdsec_no_tech" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:dmdSec/mets:mdWrap/mets:xmlData"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="premis:object or addml:* or textmd:* or textmd_kdk:* or mix:* or audiomd:* or videomd:*"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern> 
 	<sch:pattern id="rights_no_tech" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:rightsMD/mets:mdWrap/mets:xmlData"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="premis:object or addml:* or textmd:* or textmd_kdk:* or mix:* or audiomd:* or videomd:*"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern> 
 	<sch:pattern id="digiprovmd_no_tech" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap/mets:xmlData"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="addml:* or textmd:* or textmd_kdk:* or mix:* or audiomd:* or videomd:*"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="digiprovmd_only_representation" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap/mets:xmlData"/>
 		<sch:param name="context_condition" value="premis:object[not(normalize-space(@xsi:type)='premis:representation')]"/>
 		<sch:param name="disallowed_element" value="premis:object"/>
+		
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="dmdsec_no_digiprov" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:dmdSec/mets:mdWrap/mets:xmlData"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="premis:agent or premis:event"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern> 
 	<sch:pattern id="techmd_no_digiprov" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="premis:agent or premis:event"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern> 
 	<sch:pattern id="rights_no_digiprov" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:rightsMD/mets:mdWrap/mets:xmlData"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="premis:agent or premis:event"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern> 
 	<sch:pattern id="techmd_no_descriptive" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="lido:* or ead:* or ead3:* or vra:* or mods:* or marc21:* or dc:* or dcterms:* or dcmitype:* or ddilc32:* or ddilc31:* or ddicb25:* or ddicb21:*"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern> 
 	<sch:pattern id="rights_no_descriptive" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:rightsMD/mets:mdWrap/mets:xmlData"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="lido:* or ead:* or ead3:* or vra:* or mods:* or marc21:* or dc:* or dcterms:* or dcmitype:* or ddilc32:* or ddilc31:* or ddicb25:* or ddicb21:*"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern> 
 	<sch:pattern id="digiprovmd_no_descriptive" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap/mets:xmlData"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="lido:* or ead:* or ead3:* or vra:* or mods:* or marc21:* or dc:* or dcterms:* or dcmitype:* or ddilc32:* or ddilc31:* or ddicb25:* or ddicb21:*"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern> 
 	

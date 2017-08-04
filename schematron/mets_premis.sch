@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.6.0">
+<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">
 	<sch:title>PREMIS metadata validation</sch:title>
 
 <!--
@@ -410,24 +410,28 @@ Validates PREMIS metadata.
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/premis:object[normalize-space(@xsi:type)='premis:file']//premis:objectCharacteristics"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="premis:fixity"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="premis_creatingApplication" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/premis:object[normalize-space(@xsi:type)='premis:file']//premis:objectCharacteristics"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="premis:creatingApplication"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="premis_dateCreatedByApplication" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/premis:object[normalize-space(@xsi:type)='premis:file']//premis:creatingApplication"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="premis:dateCreatedByApplication"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="premis_formatDesignation" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/premis:object[not(normalize-space(@xsi:type)='premis:representation')]//premis:format"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="premis:formatDesignation"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	
@@ -436,6 +440,7 @@ Validates PREMIS metadata.
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="mime_types" value="$supported_mime_types"/>
 		<sch:param name="pronom_codes" value="$supported_pronom_codes"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
@@ -443,6 +448,7 @@ Validates PREMIS metadata.
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="charset_mimes" value="$mimes_require_charset"/>
 		<sch:param name="charset" value="$supported_charsets"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
 	</sch:pattern>
 
@@ -451,6 +457,7 @@ Validates PREMIS metadata.
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/premis:object[normalize-space(@xsi:type)='premis:file']//premis:messageDigestAlgorithm"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="valid_values" value="$supported_checksum_algorithms"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
@@ -458,41 +465,49 @@ Validates PREMIS metadata.
 	<sch:pattern id="premis_objectIdentifierType_value" is-a="required_nonempty_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/premis:object//premis:objectIdentifierType"/>
 		<sch:param name="context_condition" value="true()"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="premis_objectIdentifierValue_value" is-a="required_nonempty_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/premis:object//premis:objectIdentifierValue"/>
 		<sch:param name="context_condition" value="true()"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="premis_rightsStatementIdentifierType_value" is-a="required_nonempty_element_pattern">
 		<sch:param name="context_element" value="mets:rightsMD/mets:mdWrap/mets:xmlData/premis:rights//premis:rightsStatementIdentifierType"/>
 		<sch:param name="context_condition" value="true()"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="premis_rightsStatementIdentifierValue_value" is-a="required_nonempty_element_pattern">
 		<sch:param name="context_element" value="mets:rightsMD/mets:mdWrap/mets:xmlData/premis:rights//premis:rightsStatementIdentifierValue"/>
 		<sch:param name="context_condition" value="true()"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="premis_eventIdentifierType_value" is-a="required_nonempty_element_pattern">
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap/mets:xmlData/premis:event//premis:eventIdentifierType"/>
 		<sch:param name="context_condition" value="true()"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="premis_eventIdentifierValue_value" is-a="required_nonempty_element_pattern">
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap/mets:xmlData/premis:event//premis:eventIdentifierValue"/>
 		<sch:param name="context_condition" value="true()"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="premis_agentIdentifierType_value" is-a="required_nonempty_element_pattern">
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap/mets:xmlData/premis:agent//premis:agentIdentifierType"/>
 		<sch:param name="context_condition" value="true()"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="premis_agentIdentifierValue_value" is-a="required_nonempty_element_pattern">
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap/mets:xmlData/premis:agent//premis:agentIdentifierValue"/>
 		<sch:param name="context_condition" value="true()"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
@@ -501,6 +516,7 @@ Validates PREMIS metadata.
 		<sch:param name="unique_elements" value=".//premis:objectIdentifierValue | .//premis:eventIdentifierValue | .//premis:agentIdentifierValue | .//premis:rightsStatementIdentifierValue"/>
 		<sch:param name="name_elements" value="string('premis:objectIdentifierValue; premis:eventIdentifierValue; premis:agentIdentifierValue; premis:rightsStatementIdentifierValue')"/>
 		<sch:param name="context_condition" value="true()"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
 	</sch:pattern>
 	

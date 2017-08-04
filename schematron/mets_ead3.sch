@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.6.0">
+<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">
 	<sch:title>EAD3 metadata validation</sch:title>
 
 <!--
@@ -9,6 +9,9 @@ Validates EAD3 metadata.
 	<sch:ns prefix="mets" uri="http://www.loc.gov/METS/"/>
 	<sch:ns prefix="fi" uri="http://www.kdk.fi/standards/mets/kdk-extensions"/>
 	<sch:ns prefix="ead3" uri="http://ead3.archivists.org/schema/"/>
+	<sch:ns prefix="exsl" uri="http://exslt.org/common"/>
+	<sch:ns prefix="sets" uri="http://exslt.org/sets"/>
+	<sch:ns prefix="str" uri="http://exslt.org/strings"/>
 
 	<sch:include href="./abstracts/disallowed_element_pattern.incl"/>
 
@@ -20,7 +23,8 @@ Validates EAD3 metadata.
 	<sch:pattern id="ead3_external" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="ead3:objectxmlwrap"/>
 		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_element" value="ead3:*"/>
+		<sch:param name="disallowed_element" value="ead3:*"/>	
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 

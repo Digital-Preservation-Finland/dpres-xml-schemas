@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.6.0">
+<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">
 	<sch:title>METS internal validation</sch:title>
 
 <!--
@@ -28,6 +28,11 @@ Validates METS metadata elements and attributes, their values, and METS internal
 	<sch:include href="./abstracts/required_agent_pattern.incl"/>
 	<sch:include href="./abstracts/required_nonempty_attribute_pattern.incl"/>
 
+	<sch:let name="all_profiles" value="
+                exsl:node-set('http://www.kdk.fi/kdk-mets-profile')
+		| exsl:node-set('http://www.avointiede.fi/att-mets-profile') 
+		| exsl:node-set('http://www.avointiede.fi/att-midterm-mets-profile')"/>
+
 	<!-- METS root -->
 	<sch:pattern id="mets_root">
 		<sch:rule context="/">
@@ -37,12 +42,23 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		</sch:rule>
 	</sch:pattern>
 
+
+        <sch:pattern id="mets_profile_name">
+                <sch:rule context="mets:mets/@PROFILE">
+                        <sch:let name="given_profile" value="str:split(normalize-space(.), '?')"/>
+                        <sch:assert test="$given_profile[1]!='' and count($all_profiles) = count(sets:distinct(exsl:node-set($given_profile[1]) | $all_profiles))">
+                                Unknown value <sch:value-of select="$given_profile[1]"/> in attribute 'PROFILE'.
+                        </sch:assert>
+                </sch:rule>
+        </sch:pattern>
+
 	<!-- Specification attributes -->
 	<sch:pattern id="mets_CATALOG_SPECIFICATION" is-a="required_attribute_or_attribute_pattern">
 		<sch:param name="context_element" value="mets:mets"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_attribute1" value="@fi:CATALOG"/>
 		<sch:param name="required_attribute2" value="@fi:SPECIFICATION"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_specification" is-a="required_specification_pattern">
@@ -56,6 +72,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_attribute" value="@fi:CATALOG"/>
 		<sch:param name="deprecated_value" value="string('1.5.0')"/>		
 		<sch:param name="valid_values" value="string('1.6.0')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets141_CATALOG_deprecated" is-a="deprecated_value_attribute_pattern">
@@ -64,6 +81,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_attribute" value="@fi:CATALOG"/>
 		<sch:param name="deprecated_value" value="string('1.4.1')"/>		
 		<sch:param name="valid_values" value="string('1.6.0')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets14_CATALOG_deprecated" is-a="deprecated_value_attribute_pattern">
@@ -72,6 +90,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_attribute" value="@fi:CATALOG"/>
 		<sch:param name="deprecated_value" value="string('1.4')"/>		
 		<sch:param name="valid_values" value="string('1.6.0')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets15_SPECIFICATION_deprecated" is-a="deprecated_value_attribute_pattern">
@@ -80,6 +99,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_attribute" value="@fi:SPECIFICATION"/>
 		<sch:param name="deprecated_value" value="string('1.5.0')"/>		
 		<sch:param name="valid_values" value="string('1.6.0; 1.6.1')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets14_SPECIFICATION_deprecated" is-a="deprecated_value_attribute_pattern">
@@ -88,6 +108,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_attribute" value="@fi:SPECIFICATION"/>
 		<sch:param name="deprecated_value" value="string('1.4')"/>		
 		<sch:param name="valid_values" value="string('1.6.0; 1.6.1')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
@@ -96,12 +117,14 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_element" value="mets:mets"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_attribute" value="@OBJID"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_OBJID_value" is-a="required_nonempty_attribute_pattern">
 		<sch:param name="context_element" value="mets:mets"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="context_attribute" value="@OBJID"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
@@ -109,12 +132,14 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_element" value="mets:mets"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="context_attribute" value="@fi:CONTENTID"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4; 1.4.1; 1.5.0')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_no_CONTENTID" is-a="disallowed_attribute_pattern">
 		<sch:param name="context_element" value="mets:mets"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_attribute" value="@fi:CONTENTID"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0')"/>
 	</sch:pattern>
 
@@ -122,13 +147,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_element" value="mets:mets"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_attribute" value="@PROFILE"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_PROFILE_values" is-a="required_values_attribute_pattern">
-		<sch:param name="context_element" value="mets:mets"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="context_attribute" value="@PROFILE"/>
-		<sch:param name="valid_values" value="string('http://www.kdk.fi/kdk-mets-profile')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
@@ -137,18 +156,21 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_element" value="mets:mets"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mets:metsHdr"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_dmdSec" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:mets"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mets:dmdSec"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_amdSec" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:mets"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mets:amdSec"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_amdSec_amdSec_max" is-a="required_max_elements_pattern">
@@ -156,24 +178,28 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mets:amdSec"/>
 		<sch:param name="num" value="1"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_structMap" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:mets"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mets:structMap"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_structLink" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:mets"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="mets:structLink"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_behaviorSec" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:mets"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="mets:behaviorSec"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
@@ -182,6 +208,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_element" value="mets:metsHdr"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_attribute" value="@CREATEDATE"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_RECORDSTATUS_values" is-a="required_values_attribute_pattern">
@@ -189,6 +216,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="context_attribute" value="@RECORDSTATUS"/>
 		<sch:param name="valid_values" value="string('submission')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
@@ -197,24 +225,28 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_element" value="mets:metsHdr"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mets:agent"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_agent_ROLE" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:metsHdr/mets:agent"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_attribute" value="@ROLE"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_agent_TYPE" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:metsHdr/mets:agent"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_attribute" value="@TYPE"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_agent_creator" is-a="required_agent_pattern">
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="role" value="string('CREATOR')"/>
 		<sch:param name="type" value="string('ORGANIZATION')"/>		
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
@@ -223,6 +255,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_element" value="mets:metsHdr"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="mets:altRecordID"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
@@ -231,12 +264,14 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_element" value="mets:amdSec"/>
 		<sch:param name="context_condition" value="count(../mets:amdSec)=1"/>
 		<sch:param name="required_element" value="mets:techMD"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_amdSec_digiprovMD" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:amdSec"/>
 		<sch:param name="context_condition" value="count(../mets:amdSec)=1"/>
 		<sch:param name="required_element" value="mets:digiprovMD"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
@@ -245,48 +280,56 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_element" value="mets:dmdSec"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mets:mdWrap"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_dmdSec_mdRef" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:dmdSec"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="mets:mdRef"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_techMD_mdWrap" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mets:mdWrap"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_techMD_mdRef" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:techMD"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="mets:mdRef"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_rightsMD_mdWrap" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:rightsMD"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mets:mdWrap"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_rightsMD_mdRef" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:rightsMD"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="mets:mdRef"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_sourceMD_mdWrap" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:sourceMD"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mets:mdWrap"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_sourceMD_mdRef" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:sourceMD"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="mets:mdRef"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_digiprovMD_mdWrap_mdRef" is-a="required_element_or_element_pattern">
@@ -294,6 +337,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element1" value="mets:mdWrap"/>
 		<sch:param name="required_element2" value="mets:mdRef"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
@@ -303,6 +347,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_attribute1" value="@CREATED"/>
 		<sch:param name="required_attribute2" value="@fi:CREATED"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_amdSec_CREATED" is-a="required_attribute_xor_attribute_pattern">
@@ -310,6 +355,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_attribute1" value="@CREATED"/>
 		<sch:param name="required_attribute2" value="@fi:CREATED"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_dmdSec_MDTYPE" is-a="required_values_attribute_pattern">
@@ -317,6 +363,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="context_attribute" value="@MDTYPE"/>
 		<sch:param name="valid_values" value="string('MARC; DC; MODS; EAD; EAC-CPF; LIDO; VRA; DDI; OTHER')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_techMD_MDTYPE" is-a="required_values_attribute_pattern">
@@ -324,6 +371,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="context_attribute" value="@MDTYPE"/>
 		<sch:param name="valid_values" value="string('PREMIS:OBJECT; NISOIMG; TEXTMD; OTHER')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_rightsMD_MDTYPE" is-a="required_values_attribute_pattern">
@@ -331,6 +379,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="context_attribute" value="@MDTYPE"/>
 		<sch:param name="valid_values" value="string('PREMIS:RIGHTS; OTHER')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
 	</sch:pattern>
 	<sch:pattern id="mets14_rightsMD_MDTYPE" is-a="required_values_attribute_pattern">
@@ -338,6 +387,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="context_attribute" value="@MDTYPE"/>
 		<sch:param name="valid_values" value="string('METSRIGHTS; PREMIS:RIGHTS; OTHER')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('1.4.1; 1.4')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_digiprovMD_MDTYPE" is-a="required_values_attribute_pattern">
@@ -345,30 +395,35 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="context_attribute" value="@MDTYPE"/>
 		<sch:param name="valid_values" value="string('PREMIS:OBJECT; PREMIS:EVENT; PREMIS:AGENT; OTHER')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_dmdSec_PID" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:dmdSec"/>
 		<sch:param name="context_condition" value="@fi:PIDTYPE"/>
 		<sch:param name="required_attribute" value="@fi:PID"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_amdSec_PID" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:amdSec/*"/>
 		<sch:param name="context_condition" value="@fi:PIDTYPE"/>
 		<sch:param name="required_attribute" value="@fi:PID"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_dmdSec_PIDTYPE" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:dmdSec"/>
 		<sch:param name="context_condition" value="@fi:PID"/>
 		<sch:param name="required_attribute" value="@fi:PIDTYPE"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_amdSec_PIDTYPE" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:amdSec/*"/>
 		<sch:param name="context_condition" value="@fi:PID"/>
 		<sch:param name="required_attribute" value="@fi:PIDTYPE"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
@@ -377,42 +432,49 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_element" value="mets:mdWrap"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mets:xmlData"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_mdWrap_binData" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:mdWrap"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="mets:binData"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_OTHERMDTYPE" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:mdWrap"/>
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='OTHER'"/>
 		<sch:param name="required_attribute" value="@OTHERMDTYPE"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_no_OTHERMDTYPE" is-a="disallowed_attribute_pattern">
 		<sch:param name="context_element" value="mets:mdWrap"/>
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)!='OTHER'"/>
 		<sch:param name="disallowed_attribute" value="@OTHERMDTYPE"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_mdWrap_CHECKSUM" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:mdWrap"/>
 		<sch:param name="context_condition" value="@CHECKSUMTYPE"/>
 		<sch:param name="required_attribute" value="@CHECKSUM"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_mdWrap_CHECKSUMTYPE" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:mdWrap"/>
 		<sch:param name="context_condition" value="@CHECKSUM"/>
 		<sch:param name="required_attribute" value="@CHECKSUMTYPE"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
    	<sch:pattern id="mets_MDTYPEVERSION" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:mdWrap"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_attribute" value="@MDTYPEVERSION"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
 	</sch:pattern>
 
@@ -422,6 +484,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:OBJECT'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2.2; 2.3')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4; 1.5.0')"/>
 	</sch:pattern>
 	<sch:pattern id="mets15_techMD_MDTYPEVERSION_values_OBJECT" is-a="required_values_attribute_pattern">
@@ -429,6 +492,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:OBJECT'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2.1; 2.2; 2.3')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('1.5.0')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_techMD_MDTYPEVERSION_values_MIX" is-a="required_values_attribute_pattern">
@@ -436,6 +500,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='NISOIMG'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2.0')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_rightsMD_MDTYPEVERSION_values_RIGHTS" is-a="required_values_attribute_pattern">
@@ -443,20 +508,23 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:RIGHTS'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2.2; 2.3')"/>
-		<sch:param name="specifications" value="string('not: 1.4.1; 1.4; 1.5.0')"/>
+                <sch:param name="profiles" value="exsl:node-set('')"/>
+                <sch:param name="specifications" value="string('not: 1.4.1; 1.4; 1.5.0')"/>
 	</sch:pattern>
 	<sch:pattern id="mets15_rightsMD_MDTYPEVERSION_values_RIGHTS" is-a="required_values_attribute_pattern">
 		<sch:param name="context_element" value="mets:rightsMD/mets:mdWrap"/>
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:RIGHTS'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2.1; 2.2; 2.3')"/>
-		<sch:param name="specifications" value="string('1.5.0')"/>
+                <sch:param name="profiles" value="exsl:node-set('')"/>
+                <sch:param name="specifications" value="string('1.5.0')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_digiprovMD_MDTYPEVERSION_values_OBJECT" is-a="required_values_attribute_pattern">
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:OBJECT'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2.2; 2.3')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4; 1.5.0')"/>
 	</sch:pattern>
 	<sch:pattern id="mets15_digiprovMD_MDTYPEVERSION_values_OBJECT" is-a="required_values_attribute_pattern">
@@ -464,6 +532,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:OBJECT'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2.1; 2.2; 2.3')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('1.5.0')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_digiprovMD_MDTYPEVERSION_values_EVENT" is-a="required_values_attribute_pattern">
@@ -471,6 +540,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:EVENT'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2.2; 2.3')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4; 1.5.0')"/>
 	</sch:pattern>
 	<sch:pattern id="mets15_digiprovMD_MDTYPEVERSION_values_EVENT" is-a="required_values_attribute_pattern">
@@ -478,6 +548,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:EVENT'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2.1; 2.2; 2.3')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('1.5.0')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_digiprovMD_MDTYPEVERSION_values_AGENT" is-a="required_values_attribute_pattern">
@@ -485,6 +556,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:AGENT'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2.2; 2.3')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4; 1.5.0')"/>
 	</sch:pattern>
 	<sch:pattern id="mets15_digiprovMD_MDTYPEVERSION_values_AGENT" is-a="required_values_attribute_pattern">
@@ -492,6 +564,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:AGENT'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2.1; 2.2; 2.3')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('1.5.0')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_DC" is-a="required_values_attribute_pattern">
@@ -499,6 +572,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='DC'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('1.1')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_MODS" is-a="required_values_attribute_pattern">
@@ -506,6 +580,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='MODS'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('3.0; 3.1; 3.2; 3.3; 3.4; 3.5; 3.6')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_EAD" is-a="required_values_attribute_pattern">
@@ -513,6 +588,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='EAD'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2002')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_EAC" is-a="required_values_attribute_pattern">
@@ -520,6 +596,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='EAC-CPF'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2010')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_LIDO" is-a="required_values_attribute_pattern">
@@ -527,6 +604,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='LIDO'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('1.0')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_VRA" is-a="required_values_attribute_pattern">
@@ -534,6 +612,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='VRA'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('4.0')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_DDI" is-a="required_values_attribute_pattern">
@@ -541,6 +620,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='DDI'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('3.2; 3.1; 2.5.1; 2.5; 2.1')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_MARC" is-a="required_values_attribute_pattern">
@@ -548,6 +628,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='MARC'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('marcxml=1.2;marc=marc21; marcxml=1.2;marc=finmarc')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_techMD_MDTYPEVERSION_values_AudioMD" is-a="required_values_attribute_pattern">
@@ -555,6 +636,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='OTHER' and normalize-space(@OTHERMDTYPE)='AudioMD'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2.0')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_techMD_MDTYPEVERSION_values_VideoMD" is-a="required_values_attribute_pattern">
@@ -562,6 +644,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='OTHER' and normalize-space(@OTHERMDTYPE)='VideoMD'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2.0')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_techMD_MDTYPEVERSION_values_ADDML" is-a="required_values_attribute_pattern">
@@ -569,6 +652,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='OTHER' and normalize-space(@OTHERMDTYPE)='ADDML'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('8.2; 8.3')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_techMD_MDTYPEVERSION_values_EAD3" is-a="required_values_attribute_pattern">
@@ -576,6 +660,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='OTHER' and normalize-space(@OTHERMDTYPE)='EAD3'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('1.0.0')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
 	</sch:pattern>
 
@@ -584,36 +669,42 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_attribute" value="@OTHERMDTYPE"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_mdRef_OTHERLOCTYPE" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_attribute" value="@OTHERLOCTYPE"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_mdRef_href" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_attribute" value="@xlink:href"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_mdRef_type" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_attribute" value="@xlink:type"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_mdRef_CHECKSUM" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
 		<sch:param name="context_condition" value="@CHECKSUMTYPE"/>
 		<sch:param name="required_attribute" value="@CHECKSUM"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_mdRef_CHECKSUMTYPE" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
 		<sch:param name="context_condition" value="@CHECKSUM"/>
 		<sch:param name="required_attribute" value="@CHECKSUMTYPE"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
@@ -623,6 +714,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="context_attribute" value="@MDTYPE"/>
 		<sch:param name="valid_values" value="string('OTHER')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_mdRef_OTHERMDTYPE_values" is-a="required_values_attribute_pattern">
@@ -630,6 +722,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="context_attribute" value="@OTHERMDTYPE"/>
 		<sch:param name="valid_values" value="string('KDKPreservationPlan')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_mdRef_LOCTYPE_values" is-a="required_values_attribute_pattern">
@@ -637,6 +730,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="context_attribute" value="@LOCTYPE"/>
 		<sch:param name="valid_values" value="string('OTHER')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_mdRef_OTHERLOCTYPE_values" is-a="required_values_attribute_pattern">
@@ -644,6 +738,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="context_attribute" value="@OTHERLOCTYPE"/>
 		<sch:param name="valid_values" value="string('PreservationPlanID')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_mdRef_type_values" is-a="required_values_attribute_pattern">
@@ -651,6 +746,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="context_attribute" value="@xlink:type"/>
 		<sch:param name="valid_values" value="string('simple')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
@@ -659,30 +755,35 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_element" value="mets:fileGrp"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mets:file"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_file_ADMID" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:fileGrp/mets:file"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_attribute" value="@ADMID"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_file_CHECKSUM" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:fileGrp/mets:file"/>
 		<sch:param name="context_condition" value="@CHECKSUMTYPE"/>
 		<sch:param name="required_attribute" value="@CHECKSUM"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_file_CHECKSUMTYPE" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:fileGrp/mets:file"/>
 		<sch:param name="context_condition" value="@CHECKSUM"/>
 		<sch:param name="required_attribute" value="@CHECKSUMTYPE"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_file_FLocat" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:fileGrp/mets:file"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mets:FLocat"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_file_FLocat_max" is-a="required_max_elements_pattern">
@@ -690,30 +791,35 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mets:FLocat"/>
 		<sch:param name="num" value="1"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_file_FContent" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:fileGrp/mets:file"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="mets:FContent"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_file_stream" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:fileGrp/mets:file"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="mets:stream"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_file_file" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:fileGrp/mets:file"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="mets:file"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_file_transformFile" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:fileGrp/mets:file"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="mets:transformFile"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
@@ -722,18 +828,21 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_element" value="mets:FLocat"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_attribute" value="@xlink:href"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_FLocat_type" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:FLocat"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_attribute" value="@xlink:type"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_FLocat_OTHERLOCTYPE" is-a="disallowed_attribute_pattern">
 		<sch:param name="context_element" value="mets:FLocat"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_attribute" value="@OTHERLOCTYPE"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_FLocat_LOCTYPE" is-a="required_values_attribute_pattern">
@@ -741,6 +850,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="context_attribute" value="@LOCTYPE"/>
 		<sch:param name="valid_values" value="string('URL')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_FLocat_type_values" is-a="required_values_attribute_pattern">
@@ -748,6 +858,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="context_attribute" value="@xlink:type"/>
 		<sch:param name="valid_values" value="string('simple')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
@@ -756,6 +867,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_element" value="mets:structMap"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mets:div"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_structMap_div_max" is-a="required_max_elements_pattern">
@@ -763,36 +875,42 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mets:div"/>
 		<sch:param name="num" value="1"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
 	</sch:pattern>
 	<sch:pattern id="mets14_structMap_PID" is-a="disallowed_attribute_pattern">
 		<sch:param name="context_element" value="mets:structMap"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_attribute" value="@fi:PID"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('1.4.1; 1.4')"/>
 	</sch:pattern>
 	<sch:pattern id="mets14_structMap_PIDTYPE" is-a="disallowed_attribute_pattern">
 		<sch:param name="context_element" value="mets:structMap"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_attribute" value="@fi:PIDTYPE"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('1.4.1; 1.4')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_structMap_PID" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:structMap"/>
 		<sch:param name="context_condition" value="@fi:PIDTYPE"/>
 		<sch:param name="required_attribute" value="@fi:PID"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_structMap_PIDTYPE" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:structMap"/>
 		<sch:param name="context_condition" value="@fi:PID"/>
 		<sch:param name="required_attribute" value="@fi:PIDTYPE"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_div_TYPE" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:div"/>
 		<sch:param name="context_condition" value="count(../mets:div)=1 or ..=./mets:div"/>
 		<sch:param name="required_attribute" value="@TYPE"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
@@ -802,24 +920,28 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_attribute" value="@FILEID"/>
 		<sch:param name="required_element" value=".//mets:area"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>	
 	<sch:pattern id="mets_mptr_href" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:mptr"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_attribute" value="@xlink:href"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_mptr_type" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:mptr"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_attribute" value="@xlink:type"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_mptr_OTHERLOCTYPE" is-a="disallowed_attribute_pattern">
 		<sch:param name="context_element" value="mets:mptr"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_attribute" value="@OTHERLOCTYPE"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_mptr_LOCTYPE_values" is-a="required_values_attribute_pattern">
@@ -827,6 +949,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="context_attribute" value="@LOCTYPE"/>
 		<sch:param name="valid_values" value="string('URL')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_mptr_type_values" is-a="required_values_attribute_pattern">
@@ -834,6 +957,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="context_attribute" value="@xlink:type"/>
 		<sch:param name="valid_values" value="string('simple')"/>
+		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
