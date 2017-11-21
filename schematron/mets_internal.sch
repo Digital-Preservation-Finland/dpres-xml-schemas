@@ -30,8 +30,8 @@ Validates METS metadata elements and attributes, their values, and METS internal
 
 	<sch:let name="all_profiles" value="
                 exsl:node-set('http://www.kdk.fi/kdk-mets-profile')
-		| exsl:node-set('http://www.avointiede.fi/att-mets-profile') 
-		| exsl:node-set('http://www.avointiede.fi/att-midterm-mets-profile')"/>
+		| exsl:node-set('http://www.digitalpreservation.fi/mets-profiles/research-data')
+		| exsl:node-set('http://www.digitalpreservation.fi/mets-profiles/mediumterm-research-data')"/>
 
 	<!-- METS root -->
 	<sch:pattern id="mets_root">
