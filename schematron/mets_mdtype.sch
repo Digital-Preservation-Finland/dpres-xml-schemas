@@ -173,10 +173,12 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
+
+	<!-- TODO: DATACITE should be allowed as standard portfolio standard only from specification 1.7.0 -->
 	<sch:pattern id="mets_descriptive_exists" is-a="required_metadata_pattern">
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_metadata" value="mets:dmdSec/mets:mdWrap[@MDTYPE='LIDO' or @MDTYPE='EAC-CPF' or @MDTYPE='EAD' or @OTHERMDTYPE='EAD3'
-		or @MDTYPE='VRA' or @MDTYPE='MODS' or @MDTYPE='MARC' or @MDTYPE='DC' or @MDTYPE='DDI' or @OTHERMDTYPE='EN15744']"/>
+		or @MDTYPE='VRA' or @MDTYPE='MODS' or @MDTYPE='MARC' or @MDTYPE='DC' or @MDTYPE='DDI' or @OTHERMDTYPE='EN15744' or @OTHERMDTYPE='DATACITE']"/>
 		<sch:param name="metadata_name" value="string('Standard portfolio descriptive')"/>
 		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
