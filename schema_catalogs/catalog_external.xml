@@ -96,7 +96,7 @@
 	<rewriteURI uriStartString="http://www.loc.gov/standards/premis/v2/premis.xsd" rewritePrefix="premis/2.3/premis-v2-3.xsd"/>
 	<rewriteURI uriStartString="http://www.loc.gov/standards/premis/premis.xsd" rewritePrefix="premis/2.3/premis-v2-3.xsd"/>
 
-	<!-- EAC, EAD, LIDO, MARC21, VRA Core, METSRights, OpenGis GML, Sahke2 -->
+	<!-- EAC, EAD, LIDO, MARC21, VRA Core, METSRights, OpenGis GML, Sahke2, Datacite -->
 	<rewriteURI uriStartString="http://eac.staatsbibliothek-berlin.de/schema/cpf.xsd" rewritePrefix="eac/2010/cpf.xsd"/>
 	<rewriteURI uriStartString="http://www.loc.gov/ead/ead.xsd" rewritePrefix="ead/2002/ead.xsd"/>
 	<rewriteURI uriStartString="http://www.loc.gov/ead/ead3.xsd" rewritePrefix="ead3/1.0.0/ead3.xsd"/>
@@ -109,5 +109,5 @@
 	<rewriteURI uriStartString="http://schemas.opengis.net/gml/3.1.1/smil/smil20.xsd" rewritePrefix="opengis.gml/3.1.1/smil/smil20.xsd"/>
 	<rewriteURI uriStartString="http://schemas.opengis.net/gml/3.1.1/base/feature.xsd" rewritePrefix="opengis.gml/3.1.1/base/feature.xsd"/>
 	<rewriteURI uriStartString="http://www.arkisto.fi/skeemat/Sahke2_2011_12.xsd" rewritePrefix="sahke2/2011.12/Sahke2_2011_12.xsd"/>
-	
+	<rewriteURI uriStartString="https://schema.datacite.org/meta/kernel-4.0/metadata.xsd" rewritePrefix="datacite/4.0/metadata.xsd"/>
 </catalog>

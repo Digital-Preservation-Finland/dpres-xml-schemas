@@ -167,6 +167,8 @@ Paths are described in relation to base path ./schema_catalogs/schemas_external/
 ./vra
   VRA Core schema files
 
+./datacite
+  DataCite schema files
 
 Schematron:
 +++++++++++
