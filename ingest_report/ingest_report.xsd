@@ -212,6 +212,7 @@ See: http://www.loc.gov/standards/premis/
 	<xs:simpleType name="objectIdentifierValueSimpleType">
 		<xs:restriction base="xs:token">
 			<xs:pattern value="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"/>
+			<xs:pattern value="(.)+-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}.tar"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="relationshipTypeSimpleType">
