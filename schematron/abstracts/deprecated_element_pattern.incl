@@ -5,20 +5,17 @@
 	context_element - Context element, where the given attribute exists
 	deprecated_element - Deprecated element
 	context_condition - Rule launched only, if this condition is true.
-	profiles - METS profiles for which the rule is launched.
-		If empty, launch by default. Do not use profile parameters.
 	specifications - Catalog/specification versions for which the rule is launched.
 		List the affected versions with semicolon+space delimiter.
 		If begins with "not:", rule is launched with other but given versions.  
 		If empty, launch rule by default.
 	-->
-	<sch:pattern id="deprecated_element_pattern" abstract="true" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:mets="http://www.loc.gov/METS/" xmlns:fi="http://www.kdk.fi/standards/mets/kdk-extensions" xmlns:exsl="http://exslt.org/common" xmlns:sets="http://exslt.org/sets" xmlns:str="http://exslt.org/strings">
+	<sch:pattern id="deprecated_element_pattern" abstract="true" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:mets="http://www.loc.gov/METS/" xmlns:fi="http://digitalpreservation.fi/schemas/mets/fi-extensions" xmlns:fikdk="http://www.kdk.fi/standards/mets/kdk-extensions" xmlns:exsl="http://exslt.org/common" xmlns:sets="http://exslt.org/sets" xmlns:str="http://exslt.org/strings">
 		<sch:rule context="$context_element[($context_condition)]">
-	    		<sch:let name="given_profile" value="str:split(normalize-space(/mets:mets/@PROFILE), '?')"/>
-			<sch:report test="(./$deprecated_element) 
-			and (str:concat($profiles)='' or count($profiles) = count(sets:distinct(exsl:node-set($given_profile[1]) | $profiles))) and (normalize-space($specifications)=''
-			or ((normalize-space(substring($specifications,1,4))='not:') and ((not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ',normalize-space(ancestor-or-self::mets:mets/@fi:CATALOG),'; ')))) and not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ',normalize-space(ancestor-or-self::mets:mets/@fi:SPECIFICATION),'; ')))))
-			or ((normalize-space(substring($specifications,1,4))!='not:') and ((contains(concat('; ',normalize-space($specifications),'; '), concat('; ',normalize-space(ancestor-or-self::mets:mets/@fi:CATALOG),'; '))) or (contains(concat('; ',normalize-space($specifications),'; '), concat('; ',normalize-space(ancestor-or-self::mets:mets/@fi:SPECIFICATION),'; '))))))">
+			<sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
+			<sch:report test="(./$deprecated_element) and (normalize-space($specifications)=''
+                        or ((normalize-space(substring($specifications,1,4))='not:') and (not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ', $given_specification,'; ')))))
+                        or ((normalize-space(substring($specifications,1,4))!='not:') and (contains(concat('; ',normalize-space($specifications),'; '), concat('; ', $given_specification,'; ')))))"> 
 				INFO: Element '<sch:value-of select="name($deprecated_element)"/>' is deprecated in element '<sch:name/>'.
 			</sch:report>
 		</sch:rule>

@@ -7,7 +7,8 @@ Validates EAD3 metadata.
 -->
 
 	<sch:ns prefix="mets" uri="http://www.loc.gov/METS/"/>
-	<sch:ns prefix="fi" uri="http://www.kdk.fi/standards/mets/kdk-extensions"/>
+	<sch:ns prefix="fikdk" uri="http://www.kdk.fi/standards/mets/kdk-extensions"/>
+        <sch:ns prefix="fi" uri="http://digitalpreservation.fi/schemas/mets/fi-extensions"/>
 	<sch:ns prefix="ead3" uri="http://ead3.archivists.org/schema/"/>
 	<sch:ns prefix="exsl" uri="http://exslt.org/common"/>
 	<sch:ns prefix="sets" uri="http://exslt.org/sets"/>
@@ -24,7 +25,6 @@ Validates EAD3 metadata.
 		<sch:param name="context_element" value="ead3:objectxmlwrap"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="ead3:*"/>	
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 

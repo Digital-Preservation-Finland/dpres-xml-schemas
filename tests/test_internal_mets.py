@@ -19,9 +19,9 @@ def fix_version_14(root):
     :root: METS root element
     """
     elem_handler = root.find_element('structMap', 'mets')
-    elem_handler.del_attribute('PID', 'fi')
-    elem_handler.del_attribute('PIDTYPE', 'fi')
-    root.del_attribute('CONTENTID', 'fi')
+    elem_handler.del_attribute('PID', 'fikdk')
+    elem_handler.del_attribute('PIDTYPE', 'fikdk')
+    root.del_attribute('CONTENTID', 'fikdk')
 
 
 def test_valid_overall_mets(schematron_fx):
@@ -32,8 +32,9 @@ def test_valid_overall_mets(schematron_fx):
     """
     (mets, _) = parse_xml_file('mets_valid_overall_mets.xml')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    print svrl
     assert svrl.count(SVRL_FAILED) == 0
-    assert svrl.count(SVRL_REPORT) == 0
+    assert svrl.count(SVRL_REPORT) == 1
 
 
 def test_mets_root(schematron_fx):
@@ -55,16 +56,16 @@ def test_catalogs(schematron_fx):
     fix_version_14(root)
 
     # Conflict between fi:CATALOG and fi:SPECIFICATION
-    root.set_attribute('CATALOG', 'fi', '1.4')
+    root.set_attribute('CATALOG', 'fikdk', '1.4')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
     assert svrl.count(SVRL_REPORT) == 1
 
     # Old specification
-    root.set_attribute('SPECIFICATION', 'fi', '1.4')
+    root.set_attribute('SPECIFICATION', 'fikdk', '1.4')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
-    assert svrl.count(SVRL_REPORT) == 2
+    assert svrl.count(SVRL_REPORT) == 1
 
 
 def test_fileid(schematron_fx):
@@ -105,8 +106,8 @@ def test_old_versions(schematron_fx, specification, failed):
     :failed: Number of failures
     """
     (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
-    root.set_attribute('CATALOG', 'fi', specification)
-    root.set_attribute('SPECIFICATION', 'fi', specification)
+    root.set_attribute('CATALOG', 'fikdk', specification)
+    root.set_attribute('SPECIFICATION', 'fikdk', specification)
     elem_handler = root.find_element('file', 'mets')
     elem_handler.set_element('stream', 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
@@ -149,25 +150,25 @@ def test_metsrights(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 1
 
     # Change version to 1.4
-    root.set_attribute('CATALOG', 'fi', '1.4')
-    root.set_attribute('SPECIFICATION', 'fi', '1.4')
+    root.set_attribute('CATALOG', 'fikdk', '1.4')
+    root.set_attribute('SPECIFICATION', 'fikdk', '1.4')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
 
 @pytest.mark.parametrize("context, nspaces, attributes, error", [
-    ('mets', ['fi', 'fi'], ['CATALOG', 'SPECIFICATION'], [1, 0, 0, 0]),
-    ('dmdSec', ['fi', 'mets'], ['CREATED', 'CREATED'], [1, 0, 0, 1]),
-    ('techMD', ['fi', 'mets'], ['CREATED', 'CREATED'], [1, 0, 0, 1]),
-    ('rightsMD', ['fi', 'mets'], ['CREATED', 'CREATED'], [1, 0, 0, 1]),
-    ('sourceMD', ['fi', 'mets'], ['CREATED', 'CREATED'], [1, 0, 0, 1]),
-    ('digiprovMD', ['fi', 'mets'], ['CREATED', 'CREATED'], [1, 0, 0, 1]),
-    ('dmdSec', ['fi', 'fi'], ['PID', 'PIDTYPE'], [0, 1, 1, 0]),
-    ('techMD', ['fi', 'fi'], ['PID', 'PIDTYPE'], [0, 1, 1, 0]),
-    ('rightsMD', ['fi', 'fi'], ['PID', 'PIDTYPE'], [0, 1, 1, 0]),
-    ('sourceMD', ['fi', 'fi'], ['PID', 'PIDTYPE'], [0, 1, 1, 0]),
-    ('digiprovMD', ['fi', 'fi'], ['PID', 'PIDTYPE'], [0, 1, 1, 0]),
-    ('structMap', ['fi', 'fi'], ['PID', 'PIDTYPE'], [0, 1, 1, 0]),
+    ('mets', ['fikdk', 'fikdk'], ['CATALOG', 'SPECIFICATION'], [1, 0, 0, 0]),
+    ('dmdSec', ['fikdk', 'mets'], ['CREATED', 'CREATED'], [1, 0, 0, 1]),
+    ('techMD', ['fikdk', 'mets'], ['CREATED', 'CREATED'], [1, 0, 0, 1]),
+    ('rightsMD', ['fikdk', 'mets'], ['CREATED', 'CREATED'], [1, 0, 0, 1]),
+    ('sourceMD', ['fikdk', 'mets'], ['CREATED', 'CREATED'], [1, 0, 0, 1]),
+    ('digiprovMD', ['fikdk', 'mets'], ['CREATED', 'CREATED'], [1, 0, 0, 1]),
+    ('dmdSec', ['fikdk', 'fikdk'], ['PID', 'PIDTYPE'], [0, 1, 1, 0]),
+    ('techMD', ['fikdk', 'fikdk'], ['PID', 'PIDTYPE'], [0, 1, 1, 0]),
+    ('rightsMD', ['fikdk', 'fikdk'], ['PID', 'PIDTYPE'], [0, 1, 1, 0]),
+    ('sourceMD', ['fikdk', 'fikdk'], ['PID', 'PIDTYPE'], [0, 1, 1, 0]),
+    ('digiprovMD', ['fikdk', 'fikdk'], ['PID', 'PIDTYPE'], [0, 1, 1, 0]),
+    ('structMap', ['fikdk', 'fikdk'], ['PID', 'PIDTYPE'], [0, 1, 1, 0]),
     ('mdWrap', ['mets', 'mets'], ['CHECKSUM', 'CHECKSUMTYPE'], [0, 1, 1, 0]),
     ('mdRef', ['mets', 'mets'], ['CHECKSUM', 'CHECKSUMTYPE'], [0, 1, 1, 0]),
     ('file', ['mets', 'mets'], ['CHECKSUM', 'CHECKSUMTYPE'], [0, 1, 1, 0])
@@ -238,8 +239,8 @@ def test_othermdtype(schematron_fx, context):
     assert svrl.count(SVRL_FAILED) == 1
 
     # Version is not mandatory in 1.4
-    root.set_attribute('CATALOG', 'fi', '1.4')
-    root.set_attribute('SPECIFICATION', 'fi', '1.4')
+    root.set_attribute('CATALOG', 'fikdk', '1.4')
+    root.set_attribute('SPECIFICATION', 'fikdk', '1.4')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
@@ -250,8 +251,8 @@ def test_othermdtype(schematron_fx, context):
 
     # OTHERMDTYPE is (still) missing
     elem_handler.set_attribute('MDTYPEVERSION', 'mets', 'xxx')
-    root.set_attribute('CATALOG', 'fi', '1.5.0')
-    root.set_attribute('SPECIFICATION', 'fi', '1.5.0')
+    root.set_attribute('CATALOG', 'fikdk', '1.5.0')
+    root.set_attribute('SPECIFICATION', 'fikdk', '1.5.0')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -299,14 +300,14 @@ def test_mdtype_items(schematron_fx, context, mdtype, othermdtype,
     for specversion in ['1.4', '1.4.1', '1.5.0', '1.6.0']:
         for version in mdtypeversion:
             elem_handler.set_attribute('MDTYPEVERSION', 'mets', version)
-            root.set_attribute('CATALOG', 'fi', specversion)
-            root.set_attribute('SPECIFICATION', 'fi', specversion)
+            root.set_attribute('CATALOG', 'fikdk', specversion)
+            root.set_attribute('SPECIFICATION', 'fikdk', specversion)
             svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
             assert svrl.count(SVRL_FAILED) == 0
 
     # Test unknown version
-    root.set_attribute('CATALOG', 'fi', '1.6.0')
-    root.set_attribute('SPECIFICATION', 'fi', '1.6.0')
+    root.set_attribute('CATALOG', 'fikdk', '1.6.0')
+    root.set_attribute('SPECIFICATION', 'fikdk', '1.6.0')
     elem_handler.set_attribute('MDTYPEVERSION', 'mets', 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
@@ -482,12 +483,12 @@ def test_objid_unique(schematron_fx):
     """
     (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
     objid = root.get_attribute('OBJID', 'mets')
-    contentid = root.get_attribute('CONTENTID', 'fi')
-    root.set_attribute('CONTENTID', 'fi', objid)
+    contentid = root.get_attribute('CONTENTID', 'fikdk')
+    root.set_attribute('CONTENTID', 'fikdk', objid)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
-    root.set_attribute('CONTENTID', 'fi', contentid)
+    root.set_attribute('CONTENTID', 'fikdk', contentid)
     elem_handler = root.find_element('dmdSec', 'mets')
     section_id = elem_handler.get_attribute('ID', 'mets')
     root.set_attribute('OBJID', 'mets', section_id)

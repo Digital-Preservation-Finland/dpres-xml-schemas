@@ -44,7 +44,7 @@ def test_mdtype_namespace(schematron_fx, section, mdinfo):
              root element in the metadata section, namespace of the root]
     """
     xml = '''<mets:mets fi:CATALOG="1.6.0" xmlns:mets="%(mets)s"
-             xmlns:premis="%(premis)s" xmlns:fi="%(fi)s" xmlns:dc="%(dc)s"
+             xmlns:premis="%(premis)s" xmlns:fi="%(fikdk)s" xmlns:dc="%(dc)s"
              xmlns:marc21="%(marc21)s" xmlns:ead="%(ead)s"
              xmlns:ead3="%(ead3)s" xmlns:lido="%(lido)s" xmlns:vra="%(vra)s"
               xmlns:mods="%(mods)s" xmlns:eac="%(eac)s"
@@ -121,7 +121,7 @@ def test_digiprov_object(schematron_fx):
     """
     xml = '''<mets:mets fi:CATALOG="1.6.0" xmlns:mets="%(mets)s"
              xmlns:premis="%(premis)s" xmlns:xsi="%(xsi)s"
-             xmlns:fi="%(fi)s" xmlns:dc="%(dc)s">
+             xmlns:fi="%(fikdk)s" xmlns:dc="%(dc)s">
                <mets:dmdSec><mets:mdWrap MDTYPE='DC'><mets:xmlData>
                  <dc:subject/></mets:xmlData></mets:mdWrap></mets:dmdSec>
                <mets:techMD><mets:mdWrap MDTYPE='PREMIS:OBJECT'><mets:xmlData>
@@ -160,7 +160,7 @@ def test_textmd(schematron_fx):
     """
     xml = '''<mets:mets fi:CATALOG="1.5.0" xmlns:mets="%(mets)s"
              xmlns:textmd="%(textmd)s" xmlns:premis="%(premis)s"
-             xmlns:fi="%(fi)s" xmlns:dc="%(dc)s">
+             xmlns:fi="%(fikdk)s" xmlns:dc="%(dc)s">
                <mets:dmdSec><mets:mdWrap MDTYPE='DC'><mets:xmlData>
                  <dc:subject/></mets:xmlData></mets:mdWrap></mets:dmdSec>
                <mets:techMD><mets:mdWrap MDTYPE='PREMIS:OBJECT'><mets:xmlData>
@@ -186,7 +186,7 @@ def test_textmd(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 1
 
     # KDK version works in specification 1.4
-    root.set_attribute('CATALOG', 'fi', '1.4')
+    root.set_attribute('CATALOG', 'fikdk', '1.4')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
@@ -201,7 +201,7 @@ def test_rightsstatement(schematron_fx):
     :schematron_fx: Schematron compile fixture
     """
     xml = '''<mets:mets fi:CATALOG="1.6.0" xmlns:mets="%(mets)s"
-             xmlns:dc="%(dc)s" xmlns:premis="%(premis)s" xmlns:fi="%(fi)s">
+             xmlns:dc="%(dc)s" xmlns:premis="%(premis)s" xmlns:fi="%(fikdk)s">
                <mets:dmdSec><mets:mdWrap MDTYPE='DC'><mets:xmlData>
                  <dc:subject/></mets:xmlData></mets:mdWrap></mets:dmdSec>
                <mets:techMD><mets:mdWrap MDTYPE='PREMIS:OBJECT'><mets:xmlData>
@@ -220,13 +220,13 @@ def test_rightsstatement(schematron_fx):
     assert svrl.count(SVRL_REPORT) == 0
 
     # rightsStatement gives a warning with specification 1.5.0
-    root.set_attribute('CATALOG', 'fi', '1.5.0')
+    root.set_attribute('CATALOG', 'fikdk', '1.5.0')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
     assert svrl.count(SVRL_REPORT) == 1
 
     # rights work with specification 1.6.0
-    root.set_attribute('CATALOG', 'fi', '1.6.0')
+    root.set_attribute('CATALOG', 'fikdk', '1.6.0')
     elem_handler = root.find_element('mdWrap[@MDTYPE="PREMIS:RIGHTS"]', 'mets')
     elem_handler = elem_handler.find_element('xmlData', 'mets')
     elem_handler.clear()
@@ -236,7 +236,7 @@ def test_rightsstatement(schematron_fx):
     assert svrl.count(SVRL_REPORT) == 0
 
     # rights work with specification 1.5.0
-    root.set_attribute('CATALOG', 'fi', '1.5.0')
+    root.set_attribute('CATALOG', 'fikdk', '1.5.0')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
     assert svrl.count(SVRL_REPORT) == 0
@@ -249,7 +249,7 @@ def test_special_mdtype(schematron_fx):
     :schematron_fx: Schematron compile fixture
     """
     xml = '''<mets:mets fi:CATALOG="1.6.0" xmlns:mets="%(mets)s"
-             xmlns:dc="%(dc)s" xmlns:premis="%(premis)s" xmlns:fi="%(fi)s">
+             xmlns:dc="%(dc)s" xmlns:premis="%(premis)s" xmlns:fi="%(fikdk)s">
                <mets:dmdSec><mets:mdWrap MDTYPE='DC'><mets:xmlData>
                  <dc:subject/></mets:xmlData></mets:mdWrap></mets:dmdSec>
                <mets:dmdSec><mets:mdWrap MDTYPE='OTHER' OTHERMDTYPE='EN15744'>
@@ -326,7 +326,7 @@ def test_fileformat_metadata(schematron_fx, fileformat, mdinfo, version):
               specifications.
     """
     xml = '''<mets:mets fi:CATALOG="1.6.0" xmlns:mets="%(mets)s"
-             xmlns:premis="%(premis)s" xmlns:fi="%(fi)s" xmlns:dc="%(dc)s"
+             xmlns:premis="%(premis)s" xmlns:fi="%(fikdk)s" xmlns:dc="%(dc)s"
              xmlns:mix="%(mix)s" xmlns:textmd_kdk="%(textmd_kdk)s"
              xmlns:addml="%(addml)s" xmlns:audiomd="%(audiomd)s"
              xmlns:videomd="%(videomd)s" xmlns:xsi="%(xsi)s"
@@ -364,7 +364,7 @@ def test_fileformat_metadata(schematron_fx, fileformat, mdinfo, version):
     if mdinfo[1] is not None:
         elem_handler.set_attribute('OTHERMDTYPE', 'mets', mdinfo[1])
     if version is not None:
-        root.set_attribute('CATALOG', 'fi', version[0])
+        root.set_attribute('CATALOG', 'fikdk', version[0])
 
     # Success
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
@@ -374,7 +374,7 @@ def test_fileformat_metadata(schematron_fx, fileformat, mdinfo, version):
     elem_section.set_attribute('ID', 'mets', 'tech_nolink')
     allversions = ['1.4', '1.4.1', '1.5.0', '1.6.0']
     for testversion in allversions:
-        root.set_attribute('CATALOG', 'fi', testversion)
+        root.set_attribute('CATALOG', 'fikdk', testversion)
         svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
         if version is None or testversion in version:
             assert svrl.count(SVRL_FAILED) == 1

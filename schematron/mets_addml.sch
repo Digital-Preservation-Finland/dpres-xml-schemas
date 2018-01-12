@@ -7,7 +7,8 @@ Validates ADDML metadata.
 -->
 	
 	<sch:ns prefix="mets" uri="http://www.loc.gov/METS/"/>
-	<sch:ns prefix="fi" uri="http://www.kdk.fi/standards/mets/kdk-extensions"/>
+	<sch:ns prefix="fikdk" uri="http://www.kdk.fi/standards/mets/kdk-extensions"/>
+        <sch:ns prefix="fi" uri="http://digitalpreservation.fi/schemas/mets/fi-extensions"/>
 	<sch:ns prefix="addml" uri="http://www.arkivverket.no/standarder/addml"/>
 	<sch:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	<sch:ns prefix="premis" uri="info:lc/xmlns/premis-v2"/>
@@ -43,21 +44,22 @@ Validates ADDML metadata.
 	<sch:let name="csv_countaddmlrs" value="count(sets:distinct(exsl:node-set($csv_addmlrsids)))"/>
 	<sch:let name="csv_countaddmlfsc" value="count(sets:distinct(exsl:node-set($csv_addmlfscids)))"/>
 	<sch:pattern id="csv_addml_requirements">
-        <sch:rule context="mets:file">
+        	<sch:rule context="mets:file">
+			<sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
 			<sch:let name="admids" value="normalize-space(@ADMID)"/>
 			<sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
 			<sch:let name="countfilescomb" value="count(sets:distinct(exsl:node-set($csv_fileid) | str:tokenize($admids, ' ')))"/>
 			<sch:let name="countaddmlrscomb" value="count(sets:distinct(exsl:node-set($csv_addmlrsids) | str:tokenize($admids, ' ')))"/>
 			<sch:let name="countaddmlfsccomb" value="count(sets:distinct(exsl:node-set($csv_addmlfscids) | str:tokenize($admids, ' ')))"/>
 			<sch:assert test="(($csv_countfiles+$countadm)=$countfilescomb) or not(($csv_countaddmlrs+$countadm)=$countaddmlrscomb)
-			or contains(' 1.4 1.4.1 ', concat(' ',normalize-space(ancestor-or-self::mets:mets/@fi:CATALOG),' ')) or contains(' 1.4 1.4.1 ', concat(' ',normalize-space(ancestor-or-self::mets:mets/@fi:SPECIFICATION),' '))">
+                        or contains(' 1.4 1.4.1 ', concat(' ', $given_specification,' '))">
 				Element 'recordSeparator' is required in ADDML metadata for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'.
 			</sch:assert>
 			<sch:assert test="(($csv_countfiles+$countadm)=$countfilescomb) or not(($csv_countaddmlfsc+$countadm)=$countaddmlfsccomb)
-			or contains(' 1.4 1.4.1 ', concat(' ',normalize-space(ancestor-or-self::mets:mets/@fi:CATALOG),' ')) or contains(' 1.4 1.4.1 ', concat(' ',normalize-space(ancestor-or-self::mets:mets/@fi:SPECIFICATION),' '))">
+                        or contains(' 1.4 1.4.1 ', concat(' ', $given_specification,' '))">
 				Element 'fieldSeparatingChar' is required in ADDML metadata for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'.
 			</sch:assert>
 		</sch:rule>
-    </sch:pattern>
+	</sch:pattern>
 
 </sch:schema>

@@ -6,22 +6,19 @@
 	required_element - Element, which number is limited
 	num - Maximum number of elements
 	context_condition - Rule launched only, if this condition is true
-	profiles - METS profiles for which the rule is launched.
-		If empty, launch by default. Do not use profile parameters.
 	specifications - Catalog/specification versions for which the rule is launched.
 		List the affected versions with semicolon+space delimiter.
 		If begins with "not:", rule is launched with other but given versions.  
 		If empty, launch rule by default.
 	-->
-	<sch:pattern id="required_max_elements_pattern" abstract="true" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:mets="http://www.loc.gov/METS/" xmlns:fi="http://www.kdk.fi/standards/mets/kdk-extensions" xmlns:exsl="http://exslt.org/common" xmlns:sets="http://exslt.org/sets" xmlns:str="http://exslt.org/strings">
+	<sch:pattern id="required_max_elements_pattern" abstract="true" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:mets="http://www.loc.gov/METS/" xmlns:fi="http://digitalpreservation.fi/schemas/mets/fi-extensions" xmlns:fikdk="http://www.kdk.fi/standards/mets/kdk-extensions" xmlns:exsl="http://exslt.org/common" xmlns:sets="http://exslt.org/sets" xmlns:str="http://exslt.org/strings">
 		<sch:rule context="$context_element[$required_element and ($context_condition)]">
-			<sch:let name="given_profile" value="str:split(normalize-space(/mets:mets/@PROFILE), '?')"/>
+			<sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
 			<sch:let name="section_context" value="ancestor-or-self::*[self::mets:dmdSec or self::mets:techMD or self::mets:rightsMD or self::mets:sourceMD or self::mets:digiprovMD]"/>
 			<sch:let name="section_string" value="concat('(ID of the metadata section ', name($section_context), ' is ', $section_context/@ID, ')')"/>
-			<sch:assert test="(count(./$required_element) &lt;= number($num)) 
-			or not(str:concat($profiles)='' or count($profiles) = count(sets:distinct(exsl:node-set($given_profile[1]) | $profiles))) or not(normalize-space($specifications)=''
-			or ((normalize-space(substring($specifications,1,4))='not:') and ((not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ',normalize-space(ancestor-or-self::mets:mets/@fi:CATALOG),'; ')))) and not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ',normalize-space(ancestor-or-self::mets:mets/@fi:SPECIFICATION),'; ')))))
-			or ((normalize-space(substring($specifications,1,4))!='not:') and ((contains(concat('; ',normalize-space($specifications),'; '), concat('; ',normalize-space(ancestor-or-self::mets:mets/@fi:CATALOG),'; '))) or (contains(concat('; ',normalize-space($specifications),'; '), concat('; ',normalize-space(ancestor-or-self::mets:mets/@fi:SPECIFICATION),'; '))))))">
+			<sch:assert test="(count(./$required_element) &lt;= number($num)) or not(normalize-space($specifications)=''
+			or ((normalize-space(substring($specifications,1,4))='not:') and (not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ', $given_specification, '; ')))))
+			or ((normalize-space(substring($specifications,1,4))!='not:') and (contains(concat('; ',normalize-space($specifications),'; '), concat('; ', $given_specification,'; ')))))">
 				Maximum of <sch:value-of select="$num"/> elements '<sch:value-of select="name($required_element)"/>' are allowed in element '<sch:name/>'. <sch:value-of select="substring($section_string,1,number($section_context)*string-length($section_string))"/>
 			</sch:assert>
 		</sch:rule>

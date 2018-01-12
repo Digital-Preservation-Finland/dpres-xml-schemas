@@ -7,7 +7,8 @@ Validates version differences from MODS metadata.
 -->
 	
 	<sch:ns prefix="mets" uri="http://www.loc.gov/METS/"/>
-	<sch:ns prefix="fi" uri="http://www.kdk.fi/standards/mets/kdk-extensions"/>
+	<sch:ns prefix="fikdk" uri="http://www.kdk.fi/standards/mets/kdk-extensions"/>
+        <sch:ns prefix="fi" uri="http://digitalpreservation.fi/schemas/mets/fi-extensions"/>
 	<sch:ns prefix="mods" uri="http://www.loc.gov/mods/v3"/>
 	<sch:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	<sch:ns prefix="xml" uri="http://www.w3.org/XML/1998/namespace"/>

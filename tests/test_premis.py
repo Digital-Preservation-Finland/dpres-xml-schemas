@@ -224,7 +224,7 @@ def test_charset_parameter(schematron_fx, fileformat):
     :fileformat: Text file format
     """
     xml = '''<mets:mets fi:CATALOG="1.4" xmlns:mets="%(mets)s"
-             xmlns:premis="%(premis)s" xmlns:fi="%(fi)s">
+             xmlns:premis="%(premis)s" xmlns:fi="%(fikdk)s">
              <mets:techMD><mets:mdWrap MDTYPEVERSION="2.3"><mets:xmlData>
                <premis:object><premis:format><premis:formatDesignation>
                  <premis:formatName/></premis:formatDesignation>
@@ -241,7 +241,7 @@ def test_charset_parameter(schematron_fx, fileformat):
     assert svrl.count(SVRL_FAILED) == 0
 
     # Error, since charset is missing
-    root.set_attribute('CATALOG', 'fi', '1.5.0')
+    root.set_attribute('CATALOG', 'fikdk', '1.5.0')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -293,7 +293,7 @@ def test_identifiers_unique(schematron_fx):
                  <premis:agentIdentifierValue>xxx</premis:agentIdentifierValue>
                </premis:agentIdentifier></premis:agent>'''
     head = '''<mets:mets fi:CATALOG="1.4" xmlns:mets="%(mets)s"
-              xmlns:premis="%(premis)s" xmlns:fi="%(fi)s"><premis:premis>''' \
+              xmlns:premis="%(premis)s" xmlns:fi="%(fikdk)s"><premis:premis>''' \
               % NAMESPACES
     tail = '''</premis:premis></mets:mets>'''
     (mets, root) = parse_xml_string(head+xml+xml+tail)
@@ -303,7 +303,7 @@ def test_identifiers_unique(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 0
 
     # Errors with specification 1.5.0, we fix the identifiers one by one.
-    root.set_attribute('CATALOG', 'fi', '1.5.0')
+    root.set_attribute('CATALOG', 'fikdk', '1.5.0')
     number = 0
     for idtag in ['objectIdentifierValue', 'rightsStatementIdentifierValue',
                   'eventIdentifierValue', 'agentIdentifierValue']:
@@ -326,7 +326,7 @@ def test_linking(schematron_fx):
     :schematron_fx: Schematron compile fixture
     """
     xml = '''<mets:mets fi:CATALOG="1.4" xmlns:mets="%(mets)s"
-             xmlns:premis="%(premis)s" xmlns:fi="%(fi)s">
+             xmlns:premis="%(premis)s" xmlns:fi="%(fikdk)s">
              <mets:amdSec><mets:techMD><mets:mdWrap><mets:xmlData>
                <premis:object><premis:linkingEventIdentifier>
                    <premis:linkingEventIdentifierType>local
@@ -392,7 +392,7 @@ def test_linking(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 0
 
     # Eight dead links
-    root.set_attribute('CATALOG', 'fi', '1.5.0')
+    root.set_attribute('CATALOG', 'fikdk', '1.5.0')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 8
 
@@ -461,7 +461,7 @@ def test_native(schematron_fx, specification, check_result):
     (mets, root) = parse_xml_file('mets_valid_native.xml')
 
     # Working case
-    root.set_attribute('CATALOG', 'fi', specification)
+    root.set_attribute('CATALOG', 'fikdk', specification)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
     assert svrl.count(SVRL_REPORT) == check_result

@@ -12,7 +12,8 @@ SVRL_REPORT = '<svrl:successful-report'
 DATA = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data'))
 
 NAMESPACES = {'mets': 'http://www.loc.gov/METS/',
-              'fi': 'http://www.kdk.fi/standards/mets/kdk-extensions',
+              'fikdk': 'http://www.kdk.fi/standards/mets/kdk-extensions',
+              'fi': 'http://digitalpreservation.fi/schemas/mets/fi-extensions',
               'xlink': 'http://www.w3.org/1999/xlink',
               'xml': 'http://www.w3.org/XML/1998/namespace',
               'premis': 'info:lc/xmlns/premis-v2',

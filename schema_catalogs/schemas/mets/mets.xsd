@@ -3,7 +3,8 @@
 xmlns="http://www.loc.gov/METS/"
 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 xmlns:xml="http://www.w3.org/XML/1998/namespace"
-xmlns:fi="http://www.kdk.fi/standards/mets/kdk-extensions"
+xmlns:fikdk="http://www.kdk.fi/standards/mets/kdk-extensions"
+xmlns:fi="http://digitalpreservation.fi/schemas/mets/fi-extensions"
 
 xmlns:premis="info:lc/xmlns/premis-v2"
 xmlns:mix="http://www.loc.gov/mix/v20"
@@ -32,6 +33,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 
 	<xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/xml.xsd"/>
 	<xsd:import namespace="http://www.kdk.fi/standards/mets/kdk-extensions" schemaLocation="./kdk-mets-extensions.xsd"/>
+	<xsd:import namespace="http://digitalpreservation.fi/schemas/mets/fi-extensions" schemaLocation="./fi-mets-extensions.xsd"/>
 
 	<xsd:import namespace="info:lc/xmlns/premis-v2" schemaLocation="http://www.loc.gov/standards/premis/v2/premis.xsd"/>
 	<xsd:import namespace="http://www.loc.gov/mix/v20" schemaLocation="http://www.loc.gov/standards/mix/mix20/mix20.xsd"/>
@@ -60,6 +62,11 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				<xsd:extension base="metsType">
 					<xsd:attribute ref="fi:CATALOG" use="optional"/>
 					<xsd:attribute ref="fi:SPECIFICATION" use="optional"/>
+					<xsd:attribute ref="fi:CONTENTID" use="optional"/>
+					<xsd:attribute ref="fi:CONTRACTID" use="optional"/>
+                                        <xsd:attribute ref="fikdk:CATALOG" use="optional"/>
+                                        <xsd:attribute ref="fikdk:SPECIFICATION" use="optional"/>
+					<xsd:attribute ref="fikdk:CONTENTID" use="optional"/>
 				</xsd:extension>
 			</xsd:complexContent>
 		</xsd:complexType>
@@ -70,6 +77,9 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 					<xsd:attribute ref="fi:CREATED" use="optional"/>				
 					<xsd:attribute ref="fi:PID" use="optional"/>
 					<xsd:attribute ref="fi:PIDTYPE" use="optional"/>
+                                        <xsd:attribute ref="fikdk:CREATED" use="optional"/>
+                                        <xsd:attribute ref="fikdk:PID" use="optional"/>
+                                        <xsd:attribute ref="fikdk:PIDTYPE" use="optional"/>
 					<xsd:attribute ref="xml:lang" use="optional"/>
 				</xsd:extension>
 			</xsd:complexContent>
@@ -83,6 +93,8 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 					</xsd:sequence>
 					<xsd:attribute ref="fi:PID" use="optional"/>
 					<xsd:attribute ref="fi:PIDTYPE" use="optional"/>
+                                        <xsd:attribute ref="fikdk:PID" use="optional"/>
+                                        <xsd:attribute ref="fikdk:PIDTYPE" use="optional"/>
 				</xsd:extension>
 			</xsd:complexContent>
 		</xsd:complexType>

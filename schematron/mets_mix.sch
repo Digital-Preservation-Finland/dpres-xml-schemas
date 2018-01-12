@@ -7,7 +7,8 @@ Validates NISOIMG (MIX) metadata.
 -->
 	
 	<sch:ns prefix="mets" uri="http://www.loc.gov/METS/"/>
-	<sch:ns prefix="fi" uri="http://www.kdk.fi/standards/mets/kdk-extensions"/>
+	<sch:ns prefix="fikdk" uri="http://www.kdk.fi/standards/mets/kdk-extensions"/>
+        <sch:ns prefix="fi" uri="http://digitalpreservation.fi/schemas/mets/fi-extensions"/>
 	<sch:ns prefix="mix" uri="http://www.loc.gov/mix/v20"/>
 	<sch:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	<sch:ns prefix="premis" uri="info:lc/xmlns/premis-v2"/>
@@ -25,21 +26,18 @@ Validates NISOIMG (MIX) metadata.
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:BasicDigitalObjectInformation"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_BasicImageInformation" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:BasicImageInformation"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_ImageAssessmentMetadata" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:ImageAssessmentMetadata"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4; 1.4.1; 1.5.0')"/>
 	</sch:pattern>
 
@@ -47,189 +45,162 @@ Validates NISOIMG (MIX) metadata.
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:ObjectIdentifier"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:objectIdentifierType"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_objectIdentifierValue" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:ObjectIdentifier"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:objectIdentifierValue"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_formatName" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:FormatDesignation"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:formatName"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_Compression" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:BasicDigitalObjectInformation"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:Compression"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_compressionScheme" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:Compression"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:compressionScheme"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_messageDigestAlgorithm" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:Fixity"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:messageDigestAlgorithm"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_messageDigest" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:Fixity"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:messageDigest"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_BasicImageCharacteristics" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:BasicImageInformation"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:BasicImageCharacteristics"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_imageWidth" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:BasicImageCharacteristics"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:imageWidth"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_imageHeight" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:BasicImageCharacteristics"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:imageHeight"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_PhotometricInterpretation" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:BasicImageCharacteristics"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:PhotometricInterpretation"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_colorSpace" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:PhotometricInterpretation"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:colorSpace"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_ImageColorEncoding" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:ImageAssessmentMetadata"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:ImageColorEncoding"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_BitsPerSample" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:ImageColorEncoding"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:BitsPerSample"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_samplesPerPixel" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:ImageColorEncoding"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:samplesPerPixel"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_bitsPerSampleValue" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:BitsPerSample"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:bitsPerSampleValue"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_bitsPerSampleUnit" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:BitsPerSample"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:bitsPerSampleUnit"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_YCbCrSubSampling" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:YCbCr"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:YCbCrSubSampling"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_yCbCrPositioning" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:YCbCr"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:yCbCrPositioning"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_YCbCrCoefficients" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:YCbCr"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:YCbCrCoefficients"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_ReferenceBlackWhite" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:YCbCr"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:ReferenceBlackWhite"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_yCbCrSubsampleHoriz" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:YCbCrSubSampling"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:yCbCrSubsampleHoriz"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_yCbCrSubsampleVert" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:YCbCrSubSampling"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:yCbCrSubsampleVert"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_lumaRed" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:YCbCrCoefficients"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:lumaRed"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_lumaGreen" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:YCbCrCoefficients"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:lumaGreen"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_lumaBlue" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:YCbCrCoefficients"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:lumaBlue"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_ReferenceBlackWhite_Component" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:ReferenceBlackWhite"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:Component"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
@@ -238,14 +209,12 @@ Validates NISOIMG (MIX) metadata.
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:Compression"/>
 		<sch:param name="context_condition" value="mix:compressionScheme='enumerated in local list'"/>
 		<sch:param name="required_element" value="mix:compressionSchemeLocalList"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_compressionSchemeLocalValue" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:Compression"/>
 		<sch:param name="context_condition" value="mix:compressionScheme='enumerated in local list'"/>
 		<sch:param name="required_element" value="mix:compressionSchemeLocalValue"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	
@@ -255,7 +224,6 @@ Validates NISOIMG (MIX) metadata.
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:PhotometricInterpretation"/>
 		<sch:param name="context_condition" value="mix:colorSpace='YCbCr'"/>
 		<sch:param name="required_element" value="mix:YCbCr"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	-->
@@ -265,14 +233,12 @@ Validates NISOIMG (MIX) metadata.
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:SpatialMetrics"/>
 		<sch:param name="context_condition" value="mix:samplingFrequencyUnit=2 or mix:samplingFrequencyUnit=3"/>
 		<sch:param name="required_element" value="mix:xSamplingFrequency"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_ySamplingFrequency" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:SpatialMetrics"/>
 		<sch:param name="context_condition" value="mix:samplingFrequencyUnit=2 or mix:samplingFrequencyUnit=3"/>
 		<sch:param name="required_element" value="mix:ySamplingFrequency"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	
@@ -293,109 +259,91 @@ Validates NISOIMG (MIX) metadata.
 	<sch:pattern id="mix_samples_PaletteColor" is-a="mix_required_samples_pattern">
 		<sch:param name="color_space" value="string('PaletteColor')"/>
 		<sch:param name="num" value="string('1')"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_samples_WhiteIsZero" is-a="mix_required_samples_pattern">
 		<sch:param name="color_space" value="string('WhiteIsZero')"/>
 		<sch:param name="num" value="string('1')"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_samples_BlackIsZero" is-a="mix_required_samples_pattern">
 		<sch:param name="color_space" value="string('BlackIsZero')"/>
 		<sch:param name="num" value="string('1')"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_samples_RGB" is-a="mix_required_samples_pattern">
 		<sch:param name="color_space" value="string('RGB')"/>
 		<sch:param name="num" value="string('3')"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_samples_CMYK" is-a="mix_required_samples_pattern">
 		<sch:param name="color_space" value="string('CMYK')"/>
 		<sch:param name="num" value="string('4')"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_samples_YCbCr" is-a="mix_required_samples_pattern">
 		<sch:param name="color_space" value="string('YCbCr')"/>
 		<sch:param name="num" value="string('3')"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_samples_CIELab" is-a="mix_required_samples_pattern">
 		<sch:param name="color_space" value="string('CIELab')"/>
 		<sch:param name="num" value="string('3')"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_samples_ICCLab" is-a="mix_required_samples_pattern">
 		<sch:param name="color_space" value="string('ICCLab')"/>
 		<sch:param name="num" value="string('3')"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_samples_DeviceGray" is-a="mix_required_samples_pattern">
 		<sch:param name="color_space" value="string('DeviceGray')"/>
 		<sch:param name="num" value="string('1')"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_samples_DeviceRGB" is-a="mix_required_samples_pattern">
 		<sch:param name="color_space" value="string('DeviceRGB')"/>
 		<sch:param name="num" value="string('3')"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_samples_DeviceCMYK" is-a="mix_required_samples_pattern">
 		<sch:param name="color_space" value="string('DeviceCMYK')"/>
 		<sch:param name="num" value="string('4')"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_samples_CalGray" is-a="mix_required_samples_pattern">
 		<sch:param name="color_space" value="string('CalGray')"/>
 		<sch:param name="num" value="string('1')"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_samples_CalRGB" is-a="mix_required_samples_pattern">
 		<sch:param name="color_space" value="string('CalRGB')"/>
 		<sch:param name="num" value="string('3')"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_samples_Lab" is-a="mix_required_samples_pattern">
 		<sch:param name="color_space" value="string('Lab')"/>
 		<sch:param name="num" value="string('3')"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_samples_sRGB" is-a="mix_required_samples_pattern">
 		<sch:param name="color_space" value="string('sRGB')"/>
 		<sch:param name="num" value="string('3')"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_samples_esRGB" is-a="mix_required_samples_pattern">
 		<sch:param name="color_space" value="string('e-sRGB')"/>
 		<sch:param name="num" value="string('3')"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_samples_sYCC" is-a="mix_required_samples_pattern">
 		<sch:param name="color_space" value="string('sYCC')"/>
 		<sch:param name="num" value="string('3')"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_samples_YCCK" is-a="mix_required_samples_pattern">
 		<sch:param name="color_space" value="string('YCCK')"/>
 		<sch:param name="num" value="string('4')"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	
@@ -404,14 +352,12 @@ Validates NISOIMG (MIX) metadata.
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:ImageColorEncoding"/>
 		<sch:param name="context_condition" value="normalize-space(../..//mix:colorSpace)='PaletteColor'"/>
 		<sch:param name="required_element" value="mix:Colormap"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_colormapReference" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:Colormap"/>
 		<sch:param name="context_condition" value="normalize-space(../../..//mix:colorSpace)='PaletteColor'"/>
 		<sch:param name="required_element" value="mix:colormapReference"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	
@@ -420,7 +366,6 @@ Validates NISOIMG (MIX) metadata.
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:GrayResponse"/>
 		<sch:param name="context_condition" value="mix:grayResponseCurve"/>
 		<sch:param name="required_element" value="mix:grayResponseUnit"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
@@ -429,14 +374,12 @@ Validates NISOIMG (MIX) metadata.
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:PhotometricInterpretation"/>
 		<sch:param name="context_condition" value="normalize-space(./mix:colorSpace)='ICCLab' or normalize-space(./mix:colorSpace)='ICCBased'"/>
 		<sch:param name="required_element" value="mix:ColorProfile"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('not: 1.4; 1.4.1; 1.5.0')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_IccProfile" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:ColorProfile"/>
 		<sch:param name="context_condition" value="normalize-space(../mix:colorSpace)='ICCLab' or normalize-space(../mix:colorSpace)='ICCBased'"/>
 		<sch:param name="required_element" value="mix:IccProfile"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	
@@ -446,7 +389,6 @@ Validates NISOIMG (MIX) metadata.
 		<sch:param name="context_condition" value="normalize-space(../mix:colorSpace)!='ICCLab' and normalize-space(../mix:colorSpace)!='ICCBased'"/>
 		<sch:param name="required_element1" value="mix:IccProfile"/>
 		<sch:param name="required_element2" value="mix:LocalProfile"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	
@@ -455,7 +397,6 @@ Validates NISOIMG (MIX) metadata.
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:LocalProfile"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:localProfileName"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_iccProfileName_or_iccProfileURI" is-a="required_element_or_element_pattern">
@@ -463,7 +404,6 @@ Validates NISOIMG (MIX) metadata.
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element1" value="mix:iccProfileName"/>
 		<sch:param name="required_element2" value="mix:iccProfileURI"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	
@@ -491,7 +431,6 @@ Validates NISOIMG (MIX) metadata.
 		or (normalize-space(../../mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation/mix:colorSpace)='sYCC' and number(mix:samplesPerPixel)&gt;3)
 		or (normalize-space(../../mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation/mix:colorSpace)='YCCK' and number(mix:samplesPerPixel)&gt;4)"/>
 		<sch:param name="required_element" value="mix:extraSamples"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
@@ -521,21 +460,18 @@ Validates NISOIMG (MIX) metadata.
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:JPEG2000"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:EncodingOptions"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_qualityLayers" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:EncodingOptions"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:qualityLayers"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_resolutionLevels" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:EncodingOptions"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:resolutionLevels"/>
-		<sch:param name="profiles" value="exsl:node-set('')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>	
 
