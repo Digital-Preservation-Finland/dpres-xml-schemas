@@ -3,10 +3,10 @@ in mets_internal.sch.
 
 .. seealso:: mets_internal.sch
 """
-
+import xml.etree.ElementTree as ET
 import pytest
 from tests.common import SVRL_FAILED, SVRL_REPORT, parse_xml_file, \
-    parse_xml_string, NAMESPACES
+    parse_xml_string, NAMESPACES, fix_version_17
 
 SCHFILE = 'mets_internal.sch'
 
@@ -30,11 +30,16 @@ def test_valid_overall_mets(schematron_fx):
 
     :schematron_fx: Schematron compile fixture
     """
-    (mets, _) = parse_xml_file('mets_valid_overall_mets.xml')
+    (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    print svrl
     assert svrl.count(SVRL_FAILED) == 0
     assert svrl.count(SVRL_REPORT) == 1
+
+    # Use new specification
+    fix_version_17(root)
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 0
+    assert svrl.count(SVRL_REPORT) == 0
 
 
 def test_mets_root(schematron_fx):
@@ -46,6 +51,7 @@ def test_mets_root(schematron_fx):
     (xmltree, _) = parse_xml_string(xml)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=xmltree)
     assert svrl.count(SVRL_FAILED) == 1
+
 
 def test_catalogs(schematron_fx):
     """Test the Schema catalog version numbering in METS.
@@ -95,29 +101,43 @@ def test_fileid(schematron_fx):
 
 
 @pytest.mark.parametrize("specification, failed", [
-    ('1.4', 4), ('1.5.0', 2), ('1.6.0', 0)
+    ('1.4', 4), ('1.5.0', 2), ('1.6.0', 1), ('1.7.0', 0)
 ])
-def test_old_versions(schematron_fx, specification, failed):
-    """Test that PID in structMap, CONTENTID and streams are disallowed in
-    old catalog versions.
+def test_new_mets_elements_attributes(schematron_fx, specification, failed):
+    """Test that PID in structMap, CONTENTID, CONTRACTID and streams are
+    disallowed in old catalog versions.
 
     :schematron_fx: Schematron compile fixture
     :specification: Specification to test
     :failed: Number of failures
     """
     (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
-    root.set_attribute('CATALOG', 'fikdk', specification)
-    root.set_attribute('SPECIFICATION', 'fikdk', specification)
+    if specification == '1.7.0':
+        fix_version_17(root)
+    else:
+        root.set_attribute('CATALOG', 'fikdk', specification)
+        root.set_attribute('SPECIFICATION', 'fikdk', specification)
+        root.set_attribute('CONTRACTID', 'fikdk', specification)
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == failed
+
+    if specification != '1.7.0':
+        root.del_attribute('CONTRACTID', 'fikdk')
     elem_handler = root.find_element('file', 'mets')
     elem_handler.set_element('stream', 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == failed
-    elem_handler.del_element('stream', 'mets')
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    if failed > 0:
+
+    if specification == '1.6.0':
         assert svrl.count(SVRL_FAILED) == failed - 1
     else:
         assert svrl.count(SVRL_FAILED) == failed
+
+    elem_handler.del_element('stream', 'mets')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    if specification == '1.7.0':
+        assert svrl.count(SVRL_FAILED) == failed
+    else:
+        assert svrl.count(SVRL_FAILED) == failed - 1
 
 
 def test_textmd(schematron_fx):
@@ -158,6 +178,7 @@ def test_metsrights(schematron_fx):
 
 @pytest.mark.parametrize("context, nspaces, attributes, error", [
     ('mets', ['fikdk', 'fikdk'], ['CATALOG', 'SPECIFICATION'], [1, 0, 0, 0]),
+    ('mets', ['fi', 'fi'], ['CATALOG', 'SPECIFICATION'], [1, 0, 0, 0]),
     ('dmdSec', ['fikdk', 'mets'], ['CREATED', 'CREATED'], [1, 0, 0, 1]),
     ('techMD', ['fikdk', 'mets'], ['CREATED', 'CREATED'], [1, 0, 0, 1]),
     ('rightsMD', ['fikdk', 'mets'], ['CREATED', 'CREATED'], [1, 0, 0, 1]),
@@ -169,6 +190,17 @@ def test_metsrights(schematron_fx):
     ('sourceMD', ['fikdk', 'fikdk'], ['PID', 'PIDTYPE'], [0, 1, 1, 0]),
     ('digiprovMD', ['fikdk', 'fikdk'], ['PID', 'PIDTYPE'], [0, 1, 1, 0]),
     ('structMap', ['fikdk', 'fikdk'], ['PID', 'PIDTYPE'], [0, 1, 1, 0]),
+    ('dmdSec', ['fi', 'mets'], ['CREATED', 'CREATED'], [1, 0, 0, 1]),
+    ('techMD', ['fi', 'mets'], ['CREATED', 'CREATED'], [1, 0, 0, 1]),
+    ('rightsMD', ['fi', 'mets'], ['CREATED', 'CREATED'], [1, 0, 0, 1]),
+    ('sourceMD', ['fi', 'mets'], ['CREATED', 'CREATED'], [1, 0, 0, 1]),
+    ('digiprovMD', ['fi', 'mets'], ['CREATED', 'CREATED'], [1, 0, 0, 1]),
+    ('dmdSec', ['fi', 'fi'], ['PID', 'PIDTYPE'], [0, 1, 1, 0]),
+    ('techMD', ['fi', 'fi'], ['PID', 'PIDTYPE'], [0, 1, 1, 0]),
+    ('rightsMD', ['fi', 'fi'], ['PID', 'PIDTYPE'], [0, 1, 1, 0]),
+    ('sourceMD', ['fi', 'fi'], ['PID', 'PIDTYPE'], [0, 1, 1, 0]),
+    ('digiprovMD', ['fi', 'fi'], ['PID', 'PIDTYPE'], [0, 1, 1, 0]),
+    ('structMap', ['fi', 'fi'], ['PID', 'PIDTYPE'], [0, 1, 1, 0]),
     ('mdWrap', ['mets', 'mets'], ['CHECKSUM', 'CHECKSUMTYPE'], [0, 1, 1, 0]),
     ('mdRef', ['mets', 'mets'], ['CHECKSUM', 'CHECKSUMTYPE'], [0, 1, 1, 0]),
     ('file', ['mets', 'mets'], ['CHECKSUM', 'CHECKSUMTYPE'], [0, 1, 1, 0])
@@ -188,6 +220,8 @@ def test_dependent_attributes(schematron_fx, context, nspaces, attributes,
     """
     (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
     elem_handler = root.find_element(context, 'mets')
+    if nspaces[0] == 'fi':
+        fix_version_17(root)
 
     # Both attributes
     elem_handler.set_attribute(attributes[0], nspaces[0], 'xxx')
@@ -269,6 +303,7 @@ def test_othermdtype(schematron_fx, context):
     ('dmdSec', 'VRA', None, ['4.0']),
     ('dmdSec', 'DDI', None, ['3.2', '3.1', '2.5.1', '2.5', '2.1']),
     ('dmdSec', 'OTHER', 'EAD3', ['1.0.0']),
+    ('dmdSec', 'OTHER', 'DATACITE', ['4.0']),
     ('techMD', 'NISOIMG', None, ['2.0']),
     ('techMD', 'PREMIS:OBJECT', None, ['2.3', '2.2']),
     ('techMD', 'OTHER', 'AudioMD', ['2.0']),
@@ -297,17 +332,19 @@ def test_mdtype_items(schematron_fx, context, mdtype, othermdtype,
         elem_handler.set_attribute('OTHERMDTYPE', 'mets', othermdtype)
 
     # Test that all MDTYPEVERSIONs work with all specifications
-    for specversion in ['1.4', '1.4.1', '1.5.0', '1.6.0']:
-        for version in mdtypeversion:
-            elem_handler.set_attribute('MDTYPEVERSION', 'mets', version)
+    for specversion in ['1.4', '1.4.1', '1.5.0', '1.6.0', '1.7.0']:
+        if specversion == '1.7.0':
+            fix_version_17(root)
+        else:
             root.set_attribute('CATALOG', 'fikdk', specversion)
             root.set_attribute('SPECIFICATION', 'fikdk', specversion)
+        for version in mdtypeversion:
+            elem_handler.set_attribute('MDTYPEVERSION', 'mets', version)
             svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
             assert svrl.count(SVRL_FAILED) == 0
 
     # Test unknown version
-    root.set_attribute('CATALOG', 'fikdk', '1.6.0')
-    root.set_attribute('SPECIFICATION', 'fikdk', '1.6.0')
+    fix_version_17(root)
     elem_handler.set_attribute('MDTYPEVERSION', 'mets', 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
@@ -334,7 +371,10 @@ def test_mdtype_items(schematron_fx, context, mdtype, othermdtype,
     ('type', 'xlink', 'mptr', True),
     ('MDTYPE', 'mets', 'mdRef', True),
     ('OTHERMDTYPE', 'mets', 'mdRef', True),
-    ('OBJID', 'mets', 'mets', False)
+    ('OBJID', 'mets', 'mets', False),
+    ('CONTENTID', 'fikdk', 'mets', False),
+    ('CONTENTID', 'fi', 'mets', False),
+    ('CONTRACTID', 'fi', 'mets', False)
 ])
 def test_value_items(schematron_fx, attribute, nspace, context, fixed):
     """Test that a value is required in a certain attributes.
@@ -346,10 +386,12 @@ def test_value_items(schematron_fx, attribute, nspace, context, fixed):
     :fixed: Boolean, if the required value is fixed
     """
     (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
+    if nspace == 'fi':
+        fix_version_17(root)
 
     # Use arbitrary value
     elem_handler = root.find_element(context, 'mets')
-    elem_handler.set_attribute(attribute, nspace, 'xxx')
+    elem_handler.set_attribute(attribute, nspace, 'aaa')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     if fixed:
         assert svrl.count(SVRL_FAILED) == 1
@@ -365,6 +407,7 @@ def test_value_items(schematron_fx, attribute, nspace, context, fixed):
 @pytest.mark.parametrize("mandatory, nspace, context", [
     ('OBJID', 'mets', 'mets'),
     ('PROFILE', 'mets', 'mets'),
+    ('CONTRACTID', 'fi', 'mets'),
     ('CREATEDATE', 'mets', 'metsHdr'),
     ('ROLE', 'mets', 'agent'),
     ('TYPE', 'mets', 'agent'),
@@ -388,6 +431,8 @@ def test_mandatory_items(schematron_fx, mandatory, nspace, context):
     :context: Element, where the attribute exists
     """
     (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
+    if nspace == 'fi':
+        fix_version_17(root)
     elem_handler = root.find_element(context, 'mets')
 
     # Missing ADMID or missing attribute in agent gives more than one error
@@ -494,3 +539,30 @@ def test_objid_unique(schematron_fx):
     root.set_attribute('OBJID', 'mets', section_id)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
+
+    root.set_attribute('OBJID', 'mets', objid)
+    fix_version_17(root)
+    root.set_attribute('CONTRACTID', 'fi', objid)
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 1
+
+
+@pytest.mark.parametrize("context", [
+    ('mets'), ('dmdSec'), ('techMD'), ('sourceMD'), ('rightsMD'),
+    ('digiprovMD'), ('amdSec'), ('metsHdr'), ('fileSec'), 
+    ('fileGrp'), ('file'), ('structMap'), ('fptr')
+])
+def test_arbitrary_attributes(schematron_fx, context):
+    """Test that arbitrary attributes are forbidden in METS anyAttribute
+       sections.
+    """
+    (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
+    elem_handler = root.find_element(context, 'mets')
+    for spec in [None, '1.7.0']:
+        if spec == '1.7.0':
+            fix_version_17(root)
+        for ns in ['fi', 'fikdk', 'dc']:
+            elem_handler.set_attribute('xxx', ns, 'xxx')
+            svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+            assert svrl.count(SVRL_FAILED) == 1
+            elem_handler.del_attribute('xxx', ns)

@@ -58,10 +58,10 @@ Validates METS metadata elements and attributes, their values, and METS internal
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
 
-	<!-- Disallow wrong attributes -->
+	<!-- Disallow wrong attributes --> 
         <sch:pattern id="mets_mets_attribute_list" is-a="allowed_attribute_list_pattern">
                 <sch:param name="context_element" value="mets:mets"/>
-                <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,48)='http://www.digitalpreservation.fi/mets-profiles/'"/>
+                <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,48)='http://www.digitalpreservation.fi/mets-profiles'"/>
                 <sch:param name="allowed_attributes" value="@xsi:schemaLocation | @PROFILE | @OBJID | @LABEL | @ID | @TYPE | @fi:CATALOG | @fi:SPECIFICATION | @fi:CONTENTID | @fi:CONTRACTID"/>
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
@@ -73,7 +73,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
         </sch:pattern>
 	<sch:pattern id="mets_dmdSec_attribute_list" is-a="allowed_attribute_list_pattern">
                 <sch:param name="context_element" value="mets:dmdSec"/>
-                <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,48)='http://www.digitalpreservation.fi/mets-profiles/'"/>
+                <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,48)='http://www.digitalpreservation.fi/mets-profiles'"/>
                 <sch:param name="allowed_attributes" value="@ID | @CREATED | @GROUPID | @ADMID | @STATUS | @fi:CREATED | @fi:PID | @fi:PIDTYPE | @xml:lang"/>
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
@@ -85,7 +85,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
         </sch:pattern>
         <sch:pattern id="mets_amdSec_attribute_list" is-a="allowed_attribute_list_pattern">
                 <sch:param name="context_element" value="mets:amdSec/*"/>
-                <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,48)='http://www.digitalpreservation.fi/mets-profiles/'"/>
+                <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,48)='http://www.digitalpreservation.fi/mets-profiles'"/>
                 <sch:param name="allowed_attributes" value="@ID | @CREATED | @GROUPID | @ADMID | @STATUS | @fi:CREATED | @fi:PID | @fi:PIDTYPE | @xml:lang"/>
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
@@ -97,7 +97,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
         </sch:pattern> 
         <sch:pattern id="mets_structMap_attribute_list" is-a="allowed_attribute_list_pattern">
                 <sch:param name="context_element" value="mets:structMap"/>
-                <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,48)='http://www.digitalpreservation.fi/mets-profiles/'"/>
+                <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,48)='http://www.digitalpreservation.fi/mets-profiles'"/>
                 <sch:param name="allowed_attributes" value="@ID | @TYPE | @LABEL | @fi:PID | @fi:PIDTYPE"/>
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
@@ -172,7 +172,7 @@ Validates METS metadata elements and attributes, their values, and METS internal
 	</sch:pattern>
         <sch:pattern id="mets_CATALOG_SPECIFICATION" is-a="required_attribute_or_attribute_pattern">
                 <sch:param name="context_element" value="mets:mets"/>
-                <sch:param name="context_condition" value="substring(@PROFILE,0,48)='http://www.digitalpreservation.fi/mets-profiles/'"/>
+                <sch:param name="context_condition" value="substring(@PROFILE,0,48)='http://www.digitalpreservation.fi/mets-profiles'"/>
                 <sch:param name="required_attribute1" value="@fi:CATALOG"/>
                 <sch:param name="required_attribute2" value="@fi:SPECIFICATION"/>
                 <sch:param name="specifications" value="string('')"/>
@@ -201,15 +201,15 @@ Validates METS metadata elements and attributes, their values, and METS internal
 	</sch:pattern>
         <sch:pattern id="mets_CONTRACTID" is-a="required_attribute_pattern">
                 <sch:param name="context_element" value="mets:mets"/>
-                <sch:param name="context_condition" value="substring(normalize-space(@PROFILE),0,48)='http://www.digitalpreservation.fi/mets-profiles/'"/>
+                <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,48)='http://www.digitalpreservation.fi/mets-profiles'"/>
                 <sch:param name="required_attribute" value="@fi:CONTRACTID"/>
-                <sch:param name="specifications" value="string('not: 1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+                <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
         <sch:pattern id="mets_CONTRACTID_value" is-a="required_nonempty_attribute_pattern">
                 <sch:param name="context_element" value="mets:mets"/>
-                <sch:param name="context_condition" value="substring(normalize-space(@PROFILE),0,48)='http://www.digitalpreservation.fi/mets-profiles/'"/>
+                <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,48)='http://www.digitalpreservation.fi/mets-profiles'"/>
                 <sch:param name="context_attribute" value="@fi:CONTRACTID"/>
-                <sch:param name="specifications" value="string('not: 1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+                <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
 
 	<sch:pattern id="mets_CONTENTID_value_old" is-a="required_nonempty_attribute_pattern">
@@ -1090,17 +1090,20 @@ Validates METS metadata elements and attributes, their values, and METS internal
 	<!-- Check that OBJID attribute is unique with METS internal IDs -->
 	<sch:pattern id="unique_objid">
 		<sch:rule context="mets:mets[@OBJID and ancestor-or-self::mets:mets//@ID]">
-		    <sch:let name="objid" value="@OBJID"/>
+		    <sch:let name="objid" value="normalize-space(@OBJID)"/>
 		    <sch:let name="same_id_count" value="count(.//@ID[.=$objid])"/>
 			<sch:assert test="$same_id_count = 0">
 				Value '<sch:value-of select="@OBJID"/>' in attribute '<sch:value-of select="name(@OBJID)"/>' in element '<sch:name/>' is required to be unique. Another attribute 'ID' with the same value exists.
 			</sch:assert>
-                        <sch:assert test="not($objid = @fi:CONTENTID)">
+                        <sch:assert test="not($objid = normalize-space(@fi:CONTENTID)) or not(@fi:CONTENTID)">
                                 Value '<sch:value-of select="@OBJID"/>' in attribute '<sch:value-of select="name(@OBJID)"/>' in element '<sch:name/>' is required to be unique. Another attribute '<sch:value-of select="name(@fi:CONTENTID)"/>' with the same value exists.
                         </sch:assert>
-			<sch:assert test="not($objid = @fikdk:CONTENTID)">
+			<sch:assert test="not($objid = normalize-space(@fikdk:CONTENTID)) or not(@fikdk:CONTENTID)">
 				Value '<sch:value-of select="@OBJID"/>' in attribute '<sch:value-of select="name(@OBJID)"/>' in element '<sch:name/>' is required to be unique. Another attribute '<sch:value-of select="name(@fikdk:CONTENTID)"/>' with the same value exists.
 			</sch:assert>
+                        <sch:assert test="not($objid = normalize-space(@fi:CONTRACTID)) or not(@fi:CONTRACTID)">
+                                Value '<sch:value-of select="@OBJID"/>' in attribute '<sch:value-of select="name(@OBJID)"/>' in element '<sch:name/>' is required to be unique. Another attribute '<sch:value-of select="name(@fi:CONTRACTID)"/>' with the same value exists.
+                        </sch:assert>
 		</sch:rule>
 	</sch:pattern>
 </sch:schema>

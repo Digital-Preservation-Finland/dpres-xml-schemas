@@ -35,6 +35,7 @@ NAMESPACES = {'mets': 'http://www.loc.gov/METS/',
               'eac': 'urn:isbn:1-931666-33-4',
               'vra': 'http://www.vraweb.org/vracore4.htm',
               'lido': 'http://www.lido-schema.org',
+              'datacite': 'http://datacite.org/schema/kernel-4',
               'ddilc32': 'ddi:instance:3_2',
               'ddilc31': 'ddi:instance:3_1',
               'ddicb25': 'ddi:codebook:2_5',
@@ -61,3 +62,33 @@ def parse_xml_string(xml):
     root = xmltree.getroot()
     CustomElement.cast(root, NAMESPACES)
     return (xmltree, root)
+
+
+def fix_version_17(root):
+    """Local namespaces need to be changed for catalog version 1.4 to make
+    the tree valid. This is used in various tests below.
+
+    :root: METS root element
+    """
+    fikdk_dict = {'mets': ['CATALOG', 'SPECIFICATION', 'CONTENTID'],
+                  'dmdSec': ['CREATED', 'PID', 'PIDTYPE'],
+                  'techMD': ['CREATED', 'PID', 'PIDTYPE'],
+                  'rightsMD': ['CREATED', 'PID', 'PIDTYPE'],
+                  'sourceMD': ['CREATED', 'PID', 'PIDTYPE'],
+                  'digiprovMD': ['CREATED', 'PID', 'PIDTYPE'],
+                  'structMap': ['PID', 'PIDTYPE']}
+    for elem, attributes in fikdk_dict.iteritems():
+        element_list = root.find_all_elements(elem, 'mets')
+        if elem == 'mets':
+            element_list = [root]
+        for elem_tree in element_list:
+            for attr in attributes:
+                fi_attrib = elem_tree.get_attribute(attr, 'fikdk')
+                if fi_attrib is not None:
+                    elem_tree.del_attribute(attr, 'fikdk')
+                    elem_tree.set_attribute(attr, 'fi', fi_attrib)
+    root.set_attribute('PROFILE', 'mets',
+        'http://www.digitalpreservation.fi/mets-profiles/cultural-heritage')
+    root.set_attribute('CATALOG', 'fi', '1.7.0')
+    root.set_attribute('SPECIFICATION', 'fi', '1.7.0')
+    root.set_attribute('CONTRACTID', 'fi', 'urn:uuid:xxx')

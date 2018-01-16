@@ -3,7 +3,7 @@
 
 import xml.etree.ElementTree as ET
 import pytest
-from tests.common import NAMESPACES, parse_xml_file
+from tests.common import NAMESPACES, parse_xml_file, fix_version_17
 
 
 def prepare_xml_for_tests():
@@ -20,7 +20,11 @@ def test_valid_overall_mets_catalog(catalog_fx):
 
     :catalog_fx: Schema catalog validation fixture
     """
-    (mets, _) = prepare_xml_for_tests()
+    (mets, root) = prepare_xml_for_tests()
+    (returncode, _, _) = catalog_fx(xmltree=mets)
+    assert returncode == 0
+    # Use new specification
+    fix_version_17(root)
     (returncode, _, _) = catalog_fx(xmltree=mets)
     assert returncode == 0
 
@@ -44,7 +48,8 @@ def test_valid_overall_mets_catalog(catalog_fx):
     ('addml', 'addml', 'techMD'),
     ('mix', 'mix', 'techMD'),
     ('AUDIOMD', 'audiomd', 'techMD'),
-    ('VIDEOMD', 'videomd', 'techMD')
+    ('VIDEOMD', 'videomd', 'techMD'),
+    ('resource', 'datacite', 'dmdSec')
 ])
 def test_section_schemas(catalog_fx, rootelement, namespace, section):
     """Test that section schemas in the catalog work in validation.

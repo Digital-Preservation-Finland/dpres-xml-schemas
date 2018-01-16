@@ -6,7 +6,8 @@ rules located in mets_mdtype.sch.
 
 import xml.etree.ElementTree as ET
 import pytest
-from tests.common import SVRL_FAILED, SVRL_REPORT, NAMESPACES, parse_xml_string
+from tests.common import SVRL_FAILED, SVRL_REPORT, NAMESPACES, \
+    parse_xml_string, fix_version_17
 
 SCHFILE = 'mets_mdtype.sch'
 
@@ -24,6 +25,7 @@ SCHFILE = 'mets_mdtype.sch'
     ('dmdSec', ['DDI', None, '3.1', 'instance', 'ddilc31']),
     ('dmdSec', ['DDI', None, '2.5', 'instance', 'ddicb25']),
     ('dmdSec', ['DDI', None, '2.1', 'instance', 'ddicb21']),
+    ('dmdSec', ['OTHER', 'DATACITE', '4.0', 'resource', 'datacite']),
     ('techMD', ['PREMIS:OBJECT', None, '2.3', 'object', 'premis']),
     ('techMD', ['NISOIMG', None, '2.0', 'mix', 'mix']),
     ('techMD', ['TEXTMD', None, '3.01a', 'textMD', 'textmd']),
@@ -74,6 +76,8 @@ def test_mdtype_namespace(schematron_fx, section, mdinfo):
                  <premis:event/></mets:xmlData></mets:mdWrap></mets:digiprovMD>
              </mets:mets>''' % NAMESPACES
     (mets, root) = parse_xml_string(xml)
+    if mdinfo[1] == 'DATACITE':
+        fix_version_17(root)
 
     # Test that the given combination works
     elem_section = root.find_element(section, 'mets')
@@ -372,9 +376,12 @@ def test_fileformat_metadata(schematron_fx, fileformat, mdinfo, version):
 
     # Remove link to metadata section, and have failure
     elem_section.set_attribute('ID', 'mets', 'tech_nolink')
-    allversions = ['1.4', '1.4.1', '1.5.0', '1.6.0']
+    allversions = ['1.4', '1.4.1', '1.5.0', '1.6.0', '1.7.0']
     for testversion in allversions:
-        root.set_attribute('CATALOG', 'fikdk', testversion)
+        if testversion == '1.7.0':
+            fix_version_17(root)
+        else:
+            root.set_attribute('CATALOG', 'fikdk', testversion)
         svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
         if version is None or testversion in version:
             assert svrl.count(SVRL_FAILED) == 1
