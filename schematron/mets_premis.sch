@@ -79,12 +79,12 @@ Validates PREMIS metadata.
 		| exsl:node-set('fmt/102 fmt/103')
 		| exsl:node-set('fmt/101')
 		| exsl:node-set('fmt/100 fmt/471')
-		| exsl:node-set('fmt/136')
-		| exsl:node-set('fmt/137')
-		| exsl:node-set('fmt/138')
-		| exsl:node-set('fmt/139')
+		| exsl:node-set('fmt/136 fmt/290 fmt/291')
+		| exsl:node-set('fmt/137 fmt/294 fmt/295')
+		| exsl:node-set('fmt/138 fmt/292 fmt/293')
+		| exsl:node-set('fmt/139 fmt/296 fmt/297')
 		| exsl:node-set('')
-		| exsl:node-set('fmt/95 fmt/354 fmt/476 fmt/477 fmt/478 fmt/16 fmt/17 fmt/18 fmt/19 fmt/20 fmt/276')
+		| exsl:node-set('fmt/95 fmt/354 fmt/476 fmt/477 fmt/478 fmt/16 fmt/17 fmt/18 fmt/19 fmt/20 fmt/276 fmt/480 fmt/481')
 		| exsl:node-set('x-fmt/111')
 		| exsl:node-set('x-fmt/135')
 		| exsl:node-set('fmt/527 fmt/141') 
@@ -92,7 +92,7 @@ Validates PREMIS metadata.
 		| exsl:node-set('fmt/199')
 		| exsl:node-set('x-fmt/392') 
 		| exsl:node-set('fmt/199') 
-		| exsl:node-set('fmt/42 fmt/43 fmt/44')
+		| exsl:node-set('fmt/42 fmt/43 fmt/44 x-fmt/398 x-fmt/390 x-fmt/391 fmt/645')
 		| exsl:node-set('x-fmt/392')
 		| exsl:node-set('fmt/353 fmt/438 fmt/730 fmt/155')
 		| exsl:node-set('fmt/13')
@@ -114,7 +114,7 @@ Validates PREMIS metadata.
 		| exsl:node-set('fmt/541')
 		| exsl:node-set('x-fmt/227')
 		| exsl:node-set('fmt/224')
-		| exsl:node-set('')
+		| exsl:node-set('fmt/997')
 		| exsl:node-set('fmt/131')
 		| exsl:node-set('fmt/5')
 		| exsl:node-set('x-fmt/385')
@@ -247,165 +247,6 @@ Validates PREMIS metadata.
 		<sch:param name="mdtype_version" value="string('2.3')"/>
 	</sch:pattern>
 
-	<!-- Version specific checks until smaller than 2.2 -->
-	<sch:pattern id="premis22_copyrightDocumentationIdentifier" is-a="disallowed_element_smaller_version_pattern">
-		<sch:param name="context_element" value="premis:copyrightInformation"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_element" value="premis:copyrightDocumentationIdentifier"/>
-		<sch:param name="mdattribute" value="@MDTYPE"/>
-		<sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>		
-		<sch:param name="mdtype_version" value="string('2.2')"/>
-	</sch:pattern>
-	<sch:pattern id="premis22_copyrightApplicableDates" is-a="disallowed_element_smaller_version_pattern">
-		<sch:param name="context_element" value="premis:copyrightInformation"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_element" value="premis:copyrightApplicableDates"/>
-		<sch:param name="mdattribute" value="@MDTYPE"/>
-		<sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>		
-		<sch:param name="mdtype_version" value="string('2.2')"/>
-	</sch:pattern>
-	<sch:pattern id="premis22_licenseDocumentationIdentifier" is-a="disallowed_element_smaller_version_pattern">
-		<sch:param name="context_element" value="premis:licenseInformation"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_element" value="premis:licenseDocumentationIdentifier"/>
-		<sch:param name="mdattribute" value="@MDTYPE"/>
-		<sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>		
-		<sch:param name="mdtype_version" value="string('2.2')"/>
-	</sch:pattern>
-	<sch:pattern id="premis22_licenseApplicableDates" is-a="disallowed_element_smaller_version_pattern">
-		<sch:param name="context_element" value="premis:licenseInformation"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_element" value="premis:licenseApplicableDates"/>
-		<sch:param name="mdattribute" value="@MDTYPE"/>
-		<sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>		
-		<sch:param name="mdtype_version" value="string('2.2')"/>
-	</sch:pattern>
-	<sch:pattern id="premis22_statuteDocumentationIdentifier" is-a="disallowed_element_smaller_version_pattern">
-		<sch:param name="context_element" value="premis:statuteInformation"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_element" value="premis:statuteDocumentationIdentifier"/>
-		<sch:param name="mdattribute" value="@MDTYPE"/>
-		<sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>		
-		<sch:param name="mdtype_version" value="string('2.2')"/>
-	</sch:pattern>
-	<sch:pattern id="premis22_otherRightsInformation" is-a="disallowed_element_smaller_version_pattern">
-		<sch:param name="context_element" value="premis:rightsStatement"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_element" value="premis:otherRightsInformation"/>
-		<sch:param name="mdattribute" value="@MDTYPE"/>
-		<sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>		
-		<sch:param name="mdtype_version" value="string('2.2')"/>
-	</sch:pattern>
-	<sch:pattern id="premis22_termOfRestriction" is-a="disallowed_element_smaller_version_pattern">
-		<sch:param name="context_element" value="premis:rightsGranted"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_element" value="premis:termOfRestriction"/>
-		<sch:param name="mdattribute" value="@MDTYPE"/>
-		<sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>		
-		<sch:param name="mdtype_version" value="string('2.2')"/>
-	</sch:pattern>
-	<sch:pattern id="premis22_termOfGrant" is-a="disallowed_element_smaller_version_pattern">
-		<sch:param name="context_element" value="premis:rightsGranted"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_element" value="premis:termOfGrant"/>
-		<sch:param name="mdattribute" value="@MDTYPE"/>
-		<sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>		
-		<sch:param name="mdtype_version" value="string('2.2')"/>
-	</sch:pattern>
-	<sch:pattern id="premis22_startDate_values" is-a="disallowed_value_element_smaller_version_pattern">
-		<sch:param name="context_element" value="premis:startDate"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_value" value="string('OPEN')"/>
-		<sch:param name="mdattribute" value="@MDTYPE"/>
-		<sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>		
-		<sch:param name="mdtype_version" value="string('2.2')"/>
-	</sch:pattern>
-	<sch:pattern id="premis22_endDate_values" is-a="disallowed_value_element_smaller_version_pattern">
-		<sch:param name="context_element" value="premis:endDate"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_value" value="string('OPEN')"/>
-		<sch:param name="mdattribute" value="@MDTYPE"/>
-		<sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>		
-		<sch:param name="mdtype_version" value="string('2.2')"/>
-	</sch:pattern>
-	<sch:pattern id="premis22_copyrightStatusDeterminationDate_values" is-a="disallowed_value_element_smaller_version_pattern">
-		<sch:param name="context_element" value="premis:copyrightStatusDeterminationDate"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_value" value="string('OPEN')"/>
-		<sch:param name="mdattribute" value="@MDTYPE"/>
-		<sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>		
-		<sch:param name="mdtype_version" value="string('2.2')"/>
-	</sch:pattern>
-	<sch:pattern id="premis22_statuteInformationDeterminationDate_values" is-a="disallowed_value_element_smaller_version_pattern">
-		<sch:param name="context_element" value="premis:statuteInformationDeterminationDate"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_value" value="string('OPEN')"/>
-		<sch:param name="mdattribute" value="@MDTYPE"/>
-		<sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>		
-		<sch:param name="mdtype_version" value="string('2.2')"/>
-	</sch:pattern>
-	<sch:pattern id="premis22_dateCreatedByApplication_values" is-a="disallowed_value_element_smaller_version_pattern">
-		<sch:param name="context_element" value="premis:dateCreatedByApplication"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_value" value="string('OPEN')"/>
-		<sch:param name="mdattribute" value="@MDTYPE"/>
-		<sch:param name="mdtype_name" value="string('PREMIS:OBJECT')"/>		
-		<sch:param name="mdtype_version" value="string('2.2')"/>
-	</sch:pattern>
-	<sch:pattern id="premis22_preservationLevelDateAssigned_values" is-a="disallowed_value_element_smaller_version_pattern">
-		<sch:param name="context_element" value="premis:preservationLevelDateAssigned"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_value" value="string('OPEN')"/>
-		<sch:param name="mdattribute" value="@MDTYPE"/>
-		<sch:param name="mdtype_name" value="string('PREMIS:OBJECT')"/>		
-		<sch:param name="mdtype_version" value="string('2.2')"/>
-	</sch:pattern>
-	<sch:pattern id="premis22_eventDateTime_values" is-a="disallowed_value_element_smaller_version_pattern">
-		<sch:param name="context_element" value="premis:eventDateTime"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_value" value="string('OPEN')"/>
-		<sch:param name="mdattribute" value="@MDTYPE"/>
-		<sch:param name="mdtype_name" value="string('PREMIS:EVENT')"/>		
-		<sch:param name="mdtype_version" value="string('2.2')"/>
-	</sch:pattern>
-	<sch:pattern id="premis22_object_CREATED_values" is-a="disallowed_value_attribute_smaller_version_pattern">
-		<sch:param name="context_element" value="premis:mdSec"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="context_attribute" value="@CREATED"/>
-		<sch:param name="disallowed_value" value="string('OPEN')"/>
-		<sch:param name="mdattribute" value="@MDTYPE"/>
-		<sch:param name="mdtype_name" value="string('PREMIS:OBJECT')"/>		
-		<sch:param name="mdtype_version" value="string('2.2')"/>
-	</sch:pattern>
-	<sch:pattern id="premis22_rights_CREATED_values" is-a="disallowed_value_attribute_smaller_version_pattern">
-		<sch:param name="context_element" value="premis:mdSec"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="context_attribute" value="@CREATED"/>
-		<sch:param name="disallowed_value" value="string('OPEN')"/>
-		<sch:param name="mdattribute" value="@MDTYPE"/>
-		<sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>		
-		<sch:param name="mdtype_version" value="string('2.2')"/>
-	</sch:pattern>
-	<sch:pattern id="premis22_event_CREATED_values" is-a="disallowed_value_attribute_smaller_version_pattern">
-		<sch:param name="context_element" value="premis:mdSec"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="context_attribute" value="@CREATED"/>
-		<sch:param name="disallowed_value" value="string('OPEN')"/>
-		<sch:param name="mdattribute" value="@MDTYPE"/>
-		<sch:param name="mdtype_name" value="string('PREMIS:EVENT')"/>		
-		<sch:param name="mdtype_version" value="string('2.2')"/>
-	</sch:pattern>
-	<sch:pattern id="premis22_agent_CREATED_values" is-a="disallowed_value_attribute_smaller_version_pattern">
-		<sch:param name="context_element" value="premis:mdSec"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="context_attribute" value="@CREATED"/>
-		<sch:param name="disallowed_value" value="string('OPEN')"/>
-		<sch:param name="mdattribute" value="@MDTYPE"/>
-		<sch:param name="mdtype_name" value="string('PREMIS:AGENT')"/>		
-		<sch:param name="mdtype_version" value="string('2.2')"/>
-	</sch:pattern>
-	
-	
 	<!-- PREMIS mandatory elements -->
 	<sch:pattern id="premis_fixity" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/premis:object[normalize-space(@xsi:type)='premis:file']//premis:objectCharacteristics"/>
@@ -573,7 +414,7 @@ Validates PREMIS metadata.
 		</sch:rule>
 	</sch:pattern>
 
-    <!-- Container and stream checks -->
+	<!-- Container and stream checks -->
 	<sch:pattern id="container_with streams">
 		<sch:rule context="mets:techMD[.//premis:formatName and ancestor-or-self::mets:mets/mets:fileSec]">
 			<sch:let name="tech_id" value="normalize-space(@ID)"/>
@@ -596,4 +437,176 @@ Validates PREMIS metadata.
 			</sch:assert>
 		</sch:rule>
 	</sch:pattern>
+
+
+	<!-- COMPATIBILITY WITH OLDER SPECIFICATIONS -->
+
+        <!-- Version specific checks until smaller than 2.2 -->
+        <sch:pattern id="premis22_copyrightDocumentationIdentifier" is-a="disallowed_element_smaller_version_pattern">
+                <sch:param name="context_element" value="premis:copyrightInformation"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_element" value="premis:copyrightDocumentationIdentifier"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>
+                <sch:param name="mdtype_version" value="string('2.2')"/>
+        </sch:pattern>
+        <sch:pattern id="premis22_copyrightApplicableDates" is-a="disallowed_element_smaller_version_pattern">
+                <sch:param name="context_element" value="premis:copyrightInformation"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_element" value="premis:copyrightApplicableDates"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>
+                <sch:param name="mdtype_version" value="string('2.2')"/>
+        </sch:pattern>
+        <sch:pattern id="premis22_licenseDocumentationIdentifier" is-a="disallowed_element_smaller_version_pattern">
+                <sch:param name="context_element" value="premis:licenseInformation"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_element" value="premis:licenseDocumentationIdentifier"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>
+                <sch:param name="mdtype_version" value="string('2.2')"/>
+        </sch:pattern>
+        <sch:pattern id="premis22_licenseApplicableDates" is-a="disallowed_element_smaller_version_pattern">
+                <sch:param name="context_element" value="premis:licenseInformation"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_element" value="premis:licenseApplicableDates"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>
+                <sch:param name="mdtype_version" value="string('2.2')"/>
+        </sch:pattern>
+        <sch:pattern id="premis22_statuteDocumentationIdentifier" is-a="disallowed_element_smaller_version_pattern">
+                <sch:param name="context_element" value="premis:statuteInformation"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_element" value="premis:statuteDocumentationIdentifier"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>
+                <sch:param name="mdtype_version" value="string('2.2')"/>
+        </sch:pattern>
+        <sch:pattern id="premis22_otherRightsInformation" is-a="disallowed_element_smaller_version_pattern">
+                <sch:param name="context_element" value="premis:rightsStatement"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_element" value="premis:otherRightsInformation"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>
+                <sch:param name="mdtype_version" value="string('2.2')"/>
+        </sch:pattern>
+        <sch:pattern id="premis22_termOfRestriction" is-a="disallowed_element_smaller_version_pattern">
+                <sch:param name="context_element" value="premis:rightsGranted"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_element" value="premis:termOfRestriction"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>
+                <sch:param name="mdtype_version" value="string('2.2')"/>
+        </sch:pattern>
+        <sch:pattern id="premis22_termOfGrant" is-a="disallowed_element_smaller_version_pattern">
+                <sch:param name="context_element" value="premis:rightsGranted"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_element" value="premis:termOfGrant"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>
+                <sch:param name="mdtype_version" value="string('2.2')"/>
+        </sch:pattern>
+        <sch:pattern id="premis22_startDate_values" is-a="disallowed_value_element_smaller_version_pattern">
+                <sch:param name="context_element" value="premis:startDate"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_value" value="string('OPEN')"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>
+                <sch:param name="mdtype_version" value="string('2.2')"/>
+        </sch:pattern>
+        <sch:pattern id="premis22_endDate_values" is-a="disallowed_value_element_smaller_version_pattern">
+                <sch:param name="context_element" value="premis:endDate"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_value" value="string('OPEN')"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>
+                <sch:param name="mdtype_version" value="string('2.2')"/>
+        </sch:pattern>
+        <sch:pattern id="premis22_copyrightStatusDeterminationDate_values" is-a="disallowed_value_element_smaller_version_pattern">
+                <sch:param name="context_element" value="premis:copyrightStatusDeterminationDate"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_value" value="string('OPEN')"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>
+                <sch:param name="mdtype_version" value="string('2.2')"/>
+        </sch:pattern>
+        <sch:pattern id="premis22_statuteInformationDeterminationDate_values" is-a="disallowed_value_element_smaller_version_pattern">
+                <sch:param name="context_element" value="premis:statuteInformationDeterminationDate"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_value" value="string('OPEN')"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>
+                <sch:param name="mdtype_version" value="string('2.2')"/>
+        </sch:pattern>
+        <sch:pattern id="premis22_dateCreatedByApplication_values" is-a="disallowed_value_element_smaller_version_pattern">
+                <sch:param name="context_element" value="premis:dateCreatedByApplication"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_value" value="string('OPEN')"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('PREMIS:OBJECT')"/>
+                <sch:param name="mdtype_version" value="string('2.2')"/>
+        </sch:pattern>
+        <sch:pattern id="premis22_preservationLevelDateAssigned_values" is-a="disallowed_value_element_smaller_version_pattern">
+                <sch:param name="context_element" value="premis:preservationLevelDateAssigned"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_value" value="string('OPEN')"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('PREMIS:OBJECT')"/>
+                <sch:param name="mdtype_version" value="string('2.2')"/>
+        </sch:pattern>
+        <sch:pattern id="premis22_eventDateTime_values" is-a="disallowed_value_element_smaller_version_pattern">
+                <sch:param name="context_element" value="premis:eventDateTime"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_value" value="string('OPEN')"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('PREMIS:EVENT')"/>
+                <sch:param name="mdtype_version" value="string('2.2')"/>
+        </sch:pattern>
+        <sch:pattern id="premis22_object_CREATED_values" is-a="disallowed_value_attribute_smaller_version_pattern">
+                <sch:param name="context_element" value="premis:mdSec"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="context_attribute" value="@CREATED"/>
+                <sch:param name="disallowed_value" value="string('OPEN')"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('PREMIS:OBJECT')"/>
+                <sch:param name="mdtype_version" value="string('2.2')"/>
+        </sch:pattern>
+        <sch:pattern id="premis22_rights_CREATED_values" is-a="disallowed_value_attribute_smaller_version_pattern">
+                <sch:param name="context_element" value="premis:mdSec"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="context_attribute" value="@CREATED"/>
+                <sch:param name="disallowed_value" value="string('OPEN')"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('PREMIS:RIGHTS')"/>
+                <sch:param name="mdtype_version" value="string('2.2')"/>
+        </sch:pattern>
+        <sch:pattern id="premis22_event_CREATED_values" is-a="disallowed_value_attribute_smaller_version_pattern">
+                <sch:param name="context_element" value="premis:mdSec"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="context_attribute" value="@CREATED"/>
+                <sch:param name="disallowed_value" value="string('OPEN')"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('PREMIS:EVENT')"/>
+                <sch:param name="mdtype_version" value="string('2.2')"/>
+        </sch:pattern>
+        <sch:pattern id="premis22_agent_CREATED_values" is-a="disallowed_value_attribute_smaller_version_pattern">
+                <sch:param name="context_element" value="premis:mdSec"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="context_attribute" value="@CREATED"/>
+                <sch:param name="disallowed_value" value="string('OPEN')"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('PREMIS:AGENT')"/>
+                <sch:param name="mdtype_version" value="string('2.2')"/>
+        </sch:pattern>
+
+	<!-- Disallow native files with specification 1.4 -->
+        <sch:pattern id="disallow_no_file_format_validation">
+                <sch:rule context="mets:file">
+			<sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
+                        <sch:assert test="not(normalize-space(@USE)='no-file-format-validation') or not(contains(' 1.4 1.4.1 ', concat(' ', $given_specification,' ')))">
+                                '<sch:value-of select="$given_specification"/>' Disallowed value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' in element '<sch:name/>'.
+                        </sch:assert>
+                </sch:rule>
+        </sch:pattern>
+
 </sch:schema>

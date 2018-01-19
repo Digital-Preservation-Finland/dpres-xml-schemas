@@ -42,11 +42,12 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		</sch:rule>
 	</sch:pattern>
 
+	<!-- METS profiles -->
         <sch:pattern id="mets_profile" is-a="required_values_attribute_pattern">
                 <sch:param name="context_element" value="mets:mets"/>
                 <sch:param name="context_condition" value="true()"/>
                 <sch:param name="context_attribute" value="@PROFILE"/>
-                <sch:param name="valid_values" value="string('http://www.kdk.fi/kdk-mets-profile; http://www.digitalpreservation.fi/mets-profiles/cultural-heritage; http://www.digitalpreservation.fi/mets-profiles/research-data')"/>
+                <sch:param name="valid_values" value="string('http://www.kdk.fi/kdk-mets-profile; http://digitalpreservation.fi/mets-profiles/cultural-heritage; http://digitalpreservation.fi/mets-profiles/research-data')"/>
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
         <sch:pattern id="mets_profile_deprecated" is-a="deprecated_value_attribute_pattern">
@@ -54,57 +55,33 @@ Validates METS metadata elements and attributes, their values, and METS internal
                 <sch:param name="context_condition" value="true()"/>
                 <sch:param name="context_attribute" value="@PROFILE"/>
                 <sch:param name="deprecated_value" value="string('http://www.kdk.fi/kdk-mets-profile')"/>
-                <sch:param name="valid_values" value="string('http://www.digitalpreservation.fi/mets-profiles/cultural-heritage; http://www.digitalpreservation.fi/mets-profiles/research-data')"/>
+                <sch:param name="valid_values" value="string('http://digitalpreservation.fi/mets-profiles/cultural-heritage; http://digitalpreservation.fi/mets-profiles/research-data')"/>
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
 
-	<!-- Disallow wrong attributes --> 
+	<!-- Allow only given attributes --> 
         <sch:pattern id="mets_mets_attribute_list" is-a="allowed_attribute_list_pattern">
                 <sch:param name="context_element" value="mets:mets"/>
-                <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,48)='http://www.digitalpreservation.fi/mets-profiles'"/>
+                <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,44)='http://digitalpreservation.fi/mets-profiles'"/>
                 <sch:param name="allowed_attributes" value="@xsi:schemaLocation | @PROFILE | @OBJID | @LABEL | @ID | @TYPE | @fi:CATALOG | @fi:SPECIFICATION | @fi:CONTENTID | @fi:CONTRACTID"/>
-                <sch:param name="specifications" value="string('')"/>
-        </sch:pattern>
-        <sch:pattern id="mets_mets_attribute_list_old" is-a="allowed_attribute_list_pattern">
-                <sch:param name="context_element" value="mets:mets"/>
-                <sch:param name="context_condition" value="normalize-space(/mets:mets/@PROFILE)='http://www.kdk.fi/kdk-mets-profile'"/>
-                <sch:param name="allowed_attributes" value="@xsi:schemaLocation | @PROFILE | @OBJID | @LABEL | @ID | @TYPE | @fikdk:CATALOG | @fikdk:SPECIFICATION | @fikdk:CONTENTID"/>
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
 	<sch:pattern id="mets_dmdSec_attribute_list" is-a="allowed_attribute_list_pattern">
                 <sch:param name="context_element" value="mets:dmdSec"/>
-                <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,48)='http://www.digitalpreservation.fi/mets-profiles'"/>
+                <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,44)='http://digitalpreservation.fi/mets-profiles'"/>
                 <sch:param name="allowed_attributes" value="@ID | @CREATED | @GROUPID | @ADMID | @STATUS | @fi:CREATED | @fi:PID | @fi:PIDTYPE | @xml:lang"/>
-                <sch:param name="specifications" value="string('')"/>
-        </sch:pattern>
-        <sch:pattern id="mets_dmdSec_attribute_list_old" is-a="allowed_attribute_list_pattern">
-                <sch:param name="context_element" value="mets:dmdSec"/>
-                <sch:param name="context_condition" value="normalize-space(/mets:mets/@PROFILE)='http://www.kdk.fi/kdk-mets-profile'"/>
-                <sch:param name="allowed_attributes" value="@ID | @CREATED | @GROUPID | @ADMID | @STATUS | @fikdk:CREATED | @fikdk:PID | @fikdk:PIDTYPE | @xml:lang"/>
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
         <sch:pattern id="mets_amdSec_attribute_list" is-a="allowed_attribute_list_pattern">
                 <sch:param name="context_element" value="mets:amdSec/*"/>
-                <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,48)='http://www.digitalpreservation.fi/mets-profiles'"/>
+                <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,44)='http://digitalpreservation.fi/mets-profiles'"/>
                 <sch:param name="allowed_attributes" value="@ID | @CREATED | @GROUPID | @ADMID | @STATUS | @fi:CREATED | @fi:PID | @fi:PIDTYPE | @xml:lang"/>
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
-        <sch:pattern id="mets_amdSec_attribute_list_old" is-a="allowed_attribute_list_pattern">
-                <sch:param name="context_element" value="mets:amdSec/*"/>
-                <sch:param name="context_condition" value="normalize-space(/mets:mets/@PROFILE)='http://www.kdk.fi/kdk-mets-profile'"/>
-                <sch:param name="allowed_attributes" value="@ID | @CREATED | @GROUPID | @ADMID | @STATUS | @fikdk:CREATED | @fikdk:PID | @fikdk:PIDTYPE | @xml:lang"/>
-                <sch:param name="specifications" value="string('')"/>
-        </sch:pattern> 
         <sch:pattern id="mets_structMap_attribute_list" is-a="allowed_attribute_list_pattern">
                 <sch:param name="context_element" value="mets:structMap"/>
-                <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,48)='http://www.digitalpreservation.fi/mets-profiles'"/>
+                <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,44)='http://digitalpreservation.fi/mets-profiles'"/>
                 <sch:param name="allowed_attributes" value="@ID | @TYPE | @LABEL | @fi:PID | @fi:PIDTYPE"/>
-                <sch:param name="specifications" value="string('')"/>
-        </sch:pattern>
-        <sch:pattern id="mets_structMap_attribute_list_old" is-a="allowed_attribute_list_pattern">
-                <sch:param name="context_element" value="mets:structMap"/>
-                <sch:param name="context_condition" value="normalize-space(/mets:mets/@PROFILE)='http://www.kdk.fi/kdk-mets-profile'"/>
-                <sch:param name="allowed_attributes" value="@ID | @TYPE | @LABEL | @fikdk:PID | @fikdk:PIDTYPE"/>
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
         <sch:pattern id="mets_metsHdr_attribute_list" is-a="allowed_attribute_list_pattern">
@@ -163,25 +140,13 @@ Validates METS metadata elements and attributes, their values, and METS internal
         </sch:pattern>
 
 	<!-- Specification attributes -->
-	<sch:pattern id="mets_CATALOG_SPECIFICATION_old" is-a="required_attribute_or_attribute_pattern">
-		<sch:param name="context_element" value="mets:mets"/>
-		<sch:param name="context_condition" value="@PROFILE='http://www.kdk.fi/kdk-mets-profile'"/>
-		<sch:param name="required_attribute1" value="@fikdk:CATALOG"/>
-		<sch:param name="required_attribute2" value="@fikdk:SPECIFICATION"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
         <sch:pattern id="mets_CATALOG_SPECIFICATION" is-a="required_attribute_or_attribute_pattern">
                 <sch:param name="context_element" value="mets:mets"/>
-                <sch:param name="context_condition" value="substring(@PROFILE,0,48)='http://www.digitalpreservation.fi/mets-profiles'"/>
+                <sch:param name="context_condition" value="substring(@PROFILE,0,44)='http://digitalpreservation.fi/mets-profiles'"/>
                 <sch:param name="required_attribute1" value="@fi:CATALOG"/>
                 <sch:param name="required_attribute2" value="@fi:SPECIFICATION"/>
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
-	<sch:pattern id="mets_specification_old" is-a="required_specification_pattern">
-		<sch:param name="required_condition" value="normalize-space(@fikdk:CATALOG) = normalize-space(@fikdk:SPECIFICATION)
-			or (normalize-space(@fikdk:CATALOG)='1.4.1' and normalize-space(@fikdk:SPECIFICATION)='1.4')
-			or (normalize-space(@fikdk:CATALOG)='1.6.0' and normalize-space(@fikdk:SPECIFICATION)='1.6.1')"/>
-	</sch:pattern>
         <sch:pattern id="mets_specification" is-a="required_specification_pattern">
                 <sch:param name="required_condition" value="normalize-space(@fi:CATALOG) = normalize-space(@fi:SPECIFICATION)"/>
         </sch:pattern>
@@ -201,40 +166,22 @@ Validates METS metadata elements and attributes, their values, and METS internal
 	</sch:pattern>
         <sch:pattern id="mets_CONTRACTID" is-a="required_attribute_pattern">
                 <sch:param name="context_element" value="mets:mets"/>
-                <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,48)='http://www.digitalpreservation.fi/mets-profiles'"/>
+                <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,44)='http://digitalpreservation.fi/mets-profiles'"/>
                 <sch:param name="required_attribute" value="@fi:CONTRACTID"/>
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
         <sch:pattern id="mets_CONTRACTID_value" is-a="required_nonempty_attribute_pattern">
                 <sch:param name="context_element" value="mets:mets"/>
-                <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,48)='http://www.digitalpreservation.fi/mets-profiles'"/>
+                <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,44)='http://digitalpreservation.fi/mets-profiles'"/>
                 <sch:param name="context_attribute" value="@fi:CONTRACTID"/>
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
 
-	<sch:pattern id="mets_CONTENTID_value_old" is-a="required_nonempty_attribute_pattern">
-		<sch:param name="context_element" value="mets:mets"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="context_attribute" value="@fikdk:CONTENTID"/>
-		<sch:param name="specifications" value="string('1.6.0; 1.6.1')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_no_CONTENTID_old" is-a="disallowed_attribute_pattern">
-		<sch:param name="context_element" value="mets:mets"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_attribute" value="@fikdk:CONTENTID"/>
-		<sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0')"/>
-	</sch:pattern>
         <sch:pattern id="mets_CONTENTID_value" is-a="required_nonempty_attribute_pattern">
                 <sch:param name="context_element" value="mets:mets"/>
                 <sch:param name="context_condition" value="true()"/>
                 <sch:param name="context_attribute" value="@fi:CONTENTID"/>
                 <sch:param name="specifications" value="string('not: 1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
-        </sch:pattern>
-        <sch:pattern id="mets_no_CONTENTID" is-a="disallowed_attribute_pattern">
-                <sch:param name="context_element" value="mets:mets"/>
-                <sch:param name="context_condition" value="true()"/>
-                <sch:param name="disallowed_attribute" value="@fi:CONTENTID"/>
-                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
 
 	<sch:pattern id="mets_PROFILE" is-a="required_attribute_pattern">
@@ -424,20 +371,6 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="required_attribute2" value="@fi:CREATED"/>
 		<sch:param name="specifications" value="string('not: 1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
 	</sch:pattern>
-        <sch:pattern id="mets_dmdSec_CREATED_old" is-a="required_attribute_xor_attribute_pattern">
-                <sch:param name="context_element" value="mets:dmdSec"/>
-                <sch:param name="context_condition" value="true()"/>
-                <sch:param name="required_attribute1" value="@CREATED"/>
-                <sch:param name="required_attribute2" value="@fikdk:CREATED"/>
-                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
-        </sch:pattern>
-        <sch:pattern id="mets_amdSec_CREATED_old" is-a="required_attribute_xor_attribute_pattern">
-                <sch:param name="context_element" value="mets:amdSec/*"/>
-                <sch:param name="context_condition" value="true()"/>
-                <sch:param name="required_attribute1" value="@CREATED"/>
-                <sch:param name="required_attribute2" value="@fikdk:CREATED"/>
-                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
-        </sch:pattern>
 	<sch:pattern id="mets_dmdSec_MDTYPE" is-a="required_values_attribute_pattern">
 		<sch:param name="context_element" value="mets:dmdSec/mets:mdWrap"/>
 		<sch:param name="context_condition" value="true()"/>
@@ -459,43 +392,12 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="valid_values" value="string('PREMIS:RIGHTS; OTHER')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
 	</sch:pattern>
-	<sch:pattern id="mets14_rightsMD_MDTYPE" is-a="required_values_attribute_pattern">
-		<sch:param name="context_element" value="mets:rightsMD/mets:mdWrap"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="context_attribute" value="@MDTYPE"/>
-		<sch:param name="valid_values" value="string('METSRIGHTS; PREMIS:RIGHTS; OTHER')"/>
-		<sch:param name="specifications" value="string('1.4.1; 1.4')"/>
-	</sch:pattern>
 	<sch:pattern id="mets_digiprovMD_MDTYPE" is-a="required_values_attribute_pattern">
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="context_attribute" value="@MDTYPE"/>
 		<sch:param name="valid_values" value="string('PREMIS:OBJECT; PREMIS:EVENT; PREMIS:AGENT; OTHER')"/>
 		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_dmdSec_PID_old" is-a="required_attribute_pattern">
-		<sch:param name="context_element" value="mets:dmdSec"/>
-		<sch:param name="context_condition" value="@fikdk:PIDTYPE"/>
-		<sch:param name="required_attribute" value="@fikdk:PID"/>
-		<sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_amdSec_PID_old" is-a="required_attribute_pattern">
-		<sch:param name="context_element" value="mets:amdSec/*"/>
-		<sch:param name="context_condition" value="@fikdk:PIDTYPE"/>
-		<sch:param name="required_attribute" value="@fikdk:PID"/>
-		<sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_dmdSec_PIDTYPE_old" is-a="required_attribute_pattern">
-		<sch:param name="context_element" value="mets:dmdSec"/>
-		<sch:param name="context_condition" value="@fikdk:PID"/>
-		<sch:param name="required_attribute" value="@fikdk:PIDTYPE"/>
-		<sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_amdSec_PIDTYPE_old" is-a="required_attribute_pattern">
-		<sch:param name="context_element" value="mets:amdSec/*"/>
-		<sch:param name="context_condition" value="@fikdk:PID"/>
-		<sch:param name="required_attribute" value="@fikdk:PIDTYPE"/>
-		<sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
 	</sch:pattern>
         <sch:pattern id="mets_dmdSec_PID" is-a="required_attribute_pattern">
                 <sch:param name="context_element" value="mets:dmdSec"/>
@@ -574,13 +476,6 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="valid_values" value="string('2.2; 2.3')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4; 1.5.0')"/>
 	</sch:pattern>
-	<sch:pattern id="mets15_techMD_MDTYPEVERSION_values_OBJECT" is-a="required_values_attribute_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap"/>
-		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:OBJECT'"/>
-		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
-		<sch:param name="valid_values" value="string('2.1; 2.2; 2.3')"/>
-		<sch:param name="specifications" value="string('1.5.0')"/>
-	</sch:pattern>
 	<sch:pattern id="mets_techMD_MDTYPEVERSION_values_MIX" is-a="required_values_attribute_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap"/>
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='NISOIMG'"/>
@@ -595,26 +490,12 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="valid_values" value="string('2.2; 2.3')"/>
                 <sch:param name="specifications" value="string('not: 1.4.1; 1.4; 1.5.0')"/>
 	</sch:pattern>
-	<sch:pattern id="mets15_rightsMD_MDTYPEVERSION_values_RIGHTS" is-a="required_values_attribute_pattern">
-		<sch:param name="context_element" value="mets:rightsMD/mets:mdWrap"/>
-		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:RIGHTS'"/>
-		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
-		<sch:param name="valid_values" value="string('2.1; 2.2; 2.3')"/>
-                <sch:param name="specifications" value="string('1.5.0')"/>
-	</sch:pattern>
 	<sch:pattern id="mets_digiprovMD_MDTYPEVERSION_values_OBJECT" is-a="required_values_attribute_pattern">
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:OBJECT'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2.2; 2.3')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4; 1.5.0')"/>
-	</sch:pattern>
-	<sch:pattern id="mets15_digiprovMD_MDTYPEVERSION_values_OBJECT" is-a="required_values_attribute_pattern">
-		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
-		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:OBJECT'"/>
-		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
-		<sch:param name="valid_values" value="string('2.1; 2.2; 2.3')"/>
-		<sch:param name="specifications" value="string('1.5.0')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_digiprovMD_MDTYPEVERSION_values_EVENT" is-a="required_values_attribute_pattern">
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
@@ -623,26 +504,12 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="valid_values" value="string('2.2; 2.3')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4; 1.5.0')"/>
 	</sch:pattern>
-	<sch:pattern id="mets15_digiprovMD_MDTYPEVERSION_values_EVENT" is-a="required_values_attribute_pattern">
-		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
-		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:EVENT'"/>
-		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
-		<sch:param name="valid_values" value="string('2.1; 2.2; 2.3')"/>
-		<sch:param name="specifications" value="string('1.5.0')"/>
-	</sch:pattern>
 	<sch:pattern id="mets_digiprovMD_MDTYPEVERSION_values_AGENT" is-a="required_values_attribute_pattern">
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:AGENT'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2.2; 2.3')"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4; 1.5.0')"/>
-	</sch:pattern>
-	<sch:pattern id="mets15_digiprovMD_MDTYPEVERSION_values_AGENT" is-a="required_values_attribute_pattern">
-		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
-		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:AGENT'"/>
-		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
-		<sch:param name="valid_values" value="string('2.1; 2.2; 2.3')"/>
-		<sch:param name="specifications" value="string('1.5.0')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_DC" is-a="required_values_attribute_pattern">
 		<sch:param name="context_element" value="mets:dmdSec/mets:mdWrap"/>
@@ -782,13 +649,13 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="valid_values" value="string('OTHER')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
-	<sch:pattern id="mets_mdRef_OTHERMDTYPE_values" is-a="required_values_attribute_pattern">
-		<sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="context_attribute" value="@OTHERMDTYPE"/>
-		<sch:param name="valid_values" value="string('KDKPreservationPlan')"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
+        <sch:pattern id="mets_mdRef_OTHERMDTYPE_values" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
+                <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,44)='http://digitalpreservation.fi/mets-profiles'"/>
+                <sch:param name="context_attribute" value="@OTHERMDTYPE"/>
+                <sch:param name="valid_values" value="string('FiPreservationPlan')"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
 	<sch:pattern id="mets_mdRef_LOCTYPE_values" is-a="required_values_attribute_pattern">
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
 		<sch:param name="context_condition" value="true()"/>
@@ -855,12 +722,6 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="disallowed_element" value="mets:FContent"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
-	<sch:pattern id="mets_file_stream" is-a="disallowed_element_pattern">
-		<sch:param name="context_element" value="mets:fileGrp/mets:file"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_element" value="mets:stream"/>
-		<sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0')"/>
-	</sch:pattern>
 	<sch:pattern id="mets_file_file" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:fileGrp/mets:file"/>
 		<sch:param name="context_condition" value="true()"/>
@@ -921,30 +782,6 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="required_element" value="mets:div"/>
 		<sch:param name="num" value="1"/>
 		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
-	</sch:pattern>
-	<sch:pattern id="mets14_structMap_PID" is-a="disallowed_attribute_pattern">
-		<sch:param name="context_element" value="mets:structMap"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_attribute" value="@fikdk:PID"/>
-		<sch:param name="specifications" value="string('1.4.1; 1.4')"/>
-	</sch:pattern>
-	<sch:pattern id="mets14_structMap_PIDTYPE" is-a="disallowed_attribute_pattern">
-		<sch:param name="context_element" value="mets:structMap"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_attribute" value="@fikdk:PIDTYPE"/>
-		<sch:param name="specifications" value="string('1.4.1; 1.4')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_structMap_PID_old" is-a="required_attribute_pattern">
-		<sch:param name="context_element" value="mets:structMap"/>
-		<sch:param name="context_condition" value="@fikdk:PIDTYPE"/>
-		<sch:param name="required_attribute" value="@fikdk:PID"/>
-		<sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_structMap_PIDTYPE_old" is-a="required_attribute_pattern">
-		<sch:param name="context_element" value="mets:structMap"/>
-		<sch:param name="context_condition" value="@fikdk:PID"/>
-		<sch:param name="required_attribute" value="@fikdk:PIDTYPE"/>
-		<sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
 	</sch:pattern>
         <sch:pattern id="mets_structMap_PID" is-a="required_attribute_pattern">
                 <sch:param name="context_element" value="mets:structMap"/>
@@ -1106,4 +943,191 @@ Validates METS metadata elements and attributes, their values, and METS internal
                         </sch:assert>
 		</sch:rule>
 	</sch:pattern>
+
+	<!-- COMPATIBILITY WITH DEPRECATED VERSIONS -->
+
+	<!-- Allow only given attributes -->
+        <sch:pattern id="mets_mets_attribute_list_old" is-a="allowed_attribute_list_pattern">
+                <sch:param name="context_element" value="mets:mets"/>
+                <sch:param name="context_condition" value="normalize-space(/mets:mets/@PROFILE)='http://www.kdk.fi/kdk-mets-profile'"/>
+                <sch:param name="allowed_attributes" value="@xsi:schemaLocation | @PROFILE | @OBJID | @LABEL | @ID | @TYPE | @fikdk:CATALOG | @fikdk:SPECIFICATION | @fikdk:CONTENTID"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_dmdSec_attribute_list_old" is-a="allowed_attribute_list_pattern">
+                <sch:param name="context_element" value="mets:dmdSec"/>
+                <sch:param name="context_condition" value="normalize-space(/mets:mets/@PROFILE)='http://www.kdk.fi/kdk-mets-profile'"/>
+                <sch:param name="allowed_attributes" value="@ID | @CREATED | @GROUPID | @ADMID | @STATUS | @fikdk:CREATED | @fikdk:PID | @fikdk:PIDTYPE | @xml:lang"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_amdSec_attribute_list_old" is-a="allowed_attribute_list_pattern">
+                <sch:param name="context_element" value="mets:amdSec/*"/>
+                <sch:param name="context_condition" value="normalize-space(/mets:mets/@PROFILE)='http://www.kdk.fi/kdk-mets-profile'"/>
+                <sch:param name="allowed_attributes" value="@ID | @CREATED | @GROUPID | @ADMID | @STATUS | @fikdk:CREATED | @fikdk:PID | @fikdk:PIDTYPE | @xml:lang"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_structMap_attribute_list_old" is-a="allowed_attribute_list_pattern">
+                <sch:param name="context_element" value="mets:structMap"/>
+                <sch:param name="context_condition" value="normalize-space(/mets:mets/@PROFILE)='http://www.kdk.fi/kdk-mets-profile'"/>
+                <sch:param name="allowed_attributes" value="@ID | @TYPE | @LABEL | @fikdk:PID | @fikdk:PIDTYPE"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+
+        <!-- Specification attributes -->
+        <sch:pattern id="mets_CATALOG_SPECIFICATION_old" is-a="required_attribute_or_attribute_pattern">
+                <sch:param name="context_element" value="mets:mets"/>
+                <sch:param name="context_condition" value="@PROFILE='http://www.kdk.fi/kdk-mets-profile'"/>
+                <sch:param name="required_attribute1" value="@fikdk:CATALOG"/>
+                <sch:param name="required_attribute2" value="@fikdk:SPECIFICATION"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_specification_old" is-a="required_specification_pattern">
+                <sch:param name="required_condition" value="normalize-space(@fikdk:CATALOG) = normalize-space(@fikdk:SPECIFICATION)
+                        or (normalize-space(@fikdk:CATALOG)='1.4.1' and normalize-space(@fikdk:SPECIFICATION)='1.4')
+                        or (normalize-space(@fikdk:CATALOG)='1.6.0' and normalize-space(@fikdk:SPECIFICATION)='1.6.1')"/>
+        </sch:pattern>
+
+	<!-- CONTENTID, CREATED, PIDTYPE and PID in old specifications -->
+        <sch:pattern id="mets_CONTENTID_value_old" is-a="required_nonempty_attribute_pattern">
+                <sch:param name="context_element" value="mets:mets"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="context_attribute" value="@fikdk:CONTENTID"/>
+                <sch:param name="specifications" value="string('1.6.0; 1.6.1')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_no_CONTENTID_old" is-a="disallowed_attribute_pattern">
+                <sch:param name="context_element" value="mets:mets"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_attribute" value="@fikdk:CONTENTID"/>
+                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_no_CONTENTID" is-a="disallowed_attribute_pattern">
+                <sch:param name="context_element" value="mets:mets"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_attribute" value="@fi:CONTENTID"/>
+                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_dmdSec_CREATED_old" is-a="required_attribute_xor_attribute_pattern">
+                <sch:param name="context_element" value="mets:dmdSec"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="required_attribute1" value="@CREATED"/>
+                <sch:param name="required_attribute2" value="@fikdk:CREATED"/>
+                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_amdSec_CREATED_old" is-a="required_attribute_xor_attribute_pattern">
+                <sch:param name="context_element" value="mets:amdSec/*"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="required_attribute1" value="@CREATED"/>
+                <sch:param name="required_attribute2" value="@fikdk:CREATED"/>
+                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_dmdSec_PID_old" is-a="required_attribute_pattern">
+                <sch:param name="context_element" value="mets:dmdSec"/>
+                <sch:param name="context_condition" value="@fikdk:PIDTYPE"/>
+                <sch:param name="required_attribute" value="@fikdk:PID"/>
+                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_amdSec_PID_old" is-a="required_attribute_pattern">
+                <sch:param name="context_element" value="mets:amdSec/*"/>
+                <sch:param name="context_condition" value="@fikdk:PIDTYPE"/>
+                <sch:param name="required_attribute" value="@fikdk:PID"/>
+                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_dmdSec_PIDTYPE_old" is-a="required_attribute_pattern">
+                <sch:param name="context_element" value="mets:dmdSec"/>
+                <sch:param name="context_condition" value="@fikdk:PID"/>
+                <sch:param name="required_attribute" value="@fikdk:PIDTYPE"/>
+                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_amdSec_PIDTYPE_old" is-a="required_attribute_pattern">
+                <sch:param name="context_element" value="mets:amdSec/*"/>
+                <sch:param name="context_condition" value="@fikdk:PID"/>
+                <sch:param name="required_attribute" value="@fikdk:PIDTYPE"/>
+                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+        </sch:pattern>
+        <sch:pattern id="mets14_structMap_PID" is-a="disallowed_attribute_pattern">
+                <sch:param name="context_element" value="mets:structMap"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_attribute" value="@fikdk:PID"/>
+                <sch:param name="specifications" value="string('1.4.1; 1.4')"/>
+        </sch:pattern>
+        <sch:pattern id="mets14_structMap_PIDTYPE" is-a="disallowed_attribute_pattern">
+                <sch:param name="context_element" value="mets:structMap"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_attribute" value="@fikdk:PIDTYPE"/>
+                <sch:param name="specifications" value="string('1.4.1; 1.4')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_structMap_PID_old" is-a="required_attribute_pattern">
+                <sch:param name="context_element" value="mets:structMap"/>
+                <sch:param name="context_condition" value="@fikdk:PIDTYPE"/>
+                <sch:param name="required_attribute" value="@fikdk:PID"/>
+                <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_structMap_PIDTYPE_old" is-a="required_attribute_pattern">
+                <sch:param name="context_element" value="mets:structMap"/>
+                <sch:param name="context_condition" value="@fikdk:PID"/>
+                <sch:param name="required_attribute" value="@fikdk:PIDTYPE"/>
+                <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
+        </sch:pattern>
+
+	<!-- METSRIGHTS in specification 1.4 -->
+        <sch:pattern id="mets14_rightsMD_MDTYPE" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:rightsMD/mets:mdWrap"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="context_attribute" value="@MDTYPE"/>
+                <sch:param name="valid_values" value="string('METSRIGHTS; PREMIS:RIGHTS; OTHER')"/>
+                <sch:param name="specifications" value="string('1.4.1; 1.4')"/>
+        </sch:pattern>
+
+	<!-- PREMIS 2.1 in specification 1.5.0 -->
+        <sch:pattern id="mets15_techMD_MDTYPEVERSION_values_OBJECT" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:techMD/mets:mdWrap"/>
+                <sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:OBJECT'"/>
+                <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
+                <sch:param name="valid_values" value="string('2.1; 2.2; 2.3')"/>
+                <sch:param name="specifications" value="string('1.5.0')"/>
+        </sch:pattern>
+        <sch:pattern id="mets15_rightsMD_MDTYPEVERSION_values_RIGHTS" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:rightsMD/mets:mdWrap"/>
+                <sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:RIGHTS'"/>
+                <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
+                <sch:param name="valid_values" value="string('2.1; 2.2; 2.3')"/>
+                <sch:param name="specifications" value="string('1.5.0')"/>
+        </sch:pattern>
+        <sch:pattern id="mets15_digiprovMD_MDTYPEVERSION_values_OBJECT" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
+                <sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:OBJECT'"/>
+                <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
+                <sch:param name="valid_values" value="string('2.1; 2.2; 2.3')"/>
+                <sch:param name="specifications" value="string('1.5.0')"/>
+        </sch:pattern>
+        <sch:pattern id="mets15_digiprovMD_MDTYPEVERSION_values_EVENT" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
+                <sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:EVENT'"/>
+                <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
+                <sch:param name="valid_values" value="string('2.1; 2.2; 2.3')"/>
+                <sch:param name="specifications" value="string('1.5.0')"/>
+        </sch:pattern>
+        <sch:pattern id="mets15_digiprovMD_MDTYPEVERSION_values_AGENT" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
+                <sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:AGENT'"/>
+                <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
+                <sch:param name="valid_values" value="string('2.1; 2.2; 2.3')"/>
+                <sch:param name="specifications" value="string('1.5.0')"/>
+        </sch:pattern>
+
+	<!-- Disallow streams in secifications older than 1.6.0 -->
+        <sch:pattern id="mets_file_stream" is-a="disallowed_element_pattern">
+                <sch:param name="context_element" value="mets:fileGrp/mets:file"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_element" value="mets:stream"/>
+                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0')"/>
+        </sch:pattern>
+
+	<!-- KDKPreservationPlan in old specifications -->
+        <sch:pattern id="mets_mdRef_OTHERMDTYPE_values_old" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:mdRef"/>
+                <sch:param name="context_condition" value="/mets:mets/@PROFILE='http://www.kdk.fi/kdk-mets-profile'"/>
+                <sch:param name="context_attribute" value="@OTHERMDTYPE"/>
+                <sch:param name="valid_values" value="string('KDKPreservationPlan')"/>
+                <sch:param name="specifications" value="string('1.4.1; 1.4; 1.5.0; 1.6.0; 1.6.1')"/>
+        </sch:pattern>
 </sch:schema>

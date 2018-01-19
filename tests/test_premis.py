@@ -446,32 +446,33 @@ def test_linking(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 0
 
 
-@pytest.mark.parametrize("specification, check_result", [
-    ('1.5.0', 1), ('1.4', 0)
+@pytest.mark.parametrize("specification, check_report, check_error", [
+    ('1.5.0', 1, 0), ('1.4', 0, 1)
 ])
-def test_native(schematron_fx, specification, check_result):
+def test_native(schematron_fx, specification, check_report, check_error):
     """Test the native file case. Native file requires a migration event to
     a recommended/acceptable file format. Here we test various cases related to
     native files.
 
     :schematron_fx: Schematron compile fixture
     :specification: Used specification sa string
-    :check_result: 1 native check done with specification, 0 otherwise
+    :check_error: 1 natives are disallowed, 0 otherwise
+    :check_report: 1 native check done with specification, 0 otherwise
     """
     (mets, root) = parse_xml_file('mets_valid_native.xml')
 
     # Working case
     root.set_attribute('CATALOG', 'fikdk', specification)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 0
-    assert svrl.count(SVRL_REPORT) == check_result
+    assert svrl.count(SVRL_FAILED) == check_error
+    assert svrl.count(SVRL_REPORT) == check_report
 
     # Make required migration event to something else
     elem_handler = root.find_element('eventType', 'premis')
     elem_handler.text = 'xxx'
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     elem_handler.text = 'migration'
-    assert svrl.count(SVRL_FAILED) == check_result
+    assert svrl.count(SVRL_FAILED) == 1
     assert svrl.count(SVRL_REPORT) == 0
 
     # Make native as outcome and recommended format as source
@@ -490,7 +491,7 @@ def test_native(schematron_fx, specification, check_result):
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     elem_source.text = 'source'
     elem_outcome.text = 'outcome'
-    assert svrl.count(SVRL_FAILED) == check_result
+    assert svrl.count(SVRL_FAILED) == 1
     assert svrl.count(SVRL_REPORT) == 0
 
     # Give error, if linking to migration event is destroyed
@@ -498,7 +499,7 @@ def test_native(schematron_fx, specification, check_result):
         'file[@ADMID="techmd-001 event-001 agent-001"]', 'mets')
     elem_handler.set_attribute('ADMID', 'mets', '')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == check_result
+    assert svrl.count(SVRL_FAILED) == 1
     assert svrl.count(SVRL_REPORT) == 0
 
 

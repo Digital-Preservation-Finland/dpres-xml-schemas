@@ -14,7 +14,7 @@ def prepare_xml_for_tests():
     return (mets, root)
 
 
-def test_valid_overall_mets_catalog(catalog_fx):
+def test_overall_mets_catalog(catalog_fx):
     """Test valid METS, where all mandatory and optional METS elements and
     attributes have been used at least once.
 
@@ -23,10 +23,21 @@ def test_valid_overall_mets_catalog(catalog_fx):
     (mets, root) = prepare_xml_for_tests()
     (returncode, _, _) = catalog_fx(xmltree=mets)
     assert returncode == 0
+
+    root.set_attribute('CATALOG', 'fikdk', '1.7.0')
+    root.set_attribute('SPECIFICATION', 'fikdk', '1.7.0')
+    (returncode, _, _) = catalog_fx(xmltree=mets)
+    assert returncode > 0
+
     # Use new specification
     fix_version_17(root)
     (returncode, _, _) = catalog_fx(xmltree=mets)
     assert returncode == 0
+
+    root.set_attribute('CATALOG', 'fi', '1.6.0')
+    root.set_attribute('SPECIFICATION', 'fi', '1.6.0')
+    (returncode, _, _) = catalog_fx(xmltree=mets)
+    assert returncode > 0
 
 
 @pytest.mark.parametrize("rootelement, namespace, section", [

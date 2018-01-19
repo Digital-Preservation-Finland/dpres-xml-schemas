@@ -70,64 +70,9 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 			  + number(normalize-space(@MDTYPE)='DDI' and normalize-space(@MDTYPEVERSION)='3.1')*number(boolean(mets:xmlData/ddilc31:*))*count(mets:xmlData/*)
 			  + number(normalize-space(@MDTYPE)='DDI' and normalize-space(@MDTYPEVERSION)='2.5')*number(boolean(mets:xmlData/ddicb25:*))*count(mets:xmlData/*)
 			  + number(normalize-space(@MDTYPE)='DDI' and normalize-space(@MDTYPEVERSION)='2.5.1')*number(boolean(mets:xmlData/ddicb25:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='DDI' and normalize-space(@MDTYPEVERSION)='2.1')*number(boolean(mets:xmlData/ddicb21:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='TEXTMD')*number(boolean(mets:xmlData/textmd:*))*count(mets:xmlData/*)) = 1"/>
+			  + number(normalize-space(@MDTYPE)='DDI' and normalize-space(@MDTYPEVERSION)='2.1')*number(boolean(mets:xmlData/ddicb21:*))*count(mets:xmlData/*)) = 1"/>
 		<sch:param name="used_attribute" value="@MDTYPE"/>
-		<sch:param name="specifications" value="string('not: 1.4; 1.4.1; 1.5.0')"/>
-	</sch:pattern>
-	<sch:pattern id="mets15_mdtype_content" is-a="required_metadata_match_pattern">
-		<sch:param name="context_condition" value="not(@OTHERMDTYPE)"/>
-		<sch:param name="required_condition" value="(number(normalize-space(@MDTYPE)='PREMIS:OBJECT')*count(mets:xmlData/premis:object)*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='PREMIS:RIGHTS')*count(mets:xmlData/premis:rights)*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='PREMIS:RIGHTS')*count(mets:xmlData/premis:rightsStatement)*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='PREMIS:EVENT')*count(mets:xmlData/premis:event)*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='PREMIS:AGENT')*count(mets:xmlData/premis:agent)*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='NISOIMG')*number(boolean(mets:xmlData/mix:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='MARC')*number(boolean(mets:xmlData/marc21:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='DC')*number(boolean(mets:xmlData/dc:* or mets:xmlData/dcterms:* or mets:xmlData/dcmitype:*))
-			  + number(normalize-space(@MDTYPE)='MODS')*number(boolean(mets:xmlData/mods:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='EAD')*number(boolean(mets:xmlData/ead:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='EAC-CPF')*number(boolean(mets:xmlData/eac:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='LIDO')*number(boolean(mets:xmlData/lido:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='VRA')*number(boolean(mets:xmlData/vra:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='DDI' and normalize-space(@MDTYPEVERSION)='3.2')*number(boolean(mets:xmlData/ddilc32:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='DDI' and normalize-space(@MDTYPEVERSION)='3.1')*number(boolean(mets:xmlData/ddilc31:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='DDI' and normalize-space(@MDTYPEVERSION)='2.5')*number(boolean(mets:xmlData/ddicb25:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='DDI' and normalize-space(@MDTYPEVERSION)='2.5.1')*number(boolean(mets:xmlData/ddicb25:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='DDI' and normalize-space(@MDTYPEVERSION)='2.1')*number(boolean(mets:xmlData/ddicb21:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='TEXTMD')*number(boolean(mets:xmlData/textmd:*))*count(mets:xmlData/*)) = 1"/>
-		<sch:param name="used_attribute" value="@MDTYPE"/>
-		<sch:param name="specifications" value="string('1.5.0')"/>
-	</sch:pattern>
-	<sch:pattern id="mets14_mdtype_content" is-a="required_metadata_match_pattern">
-		<sch:param name="context_condition" value="not(@OTHERMDTYPE)"/>
-		<sch:param name="required_condition" value="(number(normalize-space(@MDTYPE)='PREMIS:OBJECT')*count(mets:xmlData/premis:object)*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='PREMIS:RIGHTS')*count(mets:xmlData/premis:rights)*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='PREMIS:EVENT')*count(mets:xmlData/premis:event)*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='PREMIS:AGENT')*count(mets:xmlData/premis:agent)*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='METSRIGHTS')*number(boolean(mets:xmlData/metsrights:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='NISOIMG')*number(boolean(mets:xmlData/mix:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='MARC')*number(boolean(mets:xmlData/marc21:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='DC')*number(boolean(mets:xmlData/dc:* or mets:xmlData/dcterms:* or mets:xmlData/dcmitype:*))
-			  + number(normalize-space(@MDTYPE)='MODS')*number(boolean(mets:xmlData/mods:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='EAD')*number(boolean(mets:xmlData/ead:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='EAC-CPF')*number(boolean(mets:xmlData/eac:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='LIDO')*number(boolean(mets:xmlData/lido:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='VRA')*number(boolean(mets:xmlData/vra:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='DDI')*number(boolean(mets:xmlData/ddilc32:* or mets:xmlData/ddilc31:* or mets:xmlData/ddicb25:* or mets:xmlData/ddicb21:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@MDTYPE)='TEXTMD')*number(boolean(mets:xmlData/textmd_kdk:*))*count(mets:xmlData/*)) = 1"/>
-		<sch:param name="used_attribute" value="@MDTYPE"/>
-		<sch:param name="specifications" value="string('1.4.1; 1.4')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_othermdtype_content_old" is-a="required_metadata_match_pattern">
-		<sch:param name="context_condition" value="@OTHERMDTYPE"/>
-		<sch:param name="required_condition" value="(number(normalize-space(@OTHERMDTYPE)='ADDML')*number(boolean(mets:xmlData/addml:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@OTHERMDTYPE)='AudioMD')*number(boolean(mets:xmlData/audiomd:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@OTHERMDTYPE)='VideoMD')*number(boolean(mets:xmlData/videomd:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@OTHERMDTYPE)='EAD3')*number(boolean(mets:xmlData/ead3:*))*count(mets:xmlData/*)
-			  + number(normalize-space(@OTHERMDTYPE)!='ADDML' and normalize-space(@OTHERMDTYPE)!='AudioMD' and normalize-space(@OTHERMDTYPE)!='VideoMD' and normalize-space(@OTHERMDTYPE)!='EAD3')*count(mets:xmlData/*)) = 1"/>
-		<sch:param name="used_attribute" value="@OTHERMDTYPE"/>
-		<sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+		<sch:param name="specifications" value="string('not: 1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
 	</sch:pattern>
         <sch:pattern id="mets_othermdtype_content" is-a="required_metadata_match_pattern">
                 <sch:param name="context_condition" value="@OTHERMDTYPE"/>
@@ -155,20 +100,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 		<sch:param name="required_condition" value="@OTHERMDTYPE!='AudioMD' and @OTHERMDTYPE!='VideoMD' and @OTHERMDTYPE!='EN15744' and @OTHERMDTYPE!='EAD3' and @OTHERMDTYPE!='ADDML' and @OTHERMDTYPE!='DATACITE'"/>
 		<sch:param name="specifications" value="string('not: 1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
 	</sch:pattern>
-        <sch:pattern id="mets_allowedmd_unsupported_old" is-a="allowed_unsupported_metadata_pattern">
-                <sch:param name="context_condition" value="true()"/>
-                <sch:param name="required_condition" value="@OTHERMDTYPE!='AudioMD' and @OTHERMDTYPE!='VideoMD' and @OTHERMDTYPE!='EN15744' and @OTHERMDTYPE!='EAD3' and @OTHERMDTYPE!='ADDML'"/>
-                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
-        </sch:pattern>
 
-	<!-- Notify the existence of deprecated element -->
-	<sch:pattern id="mets_deprecated_rightsStatement" is-a="deprecated_element_pattern">
-		<sch:param name="context_element" value="mets:xmlData"/>
-		<sch:param name="context_condition" value="../@MDTYPE='PREMIS:RIGHTS'"/>
-		<sch:param name="deprecated_element" value="premis:rightsStatement"/>
-		<sch:param name="specifications" value="string('1.5.0')"/>
-	</sch:pattern>
-	
 	<!-- Standard portfolio schemas -->
 	<sch:pattern id="mets_object_exists" is-a="required_metadata_pattern">
 		<sch:param name="context_condition" value="true()"/>
@@ -189,13 +121,6 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 		<sch:param name="metadata_name" value="string('Standard portfolio descriptive')"/>
 		<sch:param name="specifications" value="string('not: 1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
 	</sch:pattern>
-        <sch:pattern id="mets_descriptive_exists_old" is-a="required_metadata_pattern">
-                <sch:param name="context_condition" value="true()"/>
-                <sch:param name="required_metadata" value="mets:dmdSec/mets:mdWrap[@MDTYPE='LIDO' or @MDTYPE='EAC-CPF' or @MDTYPE='EAD' or @OTHERMDTYPE='EAD3'
-                or @MDTYPE='VRA' or @MDTYPE='MODS' or @MDTYPE='MARC' or @MDTYPE='DC' or @MDTYPE='DDI' or @OTHERMDTYPE='EN15744']"/>
-                <sch:param name="metadata_name" value="string('Standard portfolio descriptive')"/>
-                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
-        </sch:pattern>
 
 	<!-- Known descriptive, rights, technical, or provenance metadata can not be used inside wrong section -->
 	<sch:pattern id="dmdsec_no_rights" is-a="disallowed_element_pattern">
@@ -404,6 +329,115 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 			</sch:assert>
 		</sch:rule>
 	</sch:pattern>
+
+
+
+	<!-- COMPATIBILITY WITH DEPRECATED VERSIONS -->
+
+	<!-- Check metadata content in mdWrap with old specifications -->
+        <sch:pattern id="mets16_mdtype_content" is-a="required_metadata_match_pattern">
+                <sch:param name="context_condition" value="not(@OTHERMDTYPE)"/>
+                <sch:param name="required_condition" value="(number(normalize-space(@MDTYPE)='PREMIS:OBJECT')*count(mets:xmlData/premis:object)*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='PREMIS:RIGHTS')*count(mets:xmlData/premis:rights)*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='PREMIS:EVENT')*count(mets:xmlData/premis:event)*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='PREMIS:AGENT')*count(mets:xmlData/premis:agent)*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='NISOIMG')*number(boolean(mets:xmlData/mix:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='MARC')*number(boolean(mets:xmlData/marc21:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='DC')*number(boolean(mets:xmlData/dc:* or mets:xmlData/dcterms:* or mets:xmlData/dcmitype:*))
+                          + number(normalize-space(@MDTYPE)='MODS')*number(boolean(mets:xmlData/mods:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='EAD')*number(boolean(mets:xmlData/ead:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='EAC-CPF')*number(boolean(mets:xmlData/eac:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='LIDO')*number(boolean(mets:xmlData/lido:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='VRA')*number(boolean(mets:xmlData/vra:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='DDI' and normalize-space(@MDTYPEVERSION)='3.2')*number(boolean(mets:xmlData/ddilc32:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='DDI' and normalize-space(@MDTYPEVERSION)='3.1')*number(boolean(mets:xmlData/ddilc31:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='DDI' and normalize-space(@MDTYPEVERSION)='2.5')*number(boolean(mets:xmlData/ddicb25:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='DDI' and normalize-space(@MDTYPEVERSION)='2.5.1')*number(boolean(mets:xmlData/ddicb25:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='DDI' and normalize-space(@MDTYPEVERSION)='2.1')*number(boolean(mets:xmlData/ddicb21:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='TEXTMD')*number(boolean(mets:xmlData/textmd:*))*count(mets:xmlData/*)) = 1"/>
+                <sch:param name="used_attribute" value="@MDTYPE"/>
+                <sch:param name="specifications" value="string('1.6.0; 1.6.1')"/>
+        </sch:pattern>
+        <sch:pattern id="mets15_mdtype_content" is-a="required_metadata_match_pattern">
+                <sch:param name="context_condition" value="not(@OTHERMDTYPE)"/>
+                <sch:param name="required_condition" value="(number(normalize-space(@MDTYPE)='PREMIS:OBJECT')*count(mets:xmlData/premis:object)*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='PREMIS:RIGHTS')*count(mets:xmlData/premis:rights)*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='PREMIS:RIGHTS')*count(mets:xmlData/premis:rightsStatement)*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='PREMIS:EVENT')*count(mets:xmlData/premis:event)*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='PREMIS:AGENT')*count(mets:xmlData/premis:agent)*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='NISOIMG')*number(boolean(mets:xmlData/mix:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='MARC')*number(boolean(mets:xmlData/marc21:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='DC')*number(boolean(mets:xmlData/dc:* or mets:xmlData/dcterms:* or mets:xmlData/dcmitype:*))
+                          + number(normalize-space(@MDTYPE)='MODS')*number(boolean(mets:xmlData/mods:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='EAD')*number(boolean(mets:xmlData/ead:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='EAC-CPF')*number(boolean(mets:xmlData/eac:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='LIDO')*number(boolean(mets:xmlData/lido:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='VRA')*number(boolean(mets:xmlData/vra:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='DDI' and normalize-space(@MDTYPEVERSION)='3.2')*number(boolean(mets:xmlData/ddilc32:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='DDI' and normalize-space(@MDTYPEVERSION)='3.1')*number(boolean(mets:xmlData/ddilc31:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='DDI' and normalize-space(@MDTYPEVERSION)='2.5')*number(boolean(mets:xmlData/ddicb25:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='DDI' and normalize-space(@MDTYPEVERSION)='2.5.1')*number(boolean(mets:xmlData/ddicb25:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='DDI' and normalize-space(@MDTYPEVERSION)='2.1')*number(boolean(mets:xmlData/ddicb21:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='TEXTMD')*number(boolean(mets:xmlData/textmd:*))*count(mets:xmlData/*)) = 1"/>
+                <sch:param name="used_attribute" value="@MDTYPE"/>
+                <sch:param name="specifications" value="string('1.5.0')"/>
+        </sch:pattern>
+        <sch:pattern id="mets14_mdtype_content" is-a="required_metadata_match_pattern">
+                <sch:param name="context_condition" value="not(@OTHERMDTYPE)"/>
+                <sch:param name="required_condition" value="(number(normalize-space(@MDTYPE)='PREMIS:OBJECT')*count(mets:xmlData/premis:object)*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='PREMIS:RIGHTS')*count(mets:xmlData/premis:rights)*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='PREMIS:EVENT')*count(mets:xmlData/premis:event)*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='PREMIS:AGENT')*count(mets:xmlData/premis:agent)*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='METSRIGHTS')*number(boolean(mets:xmlData/metsrights:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='NISOIMG')*number(boolean(mets:xmlData/mix:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='MARC')*number(boolean(mets:xmlData/marc21:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='DC')*number(boolean(mets:xmlData/dc:* or mets:xmlData/dcterms:* or mets:xmlData/dcmitype:*))
+                          + number(normalize-space(@MDTYPE)='MODS')*number(boolean(mets:xmlData/mods:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='EAD')*number(boolean(mets:xmlData/ead:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='EAC-CPF')*number(boolean(mets:xmlData/eac:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='LIDO')*number(boolean(mets:xmlData/lido:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='VRA')*number(boolean(mets:xmlData/vra:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='DDI')*number(boolean(mets:xmlData/ddilc32:* or mets:xmlData/ddilc31:* or mets:xmlData/ddicb25:* or mets:xmlData/ddicb21:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@MDTYPE)='TEXTMD')*number(boolean(mets:xmlData/textmd_kdk:*))*count(mets:xmlData/*)) = 1"/>
+                <sch:param name="used_attribute" value="@MDTYPE"/>
+                <sch:param name="specifications" value="string('1.4.1; 1.4')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_othermdtype_content_old" is-a="required_metadata_match_pattern">
+                <sch:param name="context_condition" value="@OTHERMDTYPE"/>
+                <sch:param name="required_condition" value="(number(normalize-space(@OTHERMDTYPE)='ADDML')*number(boolean(mets:xmlData/addml:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@OTHERMDTYPE)='AudioMD')*number(boolean(mets:xmlData/audiomd:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@OTHERMDTYPE)='VideoMD')*number(boolean(mets:xmlData/videomd:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@OTHERMDTYPE)='EAD3')*number(boolean(mets:xmlData/ead3:*))*count(mets:xmlData/*)
+                          + number(normalize-space(@OTHERMDTYPE)!='ADDML' and normalize-space(@OTHERMDTYPE)!='AudioMD' and normalize-space(@OTHERMDTYPE)!='VideoMD' and normalize-space(@OTHERMDTYPE)!='EAD3')*count(mets:xmlData/*)) = 1"/>
+                <sch:param name="used_attribute" value="@OTHERMDTYPE"/>
+                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_allowedmd_unsupported_old" is-a="allowed_unsupported_metadata_pattern">
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="required_condition" value="@OTHERMDTYPE!='AudioMD' and @OTHERMDTYPE!='VideoMD' and @OTHERMDTYPE!='EN15744' and @OTHERMDTYPE!='EAD3' and @OTHERMDTYPE!='ADDML'"/>
+                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+        </sch:pattern>
+
+        <!-- Notify deprecation of using rightsStatement as root element in rightsMD, in specification 1.5.0 -->
+        <sch:pattern id="mets_deprecated_rightsStatement" is-a="deprecated_element_pattern">
+                <sch:param name="context_element" value="mets:xmlData"/>
+                <sch:param name="context_condition" value="../@MDTYPE='PREMIS:RIGHTS'"/>
+                <sch:param name="deprecated_element" value="premis:rightsStatement"/>
+                <sch:param name="specifications" value="string('1.5.0')"/>
+        </sch:pattern>
+
+	<!-- Standard portfolio descriptive metadata formats with old specifications -->
+        <sch:pattern id="mets_descriptive_exists_old" is-a="required_metadata_pattern">
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="required_metadata" value="mets:dmdSec/mets:mdWrap[@MDTYPE='LIDO' or @MDTYPE='EAC-CPF' or @MDTYPE='EAD' or @OTHERMDTYPE='EAD3'
+                or @MDTYPE='VRA' or @MDTYPE='MODS' or @MDTYPE='MARC' or @MDTYPE='DC' or @MDTYPE='DDI' or @OTHERMDTYPE='EN15744']"/>
+                <sch:param name="metadata_name" value="string('Standard portfolio descriptive')"/>
+                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+        </sch:pattern>
+
+
+
+	<!-- File format specific technical metadata requirements with specifications 1.4 -->
 	<sch:let name="textmd_fileid" value="/mets:mets/mets:amdSec/mets:techMD[contains(concat(' ', $textmd_types, ' '), concat(' ', normalize-space(.//premis:formatName), ' '))]/@ID"/>
 	<sch:let name="textmd14_mdids" value="/mets:mets/mets:amdSec/mets:techMD[.//textmd_kdk:*]/@ID"/>
 	<sch:let name="textmd_countfiles" value="count(sets:distinct(exsl:node-set($textmd_fileid)))"/>
@@ -481,5 +515,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 			</sch:assert>
 		</sch:rule>
 	</sch:pattern>
+
+
 
 </sch:schema>

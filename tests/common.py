@@ -87,8 +87,11 @@ def fix_version_17(root):
                 if fi_attrib is not None:
                     elem_tree.del_attribute(attr, 'fikdk')
                     elem_tree.set_attribute(attr, 'fi', fi_attrib)
+    mdref = root.find_element('mdRef', 'mets')
+    if mdref is not None:
+        mdref.set_attribute('OTHERMDTYPE', 'mets', 'FiPreservationPlan')
     root.set_attribute('PROFILE', 'mets',
-        'http://www.digitalpreservation.fi/mets-profiles/cultural-heritage')
+        'http://digitalpreservation.fi/mets-profiles/cultural-heritage')
     root.set_attribute('CATALOG', 'fi', '1.7.0')
     root.set_attribute('SPECIFICATION', 'fi', '1.7.0')
     root.set_attribute('CONTRACTID', 'fi', 'urn:uuid:xxx')

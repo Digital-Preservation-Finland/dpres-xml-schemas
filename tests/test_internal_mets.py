@@ -101,7 +101,7 @@ def test_fileid(schematron_fx):
 
 
 @pytest.mark.parametrize("specification, failed", [
-    ('1.4', 4), ('1.5.0', 2), ('1.6.0', 1), ('1.7.0', 0)
+    ('1.4', 3), ('1.5.0', 1), ('1.6.0', 0), ('1.7.0', 0)
 ])
 def test_new_mets_elements_attributes(schematron_fx, specification, failed):
     """Test that PID in structMap, CONTENTID, CONTRACTID and streams are
@@ -114,30 +114,28 @@ def test_new_mets_elements_attributes(schematron_fx, specification, failed):
     (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
     if specification == '1.7.0':
         fix_version_17(root)
+        svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+        assert svrl.count(SVRL_FAILED) == failed
     else:
         root.set_attribute('CATALOG', 'fikdk', specification)
         root.set_attribute('SPECIFICATION', 'fikdk', specification)
         root.set_attribute('CONTRACTID', 'fikdk', specification)
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == failed
-
-    if specification != '1.7.0':
+        svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+        assert svrl.count(SVRL_FAILED) == failed + 1
         root.del_attribute('CONTRACTID', 'fikdk')
+
     elem_handler = root.find_element('file', 'mets')
     elem_handler.set_element('stream', 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
 
-    if specification == '1.6.0':
-        assert svrl.count(SVRL_FAILED) == failed - 1
-    else:
+    if specification in ['1.6.0', '1.7.0']:
         assert svrl.count(SVRL_FAILED) == failed
+    else:
+        assert svrl.count(SVRL_FAILED) == failed + 1
 
     elem_handler.del_element('stream', 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    if specification == '1.7.0':
-        assert svrl.count(SVRL_FAILED) == failed
-    else:
-        assert svrl.count(SVRL_FAILED) == failed - 1
+    assert svrl.count(SVRL_FAILED) == failed
 
 
 def test_textmd(schematron_fx):
