@@ -94,4 +94,4 @@ def fix_version_17(root):
         'http://digitalpreservation.fi/mets-profiles/cultural-heritage')
     root.set_attribute('CATALOG', 'fi', '1.7.0')
     root.set_attribute('SPECIFICATION', 'fi', '1.7.0')
-    root.set_attribute('CONTRACTID', 'fi', 'urn:uuid:xxx')
+    root.set_attribute('CONTRACTID', 'fi', 'urn:uuid:c5a193b3-bb63-4348-bd25-6c20bb72264b')

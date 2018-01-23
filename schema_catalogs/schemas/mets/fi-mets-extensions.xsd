@@ -19,10 +19,10 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:attribute>
-        <xsd:attribute name="CONTRACTID" type="xsd:string">
+        <xsd:attribute name="CONTRACTID" type="uuidType">
                 <xsd:annotation>
                         <xsd:documentation xml:lang="en">
-                                CONTRACTID (string/O): Identifier for the contract.
+                                CONTRACTID (formatted string/O): Identifier for the contract.
                         </xsd:documentation>
                 </xsd:annotation>
         </xsd:attribute>
@@ -84,5 +84,11 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 		</xsd:restriction>
 	</xsd:simpleType>
 
+	<!-- UUID type -->
+	<xsd:simpleType name="uuidType">
+        	<xsd:restriction base="xsd:string">
+        		<xsd:pattern value="urn:uuid:[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}"/>
+                </xsd:restriction>
+        </xsd:simpleType>
 	
 </xsd:schema>

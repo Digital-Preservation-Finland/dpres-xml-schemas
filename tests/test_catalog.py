@@ -27,7 +27,7 @@ def test_overall_mets_catalog(catalog_fx):
     root.set_attribute('CATALOG', 'fikdk', '1.7.0')
     root.set_attribute('SPECIFICATION', 'fikdk', '1.7.0')
     (returncode, _, _) = catalog_fx(xmltree=mets)
-    assert returncode > 0
+    assert returncode == 3
 
     # Use new specification
     fix_version_17(root)
@@ -37,7 +37,24 @@ def test_overall_mets_catalog(catalog_fx):
     root.set_attribute('CATALOG', 'fi', '1.6.0')
     root.set_attribute('SPECIFICATION', 'fi', '1.6.0')
     (returncode, _, _) = catalog_fx(xmltree=mets)
-    assert returncode > 0
+    assert returncode == 3
+
+
+def test_contractid_format(catalog_fx):
+    """Test that contractid allows only correctly formatted UUID
+    """
+    (mets, root) = prepare_xml_for_tests()
+    fix_version_17(root)
+    (returncode, _, _) = catalog_fx(xmltree=mets)
+    assert returncode == 0
+
+    root.set_attribute('CONTRACTID', 'fi', 'c5a193b3-bb63-4348-bd25-6c20bb72264b')
+    (returncode, _, _) = catalog_fx(xmltree=mets)
+    assert returncode == 3
+    
+    root.set_attribute('CONTRACTID', 'fi', 'urn:uuid:xxx')
+    (returncode, _, _) = catalog_fx(xmltree=mets)
+    assert returncode == 3
 
 
 @pytest.mark.parametrize("rootelement, namespace, section", [
