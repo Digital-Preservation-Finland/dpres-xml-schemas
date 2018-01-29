@@ -243,13 +243,20 @@ Validates METS metadata elements and attributes, their values, and METS internal
 		<sch:param name="required_attribute" value="@CREATEDATE"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
-	<sch:pattern id="mets_RECORDSTATUS_values" is-a="required_values_attribute_pattern">
+	<sch:pattern id="mets_RECORDSTATUS_values_csc" is-a="required_values_attribute_pattern">
 		<sch:param name="context_element" value="mets:metsHdr"/>
-		<sch:param name="context_condition" value="true()"/>
+		<sch:param name="context_condition" value="count(mets:agent)=1 and normalize-space(mets:agent/mets:name)='CSC - IT Center for Science Ltd.'"/>
 		<sch:param name="context_attribute" value="@RECORDSTATUS"/>
-		<sch:param name="valid_values" value="string('submission')"/>
+		<sch:param name="valid_values" value="string('submission; update; dissemination')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
+        <sch:pattern id="mets_RECORDSTATUS_values" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:metsHdr"/>
+                <sch:param name="context_condition" value="count(mets:agent)!=1 or normalize-space(mets:agent/mets:name)!='CSC - IT Center for Science Ltd.'"/>
+                <sch:param name="context_attribute" value="@RECORDSTATUS"/>
+                <sch:param name="valid_values" value="string('submission')"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
 
 	<!-- METS Header agent -->
 	<sch:pattern id="mets_metsHdr_agent" is-a="required_element_pattern">

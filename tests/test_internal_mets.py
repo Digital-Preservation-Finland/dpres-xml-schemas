@@ -74,8 +74,40 @@ def test_catalogs(schematron_fx):
     assert svrl.count(SVRL_REPORT) == 1
 
 
+def test_recordstatus(schematron_fx):
+    """Test that RECORDSTATUS can always be 'submission',
+    and also 'update' and 'dissemination' for CSC.
+    """
+    (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
+    hdr = root.find_element('metsHdr', 'mets')
+
+    hdr.set_attribute('RECORDSTATUS', 'mets', 'update')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 1
+
+    hdr.set_attribute('RECORDSTATUS', 'mets', 'dissemination')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 1
+
+    agent = hdr.find_element('name', 'mets')
+    agent.text = 'CSC - IT Center for Science Ltd.'
+
+    hdr.set_attribute('RECORDSTATUS', 'mets', 'submission')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 0
+
+    hdr.set_attribute('RECORDSTATUS', 'mets', 'update')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 0
+
+    hdr.set_attribute('RECORDSTATUS', 'mets', 'dissemination')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 0
+
+
 def test_fileid(schematron_fx):
-    """Test that FILEID is allowed in fptr or area, but disallowed, if missing.
+    """Test that FILEID is allowed in fptr or area, but disallowed,
+    if missing.
 
     :schematron_fx: Schematron compile fixture
     """
