@@ -1,0 +1,152 @@
+TECHNICAL NOTES
+===============
+
+The abstract patterns include some complex variable assignments and
+assertions. Here, the most typical ones are explained in detail. The
+strings are not wrapped and indented nicely in Schematron code, since
+in assertions those are printed in the Schematron output, when fired.
+This would increase the number of rows in the validation report too much.
+
+Also, xsltproc disallows usage of a parameter in <sch:let> element in
+abstract patterns. Therefore, all the rules which use a parameter, must
+be computed in the assertions itself, without intermediate steps.
+
+
+SPECIFICATIONS IN THE XPATH QUERIES
+-----------------------------------
+
+Most of the rules can be limited to certain specifications only.
+This is described below.
+
+The given specification in METS document is computed in abstract
+patterns as follows:
+(1) Concatenate specification attribute values together with spaces between.
+    If attribute does not exist, the attribute value is empty string.
+(2) Since some of the attributes result empty string, there may be spaces
+    around the concatenated string. These are removed.
+(3) Add an empty space to the end of the string (for substring-before).
+(4) Get the the first version from the concatenated string
+    (substring before the first space).
+
+The xpath query is the following:
+
+    <sch:let name="given_specification" value="
+        substring-before(
+            concat(
+                normalize-space(
+                    concat(
+                        normalize-space(/mets:mets/@fi:CATALOG), ' ',
+                        normalize-space(/mets:mets/@fikdk:CATALOG), ' ',
+                        normalize-space(/mets:mets/@fi:SPECIFICATION), ' ',
+                        normalize-space(/mets:mets/@fikdk:SPECIFICATION)
+                    )
+                )
+            , ' ')
+        , ' ')
+    "/>
+
+The specification list in the rule parameter can be given in one of the
+following ways:
+(1) Specifications that are applied for the rule, e.g '1.4; 1.5.0; 1.6.0'
+(2) Specifications that are NOT applied for the rule, e.g 'not: 1.4; 1.5.0'
+
+In tha abstract pattern, the list is compared to the specification used in
+METS document, as follows:
+(1) If the specification list is empty (use all specs), return True.
+(2) If the list begins with 'not:':
+    (2.1) Check if the specification list does not contain the specification
+          given in METS. If so, return True, else False.
+(3) If the list does not begin with 'not:':
+    (3.1) Check if the specification list contains the specification given in
+          METS. If so, return True, else False.
+
+The xpath query used for the Schematron test is the following:
+
+    normalize-space($specifications)=''
+    or (
+        (normalize-space(substring($specifications,1,4))='not:') 
+        and (
+            not(
+                contains(
+                    concat('; ', normalize-space(substring-after($specifications,':')),'; '),
+                    concat('; ', $given_specification, '; ')
+                )
+            )
+        )
+    )
+    or (
+        (normalize-space(substring($specifications,1,4))!='not:')
+        and (
+            contains(
+                concat('; ',normalize-space($specifications),'; '),
+                concat('; ', $given_specification,'; ')
+            )
+        )
+    )
+
+In assertions:
+    <condition> or not(<specification test>)
+    Skip assertion, if specification test returns False
+In reports:
+    <condition> and <specification test>
+    Skip report, if specification test returns False
+
+
+METS SECTIONS IN MESSAGES
+-------------------------
+
+Some rules are fired in a METS section. In such cases, the ID of the section
+is given in the Schematron messages. This is computed in the abstract
+patterns.
+
+(1) Find the METS section listed. If we are in a such section, then assign
+    the section to the variable section_context. This is empty, if not found.
+
+    <sch:let name="section_context" value="
+        ancestor-or-self::*[
+            self::mets:dmdSec or self::mets:techMD
+            or self::mets:rightsMD or self::mets:sourceMD
+            or self::mets:digiprovMD
+        ]
+    "/>
+
+(2) Create a string for the output, which prints out the ID of the METS
+    section:
+
+    <sch:let name="section_string" value="
+        concat(
+            '(ID of the metadata section ',
+            name($section_context),
+            ' is ',
+            $section_context/@ID,
+            ')'
+        )"
+    />
+
+(3) Print out the METS section. If the section was not found,
+    number($section_context) is zero, and in such case the whole substring
+    will be empty:
+
+    <sch:value-of select="
+        substring(
+            $section_string,
+            1,
+            number($section_context)*string-length($section_string)
+        )
+    "/>
+
+
+DEPRECATION CHECKS FOR DIFFERENT METADATA VERSIONS
+--------------------------------------------------
+
+Some deprecation checks use the following context condition:
+(1) The metadata format in METS id same as given in the rule, and
+(2) The metadata format version given in METS is greater or equal to the
+    version given in the rule.
+
+The xpath query is the following:
+
+    normalize-space(ancestor::mets:mdWrap/$mdattribute)=$mdtype_name
+    and number(normalize-space(ancestor::mets:mdWrap/@MDTYPEVERSION)) &gt;= number($mdtype_version)
+
+
