@@ -24,13 +24,13 @@ def fix_version_14(root):
     root.del_attribute('CONTENTID', 'fikdk')
 
 
-def test_valid_overall_mets(schematron_fx):
+def test_valid_complete(schematron_fx):
     """Test valid METS, where all mandatory and optional METS elements and
     attributes have been used at least once.
 
     :schematron_fx: Schematron compile fixture
     """
-    (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
+    (mets, root) = parse_xml_file('mets_valid_complete.xml')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
     assert svrl.count(SVRL_REPORT) == 1
@@ -58,7 +58,7 @@ def test_catalogs(schematron_fx):
 
     :schematron_fx: Schematron compile fixture
     """
-    (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
+    (mets, root) = parse_xml_file('mets_valid_complete.xml')
     fix_version_14(root)
 
     # Conflict between fi:CATALOG and fi:SPECIFICATION
@@ -78,7 +78,7 @@ def test_recordstatus(schematron_fx):
     """Test that RECORDSTATUS can always be 'submission',
     and also 'update' and 'dissemination' for CSC.
     """
-    (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
+    (mets, root) = parse_xml_file('mets_valid_complete.xml')
     hdr = root.find_element('metsHdr', 'mets')
 
     hdr.set_attribute('RECORDSTATUS', 'mets', 'update')
@@ -111,7 +111,7 @@ def test_fileid(schematron_fx):
 
     :schematron_fx: Schematron compile fixture
     """
-    (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
+    (mets, root) = parse_xml_file('mets_valid_complete.xml')
 
     # FILEID in fptr and area
     elem_handler = root.find_element('fptr', 'mets')
@@ -143,7 +143,7 @@ def test_new_mets_elements_attributes(schematron_fx, specification, failed):
     :specification: Specification to test
     :failed: Number of failures
     """
-    (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
+    (mets, root) = parse_xml_file('mets_valid_complete.xml')
     if specification == '1.7.0':
         fix_version_17(root)
         svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
@@ -175,7 +175,7 @@ def test_textmd(schematron_fx):
 
     :schematron_fx: Schematron compile fixture
     """
-    (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
+    (mets, root) = parse_xml_file('mets_valid_complete.xml')
     fix_version_14(root)
     elem_handler = root.find_element('techMD', 'mets')
     elem_handler = elem_handler.find_element('mdWrap', 'mets')
@@ -189,7 +189,7 @@ def test_metsrights(schematron_fx):
 
     :schematron_fx: Schematron compile fixture
     """
-    (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
+    (mets, root) = parse_xml_file('mets_valid_complete.xml')
     fix_version_14(root)
 
     # Add METSRIGHTS to current specification.
@@ -248,7 +248,7 @@ def test_dependent_attributes(schematron_fx, context, nspaces, attributes,
             expected errors. (a) both attributes missing, (b) first exists,
             (c) second exists, (d) both exist.
     """
-    (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
+    (mets, root) = parse_xml_file('mets_valid_complete.xml')
     elem_handler = root.find_element(context, 'mets')
     if nspaces[0] == 'fi':
         fix_version_17(root)
@@ -285,7 +285,7 @@ def test_othermdtype(schematron_fx, context):
     :schematron_fx: Schematron compile fixture
     :context: METS section to be tested
     """
-    (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
+    (mets, root) = parse_xml_file('mets_valid_complete.xml')
     fix_version_14(root)
 
     # OTHERMDTYPE and version can be anything
@@ -353,7 +353,7 @@ def test_mdtype_items(schematron_fx, context, mdtype, othermdtype,
     :othermdtype: OTHERMDTYPE attribute valur
     :mdtypeversion: MDTYPEVERSION attribute value
     """
-    (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
+    (mets, root) = parse_xml_file('mets_valid_complete.xml')
     fix_version_14(root)
     elem_handler = root.find_element(context, 'mets')
     elem_handler = elem_handler.find_element('mdWrap', 'mets')
@@ -415,7 +415,7 @@ def test_value_items(schematron_fx, attribute, nspace, context, fixed):
     :context: Element where the attribute exists
     :fixed: Boolean, if the required value is fixed
     """
-    (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
+    (mets, root) = parse_xml_file('mets_valid_complete.xml')
     if nspace == 'fi':
         fix_version_17(root)
 
@@ -460,7 +460,7 @@ def test_mandatory_items(schematron_fx, mandatory, nspace, context):
     :nspace: Namespace key of the mandatory attribute
     :context: Element, where the attribute exists
     """
-    (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
+    (mets, root) = parse_xml_file('mets_valid_complete.xml')
     if nspace == 'fi':
         fix_version_17(root)
     elem_handler = root.find_element(context, 'mets')
@@ -501,7 +501,7 @@ def test_disallowed_items(schematron_fx, disallowed, context):
     :disallowed: Disallowed element or attribute, use '@' for attributes.
     :context: Context element, where the attribute or element exists
     """
-    (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
+    (mets, root) = parse_xml_file('mets_valid_complete.xml')
 
     # Set disallowed attribute/element
     elem_handler = root.find_element(context, 'mets')
@@ -524,7 +524,7 @@ def test_missing_links(schematron_fx, reference, context):
     :reference: Reference attribute ADMID, DMDID or FILEID
     :context: Element, where the reference attribute exists
     """
-    (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
+    (mets, root) = parse_xml_file('mets_valid_complete.xml')
     elem_handler = root.find_element(context, 'mets')
     refs = elem_handler.get_attribute(reference, 'mets').split()
     elem_handler.set_attribute(reference, 'mets', '')
@@ -543,7 +543,7 @@ def test_missing_ids(schematron_fx, context):
     :schematron_fx: Schematron compile fixture
     :context: Section to be removed.
     """
-    (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
+    (mets, root) = parse_xml_file('mets_valid_complete.xml')
     elem_handler = root.find_element(context, 'mets')
     # We actually just remove the link
     elem_handler.set_attribute('ID', 'mets', '')
@@ -556,7 +556,7 @@ def test_objid_unique(schematron_fx):
 
     :schematron_fx: Schematron compile fixture
     """
-    (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
+    (mets, root) = parse_xml_file('mets_valid_complete.xml')
     objid = root.get_attribute('OBJID', 'mets')
     contentid = root.get_attribute('CONTENTID', 'fikdk')
     root.set_attribute('CONTENTID', 'fikdk', objid)
@@ -586,7 +586,7 @@ def test_arbitrary_attributes(schematron_fx, context):
     """Test that arbitrary attributes are forbidden in METS anyAttribute
        sections.
     """
-    (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
+    (mets, root) = parse_xml_file('mets_valid_complete.xml')
     elem_handler = root.find_element(context, 'mets')
     for spec in [None, '1.7.0']:
         if spec == '1.7.0':

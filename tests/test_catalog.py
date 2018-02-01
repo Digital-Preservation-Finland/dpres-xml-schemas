@@ -10,11 +10,11 @@ def prepare_xml_for_tests():
     """Prepare XML file for the catalog tests
     """
     ET.register_namespace('premis', NAMESPACES['premis'])
-    (mets, root) = parse_xml_file('mets_valid_overall_mets.xml')
+    (mets, root) = parse_xml_file('mets_valid_complete.xml')
     return (mets, root)
 
 
-def test_overall_mets_catalog(catalog_fx):
+def test_catalog_mets_complete(catalog_fx):
     """Test valid METS, where all mandatory and optional METS elements and
     attributes have been used at least once.
 
