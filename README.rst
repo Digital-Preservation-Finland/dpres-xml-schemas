@@ -1,15 +1,16 @@
 Schema Catalogs and Schematron Rules
 ====================================
 
-This repository is currently used in `National Digital Library <http://www.kdk.fi/en/>`_
-and `Open Science and Research Initiative <http://openscience.fi/frontpage>`_ for
-XML validation in digital preservation services. The dpres-xml-schemas is a collection
-of XML schema catalogs and schmematron files which together can be used to validate all
-metadata included in METS document against the national specifications. The catalog can
+This repository is currently used for XML validation in Finnish national digital
+preservation services. The dpres-xml-schemas is a collection of XML schema
+catalogs and schmematron files which together can be used to validate all metadata
+included in METS document against the national specifications. The catalog can
 be used also for validating XML formatted digital objects.
 
-The current METS catalog version is 1.6.0.
+The current METS catalog version is 1.7.0.
 The same catalog can be used also with older specifications, starting from version 1.4.
+
+For further information about specifications, see: http://digitalpreservation.fi/
 
 Installation
 ------------
@@ -83,14 +84,17 @@ Paths are described in relation to base path ./schema_catalogs/schemas/
 ./mets/mets.xsd
   Schema file importing METS and it's national extensions (main schema)
 
-./mets/kdk-mets-extensions.xsd
+./mets/fi-mets-extensions.xsd
   National METS extensions
+
+./mets/kdk-mets-extensions.xsd
+  Deprecated National METS extensions for specifications v.1.4 - 1.6.1
 
 ./mods/mods.xsd
   MODS patch file for compatibility
 
 ./textmd/textmd_kdk.xsd
-  For historical purposes related to KDK specifications v. 1.4
+  For historical purposes related to specifications v. 1.4
 
 ./w3/xlink.xsd
   Xlink patch file for the schema catalog
@@ -109,6 +113,9 @@ Paths are described in relation to base path ./schema_catalogs/schemas_external/
 
 ./avmd
   AudioMD and VideoMD schema files
+
+./datacite
+  DataCite schema files
 
 ./dc
   Dublin Core schema files
@@ -166,9 +173,6 @@ Paths are described in relation to base path ./schema_catalogs/schemas_external/
 
 ./vra
   VRA Core schema files
-
-./datacite
-  DataCite schema files
 
 Schematron:
 +++++++++++

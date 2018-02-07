@@ -55,6 +55,10 @@ Paths related to schema catalog are described in relation to base path ./schema_
   | License N/A
   | https://www.loc.gov/standards/amdvmd/
   | Copyright N/A
+-/datacite
+  | License N/A
+  | https://schema.datacite.org/meta/kernel-4.0/
+  | Copyright N/A
 ./dc
   | https://creativecommons.org/licenses/by/3.0/
   | http://dublincore.org/
