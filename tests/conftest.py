@@ -17,8 +17,7 @@ CATALOG_DIRECTORY = os.path.abspath(
 SCHEMA_DIRECTORY = os.path.abspath(
     os.path.join(os.path.dirname(__file__),
     '..', 'schema_catalogs', 'schemas'))
-CACHE_DIRECTORY = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '..', '.sch_cache'))
+CACHE_DIRECTORY = os.path.expanduser('~/.dpres-ipt/schematron-cache')
 
 
 @pytest.fixture(scope='session', autouse=True)

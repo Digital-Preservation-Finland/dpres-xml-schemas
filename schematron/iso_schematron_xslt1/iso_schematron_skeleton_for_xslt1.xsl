@@ -404,6 +404,14 @@
 <!-- Category: top-level-element -->
 <xsl:output method="xml" omit-xml-declaration="yes" standalone="yes"  indent="yes"/>
 
+<xsl:variable name="context-filter">
+    <xsl:choose>
+        <xsl:when test="//iso:schema/preceding-sibling::comment()[1] and starts-with(normalize-space(//iso:schema/preceding-sibling::comment()[1]), 'context-filter:')">
+            <xsl:value-of select="normalize-space(substring(normalize-space(//iso:schema/preceding-sibling::comment()[1]), 16))"/>
+        </xsl:when>
+        <xsl:otherwise></xsl:otherwise>
+    </xsl:choose>
+</xsl:variable>
 
 <xsl:param name="phase">
   <xsl:choose>
@@ -471,12 +479,17 @@
   which I find a bit surprising but anyway I'll use the longr faster version.
 -->
 <xsl:variable name="context-xpath">
-  <xsl:if test="$attributes='true'">@*|</xsl:if>
-  <xsl:choose>
-    <xsl:when test="$only-child-elements='true'">*</xsl:when>
-    <xsl:when test="$visit-text='true'">node()</xsl:when>
-    <xsl:otherwise>*|comment()|processing-instruction()</xsl:otherwise>
-  </xsl:choose>
+    <xsl:if test="$attributes='true'">@*|</xsl:if>
+    <xsl:choose>
+        <xsl:when test="$context-filter!=''"><xsl:value-of select="$context-filter"/></xsl:when>
+        <xsl:otherwise>
+            <xsl:choose>
+                <xsl:when test="$only-child-elements='true'">*</xsl:when>
+                <xsl:when test="$visit-text='true'">node()</xsl:when>
+                <xsl:otherwise>*|comment()|processing-instruction()</xsl:otherwise>
+            </xsl:choose>
+        </xsl:otherwise>
+    </xsl:choose>
 </xsl:variable>
 
 <!-- DPC if this is set to 
@@ -625,6 +638,9 @@
 </xsl:template>
 
 <xsl:template name="generate-default-rules">
+                <xsl:if test="$context-filter!=''">
+                    <axsl:template match="*[not({$context-filter})]"/>
+                </xsl:if>
 		<xsl:text>&#10;&#10;</xsl:text>
 		<xsl:comment>MODE: SCHEMATRON-SELECT-FULL-PATH</xsl:comment><xsl:text>&#10;</xsl:text>
 		<xsl:comment>This mode can be used to generate an ugly though full XPath for locators</xsl:comment><xsl:text>&#10;</xsl:text>

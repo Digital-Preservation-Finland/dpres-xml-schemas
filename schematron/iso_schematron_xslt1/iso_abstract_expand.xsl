@@ -146,10 +146,8 @@
 			
 	</xslt:template>
 	 
-	 
-	
 	<!-- output everything else unchanged -->
-	<xslt:template match="*" priority="-1"  mode="iae:go" >
+	<xslt:template match="*|comment()" priority="-1"  mode="iae:go" >
 	    <xslt:copy>
 			<xslt:copy-of select="@*" />
 			<xslt:apply-templates mode="iae:go"/> 
