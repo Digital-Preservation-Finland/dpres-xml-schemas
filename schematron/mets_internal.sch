@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
      We are able to optimize validation by giving the element set to be used in validation.
-     It is given as a comment, which must be located as direct preceiding sibling of <sch:schema> element.
+     It is given as a comment, which must be located as direct preceding sibling of <sch:schema> element.
      The comment must start with a keyword "context-filter:".
      The filter works only for elements. All the attributes in the filtered elements will be evaluated.
      Example: context-filter: mets:*
-              skips everything else in validation, except elements in namespace prefixed as mets in this Schematron file.
+              skips everything else in validation, except elements in METS namespace.
 -->
 <!-- context-filter: mets:* -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">
@@ -942,9 +942,9 @@ Validates METS metadata elements and attributes, their values, and METS internal
 
 	<!-- Check that OBJID attribute is unique with METS internal IDs -->
 	<sch:pattern id="unique_objid">
-		<sch:rule context="mets:mets[@OBJID and ancestor-or-self::mets:mets//@ID]">
+		<sch:rule context="mets:mets[@OBJID]">
 		    <sch:let name="objid" value="normalize-space(@OBJID)"/>
-		    <sch:let name="same_id_count" value="count(.//@ID[.=$objid])"/>
+		    <sch:let name="same_id_count" value="count(@ID[.=$objid] | ./mets:*/@ID[.=$objid] | ./mets:*/mets:*/@ID[.=$objid] | ./mets:*/mets:*/mets:*/@ID[.=$objid] | ./mets:fileSec/mets:fileGrp/mets:file/*/@ID[.=$objid] | ./mets:structMap//@ID[.=$objid])"/>
 			<sch:assert test="$same_id_count = 0">
 				Value '<sch:value-of select="@OBJID"/>' in attribute '<sch:value-of select="name(@OBJID)"/>' in element '<sch:name/>' is required to be unique. Another attribute 'ID' with the same value exists.
 			</sch:assert>

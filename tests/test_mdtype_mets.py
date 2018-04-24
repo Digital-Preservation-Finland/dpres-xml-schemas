@@ -59,6 +59,7 @@ def test_mdtype_namespace(schematron_fx, section, mdinfo):
                  <dc:subject/></mets:xmlData></mets:mdWrap></mets:dmdSec>
                <mets:dmdSec><mets:mdWrap MDTYPE='DC'><mets:xmlData>
                  <dc:subject/></mets:xmlData></mets:mdWrap></mets:dmdSec>
+               <mets:amdSec>
                <mets:techMD><mets:mdWrap MDTYPE='PREMIS:OBJECT'><mets:xmlData>
                  <premis:object/></mets:xmlData></mets:mdWrap></mets:techMD>
                <mets:techMD><mets:mdWrap MDTYPE='PREMIS:OBJECT'><mets:xmlData>
@@ -74,7 +75,7 @@ def test_mdtype_namespace(schematron_fx, section, mdinfo):
                </mets:digiprovMD><mets:digiprovMD>
                <mets:mdWrap MDTYPE='PREMIS:EVENT'><mets:xmlData>
                  <premis:event/></mets:xmlData></mets:mdWrap></mets:digiprovMD>
-             </mets:mets>''' % NAMESPACES
+             </mets:amdSec></mets:mets>''' % NAMESPACES
     (mets, root) = parse_xml_string(xml)
     if mdinfo[1] == 'DATACITE':
         fix_version_17(root)
@@ -128,6 +129,7 @@ def test_digiprov_object(schematron_fx):
              xmlns:fi="%(fikdk)s" xmlns:dc="%(dc)s">
                <mets:dmdSec><mets:mdWrap MDTYPE='DC'><mets:xmlData>
                  <dc:subject/></mets:xmlData></mets:mdWrap></mets:dmdSec>
+               <mets:amdSec>
                <mets:techMD><mets:mdWrap MDTYPE='PREMIS:OBJECT'><mets:xmlData>
                  <premis:object/></mets:xmlData></mets:mdWrap></mets:techMD>
                <mets:digiprovMD><mets:mdWrap MDTYPE='PREMIS:OBJECT'>
@@ -136,7 +138,7 @@ def test_digiprov_object(schematron_fx):
                  </mets:xmlData></mets:mdWrap></mets:digiprovMD>
                <mets:digiprovMD><mets:mdWrap MDTYPE='PREMIS:EVENT'>
                  <mets:xmlData><premis:event/></mets:xmlData></mets:mdWrap>
-             </mets:digiprovMD></mets:mets>''' % NAMESPACES
+             </mets:digiprovMD></mets:amdSec></mets:mets>''' % NAMESPACES
     ET.register_namespace('premis', NAMESPACES['premis'])
     (mets, root) = parse_xml_string(xml)
 
@@ -167,6 +169,7 @@ def test_textmd(schematron_fx):
              xmlns:fi="%(fikdk)s" xmlns:dc="%(dc)s">
                <mets:dmdSec><mets:mdWrap MDTYPE='DC'><mets:xmlData>
                  <dc:subject/></mets:xmlData></mets:mdWrap></mets:dmdSec>
+               <mets:amdSec>
                <mets:techMD><mets:mdWrap MDTYPE='PREMIS:OBJECT'><mets:xmlData>
                  <premis:object/></mets:xmlData></mets:mdWrap></mets:techMD>
                <mets:techMD><mets:mdWrap MDTYPE="TEXTMD"><mets:xmlData>
@@ -174,7 +177,7 @@ def test_textmd(schematron_fx):
                </mets:xmlData></mets:mdWrap></mets:techMD>
                <mets:digiprovMD><mets:mdWrap MDTYPE='PREMIS:EVENT'>
                  <mets:xmlData><premis:event/></mets:xmlData></mets:mdWrap>
-             </mets:digiprovMD></mets:mets>''' % NAMESPACES
+             </mets:digiprovMD></mets:amdSec></mets:mets>''' % NAMESPACES
     (mets, root) = parse_xml_string(xml)
 
     # Standard version works in specification 1.5.0
@@ -208,6 +211,7 @@ def test_rightsstatement(schematron_fx):
              xmlns:dc="%(dc)s" xmlns:premis="%(premis)s" xmlns:fi="%(fikdk)s">
                <mets:dmdSec><mets:mdWrap MDTYPE='DC'><mets:xmlData>
                  <dc:subject/></mets:xmlData></mets:mdWrap></mets:dmdSec>
+               <mets:amdSec>
                <mets:techMD><mets:mdWrap MDTYPE='PREMIS:OBJECT'><mets:xmlData>
                  <premis:object/></mets:xmlData></mets:mdWrap></mets:techMD>
                <mets:rightsMD><mets:mdWrap MDTYPE="PREMIS:RIGHTS">
@@ -215,7 +219,7 @@ def test_rightsstatement(schematron_fx):
                </mets:xmlData></mets:mdWrap></mets:rightsMD>
                <mets:digiprovMD><mets:mdWrap MDTYPE='PREMIS:EVENT'>
                  <mets:xmlData><premis:event/></mets:xmlData></mets:mdWrap>
-             </mets:digiprovMD></mets:mets>''' % NAMESPACES
+             </mets:digiprovMD></mets:amdSec></mets:mets>''' % NAMESPACES
     (mets, root) = parse_xml_string(xml)
 
     # rightsStatement gives an error with specification 1.6.0
@@ -258,12 +262,13 @@ def test_special_mdtype(schematron_fx):
                  <dc:subject/></mets:xmlData></mets:mdWrap></mets:dmdSec>
                <mets:dmdSec><mets:mdWrap MDTYPE='OTHER' OTHERMDTYPE='EN15744'>
                  <mets:xmlData><xxx/></mets:xmlData></mets:mdWrap>
-               </mets:dmdSec><mets:techMD><mets:mdWrap MDTYPE='PREMIS:OBJECT'>
+               </mets:dmdSec><mets:amdSec>
+               <mets:techMD><mets:mdWrap MDTYPE='PREMIS:OBJECT'>
                  <mets:xmlData><premis:object/></mets:xmlData></mets:mdWrap>
                </mets:techMD><mets:digiprovMD>
                  <mets:mdWrap MDTYPE='PREMIS:EVENT'><mets:xmlData>
                  <premis:event/></mets:xmlData></mets:mdWrap></mets:digiprovMD>
-             </mets:mets>''' % NAMESPACES
+             </mets:amdSec></mets:mets>''' % NAMESPACES
     (mets, root) = parse_xml_string(xml)
 
     # EN15744 is not allowed

@@ -11,8 +11,8 @@ from tests.common import SVRL_FIRED, SVRL_FAILED, parse_xml_file
 @pytest.mark.parametrize("testset, namespace, filename, schfile", [
     ([(None, 73, 0), ('mdWrap', 71, 2), ('mdWrap', 71, 2), ('mdWrap', 71, 2),
       ('digiprovMD', 64, 6), ('techMD', 57, 9), ('agent', 57, 12),
-      ('structMap', 53, 13), ('amdSec', 42, 9), ('dmdSec', 37, 9),
-      ('metsHdr', 35, 9), ('mets', 11, 6)], 'mets', 'mets_valid_minimal.xml',
+      ('structMap', 53, 13), ('amdSec', 42, 9), ('dmdSec', 38, 9),
+      ('metsHdr', 36, 9), ('mets', 11, 6)], 'mets', 'mets_valid_minimal.xml',
      'mets_internal.sch'),
     ([(None, 10, 0), ('creatingApplication', 10, 1), ('format', 8, 2),
       ('objectCharacteristics', 5, 2)], 'premis', 'premis_valid_minimal.xml',

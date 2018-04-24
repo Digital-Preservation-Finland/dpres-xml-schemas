@@ -2,13 +2,13 @@
 
 <!--
      We are able to optimize validation by giving the element set to be used in validation.
-     It is given as a comment, which must be located as direct preceiding sibling of <sch:schema> element.
+     It is given as a comment, which must be located as direct preceding sibling of <sch:schema> element.
      The comment must start with a keyword "context-filter:".
      The filter works only for elements. All the attributes in the filtered elements will be evaluated.
      Example: context-filter: mets:*
-              skips everything else in validation, except elements in namespace prefixed as mets in this Schematron file.
+              skips everything else in validation, except elements in METS namespace.
 -->
-<!-- context-filter: addml:*|premis:*|mets:* -->
+<!-- context-filter: addml:*|mets:* -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">
 	<sch:title>ADDML metadata validation</sch:title>
 
@@ -39,7 +39,7 @@ Validates ADDML metadata.
 		<sch:param name="mdtype_version" value="string('8.3')"/>
 	</sch:pattern>
 	<sch:pattern id="addml_headerLevel" is-a="disallowed_element_smaller_version_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/addml:addml//addml:recordDefinition"/>
+		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/addml:addml/addml:dataset/addml:flatFiles/addml:flatFileDefinitions/addml:flatFileDefinition/addml:recordDefinitions/addml:recordDefinition"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="disallowed_element" value="addml:headerLevel"/>
 		<sch:param name="mdattribute" value="@OTHERMDTYPE"/>
@@ -47,9 +47,9 @@ Validates ADDML metadata.
 		<sch:param name="mdtype_version" value="string('8.3')"/>
 	</sch:pattern>
 
-	<sch:let name="csv_fileid" value="/mets:mets/mets:amdSec/mets:techMD[.//premis:formatName='text/csv']/@ID"/>
-	<sch:let name="csv_addmlrsids" value="/mets:mets/mets:amdSec/mets:techMD[.//addml:addml//addml:recordSeparator]/@ID"/>
-	<sch:let name="csv_addmlfscids" value="/mets:mets/mets:amdSec/mets:techMD[.//addml:addml//addml:fieldSeparatingChar]/@ID"/>
+	<sch:let name="csv_fileid" value="/mets:mets/mets:amdSec/mets:techMD[./mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName='text/csv']/@ID"/>
+	<sch:let name="csv_addmlrsids" value="/mets:mets/mets:amdSec/mets:techMD[./mets:mdWrap/mets:xmlData/addml:addml/addml:dataset/addml:flatFiles/addml:structureTypes/addml:flatFileTypes/addml:flatFileType/addml:delimFileFormat/addml:recordSeparator]/@ID"/>
+	<sch:let name="csv_addmlfscids" value="/mets:mets/mets:amdSec/mets:techMD[./mets:mdWrap/mets:xmlData/addml:addml/addml:dataset/addml:flatFiles/addml:structureTypes/addml:flatFileTypes/addml:flatFileType/addml:delimFileFormat/addml:fieldSeparatingChar]/@ID"/>
 	<sch:let name="csv_countfiles" value="count(sets:distinct(exsl:node-set($csv_fileid)))"/>
 	<sch:let name="csv_countaddmlrs" value="count(sets:distinct(exsl:node-set($csv_addmlrsids)))"/>
 	<sch:let name="csv_countaddmlfsc" value="count(sets:distinct(exsl:node-set($csv_addmlfscids)))"/>

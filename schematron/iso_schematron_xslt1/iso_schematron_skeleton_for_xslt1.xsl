@@ -392,6 +392,7 @@
 	xmlns:sch="http://www.ascc.net/xml/schematron"
     xmlns:iso="http://purl.oclc.org/dsdl/schematron" 
     xmlns:exsl="http://exslt.org/common"
+    xmlns:str="http://exslt.org/strings"
     xmlns:msxsl="urn:schemas-microsoft-com:xslt"
     extension-element-prefixes="exsl  msxsl"
 	 >
@@ -638,8 +639,9 @@
 </xsl:template>
 
 <xsl:template name="generate-default-rules">
+		<xsl:variable name="strip-out" select="concat('self::', str:replace($context-filter,'|','|self::'))"/>
                 <xsl:if test="$context-filter!=''">
-                    <axsl:template match="*[not({$context-filter})]"/>
+                    <axsl:template match="*[not({$strip-out})]"/>
                 </xsl:if>
 		<xsl:text>&#10;&#10;</xsl:text>
 		<xsl:comment>MODE: SCHEMATRON-SELECT-FULL-PATH</xsl:comment><xsl:text>&#10;</xsl:text>

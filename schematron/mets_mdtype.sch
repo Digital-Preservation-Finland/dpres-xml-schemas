@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
      We are able to optimize validation by giving the element set to be used in validation.
-     It is given as a comment, which must be located as direct preceiding sibling of <sch:schema> element.
+     It is given as a comment, which must be located as direct preceding sibling of <sch:schema> element.
      The comment must start with a keyword "context-filter:".
      The filter works only for elements. All the attributes in the filtered elements will be evaluated.
      Example: context-filter: mets:*
-              skips everything else in validation, except elements in namespace prefixed as mets in this Schematron file.
+              skips everything else in validation, except elements in METS namespace.
 -->
-<!-- -->
+<!-- context-filter: mets:* -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">
 	<sch:title>METS external metadata type validation</sch:title>
 
@@ -113,13 +113,13 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 	<!-- Standard portfolio schemas -->
 	<sch:pattern id="mets_object_exists" is-a="required_metadata_pattern">
 		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="required_metadata" value="mets:techMD/mets:mdWrap[@MDTYPE='PREMIS:OBJECT']"/>
+		<sch:param name="required_metadata" value="mets:amdSec/mets:techMD/mets:mdWrap[@MDTYPE='PREMIS:OBJECT']"/>
 		<sch:param name="metadata_name" value="string('PREMIS:OBJECT')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_event_exists" is-a="required_metadata_pattern">
 		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="required_metadata" value="mets:digiprovMD/mets:mdWrap[@MDTYPE='PREMIS:EVENT']"/>
+		<sch:param name="required_metadata" value="mets:amdSec/mets:digiprovMD/mets:mdWrap[@MDTYPE='PREMIS:EVENT']"/>
 		<sch:param name="metadata_name" value="string('PREMIS:EVENT')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
@@ -212,7 +212,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 	</sch:pattern> 
 	
 	<!-- Require PREMIS:OBJECTs for files -->
-	<sch:let name="premis_file_id" value="/mets:mets/mets:amdSec/mets:techMD[normalize-space(.//premis:object/@xsi:type)='premis:file']/@ID"/>
+	<sch:let name="premis_file_id" value="/mets:mets/mets:amdSec/mets:techMD[normalize-space(./mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:file']/@ID"/>
 	<sch:let name="premis_file_count" value="count(sets:distinct(exsl:node-set($premis_file_id)))"/>
 	<sch:pattern id="premis_file_requirement">
         <sch:rule context="mets:file">
@@ -224,7 +224,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 			</sch:assert>
 		</sch:rule>
     </sch:pattern>
-	<sch:let name="premis_stream_id" value="/mets:mets/mets:amdSec/mets:techMD[normalize-space(.//premis:object/@xsi:type)='premis:bitstream']/@ID"/>
+	<sch:let name="premis_stream_id" value="/mets:mets/mets:amdSec/mets:techMD[normalize-space(./mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:bitstream']/@ID"/>
 	<sch:let name="premis_stream_count" value="count(sets:distinct(exsl:node-set($premis_stream_id)))"/>
 	<sch:pattern id="premis_stream_requirement">
         <sch:rule context="mets:stream">
@@ -239,7 +239,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 	
 
 	<!-- File format specific technical metadata requirements -->
-	<sch:let name="audiomd_fileid_stream" value="/mets:mets/mets:amdSec/mets:techMD[contains(concat(' ', $audiomd_types, ' '), concat(' ', normalize-space(.//premis:formatName), ' ')) and normalize-space(.//premis:object/@xsi:type)='premis:bitstream']/@ID"/>
+	<sch:let name="audiomd_fileid_stream" value="/mets:mets/mets:amdSec/mets:techMD[contains(concat(' ', $audiomd_types, ' '), concat(' ', normalize-space(./mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName), ' ')) and normalize-space(./mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:bitstream']/@ID"/>
 	<sch:let name="audiomd_mdids" value="/mets:mets/mets:amdSec/mets:techMD[./mets:mdWrap/mets:xmlData/audiomd:*]/@ID"/>
 	<sch:let name="audiomd_countfiles_stream" value="count(sets:distinct(exsl:node-set($audiomd_fileid_stream)))"/>
 	<sch:let name="audiomd_countmd" value="count(sets:distinct(exsl:node-set($audiomd_mdids)))"/>
@@ -256,7 +256,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 			</sch:assert>
 		</sch:rule>
 	</sch:pattern>
-	<sch:let name="videomd_fileid_stream" value="/mets:mets/mets:amdSec/mets:techMD[contains(concat(' ', $videomd_types, ' '), concat(' ', normalize-space(.//premis:formatName), ' ')) and normalize-space(.//premis:object/@xsi:type)='premis:bitstream']/@ID"/>
+	<sch:let name="videomd_fileid_stream" value="/mets:mets/mets:amdSec/mets:techMD[contains(concat(' ', $videomd_types, ' '), concat(' ', normalize-space(./mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName), ' ')) and normalize-space(./mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:bitstream']/@ID"/>
 	<sch:let name="videomd_mdids" value="/mets:mets/mets:amdSec/mets:techMD[./mets:mdWrap/mets:xmlData/videomd:*]/@ID"/>
 	<sch:let name="videomd_countfiles_stream" value="count(sets:distinct(exsl:node-set($videomd_fileid_stream)))"/>
 	<sch:let name="videomd_countmd" value="count(sets:distinct(exsl:node-set($videomd_mdids)))"/>
@@ -273,7 +273,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 			</sch:assert>
 		</sch:rule>
 	</sch:pattern>
-	<sch:let name="addml_fileid" value="/mets:mets/mets:amdSec/mets:techMD[contains(concat(' ', $addml_types, ' '), concat(' ', normalize-space(.//premis:formatName), ' ')) and normalize-space(.//premis:object/@xsi:type)='premis:file']/@ID"/>
+	<sch:let name="addml_fileid" value="/mets:mets/mets:amdSec/mets:techMD[contains(concat(' ', $addml_types, ' '), concat(' ', normalize-space(./mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName), ' ')) and normalize-space(./mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:file']/@ID"/>
 	<sch:let name="addml_mdids" value="/mets:mets/mets:amdSec/mets:techMD[./mets:mdWrap/mets:xmlData/addml:*]/@ID"/>
 	<sch:let name="addml_countfiles" value="count(sets:distinct(exsl:node-set($addml_fileid)))"/>
 	<sch:let name="addml_countmd" value="count(sets:distinct(exsl:node-set($addml_mdids)))"/>
@@ -290,7 +290,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 			</sch:assert>
 		</sch:rule>
 	</sch:pattern>
-	<sch:let name="audiomd_fileid" value="/mets:mets/mets:amdSec/mets:techMD[contains(concat(' ', $audiomd_types, ' '), concat(' ', normalize-space(.//premis:formatName), ' ')) and normalize-space(.//premis:object/@xsi:type)='premis:file']/@ID"/>
+	<sch:let name="audiomd_fileid" value="/mets:mets/mets:amdSec/mets:techMD[contains(concat(' ', $audiomd_types, ' '), concat(' ', normalize-space(./mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName), ' ')) and normalize-space(./mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:file']/@ID"/>
 	<sch:let name="audiomd_countfiles" value="count(sets:distinct(exsl:node-set($audiomd_fileid)))"/>
 	<sch:pattern id="audiomd_requirement">
         	<sch:rule context="mets:file">
@@ -306,7 +306,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 		</sch:rule>
 	</sch:pattern>
     <!-- TODO MP4 -->
-	<sch:let name="videomd_fileid" value="/mets:mets/mets:amdSec/mets:techMD[contains(concat(' ', $videomd_types, ' '), concat(' ', normalize-space(.//premis:formatName), ' ')) and normalize-space(.//premis:object/@xsi:type)='premis:file']/@ID"/>
+	<sch:let name="videomd_fileid" value="/mets:mets/mets:amdSec/mets:techMD[contains(concat(' ', $videomd_types, ' '), concat(' ', normalize-space(./mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName), ' ')) and normalize-space(./mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:file']/@ID"/>
 	<sch:let name="videomd_countfiles" value="count(sets:distinct(exsl:node-set($videomd_fileid)))"/>
 	<sch:pattern id="videomd_requirement">
         	<sch:rule context="mets:file">
@@ -321,7 +321,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 			</sch:assert>
 		</sch:rule>
 	</sch:pattern>
-	<sch:let name="mix_fileid" value="/mets:mets/mets:amdSec/mets:techMD[contains(concat(' ', $mix_types, ' '), concat(' ', normalize-space(.//premis:formatName), ' ')) and normalize-space(.//premis:object/@xsi:type)='premis:file']/@ID"/>
+	<sch:let name="mix_fileid" value="/mets:mets/mets:amdSec/mets:techMD[contains(concat(' ', $mix_types, ' '), concat(' ', normalize-space(./mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName), ' ')) and normalize-space(./mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:file']/@ID"/>
 	<sch:let name="mix_mdids" value="/mets:mets/mets:amdSec/mets:techMD[./mets:mdWrap/mets:xmlData/mix:*]/@ID"/>
 	<sch:let name="mix_countfiles" value="count(sets:distinct(exsl:node-set($mix_fileid)))"/>
 	<sch:let name="mix_countmd" value="count(sets:distinct(exsl:node-set($mix_mdids)))"/>
@@ -447,8 +447,8 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 
 
 	<!-- File format specific technical metadata requirements with specifications 1.4 -->
-	<sch:let name="textmd_fileid" value="/mets:mets/mets:amdSec/mets:techMD[contains(concat(' ', $textmd_types, ' '), concat(' ', normalize-space(.//premis:formatName), ' '))]/@ID"/>
-	<sch:let name="textmd14_mdids" value="/mets:mets/mets:amdSec/mets:techMD[.//textmd_kdk:*]/@ID"/>
+	<sch:let name="textmd_fileid" value="/mets:mets/mets:amdSec/mets:techMD[contains(concat(' ', $textmd_types, ' '), concat(' ', normalize-space(./mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName), ' '))]/@ID"/>
+	<sch:let name="textmd14_mdids" value="/mets:mets/mets:amdSec/mets:techMD[./mets:mdWrap/mets:xmlData/textmd_kdk:*]/@ID"/>
 	<sch:let name="textmd_countfiles" value="count(sets:distinct(exsl:node-set($textmd_fileid)))"/>
 	<sch:let name="textmd14_countmd" value="count(sets:distinct(exsl:node-set($textmd14_mdids)))"/>
 	<sch:pattern id="textmd_requirement14">
@@ -464,7 +464,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 			</sch:assert>
 		</sch:rule>
 	</sch:pattern>
-	<sch:let name="addml14_mdids" value="/mets:mets/mets:amdSec/mets:techMD[.//addml:*]/@ID"/>
+	<sch:let name="addml14_mdids" value="/mets:mets/mets:amdSec/mets:techMD[./mets:mdWrap/mets:xmlData/addml:*]/@ID"/>
 	<sch:let name="addml14_countmd" value="count(sets:distinct(exsl:node-set($addml14_mdids)))"/>
 	<sch:pattern id="addml_requirement14">
         	<sch:rule context="mets:file">
@@ -479,7 +479,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 			</sch:assert>
 		</sch:rule>
 	</sch:pattern>
-	<sch:let name="audiomd14_mdids" value="/mets:mets/mets:amdSec/mets:techMD[.//audiomd:*]/@ID"/>
+	<sch:let name="audiomd14_mdids" value="/mets:mets/mets:amdSec/mets:techMD[./mets:mdWrap/mets:xmlData/audiomd:*]/@ID"/>
 	<sch:let name="audiomd14_countmd" value="count(sets:distinct(exsl:node-set($audiomd14_mdids)))"/>
 	<sch:pattern id="audiomd_requirement14">
         	<sch:rule context="mets:file">
@@ -494,7 +494,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 			</sch:assert>
 		</sch:rule>
 	</sch:pattern>
-	<sch:let name="videomd14_mdids" value="/mets:mets/mets:amdSec/mets:techMD[.//videomd:*]/@ID"/>
+	<sch:let name="videomd14_mdids" value="/mets:mets/mets:amdSec/mets:techMD[./mets:mdWrap/mets:xmlData/videomd:*]/@ID"/>
 	<sch:let name="videomd14_countmd" value="count(sets:distinct(exsl:node-set($videomd14_mdids)))"/>
 	<sch:pattern id="videomd_requirement14">
         	<sch:rule context="mets:file">
@@ -509,7 +509,7 @@ Validates that the used metadata type inside mdWrap element is same as defined i
 			</sch:assert>
 		</sch:rule>
 	</sch:pattern>
-	<sch:let name="mix14_mdids" value="/mets:mets/mets:amdSec/mets:techMD[.//mix:*]/@ID"/>
+	<sch:let name="mix14_mdids" value="/mets:mets/mets:amdSec/mets:techMD[./mets:mdWrap/mets:xmlData/mix:*]/@ID"/>
 	<sch:let name="mix14_countmd" value="count(sets:distinct(exsl:node-set($mix14_mdids)))"/>
 	<sch:pattern id="mix_requirement14">
 		<sch:rule context="mets:file">

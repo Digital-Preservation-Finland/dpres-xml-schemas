@@ -54,31 +54,29 @@ def make_colorsample(colorspace, sample, addsample, extrasample):
 
 
 @pytest.mark.parametrize("elementkey, subelements, condition, newfired", [
-    ('ObjectIdentifier', ['objectIdentifierType', 'objectIdentifierValue'],
-     None, 0),
-    ('FormatDesignation', ['formatName'], None, 0),
-    ('Fixity', ['messageDigestAlgorithm', 'messageDigest'], None, 0),
-    ('YCbCr', ['YCbCrSubSampling', 'yCbCrPositioning', 'YCbCrCoefficients',
-               'ReferenceBlackWhite'], None, 6),
-    ('YCbCrSubSampling', ['yCbCrSubsampleHoriz', 'yCbCrSubsampleVert'], None,
-     0),
-    ('YCbCrCoefficients', ['lumaRed', 'lumaGreen', 'lumaBlue'], None, 0),
-    ('ReferenceBlackWhite', ['Component'], None, 0),
-    ('ColorProfile', ['LocalProfile'], None, 1),
-    ('ColorProfile', ['IccProfile'], None, 1),
-    ('LocalProfile', ['localProfileName'], None, 0),
-    ('IccProfile', ['iccProfileName'], None, 0),
-    ('IccProfile', ['iccProfileURI'], None, 0),
-    ('JPEG2000', ['EncodingOptions'], None, 2),
-    ('EncodingOptions', ['qualityLayers', 'resolutionLevels'], None, 0),
-    ('Compression', ['compressionSchemeLocalList',
-                     'compressionSchemeLocalValue'],
-     ['compressionScheme', 'enumerated in local list'], 0),
-    ('SpatialMetrics', ['xSamplingFrequency', 'ySamplingFrequency'],
-     ['samplingFrequencyUnit', '2'], 0),
-    ('SpatialMetrics', ['xSamplingFrequency', 'ySamplingFrequency'],
-     ['samplingFrequencyUnit', '3'], 0),
-    ('GrayResponse', ['grayResponseUnit'], ['grayResponseCurve', None], 0)
+    (['BasicDigitalObjectInformation', 'ObjectIdentifier'], ['objectIdentifierType', 'objectIdentifierValue'], None, [0, 0]),
+    (['BasicDigitalObjectInformation', 'FormatDesignation'], ['formatName'], None, [0, 0]),
+    (['BasicDigitalObjectInformation', 'Fixity'], ['messageDigestAlgorithm', 'messageDigest'], None, [0, 0]),
+    (['BasicImageInformation', 'BasicImageCharacteristics', 'PhotometricInterpretation', 'YCbCr'], ['YCbCrSubSampling', 'yCbCrPositioning', 'YCbCrCoefficients'],
+     None, [0, 5]),
+    (['BasicImageInformation', 'BasicImageCharacteristics', 'PhotometricInterpretation', 'YCbCr', 'YCbCrSubSampling'], ['yCbCrSubsampleHoriz', 'yCbCrSubsampleVert'], None,
+     [2, 2]),
+    (['BasicImageInformation', 'BasicImageCharacteristics', 'PhotometricInterpretation', 'YCbCr', 'YCbCrCoefficients'], ['lumaRed', 'lumaGreen', 'lumaBlue'], None, [2, 2]),
+    (['BasicImageInformation', 'BasicImageCharacteristics', 'PhotometricInterpretation', 'ReferenceBlackWhite'], ['Component'], None, [0, 0]),
+    (['BasicImageInformation', 'BasicImageCharacteristics', 'PhotometricInterpretation', 'ColorProfile'], ['LocalProfile'], None, [0, 1]),
+    (['BasicImageInformation', 'BasicImageCharacteristics', 'PhotometricInterpretation', 'ColorProfile'], ['IccProfile'], None, [0, 1]),
+    (['BasicImageInformation', 'BasicImageCharacteristics', 'PhotometricInterpretation', 'ColorProfile', 'LocalProfile'], ['localProfileName'], None, [0, 0]),
+    (['BasicImageInformation', 'BasicImageCharacteristics', 'PhotometricInterpretation', 'ColorProfile', 'IccProfile'], ['iccProfileName'], None, [0, 0]),
+    (['BasicImageInformation', 'BasicImageCharacteristics', 'PhotometricInterpretation', 'ColorProfile', 'IccProfile'], ['iccProfileURI'], None, [0, 0]),
+    (['BasicImageInformation', 'SpecialFormatCharacteristics', 'JPEG2000'], ['EncodingOptions'], None, [0, 2]),
+    (['BasicImageInformation', 'SpecialFormatCharacteristics', 'JPEG2000', 'EncodingOptions'], ['qualityLayers', 'resolutionLevels'], None, [0, 0]),
+    (['BasicDigitalObjectInformation', 'Compression'], ['compressionSchemeLocalList', 'compressionSchemeLocalValue'],
+     ['compressionScheme', 'enumerated in local list'], [0, 0]),
+    (['ImageAssessmentMetadata', 'SpatialMetrics'], ['xSamplingFrequency', 'ySamplingFrequency'],
+     ['samplingFrequencyUnit', '2'], [0, 0]),
+    (['ImageAssessmentMetadata', 'SpatialMetrics'], ['xSamplingFrequency', 'ySamplingFrequency'],
+     ['samplingFrequencyUnit', '3'], [0, 0]),
+    (['ImageAssessmentMetadata', 'ImageColorEncoding', 'GrayResponse'], ['grayResponseUnit'], ['grayResponseCurve', None], [0, 0])
 ])
 def test_mix_optional_element_rules(
         schematron_fx, elementkey, subelements, condition, newfired):
@@ -94,21 +92,24 @@ def test_mix_optional_element_rules(
                irrelevant in this test
     """
     (mix, root) = parse_xml_file('mix_valid_minimal.xml')
-    elem_handler = root.find_element(elementkey, 'mix')
-    if elem_handler is None:
-        elem_handler = root.find_element('mix', 'mix')
-        elem_handler = elem_handler.set_element(elementkey, 'mix')
+    for iter_elem in elementkey:
+        elem_handler = root.find_element(iter_elem, 'mix')
+        if elem_handler is None:
+            found = found.set_element(iter_elem, 'mix')
+        else:
+            found = elem_handler
+    elem_handler = found
     if condition is not None:
         elem_condition = elem_handler.set_element(condition[0], 'mix')
         if condition[1] is not None:
             elem_condition.text = condition[1]
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mix)
-    assert svrl.count(SVRL_FAILED) == len(subelements)
+    assert svrl.count(SVRL_FAILED) == len(subelements) + newfired[0]
 
     for subelement in subelements:
         elem_handler.set_element(subelement, 'mix')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mix)
-    assert svrl.count(SVRL_FAILED) == newfired
+    assert svrl.count(SVRL_FAILED) == newfired[1]
 
 
 def test_icc_profile(schematron_fx):

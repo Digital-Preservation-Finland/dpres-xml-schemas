@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
      We are able to optimize validation by giving the element set to be used in validation.
-     It is given as a comment, which must be located as direct preceiding sibling of <sch:schema> element.
+     It is given as a comment, which must be located as direct preceding sibling of <sch:schema> element.
      The comment must start with a keyword "context-filter:".
      The filter works only for elements. All the attributes in the filtered elements will be evaluated.
      Example: context-filter: mets:*
-              skips everything else in validation, except elements in namespace prefixed as mets in this Schematron file.
+              skips everything else in validation, except elements in METS namespace.
 -->
 <!-- context-filter: premis:*|mets:* -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">
@@ -153,7 +153,6 @@ Validates PREMIS metadata.
 	<sch:include href="./abstracts/disallowed_value_element_smaller_version_pattern.incl"/>
 	<sch:include href="./abstracts/required_element_pattern.incl"/>
 	<sch:include href="./abstracts/required_values_element_pattern.incl"/>
-	<sch:include href="./abstracts/unique_value_element_pattern.incl"/>
 	<sch:include href="./abstracts/required_value_premis_formatname_pattern.incl"/>
 	<sch:include href="./abstracts/required_parameters_premis_formatname_pattern.incl"/>
 	<sch:include href="./abstracts/required_nonempty_element_pattern.incl"/>
@@ -258,25 +257,25 @@ Validates PREMIS metadata.
 
 	<!-- PREMIS mandatory elements -->
 	<sch:pattern id="premis_fixity" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/premis:object[normalize-space(@xsi:type)='premis:file']//premis:objectCharacteristics"/>
+		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/premis:object[normalize-space(@xsi:type)='premis:file']/premis:objectCharacteristics"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="premis:fixity"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="premis_creatingApplication" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/premis:object[normalize-space(@xsi:type)='premis:file']//premis:objectCharacteristics"/>
+		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/premis:object[normalize-space(@xsi:type)='premis:file']/premis:objectCharacteristics"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="premis:creatingApplication"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="premis_dateCreatedByApplication" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/premis:object[normalize-space(@xsi:type)='premis:file']//premis:creatingApplication"/>
+		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/premis:object[normalize-space(@xsi:type)='premis:file']/premis:objectCharacteristics/premis:creatingApplication"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="premis:dateCreatedByApplication"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="premis_formatDesignation" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/premis:object[not(normalize-space(@xsi:type)='premis:representation')]//premis:format"/>
+		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/premis:object[not(normalize-space(@xsi:type)='premis:representation')]/premis:objectCharacteristics/premis:format"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="premis:formatDesignation"/>
 		<sch:param name="specifications" value="string('')"/>
@@ -299,7 +298,7 @@ Validates PREMIS metadata.
 
 	<!-- Message digest algorithm check -->
 	<sch:pattern id="premis_messageDigestAlgorithm_values" is-a="required_values_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/premis:object[normalize-space(@xsi:type)='premis:file']//premis:messageDigestAlgorithm"/>
+		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/premis:object[normalize-space(@xsi:type)='premis:file']/premis:objectCharacteristics/premis:fixity/premis:messageDigestAlgorithm"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="valid_values" value="$supported_checksum_algorithms"/>
 		<sch:param name="specifications" value="string('')"/>
@@ -307,59 +306,63 @@ Validates PREMIS metadata.
 
 	<!-- Identifier value not empty -->
 	<sch:pattern id="premis_objectIdentifierType_value" is-a="required_nonempty_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/premis:object//premis:objectIdentifierType"/>
+		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectIdentifier/premis:objectIdentifierType"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="premis_objectIdentifierValue_value" is-a="required_nonempty_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/premis:object//premis:objectIdentifierValue"/>
+		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectIdentifier/premis:objectIdentifierValue"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="premis_rightsStatementIdentifierType_value" is-a="required_nonempty_element_pattern">
-		<sch:param name="context_element" value="mets:rightsMD/mets:mdWrap/mets:xmlData/premis:rights//premis:rightsStatementIdentifierType"/>
+		<sch:param name="context_element" value="mets:rightsMD/mets:mdWrap/mets:xmlData/premis:rights/premis:rightsStatement/premis:rightsStatementIdentifier/premis:rightsStatementIdentifierType"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="premis_rightsStatementIdentifierValue_value" is-a="required_nonempty_element_pattern">
-		<sch:param name="context_element" value="mets:rightsMD/mets:mdWrap/mets:xmlData/premis:rights//premis:rightsStatementIdentifierValue"/>
+		<sch:param name="context_element" value="mets:rightsMD/mets:mdWrap/mets:xmlData/premis:rights/premis:rightsStatement/premis:rightsStatementIdentifier/premis:rightsStatementIdentifierValue"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="premis_eventIdentifierType_value" is-a="required_nonempty_element_pattern">
-		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap/mets:xmlData/premis:event//premis:eventIdentifierType"/>
+		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap/mets:xmlData/premis:event/premis:eventIdentifier/premis:eventIdentifierType"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="premis_eventIdentifierValue_value" is-a="required_nonempty_element_pattern">
-		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap/mets:xmlData/premis:event//premis:eventIdentifierValue"/>
+		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap/mets:xmlData/premis:event/premis:eventIdentifier/premis:eventIdentifierValue"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="premis_agentIdentifierType_value" is-a="required_nonempty_element_pattern">
-		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap/mets:xmlData/premis:agent//premis:agentIdentifierType"/>
+		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap/mets:xmlData/premis:agent/premis:agentIdentifier/premis:agentIdentifierType"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="premis_agentIdentifierValue_value" is-a="required_nonempty_element_pattern">
-		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap/mets:xmlData/premis:agent//premis:agentIdentifierValue"/>
+		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap/mets:xmlData/premis:agent/premis:agentIdentifier/premis:agentIdentifierValue"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
 	<!-- Check that identifiers of PREMIS sections are unique between the sections -->
-	<sch:pattern id="premis_identifierValue_unique" is-a="unique_value_element_pattern">
-		<sch:param name="unique_elements" value=".//premis:objectIdentifierValue | .//premis:eventIdentifierValue | .//premis:agentIdentifierValue | .//premis:rightsStatementIdentifierValue"/>
-		<sch:param name="name_elements" value="string('premis:objectIdentifierValue; premis:eventIdentifierValue; premis:agentIdentifierValue; premis:rightsStatementIdentifierValue')"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
-	</sch:pattern>
+        <sch:let name="objectid" value="/mets:mets/mets:amdSec/mets:*/mets:mdWrap/mets:xmlData/premis:object/premis:objectIdentifier/premis:objectIdentifierValue"/>
+        <sch:let name="eventid" value="/mets:mets/mets:amdSec/mets:*/mets:mdWrap/mets:xmlData/premis:event/premis:eventIdentifier/premis:eventIdentifierValue"/>
+        <sch:let name="agentid" value="/mets:mets/mets:amdSec/mets:*/mets:mdWrap/mets:xmlData/premis:agent/premis:agentIdentifier/premis:agentIdentifierValue"/>
+        <sch:let name="rightsid" value="/mets:mets/mets:amdSec/mets:*/mets:mdWrap/mets:xmlData/premis:rights/premis:rightsStatement/premis:rightsStatementIdentifier/premis:rightsStatementIdentifierValue"/>
+        <sch:pattern id="premis_identifierValue_unique">
+                <sch:rule context="mets:mets">
+                         <sch:let name="unique_elements" value="$objectid | $eventid | $agentid | $rightsid"/>
+                        <sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
+                        <sch:assert test="(count(sets:distinct($unique_elements)) = count($unique_elements))
+                        or contains(' 1.4 1.4.1 ', concat(' ', $given_specification,' '))">
+                                Value '<sch:value-of select="normalize-space(sets:difference($unique_elements, sets:distinct($unique_elements)))"/>' in the elements 'premis:objectIdentifierValue; premis:eventIdentifierValue; premis:agentIdentifierValue; premis:rightsStatementIdentifierValue' is required to be unique.
+                        </sch:assert>
+                </sch:rule>
+        </sch:pattern>
 	
 	<!-- Premis linking check -->
-	<sch:let name="objectid" value="/mets:mets/mets:amdSec/mets:*/mets:mdWrap/mets:xmlData/premis:object//premis:objectIdentifierValue"/>
-	<sch:let name="eventid" value="/mets:mets/mets:amdSec/mets:*/mets:mdWrap/mets:xmlData/premis:event//premis:eventIdentifierValue"/>
-	<sch:let name="agentid" value="/mets:mets/mets:amdSec/mets:*/mets:mdWrap/mets:xmlData/premis:agent//premis:agentIdentifierValue"/>
-	<sch:let name="rightsid" value="/mets:mets/mets:amdSec/mets:*/mets:mdWrap/mets:xmlData/premis:rights//premis:rightsStatementIdentifierValue"/>
 	<sch:pattern id="link_premis_element">
 		<sch:rule context="premis:linkingObjectIdentifierValue">
 			<sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
@@ -397,15 +400,15 @@ Validates PREMIS metadata.
 
 	<!-- Native file check -->
 	<sch:let name="techmd" value="exsl:node-set(/mets:mets/mets:amdSec/mets:techMD)"/>
-	<sch:let name="digiprovmd_migration" value="exsl:node-set(/mets:mets/mets:amdSec/mets:digiprovMD[normalize-space(.//premis:event/premis:eventType)='migration' and normalize-space(.//premis:event//premis:eventOutcome)='success'])"/>
+	<sch:let name="digiprovmd_migration" value="exsl:node-set(/mets:mets/mets:amdSec/mets:digiprovMD[normalize-space(./mets:mdWrap/mets:xmlData/premis:event/premis:eventType)='migration' and normalize-space(./mets:mdWrap/mets:xmlData/premis:event/premis:eventOutcomeInformation/premis:eventOutcome)='success'])"/>
 	<sch:pattern id="required_features_native">
 		<sch:rule context="mets:file[(normalize-space(@USE)='no-file-format-validation')]">
 			<sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
 			<sch:let name="admid" value="normalize-space(@ADMID)"/> 
-			<sch:let name="source_techmd_id" value="normalize-space($techmd/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' ')) and ..//premis:object//premis:formatName])"/> 
-			<sch:let name="source_object_id" value="normalize-space($techmd[normalize-space(@ID) = $source_techmd_id]//premis:objectIdentifierValue)"/> 
-			<sch:let name="event_source_link" value="exsl:node-set($digiprovmd_migration//premis:linkingObjectIdentifier[normalize-space(./premis:linkingObjectRole)='source' and normalize-space(./premis:linkingObjectIdentifierValue)=$source_object_id]/..)"/>
-			<sch:let name="event_not_outcome_link" value="exsl:node-set($digiprovmd_migration//premis:linkingObjectIdentifier[normalize-space(./premis:linkingObjectRole)='outcome' and not(normalize-space(./premis:linkingObjectIdentifierValue)=$source_object_id)]/..)"/>
+			<sch:let name="source_techmd_id" value="normalize-space($techmd/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' ')) and ../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName])"/> 
+			<sch:let name="source_object_id" value="normalize-space($techmd[normalize-space(@ID) = $source_techmd_id]/mets:mdWrap/mets:xmlData/premis:object/premis:objectIdentifier/premis:objectIdentifierValue)"/> 
+			<sch:let name="event_source_link" value="exsl:node-set($digiprovmd_migration/mets:mdWrap/mets:xmlData/premis:event/premis:linkingObjectIdentifier[normalize-space(./premis:linkingObjectRole)='source' and normalize-space(./premis:linkingObjectIdentifierValue)=$source_object_id]/..)"/>
+			<sch:let name="event_not_outcome_link" value="exsl:node-set($digiprovmd_migration/mets:mdWrap/mets:xmlData/premis:event/premis:linkingObjectIdentifier[normalize-space(./premis:linkingObjectRole)='outcome' and not(normalize-space(./premis:linkingObjectIdentifierValue)=$source_object_id)]/..)"/>
 			<sch:let name="event_links_source_ok" value="sets:intersection($event_source_link, $event_not_outcome_link)"/>
 
 			<sch:assert test="(count($digiprovmd_migration) &gt; 0)
@@ -425,9 +428,9 @@ Validates PREMIS metadata.
 
 	<!-- Container and stream checks -->
 	<sch:pattern id="container_with streams">
-		<sch:rule context="mets:techMD[.//premis:formatName and ancestor-or-self::mets:mets/mets:fileSec]">
+		<sch:rule context="mets:techMD[./mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName and ancestor-or-self::mets:mets/mets:fileSec]">
 			<sch:let name="tech_id" value="normalize-space(@ID)"/>
-			<sch:let name="premis_format" value="normalize-space(.//premis:formatName)"/>
+			<sch:let name="premis_format" value="normalize-space(./mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName)"/>
 			<sch:let name="container_file" value="ancestor-or-self::mets:mets/mets:fileSec/mets:fileGrp/mets:file[contains(concat(' ', @ADMID, ' '), concat(' ', $tech_id, ' '))]"/>
 			<sch:assert test="$container_file/mets:stream or not(contains(concat(' ', $container_formats, ' '), concat(' ', $premis_format, ' '))) or $premis_format='video/mp4'">
 				Streams missing for container file '<sch:value-of select="$container_file/mets:FLocat/@xlink:href"/>'.
@@ -439,9 +442,9 @@ Validates PREMIS metadata.
 		<sch:rule context="mets:stream">
 			<sch:let name="stream_admid" value="normalize-space(@ADMID)"/> 
 			<sch:let name="container_admid" value="normalize-space(../@ADMID)"/>
-			<sch:let name="container_techmd" value="$techmd[contains(concat(' ', $container_admid, ' '), concat(' ', normalize-space(@ID), ' ')) and normalize-space(.//premis:object/@xsi:type)='premis:file' and .//premis:object//premis:relatedObjectIdentifierValue]"/> 
-			<sch:let name="stream_techmd" value="$techmd[contains(concat(' ', $stream_admid, ' '), concat(' ', normalize-space(@ID), ' ')) and normalize-space(.//premis:object/@xsi:type)='premis:bitstream']"/> 
-			<sch:assert test="$container_techmd//premis:relatedObjectIdentifierValue = $stream_techmd//premis:objectIdentifierValue">
+			<sch:let name="container_techmd" value="$techmd[contains(concat(' ', $container_admid, ' '), concat(' ', normalize-space(@ID), ' ')) and normalize-space(./mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:file' and ./mets:mdWrap/mets:xmlData/premis:object/premis:relationship/premis:relatedObjectIdentification/premis:relatedObjectIdentifierValue]"/> 
+			<sch:let name="stream_techmd" value="$techmd[contains(concat(' ', $stream_admid, ' '), concat(' ', normalize-space(@ID), ' ')) and normalize-space(./mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:bitstream']"/> 
+			<sch:assert test="$container_techmd/mets:mdWrap/mets:xmlData/premis:object/premis:relationship/premis:relatedObjectIdentification/premis:relatedObjectIdentifierValue = $stream_techmd/mets:mdWrap/mets:xmlData/premis:object/premis:objectIdentifier/premis:objectIdentifierValue">
 				Container or stream mismatch between METS fileSec and PREMIS linkings for file '<sch:value-of select="../mets:FLocat/@xlink:href"/>'.
 			</sch:assert>
 		</sch:rule>
@@ -613,7 +616,7 @@ Validates PREMIS metadata.
                 <sch:rule context="mets:file">
 			<sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
                         <sch:assert test="not(normalize-space(@USE)='no-file-format-validation') or not(contains(' 1.4 1.4.1 ', concat(' ', $given_specification,' ')))">
-                                '<sch:value-of select="$given_specification"/>' Disallowed value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' in element '<sch:name/>'.
+                                Disallowed value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' in element '<sch:name/>'.
                         </sch:assert>
                 </sch:rule>
         </sch:pattern>

@@ -2,11 +2,11 @@
 
 <!--
           We are able to optimize validation by giving the element set to be used in validation.
-     It is given as a comment, which must be located as direct preceiding sibling of <sch:schema> element.
+     It is given as a comment, which must be located as direct preceding sibling of <sch:schema> element.
      The comment must start with a keyword "context-filter:".
      The filter works only for elements. All the attributes in the filtered elements will be evaluated.
      Example: context-filter: mets:*
-              skips everything else in validation, except elements in namespace prefixed as mets in this Schematron file.
+              skips everything else in validation, except elements in METS namespace.
 -->
 <!-- context-filter: ead3:*|mets:* -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">

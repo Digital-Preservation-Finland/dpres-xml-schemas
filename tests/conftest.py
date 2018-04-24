@@ -17,7 +17,7 @@ CATALOG_DIRECTORY = os.path.abspath(
 SCHEMA_DIRECTORY = os.path.abspath(
     os.path.join(os.path.dirname(__file__),
     '..', 'schema_catalogs', 'schemas'))
-CACHE_DIRECTORY = os.path.expanduser('~/.dpres-ipt/schematron-cache')
+CACHE_DIRECTORY = os.path.expanduser('~/.dpres-xml-schemas/schematron-cache')
 
 
 @pytest.fixture(scope='session', autouse=True)
@@ -70,6 +70,8 @@ def schematron_fx(request):
     request.addfinalizer(_fin)
 
     # Compile all Schematron files, if not cached
+    if not os.path.isdir(CACHE_DIRECTORY):
+        os.makedirs(CACHE_DIRECTORY)
     for schfile in os.listdir(SCH_DIRECTORY):
         if schfile.endswith('.sch'):
             sch_path = os.path.join(SCH_DIRECTORY, schfile)
@@ -87,8 +89,6 @@ def schematron_fx(request):
                 continue
 
             # Compile to cache
-            if not os.path.isdir(CACHE_DIRECTORY):
-                os.mkdir(CACHE_DIRECTORY)
             _compilestep(
                 'iso_dsdl_include.xsl', sch_path,
                 os.path.join(tmp_directory, 'step1.sch'))

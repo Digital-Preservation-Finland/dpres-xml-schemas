@@ -67,7 +67,9 @@ def test_checksums(schematron_fx, algorithm):
                <mets:mdWrap MDTYPE="PREMIS:OBJECT" MDTYPEVERSION="2.3">
                  <mets:xmlData>
                    <premis:object xsi:type="premis:file">
+                     <premis:objectCharacteristics><premis:fixity>
                      <premis:messageDigestAlgorithm/>
+                     </premis:fixity></premis:objectCharacteristics>
                    </premis:object>
                  </mets:xmlData>
                </mets:mdWrap>
@@ -77,20 +79,20 @@ def test_checksums(schematron_fx, algorithm):
     elem_handler.text = algorithm
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     if algorithm == 'xxx':
-        assert svrl.count(SVRL_FAILED) == 1
+        assert svrl.count(SVRL_FAILED) == 2
     else:
-        assert svrl.count(SVRL_FAILED) == 0
+        assert svrl.count(SVRL_FAILED) == 1
 
 
 @pytest.mark.parametrize("metssection, premisroot, mdtype, nonempty", [
-    ('techMD', 'object', 'PREMIS:OBJECT', 'objectIdentifierType'),
-    ('techMD', 'object', 'PREMIS:OBJECT', 'objectIdentifierValue'),
-    ('digiprovMD', 'event', 'PREMIS:EVENT', 'eventIdentifierType'),
-    ('digiprovMD', 'event', 'PREMIS:EVENT', 'eventIdentifierValue'),
-    ('digiprovMD', 'agent', 'PREMIS:AGENT', 'agentIdentifierType'),
-    ('digiprovMD', 'agent', 'PREMIS:AGENT', 'agentIdentifierValue'),
-    ('rightsMD', 'rights', 'PREMIS:RIGHTS', 'rightsStatementIdentifierType'),
-    ('rightsMD', 'rights', 'PREMIS:RIGHTS', 'rightsStatementIdentifierValue')
+    ('techMD', ['object', 'objectIdentifier'], 'PREMIS:OBJECT', 'objectIdentifierType'),
+    ('techMD', ['object', 'objectIdentifier'], 'PREMIS:OBJECT', 'objectIdentifierValue'),
+    ('digiprovMD', ['event', 'eventIdentifier'], 'PREMIS:EVENT', 'eventIdentifierType'),
+    ('digiprovMD', ['event', 'eventIdentifier'], 'PREMIS:EVENT', 'eventIdentifierValue'),
+    ('digiprovMD', ['agent', 'agentIdentifier'], 'PREMIS:AGENT', 'agentIdentifierType'),
+    ('digiprovMD', ['agent', 'agentIdentifier'], 'PREMIS:AGENT', 'agentIdentifierValue'),
+    ('rightsMD', ['rights', 'rightsStatement', 'rightsStatementIdentifier'], 'PREMIS:RIGHTS', 'rightsStatementIdentifierType'),
+    ('rightsMD', ['rights', 'rightsStatement', 'rightsStatementIdentifier'], 'PREMIS:RIGHTS', 'rightsStatementIdentifierValue')
 ])
 def test_identifier_value(
         schematron_fx, metssection, premisroot, mdtype, nonempty):
@@ -111,7 +113,8 @@ def test_identifier_value(
     elem_handler = root.find_element('mdWrap', 'mets')
     elem_handler.set_attribute('MDTYPE', 'mets', mdtype)
     elem_handler = elem_handler.find_element('xmlData', 'mets')
-    elem_handler = elem_handler.set_element(premisroot, 'premis')
+    for elem in premisroot:
+        elem_handler = elem_handler.set_element(elem, 'premis')
     elem_handler = elem_handler.set_element(nonempty, 'premis')
 
     # Empty identifier element fails
@@ -190,9 +193,12 @@ def test_pronom_codes(schematron_fx, fileformat, pronom):
     """
     xml = '''<mets:techMD xmlns:mets="%(mets)s" xmlns:premis="%(premis)s">
                <mets:mdWrap MDTYPEVERSION="2.3"><mets:xmlData><premis:object>
+                 <premis:objectCharacteristics>
                  <premis:format><premis:formatDesignation><premis:formatName/>
-                   <premis:formatRegistryKey/></premis:formatDesignation>
-               </premis:format></premis:object></mets:xmlData></mets:mdWrap>
+                   </premis:formatDesignation><premis:formatRegistry>
+                   <premis:formatRegistryKey/></premis:formatRegistry>
+               </premis:format></premis:objectCharacteristics>
+               </premis:object></mets:xmlData></mets:mdWrap>
              </mets:techMD>''' % NAMESPACES
     (mets, root) = parse_xml_string(xml)
     elem_handler = root.find_element('formatName', 'premis')
@@ -226,9 +232,11 @@ def test_charset_parameter(schematron_fx, fileformat):
     xml = '''<mets:mets fi:CATALOG="1.4" xmlns:mets="%(mets)s"
              xmlns:premis="%(premis)s" xmlns:fi="%(fikdk)s">
              <mets:techMD><mets:mdWrap MDTYPEVERSION="2.3"><mets:xmlData>
-               <premis:object><premis:format><premis:formatDesignation>
+               <premis:object><premis:objectCharacteristics>
+                 <premis:format><premis:formatDesignation>
                  <premis:formatName/></premis:formatDesignation>
-               </premis:format></premis:object></mets:xmlData></mets:mdWrap>
+               </premis:format></premis:objectCharacteristics>
+               </premis:object></mets:xmlData></mets:mdWrap>
              </mets:techMD></mets:mets>''' % NAMESPACES
     charsets = ['ISO-8859-15', 'UTF-8', 'UTF-16', 'UTF-32', 'iso-8859-15',
                 'utf-8', 'utf-16', 'utf-32']
@@ -270,32 +278,32 @@ def test_identifiers_unique(schematron_fx):
 
     :schematron_fx: Schematron compile fixture
     """
-    xml = '''<premis:object><premis:objectIdentifier>
+    xml = '''<mets:techMD><mets:mdWrap><mets:xmlData><premis:object><premis:objectIdentifier>
                  <premis:objectIdentifierType>local
                  </premis:objectIdentifierType>
                  <premis:objectIdentifierValue>xxx
                  </premis:objectIdentifierValue>
-               </premis:objectIdentifier></premis:object>
-             <premis:rights><premis:rightsStatement>
+               </premis:objectIdentifier></premis:object></mets:xmlData></mets:mdWrap></mets:techMD>
+             <mets:rightsMD><mets:mdWrap><mets:xmlData><premis:rights><premis:rightsStatement>
                <premis:rightsStatementIdentifier>
                  <premis:rightsStatementIdentifierType>local
                  </premis:rightsStatementIdentifierType>
                  <premis:rightsStatementIdentifierValue>xxx
                  </premis:rightsStatementIdentifierValue>
                </premis:rightsStatementIdentifier></premis:rightsStatement>
-             </premis:rights>
-             <premis:event><premis:eventIdentifier>
+             </premis:rights></mets:xmlData></mets:mdWrap></mets:rightsMD>
+             <mets:digiprovMD><mets:mdWrap><mets:xmlData><premis:event><premis:eventIdentifier>
                  <premis:eventIdentifierType>local</premis:eventIdentifierType>
                  <premis:eventIdentifierValue>xxx</premis:eventIdentifierValue>
-               </premis:eventIdentifier></premis:event>
-             <premis:agent><premis:agentIdentifier>
+               </premis:eventIdentifier></premis:event></mets:xmlData></mets:mdWrap></mets:digiprovMD>
+             <mets:digiprovMD><mets:mdWrap><mets:xmlData><premis:agent><premis:agentIdentifier>
                  <premis:agentIdentifierType>local</premis:agentIdentifierType>
                  <premis:agentIdentifierValue>xxx</premis:agentIdentifierValue>
-               </premis:agentIdentifier></premis:agent>'''
+               </premis:agentIdentifier></premis:agent></mets:xmlData></mets:mdWrap></mets:digiprovMD>'''
     head = '''<mets:mets fi:CATALOG="1.4" xmlns:mets="%(mets)s"
-              xmlns:premis="%(premis)s" xmlns:fi="%(fikdk)s"><premis:premis>''' \
+              xmlns:premis="%(premis)s" xmlns:fi="%(fikdk)s"><mets:amdSec>''' \
               % NAMESPACES
-    tail = '''</premis:premis></mets:mets>'''
+    tail = '''</mets:amdSec></mets:mets>'''
     (mets, root) = parse_xml_string(head+xml+xml+tail)
 
     # No errors with specification 1.4
