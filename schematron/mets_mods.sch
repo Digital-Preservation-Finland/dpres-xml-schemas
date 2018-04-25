@@ -7,7 +7,7 @@
      Example: context-filter: mets:*
               skips everything else in validation, except elements in METS namespace.
 -->
-<!-- context-filter: mods:*|mets:* -->
+<!-- context-filter: mods:*|mets:mets|mets:dmdSec|mets:mdWrap|mets:xmlData -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">
 	<sch:title>MODS metadata validation</sch:title>
 

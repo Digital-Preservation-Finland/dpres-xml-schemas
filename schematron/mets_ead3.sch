@@ -8,7 +8,7 @@
      Example: context-filter: mets:*
               skips everything else in validation, except elements in METS namespace.
 -->
-<!-- context-filter: ead3:*|mets:* -->
+<!-- context-filter: ead3:*|mets:mets|mets:dmdSec|mets:mdWrap|mets:xmlData -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">
 	<sch:title>EAD3 metadata validation</sch:title>
 

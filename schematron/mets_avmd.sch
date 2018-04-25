@@ -7,7 +7,7 @@
      Example: context-filter: mets:*
               skips everything else in validation, except elements in METS namespace.
 -->
-<!-- context-filter: audiomd:*|videomd:*|mets:* -->
+<!-- context-filter: audiomd:*|videomd:*|mets:mets|mets:amdSec|mets:techMD|mets:mdWrap|mets:xmlData -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">
 	<sch:title>AudioMD and VideoMD metadata validation</sch:title>
 

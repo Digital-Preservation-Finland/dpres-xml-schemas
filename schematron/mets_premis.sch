@@ -7,7 +7,7 @@
      Example: context-filter: mets:*
               skips everything else in validation, except elements in METS namespace.
 -->
-<!-- context-filter: premis:*|mets:* -->
+<!-- context-filter: premis:*|mets:mets|mets:amdSec|mets:techMD|mets:rightsMD|mets:digiprovMD|mets:mdWrap|mets:xmlData|mets:fileSec|mets:fileGrp|mets:file|mets:stream -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">
 	<sch:title>PREMIS metadata validation</sch:title>
 

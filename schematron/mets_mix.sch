@@ -7,7 +7,7 @@
      Example: context-filter: mets:*
               skips everything else in validation, except elements in METS namespace.
 -->
-<!-- context-filter: mix:*|mets:* -->
+<!-- context-filter: mix:*|mets:mets|mets:amdSec|mets:techMD|mets:mdWrap|mets:xmlData|mets:fileSec|mets:fileGrp|mets:file -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">
 	<sch:title>NISOIMG (MIX) metadata validation</sch:title>
 
@@ -252,7 +252,7 @@ Validates NISOIMG (MIX) metadata.
 	-->
 	<sch:pattern id="mix_samples_palettecolor_greater">
 		<sch:rule context="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:ImageAssessmentMetadata/mix:ImageColorEncoding[normalize-space(../../mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation/mix:colorSpace)='PaletteColor']">
-			<sch:let name="section_context" value="ancestor-or-self::*[self::mets:dmdSec or self::mets:techMD or self::mets:rightsMD or self::mets:sourceMD or self::mets:digiprovMD]"/>
+			<sch:let name="section_context" value="ancestor-or-self::*[self::mets:techMD]"/>
 			<sch:let name="section_string" value="concat('(ID of the metadata section ', name($section_context), ' is ', $section_context/@ID, ')')"/>
 			<sch:assert test="number(mix:samplesPerPixel) &lt;= 1">
 				The number in element '<sch:value-of select="name(mix:samplesPerPixel)"/>' '<sch:value-of select="mix:samplesPerPixel"/>' is greater than expected in the color space 'PaletteColor'.  <sch:value-of select="substring($section_string,1,number($section_context)*string-length($section_string))"/>

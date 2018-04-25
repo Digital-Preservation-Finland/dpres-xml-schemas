@@ -8,7 +8,7 @@
      Example: context-filter: mets:*
               skips everything else in validation, except elements in METS namespace.
 -->
-<!-- context-filter: addml:*|mets:* -->
+<!-- context-filter: addml:*|mets:mets|mets:amdSec|mets:techMD|mets:mdWrap|mets:xmlData|mets:fileSec|mets:fileGrp|mets:file -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">
 	<sch:title>ADDML metadata validation</sch:title>
 
