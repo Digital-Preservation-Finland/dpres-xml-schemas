@@ -213,17 +213,17 @@ Validates METS metadata elements and attributes, their values, and METS internal
 	</sch:pattern>
 
         <!-- METS internal linking, cross-check part 1: From link to target -->
-        <sch:let name="admids" value="/mets:mets/mets:amdSec/*[self::mets:techMD or self::mets:rightsMD or self::mets:sourceMD or self::mets:digiprovMD]/@ID"/>
+        <sch:let name="admids_link" value="/mets:mets/mets:amdSec/*[self::mets:techMD or self::mets:rightsMD or self::mets:sourceMD or self::mets:digiprovMD]/@ID"/>
         <sch:pattern id="link_file_admid">
                 <sch:rule context="mets:fileGrp/mets:file[@ADMID]">
-            <sch:assert test="(count(sets:distinct(str:tokenize(normalize-space(@ADMID),' ') | exsl:node-set($admids))) = count(sets:distinct(exsl:node-set($admids))))">
+            <sch:assert test="(count(sets:distinct(str:tokenize(normalize-space(@ADMID),' ') | exsl:node-set($admids_link))) = count(sets:distinct(exsl:node-set($admids_link))))">
                                 Value '<sch:value-of select="@ADMID"/>' in attribute '<sch:value-of select="name(@ADMID)"/>' in element '<sch:name/>' contains a link to nowhere. The corresponding target attribute '@ID' with the same value was not found.
                         </sch:assert>
                 </sch:rule>
         </sch:pattern>
         <sch:pattern id="link_stream_admid">
                 <sch:rule context="mets:stream[@ADMID]">
-            <sch:assert test="(count(sets:distinct(str:tokenize(normalize-space(@ADMID),' ') | exsl:node-set($admids))) = count(sets:distinct(exsl:node-set($admids))))">
+            <sch:assert test="(count(sets:distinct(str:tokenize(normalize-space(@ADMID),' ') | exsl:node-set($admids_link))) = count(sets:distinct(exsl:node-set($admids_link))))">
                                 Value '<sch:value-of select="@ADMID"/>' in attribute '<sch:value-of select="name(@ADMID)"/>' in element '<sch:name/>' contains a link to nowhere. The corresponding target attribute '@ID' with the same value was not found.
                         </sch:assert>
                 </sch:rule>
@@ -247,8 +247,8 @@ Validates METS metadata elements and attributes, their values, and METS internal
         	<sch:rule context="mets:fileGrp/mets:file">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
-                        <sch:let name="countfilescomb" value="count(sets:distinct(exsl:node-set($premis_file_id) | str:tokenize($admids, ' ')))"/>
-                        <sch:assert test="($premis_file_count+$countadm) &gt; $countfilescomb">
+                        <sch:let name="countfilescomb_premis" value="count(sets:distinct(exsl:node-set($premis_file_id) | str:tokenize($admids, ' ')))"/>
+                        <sch:assert test="($premis_file_count+$countadm) &gt; $countfilescomb_premis">
                                 Linking between PREMIS:OBJECT metadata and file '<sch:value-of select="./mets:FLocat/@xlink:href"/>' is required.
                         </sch:assert>
                 </sch:rule>
@@ -258,8 +258,8 @@ Validates METS metadata elements and attributes, their values, and METS internal
                         <sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
-                        <sch:let name="countfilescomb" value="count(sets:distinct(exsl:node-set($premis_stream_id) | str:tokenize($admids, ' ')))"/>
-                        <sch:assert test="(($premis_stream_count+$countadm) &gt; $countfilescomb)
+                        <sch:let name="countfilescomb_premis_stream" value="count(sets:distinct(exsl:node-set($premis_stream_id) | str:tokenize($admids, ' ')))"/>
+                        <sch:assert test="(($premis_stream_count+$countadm) &gt; $countfilescomb_premis_stream)
 			or contains(' 1.4 1.4.1 1.5.0 ', concat(' ', $given_specification,' '))">
                                 Linking between PREMIS:OBJECT metadata and stream in file '<sch:value-of select="../mets:FLocat/@xlink:href"/>' is required.
                         </sch:assert>
@@ -272,9 +272,9 @@ Validates METS metadata elements and attributes, their values, and METS internal
                         <sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
-                        <sch:let name="countfilescomb" value="count(sets:distinct(exsl:node-set($audiomd_fileid_stream) | str:tokenize($admids, ' ')))"/>
-                        <sch:let name="countmdcomb" value="count(sets:distinct(exsl:node-set($audiomd_mdids) | str:tokenize($admids, ' ')))"/>
-                        <sch:assert test="(($audiomd_countfiles_stream+$countadm)=$countfilescomb) or not(($audiomd_countmd+$countadm)=$countmdcomb)
+                        <sch:let name="countfilescomb_audio_stream" value="count(sets:distinct(exsl:node-set($audiomd_fileid_stream) | str:tokenize($admids, ' ')))"/>
+                        <sch:let name="countmdcomb_audio_stream" value="count(sets:distinct(exsl:node-set($audiomd_mdids) | str:tokenize($admids, ' ')))"/>
+                        <sch:assert test="(($audiomd_countfiles_stream+$countadm)=$countfilescomb_audio_stream) or not(($audiomd_countmd+$countadm)=$countmdcomb_audio_stream)
                         or contains(' 1.4 1.4.1 1.5.0 ', concat(' ', $given_specification,' '))">
                                 Linking between AudioMD metadata and stream in file '<sch:value-of select="../mets:FLocat/@xlink:href"/>' is required.
                         </sch:assert>
@@ -285,9 +285,9 @@ Validates METS metadata elements and attributes, their values, and METS internal
                         <sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
-                        <sch:let name="countfilescomb" value="count(sets:distinct(exsl:node-set($videomd_fileid_stream) | str:tokenize($admids, ' ')))"/>
-                        <sch:let name="countmdcomb" value="count(sets:distinct(exsl:node-set($videomd_mdids) | str:tokenize($admids, ' ')))"/>
-                        <sch:assert test="(($videomd_countfiles_stream+$countadm)=$countfilescomb) or not(($videomd_countmd+$countadm)=$countmdcomb)
+                        <sch:let name="countfilescomb_video_stream" value="count(sets:distinct(exsl:node-set($videomd_fileid_stream) | str:tokenize($admids, ' ')))"/>
+                        <sch:let name="countmdcomb_video_stream" value="count(sets:distinct(exsl:node-set($videomd_mdids) | str:tokenize($admids, ' ')))"/>
+                        <sch:assert test="(($videomd_countfiles_stream+$countadm)=$countfilescomb_video_stream) or not(($videomd_countmd+$countadm)=$countmdcomb_video_stream)
                         or contains(' 1.4 1.4.1 1.5.0 ', concat(' ', $given_specification,' '))">
                                 Linking between VideoMD metadata and stream in file '<sch:value-of select="../mets:FLocat/@xlink:href"/>' is required.
                         </sch:assert>
@@ -297,9 +297,9 @@ Validates METS metadata elements and attributes, their values, and METS internal
                 <sch:rule context="mets:fileGrp/mets:file">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
-                        <sch:let name="countfilescomb" value="count(sets:distinct(exsl:node-set($addml_fileid) | str:tokenize($admids, ' ')))"/>
-                        <sch:let name="countmdcomb" value="count(sets:distinct(exsl:node-set($addml_mdids) | str:tokenize($admids, ' ')))"/>
-                        <sch:assert test="(($addml_countfiles+$countadm)=$countfilescomb) or not(($addml_countmd+$countadm)=$countmdcomb)">
+                        <sch:let name="countfilescomb_addml" value="count(sets:distinct(exsl:node-set($addml_fileid) | str:tokenize($admids, ' ')))"/>
+                        <sch:let name="countmdcomb_addml" value="count(sets:distinct(exsl:node-set($addml_mdids) | str:tokenize($admids, ' ')))"/>
+                        <sch:assert test="(($addml_countfiles+$countadm)=$countfilescomb_addml) or not(($addml_countmd+$countadm)=$countmdcomb_addml)">
                                 Linking between ADDML metadata and file '<sch:value-of select="./mets:FLocat/@xlink:href"/>' is required.
                         </sch:assert>
                 </sch:rule>
@@ -308,9 +308,9 @@ Validates METS metadata elements and attributes, their values, and METS internal
                 <sch:rule context="mets:fileGrp/mets:file">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
-                        <sch:let name="countfilescomb" value="count(sets:distinct(exsl:node-set($audiomd_fileid) | str:tokenize($admids, ' ')))"/>
-                        <sch:let name="countmdcomb" value="count(sets:distinct(exsl:node-set($audiomd_mdids) | str:tokenize($admids, ' ')))"/>
-                        <sch:assert test="(($audiomd_countfiles+$countadm)=$countfilescomb) or not(($audiomd_countmd+$countadm)=$countmdcomb)">
+                        <sch:let name="countfilescomb_audiomd" value="count(sets:distinct(exsl:node-set($audiomd_fileid) | str:tokenize($admids, ' ')))"/>
+                        <sch:let name="countmdcomb_audiomd" value="count(sets:distinct(exsl:node-set($audiomd_mdids) | str:tokenize($admids, ' ')))"/>
+                        <sch:assert test="(($audiomd_countfiles+$countadm)=$countfilescomb_audiomd) or not(($audiomd_countmd+$countadm)=$countmdcomb_audiomd)">
                                 Linking between AudioMD metadata and file '<sch:value-of select="./mets:FLocat/@xlink:href"/>' is required.
                         </sch:assert>
                 </sch:rule>
@@ -319,9 +319,9 @@ Validates METS metadata elements and attributes, their values, and METS internal
                 <sch:rule context="mets:fileGrp/mets:file[not(mets:stream)]">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
-                        <sch:let name="countfilescomb" value="count(sets:distinct(exsl:node-set($videomd_fileid) | str:tokenize($admids, ' ')))"/>
-                        <sch:let name="countmdcomb" value="count(sets:distinct(exsl:node-set($videomd_mdids) | str:tokenize($admids, ' ')))"/>
-                        <sch:assert test="(($videomd_countfiles+$countadm)=$countfilescomb) or not(($videomd_countmd+$countadm)=$countmdcomb)">
+                        <sch:let name="countfilescomb_videomd" value="count(sets:distinct(exsl:node-set($videomd_fileid) | str:tokenize($admids, ' ')))"/>
+                        <sch:let name="countmdcomb_videomd" value="count(sets:distinct(exsl:node-set($videomd_mdids) | str:tokenize($admids, ' ')))"/>
+                        <sch:assert test="(($videomd_countfiles+$countadm)=$countfilescomb_videomd) or not(($videomd_countmd+$countadm)=$countmdcomb_videomd)">
                                 Linking between VideoMD metadata and file '<sch:value-of select="./mets:FLocat/@xlink:href"/>' is required.
                         </sch:assert>
                 </sch:rule>
@@ -330,9 +330,9 @@ Validates METS metadata elements and attributes, their values, and METS internal
                 <sch:rule context="mets:fileGrp/mets:file">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
-                        <sch:let name="countfilescomb" value="count(sets:distinct(exsl:node-set($mix_fileid) | str:tokenize($admids, ' ')))"/>
-                        <sch:let name="countmdcomb" value="count(sets:distinct(exsl:node-set($mix_mdids) | str:tokenize($admids, ' ')))"/>
-                        <sch:assert test="(($mix_countfiles+$countadm)=$countfilescomb) or not(($mix_countmd+$countadm)=$countmdcomb)">
+                        <sch:let name="countfilescomb_mix" value="count(sets:distinct(exsl:node-set($mix_fileid) | str:tokenize($admids, ' ')))"/>
+                        <sch:let name="countmdcomb_mix" value="count(sets:distinct(exsl:node-set($mix_mdids) | str:tokenize($admids, ' ')))"/>
+                        <sch:assert test="(($mix_countfiles+$countadm)=$countfilescomb_mix) or not(($mix_countmd+$countadm)=$countmdcomb_mix)">
                                 Linking between NISOIMG (MIX) metadata and file '<sch:value-of select="./mets:FLocat/@xlink:href"/>' is required.
                         </sch:assert>
                 </sch:rule>
@@ -342,13 +342,13 @@ Validates METS metadata elements and attributes, their values, and METS internal
                 <sch:rule context="mets:fileGrp/mets:file">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
-                        <sch:let name="countfilescomb" value="count(sets:distinct(exsl:node-set($csv_fileid) | str:tokenize($admids, ' ')))"/>
+                        <sch:let name="countfilescomb_csv" value="count(sets:distinct(exsl:node-set($csv_fileid) | str:tokenize($admids, ' ')))"/>
                         <sch:let name="countaddmlrscomb" value="count(sets:distinct(exsl:node-set($csv_addmlrsids) | str:tokenize($admids, ' ')))"/>
                         <sch:let name="countaddmlfsccomb" value="count(sets:distinct(exsl:node-set($csv_addmlfscids) | str:tokenize($admids, ' ')))"/>
-                        <sch:assert test="(($csv_countfiles+$countadm)=$countfilescomb) or not(($csv_countaddmlrs+$countadm)=$countaddmlrscomb)">
+                        <sch:assert test="(($csv_countfiles+$countadm)=$countfilescomb_csv) or not(($csv_countaddmlrs+$countadm)=$countaddmlrscomb)">
                                 Element 'recordSeparator' is required in ADDML metadata for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'.
                         </sch:assert>
-                        <sch:assert test="(($csv_countfiles+$countadm)=$countfilescomb) or not(($csv_countaddmlfsc+$countadm)=$countaddmlfsccomb)">
+                        <sch:assert test="(($csv_countfiles+$countadm)=$countfilescomb_csv) or not(($csv_countaddmlfsc+$countadm)=$countaddmlfsccomb)">
                                 Element 'fieldSeparatingChar' is required in ADDML metadata for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'.
                         </sch:assert>
                 </sch:rule>
@@ -359,13 +359,13 @@ Validates METS metadata elements and attributes, their values, and METS internal
         	<sch:rule context="mets:fileGrp/mets:file">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
-                        <sch:let name="countfilescomb" value="count(sets:distinct(exsl:node-set($jp2_fileid) | str:tokenize($admids, ' ')))"/>
+                        <sch:let name="countfilescomb_jpeg2000" value="count(sets:distinct(exsl:node-set($jp2_fileid) | str:tokenize($admids, ' ')))"/>
                         <sch:let name="countmixsfccomb" value="count(sets:distinct(exsl:node-set($jp2_mixsfcids) | str:tokenize($admids, ' ')))"/>
                         <sch:let name="countmixjp2comb" value="count(sets:distinct(exsl:node-set($jp2_mixjp2ids) | str:tokenize($admids, ' ')))"/>
-                        <sch:assert test="(($jp2_countfiles+$countadm)=$countfilescomb) or not(($jp2_countmixsfc+$countadm)=$countmixsfccomb)">
+                        <sch:assert test="(($jp2_countfiles+$countadm)=$countfilescomb_jpeg2000) or not(($jp2_countmixsfc+$countadm)=$countmixsfccomb)">
                                 Element 'SpecialFormatCharacteristics' is required in NISOIMG (MIX) metadata for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'.
                         </sch:assert>
-                        <sch:assert test="(($jp2_countfiles+$countadm)=$countfilescomb) or not(($jp2_countmixjp2+$countadm)=$countmixjp2comb)">
+                        <sch:assert test="(($jp2_countfiles+$countadm)=$countfilescomb_jpeg2000) or not(($jp2_countmixjp2+$countadm)=$countmixjp2comb)">
                                 Element 'JPEG2000' is required in NISOIMG (MIX) metadata for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'.
                         </sch:assert>
                 </sch:rule>
@@ -376,9 +376,9 @@ Validates METS metadata elements and attributes, their values, and METS internal
         	<sch:rule context="mets:fileGrp/mets:file">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
-                        <sch:let name="countfilescomb" value="count(sets:distinct(exsl:node-set($not_jp2_fileid) | str:tokenize($admids, ' ')))"/>
+                        <sch:let name="countfilescomb_jpeg2000_not" value="count(sets:distinct(exsl:node-set($not_jp2_fileid) | str:tokenize($admids, ' ')))"/>
                         <sch:let name="countmixjp2comb" value="count(sets:distinct(exsl:node-set($jp2_mixjp2ids) | str:tokenize($admids, ' ')))"/>
-                        <sch:assert test="(($not_jp2_countfiles+$countadm)=$countfilescomb) or (($jp2_countmixjp2+$countadm)=$countmixjp2comb)">
+                        <sch:assert test="(($not_jp2_countfiles+$countadm)=$countfilescomb_jpeg2000_not) or (($jp2_countmixjp2+$countadm)=$countmixjp2comb)">
                                 Element 'JPEG2000' is not allowed in NISOIMG (MIX) metadata for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'.
                         </sch:assert>
                 </sch:rule>
@@ -389,9 +389,9 @@ Validates METS metadata elements and attributes, their values, and METS internal
                 <sch:rule context="mets:fileGrp/mets:file">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
-                        <sch:let name="countfilescomb" value="count(sets:distinct(exsl:node-set($tiff_fileid) | str:tokenize($admids, ' ')))"/>
+                        <sch:let name="countfilescomb_byteorder" value="count(sets:distinct(exsl:node-set($tiff_fileid) | str:tokenize($admids, ' ')))"/>
                         <sch:let name="countmixcomb" value="count(sets:distinct(exsl:node-set($tiff_mixids) | str:tokenize($admids, ' ')))"/>
-                        <sch:assert test="(($tiff_countfiles+$countadm)=$countfilescomb) or not(($tiff_countmix+$countadm)=$countmixcomb)">
+                        <sch:assert test="(($tiff_countfiles+$countadm)=$countfilescomb_byteorder) or not(($tiff_countmix+$countadm)=$countmixcomb)">
                                 Element 'byteOrder' is required in NISOIMG (MIX) metadata for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'.
                         </sch:assert>
                 </sch:rule>
@@ -446,9 +446,9 @@ Validates METS metadata elements and attributes, their values, and METS internal
 			<sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
 			<sch:let name="admids" value="normalize-space(@ADMID)"/>
 			<sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
-			<sch:let name="countfilescomb" value="count(sets:distinct(exsl:node-set($textmd_fileid) | str:tokenize($admids, ' ')))"/>
-			<sch:let name="countmdcomb" value="count(sets:distinct(exsl:node-set($textmd14_mdids) | str:tokenize($admids, ' ')))"/>
-			<sch:assert test="(($textmd_countfiles+$countadm)=$countfilescomb) or not(($textmd14_countmd+$countadm)=$countmdcomb)
+			<sch:let name="countfilescomb_textmd" value="count(sets:distinct(exsl:node-set($textmd_fileid) | str:tokenize($admids, ' ')))"/>
+			<sch:let name="countmdcomb_textmd" value="count(sets:distinct(exsl:node-set($textmd14_mdids) | str:tokenize($admids, ' ')))"/>
+			<sch:assert test="(($textmd_countfiles+$countadm)=$countfilescomb_textmd) or not(($textmd14_countmd+$countadm)=$countmdcomb_textmd)
                         or not(contains(' 1.4 1.4.1 ', concat(' ', $given_specification,' ')))">
 				Linking between TextMD metadata and file '<sch:value-of select="./mets:FLocat/@xlink:href"/>' is required.
 			</sch:assert>

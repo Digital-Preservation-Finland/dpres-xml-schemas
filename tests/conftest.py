@@ -97,8 +97,12 @@ def schematron_fx(request):
                 os.path.join(tmp_directory, 'step1.sch'),
                 os.path.join(tmp_directory, 'step2.sch'))
             _compilestep(
-                'iso_svrl_for_xslt1.xsl',
+                'optimize_schematron.xsl',
                 os.path.join(tmp_directory, 'step2.sch'),
+                os.path.join(tmp_directory, 'step3.sch'))
+            _compilestep(
+                'iso_svrl_for_xslt1.xsl',
+                os.path.join(tmp_directory, 'step3.sch'),
                 os.path.join(CACHE_DIRECTORY, schfile+'.xsl'))
 
             # After compiling a file, we'll cache the schecksum of sch file
