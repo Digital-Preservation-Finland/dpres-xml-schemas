@@ -61,7 +61,9 @@
 
     <xsl:template match="sch:schema">
         <xsl:copy>
-            <xsl:apply-templates select="@* | node()"/>
+            <xsl:apply-templates select="@*|sch:title|sch:ns"/>
+            <xsl:apply-templates select="sch:let"/>
+            <xsl:apply-templates select="node()[not(sch:let|sch:ns|sch:title)]"/>
         </xsl:copy>
     </xsl:template>
     <xsl:template match="sch:let|sch:ns|sch:title|@*">
