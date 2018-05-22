@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <!-- pass-filter: /mets:mets/mets:amdSec -->
 <!-- context-filter: mets:amdSec|mets:techMD|mets:rightsMD|mets:sourceMD|mets:digiprovMD -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">
-	<sch:title>METS internal validation</sch:title>
+	<sch:title>METS amdSec validation</sch:title>
 
 <!--
-Validates METS metadata elements and attributes, their values, and METS internal linking.
+Validates METS amdSec.
 -->
 	
 	<sch:ns prefix="mets" uri="http://www.loc.gov/METS/"/>

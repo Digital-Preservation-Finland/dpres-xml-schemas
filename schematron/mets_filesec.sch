@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <!-- pass-filter: /mets:mets/mets:fileSec -->
 <!-- context-filter: mets:fileSec|mets:fileGrp|mets:file|mets:FLocat|mets:stream -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">
-	<sch:title>METS internal validation</sch:title>
+	<sch:title>METS fileSec validation</sch:title>
 
 <!--
-Validates METS metadata elements and attributes, their values, and METS internal linking.
+Validates METS fileSec.
 -->
 	
 	<sch:ns prefix="mets" uri="http://www.loc.gov/METS/"/>
