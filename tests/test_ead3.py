@@ -5,7 +5,8 @@ rules located in mets_ead3.sch.
 """
 
 import pytest
-from tests.common import SVRL_FIRED, SVRL_FAILED, NAMESPACES, parse_xml_string
+from tests.common import SVRL_FIRED, SVRL_FAILED, NAMESPACES, \
+    parse_xml_string, add_containers
 
 SCHFILE = 'mets_ead3.sch'
 
@@ -24,7 +25,9 @@ def test_ead3_extension(schematron_fx, xml, failures):
     :xml: XML to be validated
     :failures: Number of Schematron failures to expect
     """
-    (xmltree, _) = parse_xml_string(xml)
+    (xmltree, root) = parse_xml_string(xml)
+    (xmltree, _) = add_containers(
+        root, 'mets:mets/mets:dmdSec/mets:mdWrap/mets:xmlData/ead3:ead')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=xmltree)
     assert svrl.count(SVRL_FIRED) == 1
     assert svrl.count(SVRL_FAILED) == failures

@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-     We are able to optimize validation by giving the element set to be used in validation.
-     It is given as a comment, which must be located as direct preceding sibling of <sch:schema> element.
-     The comment must start with a keyword "context-filter:".
-     The filter works only for elements. All the attributes in the filtered elements will be evaluated.
-     Example: context-filter: mets:*
-              skips everything else in validation, except elements in METS namespace.
--->
-<!-- context-filter: mix:*|mets:mets|mets:amdSec|mets:techMD|mets:mdWrap|mets:xmlData|mets:fileSec|mets:fileGrp|mets:file -->
+
+<!-- pass-filter: /mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/mix:mix -->
+<!-- context-filter: mix:* -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">
 	<sch:title>NISOIMG (MIX) metadata validation</sch:title>
 
@@ -32,176 +26,176 @@ Validates NISOIMG (MIX) metadata.
 
 	<!-- Mandatory elements -->
 	<sch:pattern id="mix_BasicDigitalObjectInformation" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix"/>
+		<sch:param name="context_element" value="mix:mix"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:BasicDigitalObjectInformation"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_BasicImageInformation" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix"/>
+		<sch:param name="context_element" value="mix:mix"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:BasicImageInformation"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_ImageAssessmentMetadata" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix"/>
+		<sch:param name="context_element" value="mix:mix"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:ImageAssessmentMetadata"/>
 		<sch:param name="specifications" value="string('not: 1.4; 1.4.1; 1.5.0')"/>
 	</sch:pattern>
 
 	<sch:pattern id="mix_objectIdentifierType" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicDigitalObjectInformation/mix:ObjectIdentifier"/>
+		<sch:param name="context_element" value="mix:ObjectIdentifier"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:objectIdentifierType"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_objectIdentifierValue" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicDigitalObjectInformation/mix:ObjectIdentifier"/>
+		<sch:param name="context_element" value="mix:ObjectIdentifier"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:objectIdentifierValue"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_formatName" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicDigitalObjectInformation/mix:FormatDesignation"/>
+		<sch:param name="context_element" value="mix:FormatDesignation"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:formatName"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_Compression" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicDigitalObjectInformation"/>
+		<sch:param name="context_element" value="mix:BasicDigitalObjectInformation"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:Compression"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_compressionScheme" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicDigitalObjectInformation/mix:Compression"/>
+		<sch:param name="context_element" value="mix:Compression"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:compressionScheme"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_messageDigestAlgorithm" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicDigitalObjectInformation/mix:Fixity"/>
+		<sch:param name="context_element" value="mix:Fixity"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:messageDigestAlgorithm"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_messageDigest" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicDigitalObjectInformation/mix:Fixity"/>
+		<sch:param name="context_element" value="mix:Fixity"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:messageDigest"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_BasicImageCharacteristics" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation"/>
+		<sch:param name="context_element" value="mix:BasicImageInformation"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:BasicImageCharacteristics"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_imageWidth" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics"/>
+		<sch:param name="context_element" value="mix:BasicImageCharacteristics"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:imageWidth"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_imageHeight" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics"/>
+		<sch:param name="context_element" value="mix:BasicImageCharacteristics"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:imageHeight"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_PhotometricInterpretation" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics"/>
+		<sch:param name="context_element" value="mix:BasicImageCharacteristics"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:PhotometricInterpretation"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_colorSpace" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation"/>
+		<sch:param name="context_element" value="mix:PhotometricInterpretation"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:colorSpace"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_ImageColorEncoding" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:ImageAssessmentMetadata"/>
+		<sch:param name="context_element" value="mix:ImageAssessmentMetadata"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:ImageColorEncoding"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_BitsPerSample" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:ImageAssessmentMetadata/mix:ImageColorEncoding"/>
+		<sch:param name="context_element" value="mix:ImageColorEncoding"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:BitsPerSample"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_samplesPerPixel" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:ImageAssessmentMetadata/mix:ImageColorEncoding"/>
+		<sch:param name="context_element" value="mix:ImageColorEncoding"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:samplesPerPixel"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_bitsPerSampleValue" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:ImageAssessmentMetadata/mix:ImageColorEncoding/mix:BitsPerSample"/>
+		<sch:param name="context_element" value="mix:BitsPerSample"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:bitsPerSampleValue"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_bitsPerSampleUnit" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:ImageAssessmentMetadata/mix:ImageColorEncoding/mix:BitsPerSample"/>
+		<sch:param name="context_element" value="mix:BitsPerSample"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:bitsPerSampleUnit"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_YCbCrSubSampling" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation/mix:YCbCr"/>
+		<sch:param name="context_element" value="mix:YCbCr"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:YCbCrSubSampling"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_yCbCrPositioning" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation/mix:YCbCr"/>
+		<sch:param name="context_element" value="mix:YCbCr"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:yCbCrPositioning"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_YCbCrCoefficients" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation/mix:YCbCr"/>
+		<sch:param name="context_element" value="mix:YCbCr"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:YCbCrCoefficients"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_yCbCrSubsampleHoriz" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation/mix:YCbCr/mix:YCbCrSubSampling"/>
+		<sch:param name="context_element" value="mix:YCbCrSubSampling"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:yCbCrSubsampleHoriz"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_yCbCrSubsampleVert" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation/mix:YCbCr/mix:YCbCrSubSampling"/>
+		<sch:param name="context_element" value="mix:YCbCrSubSampling"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:yCbCrSubsampleVert"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_lumaRed" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation/mix:YCbCr/mix:YCbCrCoefficients"/>
+		<sch:param name="context_element" value="mix:YCbCrCoefficients"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:lumaRed"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_lumaGreen" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation/mix:YCbCr/mix:YCbCrCoefficients"/>
+		<sch:param name="context_element" value="mix:YCbCrCoefficients"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:lumaGreen"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_lumaBlue" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation/mix:YCbCr/mix:YCbCrCoefficients"/>
+		<sch:param name="context_element" value="mix:YCbCrCoefficients"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:lumaBlue"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_ReferenceBlackWhite_Component" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation/mix:ReferenceBlackWhite"/>
+		<sch:param name="context_element" value="mix:ReferenceBlackWhite"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:Component"/>
 		<sch:param name="specifications" value="string('')"/>
@@ -209,13 +203,13 @@ Validates NISOIMG (MIX) metadata.
 
 	<!-- Compression scheme is in separate list -->
 	<sch:pattern id="mix_compressionSchemeLocalList" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicDigitalObjectInformation/mix:Compression"/>
+		<sch:param name="context_element" value="mix:Compression"/>
 		<sch:param name="context_condition" value="mix:compressionScheme='enumerated in local list'"/>
 		<sch:param name="required_element" value="mix:compressionSchemeLocalList"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_compressionSchemeLocalValue" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicDigitalObjectInformation/mix:Compression"/>
+		<sch:param name="context_element" value="mix:Compression"/>
 		<sch:param name="context_condition" value="mix:compressionScheme='enumerated in local list'"/>
 		<sch:param name="required_element" value="mix:compressionSchemeLocalValue"/>
 		<sch:param name="specifications" value="string('')"/>
@@ -224,7 +218,7 @@ Validates NISOIMG (MIX) metadata.
 	<!-- YCbCr
 	Requirement removed due to unnecessary complexity that sometimes may take place.
 	<sch:pattern id="mix_YCbCr" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix//mix:PhotometricInterpretation"/>
+		<sch:param name="context_element" value="mix:PhotometricInterpretation"/>
 		<sch:param name="context_condition" value="mix:colorSpace='YCbCr'"/>
 		<sch:param name="required_element" value="mix:YCbCr"/>
 		<sch:param name="specifications" value="string('')"/>
@@ -233,13 +227,13 @@ Validates NISOIMG (MIX) metadata.
 
 	<!-- Sampling frequency -->
 	<sch:pattern id="mix_xSamplingFrequency" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:ImageAssessmentMetadata/mix:SpatialMetrics"/>
+		<sch:param name="context_element" value="mix:SpatialMetrics"/>
 		<sch:param name="context_condition" value="mix:samplingFrequencyUnit=2 or mix:samplingFrequencyUnit=3"/>
 		<sch:param name="required_element" value="mix:xSamplingFrequency"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_ySamplingFrequency" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:ImageAssessmentMetadata/mix:SpatialMetrics"/>
+		<sch:param name="context_element" value="mix:SpatialMetrics"/>
 		<sch:param name="context_condition" value="mix:samplingFrequencyUnit=2 or mix:samplingFrequencyUnit=3"/>
 		<sch:param name="required_element" value="mix:ySamplingFrequency"/>
 		<sch:param name="specifications" value="string('')"/>
@@ -251,7 +245,7 @@ Validates NISOIMG (MIX) metadata.
 	Does not include validation for the following color spaces: TransparencyMask, ICCBased, Separation, Indexed, Pattern, DeviceN, Other
 	-->
 	<sch:pattern id="mix_samples_palettecolor_greater">
-		<sch:rule context="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:ImageAssessmentMetadata/mix:ImageColorEncoding[normalize-space(../../mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation/mix:colorSpace)='PaletteColor']">
+		<sch:rule context="mix:ImageColorEncoding[normalize-space(../../mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation/mix:colorSpace)='PaletteColor']">
 			<sch:let name="section_context" value="ancestor-or-self::*[self::mets:techMD]"/>
 			<sch:let name="section_string" value="concat('(ID of the metadata section ', name($section_context), ' is ', $section_context/@ID, ')')"/>
 			<sch:assert test="number(mix:samplesPerPixel) &lt;= 1">
@@ -352,13 +346,13 @@ Validates NISOIMG (MIX) metadata.
 	
 	<!-- Colormap is obligatory in palette color images -->
 	<sch:pattern id="mets_Colormap" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:ImageAssessmentMetadata/mix:ImageColorEncoding"/>
+		<sch:param name="context_element" value="mix:ImageColorEncoding"/>
 		<sch:param name="context_condition" value="normalize-space(../../mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation/mix:colorSpace)='PaletteColor'"/>
 		<sch:param name="required_element" value="mix:Colormap"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_colormapReference" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:ImageAssessmentMetadata/mix:ImageColorEncoding/mix:Colormap"/>
+		<sch:param name="context_element" value="mix:Colormap"/>
 		<sch:param name="context_condition" value="normalize-space(../../../mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation/mix:colorSpace)='PaletteColor'"/>
 		<sch:param name="required_element" value="mix:colormapReference"/>
 		<sch:param name="specifications" value="string('')"/>
@@ -366,7 +360,7 @@ Validates NISOIMG (MIX) metadata.
 	
 	<!-- The gray response curves must have a unit -->
 	<sch:pattern id="mix_grayResponseUnit" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:ImageAssessmentMetadata/mix:ImageColorEncoding/mix:GrayResponse"/>
+		<sch:param name="context_element" value="mix:GrayResponse"/>
 		<sch:param name="context_condition" value="mix:grayResponseCurve"/>
 		<sch:param name="required_element" value="mix:grayResponseUnit"/>
 		<sch:param name="specifications" value="string('')"/>
@@ -374,13 +368,13 @@ Validates NISOIMG (MIX) metadata.
 
 	<!-- ICC Profile -->
 	<sch:pattern id="mix_ColorProfile" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation"/>
+		<sch:param name="context_element" value="mix:PhotometricInterpretation"/>
 		<sch:param name="context_condition" value="normalize-space(./mix:colorSpace)='ICCLab' or normalize-space(./mix:colorSpace)='ICCBased'"/>
 		<sch:param name="required_element" value="mix:ColorProfile"/>
 		<sch:param name="specifications" value="string('not: 1.4; 1.4.1; 1.5.0')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_IccProfile" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation/mix:ColorProfile"/>
+		<sch:param name="context_element" value="mix:ColorProfile"/>
 		<sch:param name="context_condition" value="normalize-space(../mix:colorSpace)='ICCLab' or normalize-space(../mix:colorSpace)='ICCBased'"/>
 		<sch:param name="required_element" value="mix:IccProfile"/>
 		<sch:param name="specifications" value="string('')"/>
@@ -388,7 +382,7 @@ Validates NISOIMG (MIX) metadata.
 	
 	<!-- If Color Profile is defined, then either ICC Profile or Local Profile must be defined, but not both -->
 	<sch:pattern id="mets_IccProfile_xor_LocalProfile" is-a="required_element_xor_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation/mix:ColorProfile"/>
+		<sch:param name="context_element" value="mix:ColorProfile"/>
 		<sch:param name="context_condition" value="normalize-space(../mix:colorSpace)!='ICCLab' and normalize-space(../mix:colorSpace)!='ICCBased'"/>
 		<sch:param name="required_element1" value="mix:IccProfile"/>
 		<sch:param name="required_element2" value="mix:LocalProfile"/>
@@ -397,13 +391,13 @@ Validates NISOIMG (MIX) metadata.
 	
 	<!-- If ICC Profile is defined, then it need either a name or an URI. If Local Profile is defined, then it need atleast a name -->
 	<sch:pattern id="mix_localProfileName" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation/mix:ColorProfile/mix:LocalProfile"/>
+		<sch:param name="context_element" value="mix:LocalProfile"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:localProfileName"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_iccProfileName_or_iccProfileURI" is-a="required_element_or_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation/mix:ColorProfile/mix:IccProfile"/>
+		<sch:param name="context_element" value="mix:IccProfile"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element1" value="mix:iccProfileName"/>
 		<sch:param name="required_element2" value="mix:iccProfileURI"/>
@@ -415,7 +409,7 @@ Validates NISOIMG (MIX) metadata.
 	Does not include validation for the following color spaces: TransparencyMask, ICCBased, Separation, Indexed, Pattern, DeviceN, Other 
 	-->
 	<sch:pattern id="mix_extraSamples" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:ImageAssessmentMetadata/mix:ImageColorEncoding"/>
+		<sch:param name="context_element" value="mix:ImageColorEncoding"/>
 		<sch:param name="context_condition" value="(normalize-space(../../mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation/mix:colorSpace)='WhiteIsZero' and number(mix:samplesPerPixel)&gt;1)
 		or (normalize-space(../../mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation/mix:colorSpace)='BlackIsZero' and number(mix:samplesPerPixel)&gt;1)
 		or (normalize-space(../../mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:PhotometricInterpretation/mix:colorSpace)='RGB' and number(mix:samplesPerPixel)&gt;3)
@@ -437,78 +431,24 @@ Validates NISOIMG (MIX) metadata.
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
-	<!-- JPEG2000 specific check -->
-	<sch:let name="jp2_fileid" value="/mets:mets/mets:amdSec/mets:techMD[./mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName='image/jp2']/@ID"/>
-	<sch:let name="jp2_mixsfcids" value="/mets:mets/mets:amdSec/mets:techMD[./mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics]/@ID"/>
-	<sch:let name="jp2_mixjp2ids" value="/mets:mets/mets:amdSec/mets:techMD[./mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics/mix:JPEG2000]/@ID"/>
-	<sch:let name="jp2_countfiles" value="count(sets:distinct(exsl:node-set($jp2_fileid)))"/>
-	<sch:let name="jp2_countmixsfc" value="count(sets:distinct(exsl:node-set($jp2_mixsfcids)))"/>
-	<sch:let name="jp2_countmixjp2" value="count(sets:distinct(exsl:node-set($jp2_mixjp2ids)))"/>
-	<sch:pattern id="jpeg2000_requirements">
-        <sch:rule context="mets:file">
-			<sch:let name="admids" value="normalize-space(@ADMID)"/>
-			<sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
-			<sch:let name="countfilescomb" value="count(sets:distinct(exsl:node-set($jp2_fileid) | str:tokenize($admids, ' ')))"/>
-			<sch:let name="countmixsfccomb" value="count(sets:distinct(exsl:node-set($jp2_mixsfcids) | str:tokenize($admids, ' ')))"/>
-			<sch:let name="countmixjp2comb" value="count(sets:distinct(exsl:node-set($jp2_mixjp2ids) | str:tokenize($admids, ' ')))"/>
-			<sch:assert test="(($jp2_countfiles+$countadm)=$countfilescomb) or not(($jp2_countmixsfc+$countadm)=$countmixsfccomb)">
-				Element 'SpecialFormatCharacteristics' is required in NISOIMG (MIX) metadata for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'.
-			</sch:assert>
-			<sch:assert test="(($jp2_countfiles+$countadm)=$countfilescomb) or not(($jp2_countmixjp2+$countadm)=$countmixjp2comb)">
-				Element 'JPEG2000' is required in NISOIMG (MIX) metadata for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'.
-			</sch:assert>
-		</sch:rule>
-    </sch:pattern>
     <sch:pattern id="mix_EncodingOptions" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics/mix:JPEG2000"/>
+		<sch:param name="context_element" value="mix:JPEG2000"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:EncodingOptions"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_qualityLayers" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics/mix:JPEG2000/mix:EncodingOptions"/>
+		<sch:param name="context_element" value="mix:EncodingOptions"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:qualityLayers"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_resolutionLevels" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics/mix:JPEG2000/mix:EncodingOptions"/>
+		<sch:param name="context_element" value="mix:EncodingOptions"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:resolutionLevels"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>	
 
-
-	<!-- Not JPEG2000 file - specific check -->
-	<sch:let name="not_jp2_fileid" value="/mets:mets/mets:amdSec/mets:techMD[./mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName!='image/jp2']/@ID"/>
-	<sch:let name="not_jp2_countfiles" value="count(sets:distinct(exsl:node-set($not_jp2_fileid)))"/>
-	<sch:pattern id="jpeg2000_disallowed">
-        <sch:rule context="mets:file">
-			<sch:let name="admids" value="normalize-space(@ADMID)"/>
-			<sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
-			<sch:let name="countfilescomb" value="count(sets:distinct(exsl:node-set($not_jp2_fileid) | str:tokenize($admids, ' ')))"/>
-			<sch:let name="countmixjp2comb" value="count(sets:distinct(exsl:node-set($jp2_mixjp2ids) | str:tokenize($admids, ' ')))"/>
-			<sch:assert test="(($not_jp2_countfiles+$countadm)=$countfilescomb) or (($jp2_countmixjp2+$countadm)=$countmixjp2comb)">
-				Element 'JPEG2000' is not allowed in NISOIMG (MIX) metadata for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'.
-			</sch:assert>
-		</sch:rule>
-	</sch:pattern>
-
-	<!-- TIFF and DPX specific check -->
-	<sch:let name="tiff_fileid" value="/mets:mets/mets:amdSec/mets:techMD[./mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName='image/tiff' or ./mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName='image/x-dpx']/@ID"/>
-	<sch:let name="tiff_mixids" value="/mets:mets/mets:amdSec/mets:techMD[./mets:mdWrap/mets:xmlData/mix:mix/mix:BasicDigitalObjectInformation/mix:byteOrder]/@ID"/>
-	<sch:let name="tiff_countfiles" value="count(sets:distinct(exsl:node-set($tiff_fileid)))"/>
-	<sch:let name="tiff_countmix" value="count(sets:distinct(exsl:node-set($tiff_mixids)))"/>
-	<sch:pattern id="tiff_byteorder">
-		<sch:rule context="mets:file">
-			<sch:let name="admids" value="normalize-space(@ADMID)"/>
-			<sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
-			<sch:let name="countfilescomb" value="count(sets:distinct(exsl:node-set($tiff_fileid) | str:tokenize($admids, ' ')))"/>
-			<sch:let name="countmixcomb" value="count(sets:distinct(exsl:node-set($tiff_mixids) | str:tokenize($admids, ' ')))"/>
-			<sch:assert test="(($tiff_countfiles+$countadm)=$countfilescomb) or not(($tiff_countmix+$countadm)=$countmixcomb)">
-				Element 'byteOrder' is required in NISOIMG (MIX) metadata for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'.
-			</sch:assert>
-		</sch:rule>
-    </sch:pattern>
 
 </sch:schema>

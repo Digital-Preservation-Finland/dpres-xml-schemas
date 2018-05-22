@@ -54,29 +54,55 @@ def make_colorsample(colorspace, sample, addsample, extrasample):
 
 
 @pytest.mark.parametrize("elementkey, subelements, condition, newfired", [
-    (['BasicDigitalObjectInformation', 'ObjectIdentifier'], ['objectIdentifierType', 'objectIdentifierValue'], None, [0, 0]),
-    (['BasicDigitalObjectInformation', 'FormatDesignation'], ['formatName'], None, [0, 0]),
-    (['BasicDigitalObjectInformation', 'Fixity'], ['messageDigestAlgorithm', 'messageDigest'], None, [0, 0]),
-    (['BasicImageInformation', 'BasicImageCharacteristics', 'PhotometricInterpretation', 'YCbCr'], ['YCbCrSubSampling', 'yCbCrPositioning', 'YCbCrCoefficients'],
+    (['BasicDigitalObjectInformation', 'ObjectIdentifier'],
+     ['objectIdentifierType', 'objectIdentifierValue'], None, [0, 0]),
+    (['BasicDigitalObjectInformation', 'FormatDesignation'], ['formatName'],
+     None, [0, 0]),
+    (['BasicDigitalObjectInformation', 'Fixity'],
+     ['messageDigestAlgorithm', 'messageDigest'], None, [0, 0]),
+    (['BasicImageInformation', 'BasicImageCharacteristics',
+      'PhotometricInterpretation', 'YCbCr'],
+     ['YCbCrSubSampling', 'yCbCrPositioning', 'YCbCrCoefficients'],
      None, [0, 5]),
-    (['BasicImageInformation', 'BasicImageCharacteristics', 'PhotometricInterpretation', 'YCbCr', 'YCbCrSubSampling'], ['yCbCrSubsampleHoriz', 'yCbCrSubsampleVert'], None,
-     [2, 2]),
-    (['BasicImageInformation', 'BasicImageCharacteristics', 'PhotometricInterpretation', 'YCbCr', 'YCbCrCoefficients'], ['lumaRed', 'lumaGreen', 'lumaBlue'], None, [2, 2]),
-    (['BasicImageInformation', 'BasicImageCharacteristics', 'PhotometricInterpretation', 'ReferenceBlackWhite'], ['Component'], None, [0, 0]),
-    (['BasicImageInformation', 'BasicImageCharacteristics', 'PhotometricInterpretation', 'ColorProfile'], ['LocalProfile'], None, [0, 1]),
-    (['BasicImageInformation', 'BasicImageCharacteristics', 'PhotometricInterpretation', 'ColorProfile'], ['IccProfile'], None, [0, 1]),
-    (['BasicImageInformation', 'BasicImageCharacteristics', 'PhotometricInterpretation', 'ColorProfile', 'LocalProfile'], ['localProfileName'], None, [0, 0]),
-    (['BasicImageInformation', 'BasicImageCharacteristics', 'PhotometricInterpretation', 'ColorProfile', 'IccProfile'], ['iccProfileName'], None, [0, 0]),
-    (['BasicImageInformation', 'BasicImageCharacteristics', 'PhotometricInterpretation', 'ColorProfile', 'IccProfile'], ['iccProfileURI'], None, [0, 0]),
-    (['BasicImageInformation', 'SpecialFormatCharacteristics', 'JPEG2000'], ['EncodingOptions'], None, [0, 2]),
-    (['BasicImageInformation', 'SpecialFormatCharacteristics', 'JPEG2000', 'EncodingOptions'], ['qualityLayers', 'resolutionLevels'], None, [0, 0]),
-    (['BasicDigitalObjectInformation', 'Compression'], ['compressionSchemeLocalList', 'compressionSchemeLocalValue'],
+    (['BasicImageInformation', 'BasicImageCharacteristics',
+      'PhotometricInterpretation', 'YCbCr', 'YCbCrSubSampling'],
+     ['yCbCrSubsampleHoriz', 'yCbCrSubsampleVert'], None, [2, 2]),
+    (['BasicImageInformation', 'BasicImageCharacteristics',
+      'PhotometricInterpretation', 'YCbCr', 'YCbCrCoefficients'],
+     ['lumaRed', 'lumaGreen', 'lumaBlue'], None, [2, 2]),
+    (['BasicImageInformation', 'BasicImageCharacteristics',
+      'PhotometricInterpretation', 'ReferenceBlackWhite'],
+     ['Component'], None, [0, 0]),
+    (['BasicImageInformation', 'BasicImageCharacteristics',
+      'PhotometricInterpretation', 'ColorProfile'],
+     ['LocalProfile'], None, [0, 1]),
+    (['BasicImageInformation', 'BasicImageCharacteristics',
+      'PhotometricInterpretation', 'ColorProfile'],
+     ['IccProfile'], None, [0, 1]),
+    (['BasicImageInformation', 'BasicImageCharacteristics',
+      'PhotometricInterpretation', 'ColorProfile', 'LocalProfile'],
+     ['localProfileName'], None, [0, 0]),
+    (['BasicImageInformation', 'BasicImageCharacteristics',
+      'PhotometricInterpretation', 'ColorProfile', 'IccProfile'],
+     ['iccProfileName'], None, [0, 0]),
+    (['BasicImageInformation', 'BasicImageCharacteristics',
+      'PhotometricInterpretation', 'ColorProfile', 'IccProfile'],
+     ['iccProfileURI'], None, [0, 0]),
+    (['BasicImageInformation', 'SpecialFormatCharacteristics', 'JPEG2000'],
+     ['EncodingOptions'], None, [0, 2]),
+    (['BasicImageInformation', 'SpecialFormatCharacteristics', 'JPEG2000',
+      'EncodingOptions'], ['qualityLayers', 'resolutionLevels'], None, [0, 0]),
+    (['BasicDigitalObjectInformation', 'Compression'],
+     ['compressionSchemeLocalList', 'compressionSchemeLocalValue'],
      ['compressionScheme', 'enumerated in local list'], [0, 0]),
-    (['ImageAssessmentMetadata', 'SpatialMetrics'], ['xSamplingFrequency', 'ySamplingFrequency'],
+    (['ImageAssessmentMetadata', 'SpatialMetrics'],
+     ['xSamplingFrequency', 'ySamplingFrequency'],
      ['samplingFrequencyUnit', '2'], [0, 0]),
-    (['ImageAssessmentMetadata', 'SpatialMetrics'], ['xSamplingFrequency', 'ySamplingFrequency'],
+    (['ImageAssessmentMetadata', 'SpatialMetrics'],
+     ['xSamplingFrequency', 'ySamplingFrequency'],
      ['samplingFrequencyUnit', '3'], [0, 0]),
-    (['ImageAssessmentMetadata', 'ImageColorEncoding', 'GrayResponse'], ['grayResponseUnit'], ['grayResponseCurve', None], [0, 0])
+    (['ImageAssessmentMetadata', 'ImageColorEncoding', 'GrayResponse'],
+     ['grayResponseUnit'], ['grayResponseCurve', None], [0, 0])
 ])
 def test_mix_optional_element_rules(
         schematron_fx, elementkey, subelements, condition, newfired):
@@ -92,6 +118,7 @@ def test_mix_optional_element_rules(
                irrelevant in this test
     """
     (mix, root) = parse_xml_file('mix_valid_minimal.xml')
+    found = root
     for iter_elem in elementkey:
         elem_handler = root.find_element(iter_elem, 'mix')
         if elem_handler is None:
@@ -193,79 +220,3 @@ def test_samples_per_pixel(schematron_fx, colorparam, sampleparam):
     else:
         failures = 0  # otherwise everything should be ok
     assert svrl.count(SVRL_FAILED) == failures
-
-
-def test_mix_with_jp2(schematron_fx):
-    """Test with JPEG2000 file format and MIX. JPEG2000 requires extra section.
-
-    :schematron_fx: Schematron compile fixture
-    """
-    (mets, root) = parse_xml_file('mets_valid_mix.xml')
-
-    # Works, when format is PNG
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 0
-
-    # Extra elements are required with JPEG2000
-    elem_handler = root.find_element('formatName', 'premis')
-    elem_handler.text = 'image/jp2'
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 2
-
-    # SpecialFormatCharacteristics added, still requires JPEG2000 element
-    elem_handler = root.find_element('BasicImageInformation', 'mix')
-    elem_handler = elem_handler.set_element(
-        'SpecialFormatCharacteristics', 'mix')
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 1
-
-    # JPEG2000 added
-    xml = '''<mix:JPEG2000 xmlns:mix="%(mix)s"><mix:EncodingOptions>
-               <mix:qualityLayers>4</mix:qualityLayers>
-               <mix:resolutionLevels>4</mix:resolutionLevels>
-             </mix:EncodingOptions></mix:JPEG2000>'''
-    elem_handler.append(ET.XML(xml % NAMESPACES))
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 0
-
-    # JPEG2000 element is disallowed with other file formats
-    elem_handler = root.find_element('formatName', 'premis')
-    elem_handler.text = 'image/png'
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 1
-
-
-def test_mix_with_tiff_dpx(schematron_fx):
-    """Test with tiff and dpx file formats and MIX. These require byteOrder.
-
-    :schematron_fx: Schematron compile fixture
-    """
-    (mets, root) = parse_xml_file('mets_valid_mix.xml')
-
-    # Works, when format is PNG
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 0
-
-    # byteOrder missing with TIFF
-    elem_handler = root.find_element('formatName', 'premis')
-    elem_handler.text = 'image/tiff'
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 1
-
-    # byteOrder missing with DPX
-    elem_handler = root.find_element('formatName', 'premis')
-    elem_handler.text = 'image/x-dpx'
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 1
-
-    # byteOrder added, success with DPX
-    elem_handler = root.find_element('BasicDigitalObjectInformation', 'mix')
-    elem_handler.set_element('byteOrder', 'mix')
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 0
-
-    # byteOrder added, success with TIFF
-    elem_handler = root.find_element('formatName', 'premis')
-    elem_handler.text = 'image/tiff'
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 0

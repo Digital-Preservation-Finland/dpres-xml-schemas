@@ -1,6 +1,28 @@
 TECHNICAL NOTES
 ===============
 
+XSLT OPTIMIZATION
+-----------------
+
+We are able to optimize validation by giving the element set to be used in
+validiation. This is given as two comments, which may be located as direct
+preceding sibling of <sch:schema> element. The comments must start with
+keyword "context-filter:" and "pass-filter:". Both of these are optional.
+The filter works only for elements. All the attributes in the filtered
+elements will be evaluated.
+
+Example: pass-filter: /mets:mets/mets:amdSec/mets:techMD
+         uses mets:techMD as the root element(s). It is allowed to have
+         several techMD elements in METS, and this case begins the
+         Schematron validation in all of them.
+Example: context-filter: mets:*
+         skips everything else in validation, except elements in METS
+         namespace.
+
+
+ABSTRACT PATTERNS
+-----------------
+
 The abstract patterns include some complex variable assignments and
 assertions. Here, the most typical ones are explained in detail. The
 strings are not wrapped and indented nicely in Schematron code, since
@@ -12,7 +34,7 @@ abstract patterns. Therefore, all the rules which use a parameter, must
 be computed in the assertions itself, without intermediate steps.
 
 
-SPECIFICATIONS IN THE XPATH QUERIES
+Specifications in the xpath queries
 -----------------------------------
 
 Most of the rules can be limited to certain specifications only.
@@ -92,7 +114,7 @@ In reports:
     Skip report, if specification test returns False
 
 
-METS SECTIONS IN MESSAGES
+METS sections in messages
 -------------------------
 
 Some rules are fired in a METS section. In such cases, the ID of the section
@@ -136,7 +158,7 @@ patterns.
     "/>
 
 
-DEPRECATION CHECKS FOR DIFFERENT METADATA VERSIONS
+Deprecation checks for different metadata versions
 --------------------------------------------------
 
 Some deprecation checks use the following context condition:

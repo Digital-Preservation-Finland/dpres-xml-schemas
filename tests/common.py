@@ -64,6 +64,37 @@ def parse_xml_string(xml):
     return (xmltree, root)
 
 
+def add_containers(root, container_path):
+    """Add containers to given metadata based on given path
+
+    :root: Root element where containers are needed
+    :container_path: Simple xpath of expected parent elements
+    """
+    split_path = container_path.split('/')
+    (new_tree, new_root) = parse_xml_string(
+        '<' + split_path[0] + ' xmlns:'+split_path[0].split(':')[0] +
+        '="' + NAMESPACES[split_path[0].split(':')[0]] + '"/>')
+    elem = new_root
+    for path_part in split_path[1:]:
+        part = path_part.split(':')
+        elem = elem.set_element(part[1], part[0])
+    elem.append(root)
+    return (new_tree, new_root)
+
+
+def fix_version_14(root):
+    """PID needs to be removed from structMap and CONTENTID from root for
+    catalog version 1.4 to make the tree valid. This is used in various
+    tests below.
+
+    :root: METS root element
+    """
+    elem_handler = root.find_element('structMap', 'mets')
+    elem_handler.del_attribute('PID', 'fikdk')
+    elem_handler.del_attribute('PIDTYPE', 'fikdk')
+    root.del_attribute('CONTENTID', 'fikdk')
+
+
 def fix_version_17(root):
     """Local namespaces need to be changed for catalog version 1.4 to make
     the tree valid. This is used in various tests below.
@@ -90,8 +121,10 @@ def fix_version_17(root):
     mdref = root.find_element('mdRef', 'mets')
     if mdref is not None:
         mdref.set_attribute('OTHERMDTYPE', 'mets', 'FiPreservationPlan')
-    root.set_attribute('PROFILE', 'mets',
+    root.set_attribute(
+        'PROFILE', 'mets',
         'http://digitalpreservation.fi/mets-profiles/cultural-heritage')
     root.set_attribute('CATALOG', 'fi', '1.7.0')
     root.set_attribute('SPECIFICATION', 'fi', '1.7.0')
-    root.set_attribute('CONTRACTID', 'fi', 'urn:uuid:c5a193b3-bb63-4348-bd25-6c20bb72264b')
+    root.set_attribute('CONTRACTID', 'fi',
+                       'urn:uuid:c5a193b3-bb63-4348-bd25-6c20bb72264b')

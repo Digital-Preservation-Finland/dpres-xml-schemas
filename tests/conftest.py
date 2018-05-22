@@ -11,12 +11,12 @@ SCH_DIRECTORY = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..', 'schematron'))
 ISO_DIRECTORY = os.path.abspath(
     os.path.join(os.path.dirname(__file__),
-    '..', 'schematron', 'iso_schematron_xslt1'))
+                 '..', 'schematron', 'schematron_xslt1'))
 CATALOG_DIRECTORY = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..', 'schema_catalogs'))
 SCHEMA_DIRECTORY = os.path.abspath(
     os.path.join(os.path.dirname(__file__),
-    '..', 'schema_catalogs', 'schemas'))
+                 '..', 'schema_catalogs', 'schemas'))
 CACHE_DIRECTORY = os.path.expanduser('~/.dpres-xml-schemas/schematron-cache')
 
 

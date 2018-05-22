@@ -41,10 +41,11 @@ If no error messages are produced, schema validation is successful.
 
 Use the following commands to compile schematron files to XSL files::
 
-    xsltproc -o tempfile1 /usr/share/dpres-xml-schemas/schematron/iso_schematron_xslt1/iso_dsdl_include.xsl \
+    xsltproc -o tempfile1 /usr/share/dpres-xml-schemas/schematron/schematron_xslt1/iso_dsdl_include.xsl \
     /usr/share/dpres-xml-schemas/schematron/<schematron schema>.sch
-    xsltproc -o tempfile2 /usr/share/dpres-xml-schemas/schematron/iso_schematron_xslt1/iso_abstract_expand.xsl tempfile1
-    xsltproc -o <new compiled xsl>.xsl /usr/share/dpres-xml-schemas/schematron/iso_schematron_xslt1/iso_svrl_for_xslt1.xsl tempfile2
+    xsltproc -o tempfile2 /usr/share/dpres-xml-schemas/schematron/schematron_xslt1/iso_abstract_expand.xsl tempfile1
+    xsltproc -o tempfile3 /usr/share/dpres-xml-schemas/schematron/schematron_xslt1/optimize_schematron.xsl tempfile2
+    xsltproc -o <new compiled xsl>.xsl /usr/share/dpres-xml-schemas/schematron/schematron_xslt1/iso_svrl_for_xslt1.xsl tempfile3
 
 Use the following command to validate a METS document::
 

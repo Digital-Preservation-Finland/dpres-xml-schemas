@@ -407,10 +407,19 @@
 
 <xsl:variable name="context-filter">
     <xsl:choose>
-        <xsl:when test="//iso:schema/preceding-sibling::comment()[1] and starts-with(normalize-space(//iso:schema/preceding-sibling::comment()[1]), 'context-filter:')">
-            <xsl:value-of select="normalize-space(substring(normalize-space(//iso:schema/preceding-sibling::comment()[1]), 16))"/>
+        <xsl:when test="/iso:schema/preceding-sibling::comment()[starts-with(normalize-space(.),'context-filter:')]">
+            <xsl:value-of select="normalize-space(substring(normalize-space(/iso:schema/preceding-sibling::comment()[starts-with(normalize-space(),'context-filter:')]), 16))"/>
         </xsl:when>
         <xsl:otherwise></xsl:otherwise>
+    </xsl:choose>
+</xsl:variable>
+
+<xsl:variable name="pass-filter">
+    <xsl:choose>
+        <xsl:when test="/iso:schema/preceding-sibling::comment()[starts-with(normalize-space(.),'pass-filter:')]">
+            <xsl:value-of select="normalize-space(substring(normalize-space(/iso:schema/preceding-sibling::comment()[starts-with(normalize-space(),'pass-filter:')]), 13))"/>
+        </xsl:when>
+        <xsl:otherwise>/</xsl:otherwise>
     </xsl:choose>
 </xsl:variable>
 
@@ -1296,7 +1305,7 @@
 		    </axsl:apply-templates>
 		  </xsl:when>
 		  <xsl:otherwise>
-		    <axsl:apply-templates select="/" mode="M{count(preceding-sibling::*)}"/>
+		    <axsl:apply-templates select="{$pass-filter}" mode="M{count(preceding-sibling::*)}"/>
 		  </xsl:otherwise>
 		</xsl:choose>
         </xsl:if>

@@ -48,7 +48,7 @@
               </premis:fixity>
               <premis:format>
                 <premis:formatDesignation>
-                  <premis:formatName>video/mp4</premis:formatName>
+                  <premis:formatName>video/avi</premis:formatName>
                 </premis:formatDesignation>
               </premis:format>
               <premis:creatingApplication>
@@ -221,7 +221,7 @@
   <mets:fileSec>
     <mets:fileGrp>
       <mets:file ADMID="tech-container dp-event dp-agent" ID="file-container">
-	    <mets:FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file://movie.mp4" />
+	    <mets:FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file://movie.avi" />
 	    <mets:stream ADMID="tech-videopremis tech-videomd" />
 	    <mets:stream ADMID="tech-audiopremis tech-audiomd" />
       </mets:file>

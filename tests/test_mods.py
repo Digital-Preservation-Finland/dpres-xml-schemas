@@ -5,7 +5,8 @@ rules located in mets_mods.sch.
 """
 
 import pytest
-from tests.common import SVRL_FAILED, SVRL_REPORT, NAMESPACES, parse_xml_string
+from tests.common import SVRL_FAILED, SVRL_REPORT, NAMESPACES, \
+    parse_xml_string, add_containers
 
 SCHFILE = 'mets_mods.sch'
 
@@ -21,6 +22,7 @@ def prepare_xml(context_element, version):
                <mets:xmlData><mods:mods/></mets:xmlData></mets:mdWrap>
              </mets:dmdSec>''' % NAMESPACES
     (mods, root) = parse_xml_string(xml)
+    (mods, root) = add_containers(root, 'mets:mets')
     elem_handler = root.find_element('mods', 'mods')
     if context_element is not None:
         elem_context = elem_handler.set_element(context_element, 'mods')

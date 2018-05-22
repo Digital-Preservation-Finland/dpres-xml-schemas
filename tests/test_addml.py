@@ -5,7 +5,7 @@ rules located in mets_addml.sch.
 """
 
 from tests.common import SVRL_FIRED, SVRL_FAILED, NAMESPACES, \
-    parse_xml_string, parse_xml_file
+    parse_xml_string, add_containers
 
 SCHFILE = 'mets_addml.sch'
 
@@ -26,6 +26,7 @@ def test_addml_reference_version(schematron_fx):
 
     # Element 'reference' is required in 8.2, but missing
     (mets, root) = parse_xml_string(xml)
+    (mets, root) = add_containers(root, 'mets:mets/mets:amdSec')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FIRED) == 1
     assert svrl.count(SVRL_FAILED) == 1
@@ -59,6 +60,7 @@ def test_addml_headerlevel_version(schematron_fx):
              </addml:flatFiles></addml:dataset></addml:addml>''' \
              % NAMESPACES
     (mets, root) = parse_xml_string(METS_HEAD+xml+METS_TAIL)
+    (mets, root) = add_containers(root, 'mets:mets/mets:amdSec')
 
     # Element 'headerLevel' is forbidden in 8.2
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
@@ -71,22 +73,3 @@ def test_addml_headerlevel_version(schematron_fx):
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FIRED) == 0
     assert svrl.count(SVRL_FAILED) == 0
-
-
-def test_addml_with_csv(schematron_fx):
-    """Some ADDML fields are mandatory, if CSV file format is used.
-    Test ADDML mandatory fields with CSV file format.
-
-    :schematron_fx: Schematron compile fixture
-    """
-    (mets, root) = parse_xml_file('mets_valid_csv.xml')
-
-    # Test successful use of ADDML and CSV
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 0
-
-    # Test missing ADDML elements
-    elem_handler = root.find_element('delimFileFormat', 'addml')
-    elem_handler.clear()
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 2

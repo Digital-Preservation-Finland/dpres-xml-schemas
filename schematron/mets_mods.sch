@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-     We are able to optimize validation by giving the element set to be used in validation.
-     It is given as a comment, which must be located as direct preceding sibling of <sch:schema> element.
-     The comment must start with a keyword "context-filter:".
-     The filter works only for elements. All the attributes in the filtered elements will be evaluated.
-     Example: context-filter: mets:*
-              skips everything else in validation, except elements in METS namespace.
--->
-<!-- context-filter: mods:*|mets:mets|mets:dmdSec|mets:mdWrap|mets:xmlData -->
+
+<!-- pass-filter: /mets:mets/mets:dmdSec/mets:mdWrap/mets:xmlData/mods:* -->
+<!-- context-filter: mods:* -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">
 	<sch:title>MODS metadata validation</sch:title>
 

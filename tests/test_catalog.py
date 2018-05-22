@@ -48,10 +48,11 @@ def test_contractid_format(catalog_fx):
     (returncode, _, _) = catalog_fx(xmltree=mets)
     assert returncode == 0
 
-    root.set_attribute('CONTRACTID', 'fi', 'c5a193b3-bb63-4348-bd25-6c20bb72264b')
+    root.set_attribute('CONTRACTID', 'fi',
+                       'c5a193b3-bb63-4348-bd25-6c20bb72264b')
     (returncode, _, _) = catalog_fx(xmltree=mets)
     assert returncode == 3
-    
+
     root.set_attribute('CONTRACTID', 'fi', 'urn:uuid:xxx')
     (returncode, _, _) = catalog_fx(xmltree=mets)
     assert returncode == 3
