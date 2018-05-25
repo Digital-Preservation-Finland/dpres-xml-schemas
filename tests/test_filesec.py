@@ -276,6 +276,51 @@ def test_fileformat_metadata(schematron_fx, fileformat, mdinfo, version):
             assert svrl.count(SVRL_FAILED) == 2 + extra
 
 
+def test_nisoimg_vs_othermdtype(schematron_fx):
+    """Test that MIX metadata is considered missing, if NISOIMG is missing
+    and MIX is in OTHERMDTYPE metadata.
+
+    :schematron_fx: Schematron compile fixture
+    """
+    xml = '''<mets:mets fi:CATALOG="1.6.0" xmlns:mets="%(mets)s"
+             xmlns:premis="%(premis)s" xmlns:fi="%(fikdk)s" xmlns:dc="%(dc)s"
+             xmlns:mix="%(mix)s" xmlns:textmd_kdk="%(textmd_kdk)s"
+             xmlns:addml="%(addml)s" xmlns:audiomd="%(audiomd)s"
+             xmlns:videomd="%(videomd)s" xmlns:xsi="%(xsi)s"
+             xmlns:xlink="%(xlink)s">
+               <mets:dmdSec><mets:mdWrap MDTYPE="DC"><mets:xmlData>
+               <dc:subject/></mets:xmlData></mets:mdWrap></mets:dmdSec>
+               <mets:amdSec>
+                 <mets:techMD ID="tech01"><mets:mdWrap MDTYPE="PREMIS:OBJECT">
+                 <mets:xmlData><premis:object xsi:type="premis:file">
+                   <premis:objectCharacteristics><premis:format>
+                   <premis:formatDesignation><premis:formatName>image/png
+                   </premis:formatName></premis:formatDesignation>
+                   </premis:format></premis:objectCharacteristics>
+                 </premis:object></mets:xmlData></mets:mdWrap></mets:techMD>
+                 <mets:techMD ID="tech02"><mets:mdWrap MDTYPE="NISOIMG">
+                   <mets:xmlData><mix:mix/></mets:xmlData></mets:mdWrap>
+                 </mets:techMD><mets:digiprovMD ID="dp01">
+                   <mets:mdWrap MDTYPE="PREMIS:EVENT"><mets:xmlData>
+                 <premis:event/></mets:xmlData></mets:mdWrap></mets:digiprovMD>
+               </mets:amdSec><mets:fileSec><mets:fileGrp>
+                 <mets:file ID="fid" ADMID="tech01 tech02 dp01">
+                 <mets:FLocat xlink:type="simple" xlink:href="xxx"/>
+                 </mets:file></mets:fileGrp>
+               </mets:fileSec><mets:structMap><mets:div>
+               <mets:fptr FILEID="fid"/></mets:div></mets:structMap>
+             </mets:mets>''' % NAMESPACES
+    (mets, root) = parse_xml_string(xml)
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 0
+    elem_section = root.find_element('techMD[@ID="tech02"]', 'mets')
+    elem_handler = elem_section.find_element('mdWrap', 'mets')
+    elem_handler.set_attribute('MDTYPE', 'mets', 'OTHER')
+    elem_handler.set_attribute('OTHERMDTYPE', 'mets', 'MIX')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 1
+
+
 def test_dependent_attributes_filesec(schematron_fx):
     """Test attribute dependencies with another attribute. Some attributes
     become mandatory or disallowed, if another attribute is used.

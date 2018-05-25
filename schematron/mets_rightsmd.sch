@@ -118,7 +118,7 @@ Validates METS rightsMD.
 
         <!-- Notify deprecation of using rightsStatement as root element in rightsMD, in specification 1.5.0 -->
         <sch:pattern id="mets_deprecated_rightsStatement" is-a="deprecated_element_pattern">
-                <sch:param name="context_element" value="mets:xmlData"/>
+                <sch:param name="context_element" value="mets:rightsMD/mets:mdWrap/mets:xmlData"/>
                 <sch:param name="context_condition" value="../@MDTYPE='PREMIS:RIGHTS'"/>
                 <sch:param name="deprecated_element" value="premis:rightsStatement"/>
                 <sch:param name="specifications" value="string('1.5.0')"/>

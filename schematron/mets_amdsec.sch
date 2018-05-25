@@ -78,7 +78,7 @@ Validates METS amdSec.
 	<sch:let name="filelinks" value="/mets:mets/mets:fileSec/mets:fileGrp/mets:file"/>
 	<sch:let name="streamlinks" value="/mets:mets/mets:fileSec/mets:fileGrp/mets:file/mets:stream"/>
 	<sch:pattern id="id_references_adm">
-        <sch:rule context="mets:techMD | mets:rightsMD | mets:sourceMD | mets:digiprovMD">
+        <sch:rule context="mets:amdSec/*">
 			<sch:let name="id" value="normalize-space(@ID)"/>
 			<sch:assert test="count($filelinks[contains(concat(' ', normalize-space(@ADMID), ' '), concat(' ', $id, ' '))]) &gt; 0
 			or count($divlinks[contains(concat(' ', normalize-space(@ADMID), ' '), concat(' ', $id, ' '))]) &gt; 0

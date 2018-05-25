@@ -42,16 +42,16 @@ Validates METS fileSec.
         <sch:let name="videomd_types" value="string('video/jpeg2000 video/mp4 video/dv video/mpeg video/x-ms-wmv')"/>
 
         <!-- techmd elements -->
-        <sch:let name="techmd" value="exsl:node-set(/mets:mets/mets:amdSec/mets:techMD)"/>
+        <sch:let name="techmd" value="/mets:mets/mets:amdSec/mets:techMD"/>
 
         <!-- techMd section ids of different metadata -->
-        <sch:let name="premis_file_id" value="$techmd[normalize-space(./mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:file']/@ID"/>
-        <sch:let name="premis_stream_id" value="$techmd[normalize-space(./mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:bitstream']/@ID"/>
-        <sch:let name="addml_mdids" value="$techmd[./mets:mdWrap/mets:xmlData/addml:*]/@ID"/>
-        <sch:let name="audiomd_mdids" value="$techmd[./mets:mdWrap/mets:xmlData/audiomd:*]/@ID"/>
-        <sch:let name="mix_mdids" value="$techmd[./mets:mdWrap/mets:xmlData/mix:*]/@ID"/>
-        <sch:let name="textmd14_mdids" value="$techmd[./mets:mdWrap/mets:xmlData/textmd_kdk:*]/@ID"/>
-        <sch:let name="videomd_mdids" value="$techmd[./mets:mdWrap/mets:xmlData/videomd:*]/@ID"/>
+        <sch:let name="premis_file_id" value="$techmd[normalize-space(./mets:mdWrap[@MDTYPE='PREMIS:OBJECT']/mets:xmlData/premis:object/@xsi:type)='premis:file']/@ID"/>
+        <sch:let name="premis_stream_id" value="$techmd[normalize-space(./mets:mdWrap[@MDTYPE='PREMIS:OBJECT']/mets:xmlData/premis:object/@xsi:type)='premis:bitstream']/@ID"/>
+        <sch:let name="addml_mdids" value="$techmd[./mets:mdWrap[@OTHERMDTYPE='ADDML']/mets:xmlData/addml:*]/@ID"/>
+        <sch:let name="audiomd_mdids" value="$techmd[./mets:mdWrap[@OTHERMDTYPE='AudioMD']/mets:xmlData/audiomd:*]/@ID"/>
+        <sch:let name="mix_mdids" value="$techmd[./mets:mdWrap[@MDTYPE='NISOIMG']/mets:xmlData/mix:*]/@ID"/>
+        <sch:let name="textmd14_mdids" value="$techmd[./mets:mdWrap[@MDTYPE='TEXTMD']/mets:xmlData/textmd_kdk:*]/@ID"/>
+        <sch:let name="videomd_mdids" value="$techmd[./mets:mdWrap[@OTHERMDTYPE='VideoMD']/mets:xmlData/videomd:*]/@ID"/>
 
 	<!-- PREMIS object ids of different file format types -->
         <sch:let name="addml_fileid" value="$premis_file_id[contains(concat(' ', $addml_types, ' '), concat(' ', normalize-space(../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName), ' '))]"/>
@@ -69,29 +69,29 @@ Validates METS fileSec.
         <sch:let name="tiff_fileid" value="$mix_fileid[../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName='image/tiff' or ../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName='image/x-dpx']"/>
 
 	<!-- ID count -->
-        <sch:let name="addml_countfiles" value="count(sets:distinct(exsl:node-set($addml_fileid)))"/>
-        <sch:let name="addml_countmd" value="count(sets:distinct(exsl:node-set($addml_mdids)))"/>
-        <sch:let name="audiomd_countfiles" value="count(sets:distinct(exsl:node-set($audiomd_fileid)))"/>
-        <sch:let name="audiomd_countfiles_stream" value="count(sets:distinct(exsl:node-set($audiomd_fileid_stream)))"/>
-        <sch:let name="audiomd_countmd" value="count(sets:distinct(exsl:node-set($audiomd_mdids)))"/>
-        <sch:let name="csv_countaddmlfsc" value="count(sets:distinct(exsl:node-set($csv_addmlfscids)))"/>
-        <sch:let name="csv_countaddmlrs" value="count(sets:distinct(exsl:node-set($csv_addmlrsids)))"/>
-        <sch:let name="csv_countfiles" value="count(sets:distinct(exsl:node-set($csv_fileid)))"/>
-        <sch:let name="jp2_countfiles" value="count(sets:distinct(exsl:node-set($jp2_fileid)))"/>
-        <sch:let name="jp2_countmixjp2" value="count(sets:distinct(exsl:node-set($jp2_mixjp2ids)))"/>
-        <sch:let name="jp2_countmixsfc" value="count(sets:distinct(exsl:node-set($jp2_mixsfcids)))"/>
-        <sch:let name="mix_countfiles" value="count(sets:distinct(exsl:node-set($mix_fileid)))"/>
-        <sch:let name="mix_countmd" value="count(sets:distinct(exsl:node-set($mix_mdids)))"/>
-        <sch:let name="not_jp2_countfiles" value="count(sets:distinct(exsl:node-set($not_jp2_fileid)))"/>
-        <sch:let name="premis_file_count" value="count(sets:distinct(exsl:node-set($premis_file_id)))"/>
-        <sch:let name="premis_stream_count" value="count(sets:distinct(exsl:node-set($premis_stream_id)))"/>
-        <sch:let name="textmd14_countmd" value="count(sets:distinct(exsl:node-set($textmd14_mdids)))"/>
-        <sch:let name="textmd_countfiles" value="count(sets:distinct(exsl:node-set($textmd_fileid)))"/>
-        <sch:let name="tiff_countfiles" value="count(sets:distinct(exsl:node-set($tiff_fileid)))"/>
-        <sch:let name="tiff_countmix" value="count(sets:distinct(exsl:node-set($tiff_mixids)))"/>
-        <sch:let name="videomd_countfiles" value="count(sets:distinct(exsl:node-set($videomd_fileid)))"/>
-        <sch:let name="videomd_countfiles_stream" value="count(sets:distinct(exsl:node-set($videomd_fileid_stream)))"/>
-        <sch:let name="videomd_countmd" value="count(sets:distinct(exsl:node-set($videomd_mdids)))"/>
+        <sch:let name="addml_countfiles" value="count($addml_fileid)"/>
+        <sch:let name="addml_countmd" value="count($addml_mdids)"/>
+        <sch:let name="audiomd_countfiles" value="count($audiomd_fileid)"/>
+        <sch:let name="audiomd_countfiles_stream" value="count($audiomd_fileid_stream)"/>
+        <sch:let name="audiomd_countmd" value="count($audiomd_mdids)"/>
+        <sch:let name="csv_countaddmlfsc" value="count($csv_addmlfscids)"/>
+        <sch:let name="csv_countaddmlrs" value="count($csv_addmlrsids)"/>
+        <sch:let name="csv_countfiles" value="count($csv_fileid)"/>
+        <sch:let name="jp2_countfiles" value="count($jp2_fileid)"/>
+        <sch:let name="jp2_countmixjp2" value="count($jp2_mixjp2ids)"/>
+        <sch:let name="jp2_countmixsfc" value="count($jp2_mixsfcids)"/>
+        <sch:let name="mix_countfiles" value="count($mix_fileid)"/>
+        <sch:let name="mix_countmd" value="count($mix_mdids)"/>
+        <sch:let name="not_jp2_countfiles" value="count($not_jp2_fileid)"/>
+        <sch:let name="premis_file_count" value="count($premis_file_id)"/>
+        <sch:let name="premis_stream_count" value="count($premis_stream_id)"/>
+        <sch:let name="textmd14_countmd" value="count($textmd14_mdids)"/>
+        <sch:let name="textmd_countfiles" value="count($textmd_fileid)"/>
+        <sch:let name="tiff_countfiles" value="count($tiff_fileid)"/>
+        <sch:let name="tiff_countmix" value="count($tiff_mixids)"/>
+        <sch:let name="videomd_countfiles" value="count($videomd_fileid)"/>
+        <sch:let name="videomd_countfiles_stream" value="count($videomd_fileid_stream)"/>
+        <sch:let name="videomd_countmd" value="count($videomd_mdids)"/>
 
 	<!-- Required special elements -->
         <sch:let name="csv_addmlfscids" value="$addml_mdids[../mets:mdWrap/mets:xmlData/addml:addml/addml:dataset/addml:flatFiles/addml:structureTypes/addml:flatFileTypes/addml:flatFileType/addml:delimFileFormat/addml:fieldSeparatingChar]"/>
@@ -214,17 +214,20 @@ Validates METS fileSec.
 	</sch:pattern>
 
         <!-- METS internal linking, cross-check part 1: From link to target -->
-        <sch:let name="admids_link" value="/mets:mets/mets:amdSec/*[self::mets:techMD or self::mets:rightsMD or self::mets:sourceMD or self::mets:digiprovMD]/@ID"/>
+        <sch:let name="admids_targets" value="/mets:mets/mets:amdSec/*/@ID"/>
+        <sch:let name="admids_target_count" value="count($admids_targets)"/>
         <sch:pattern id="link_file_admid">
                 <sch:rule context="mets:fileGrp/mets:file[@ADMID]">
-            <sch:assert test="(count(sets:distinct(str:tokenize(normalize-space(@ADMID),' ') | exsl:node-set($admids_link))) = count(sets:distinct(exsl:node-set($admids_link))))">
+                        <sch:let name="admid_tokens" select="str:tokenize(normalize-space(@ADMID))"/>
+                        <sch:assert test="count(sets:distinct(str:tokenize(normalize-space(@ADMID),' ') | exsl:node-set($admids_targets))) = $admids_target_count">
                                 Value '<sch:value-of select="@ADMID"/>' in attribute '<sch:value-of select="name(@ADMID)"/>' in element '<sch:name/>' contains a link to nowhere. The corresponding target attribute '@ID' with the same value was not found.
                         </sch:assert>
                 </sch:rule>
         </sch:pattern>
         <sch:pattern id="link_stream_admid">
                 <sch:rule context="mets:stream[@ADMID]">
-            <sch:assert test="(count(sets:distinct(str:tokenize(normalize-space(@ADMID),' ') | exsl:node-set($admids_link))) = count(sets:distinct(exsl:node-set($admids_link))))">
+                        <sch:let name="admid_tokens" select="str:tokenize(normalize-space(@ADMID), ' ')"/>
+                        <sch:assert test="count(sets:distinct(str:tokenize(normalize-space(@ADMID),' ') | exsl:node-set($admids_targets))) = $admids_target_count">
                                 Value '<sch:value-of select="@ADMID"/>' in attribute '<sch:value-of select="name(@ADMID)"/>' in element '<sch:name/>' contains a link to nowhere. The corresponding target attribute '@ID' with the same value was not found.
                         </sch:assert>
                 </sch:rule>

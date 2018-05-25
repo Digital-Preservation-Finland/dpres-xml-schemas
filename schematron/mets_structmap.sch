@@ -137,32 +137,35 @@ Validates METS structMap.
 
         <!-- METS internal linking, cross-check part 1: From link to target -->
         <sch:let name="dmdids" value="/mets:mets/mets:dmdSec/@ID"/>
-        <sch:let name="admids" value="/mets:mets/mets:amdSec/*[self::mets:techMD or self::mets:rightsMD or self::mets:sourceMD or self::mets:digiprovMD]/@ID"/>
+        <sch:let name="admids" value="/mets:mets/mets:amdSec/*/@ID"/>
         <sch:let name="fileids" value="/mets:mets/mets:fileSec/mets:fileGrp/mets:file/@ID"/>
+        <sch:let name="dmdids_c" value="count($dmdids)"/>
+        <sch:let name="admids_c" value="count($admids)"/>
+        <sch:let name="fileids_c" value="count($fileids)"/>
         <sch:pattern id="link_div_dmdid">
                 <sch:rule context="mets:div[@DMDID]">
-            <sch:assert test="(count(sets:distinct(str:tokenize(normalize-space(@DMDID),' ') | exsl:node-set($dmdids))) = count(sets:distinct(exsl:node-set($dmdids))))">
+            <sch:assert test="count(sets:distinct(str:tokenize(normalize-space(@DMDID),' ') | exsl:node-set($dmdids))) = $dmdids_c">
                                 Value '<sch:value-of select="@DMDID"/>' in attribute '<sch:value-of select="name(@DMDID)"/>' in element '<sch:name/>' contains a link to nowhere. The corresponding target attribute '@ID' with the same value was not found.
                         </sch:assert>
                 </sch:rule>
         </sch:pattern>
         <sch:pattern id="link_div_admid">
                 <sch:rule context="mets:div[@ADMID]">
-            <sch:assert test="(count(sets:distinct(str:tokenize(normalize-space(@ADMID),' ') | exsl:node-set($admids))) = count(sets:distinct(exsl:node-set($admids))))">
+            <sch:assert test="count(sets:distinct(str:tokenize(normalize-space(@ADMID),' ') | exsl:node-set($admids))) = $admids_c">
                                 Value '<sch:value-of select="@ADMID"/>' in attribute '<sch:value-of select="name(@ADMID)"/>' in element '<sch:name/>' contains a link to nowhere. The corresponding target attribute '@ID' with the same value was not found.
                         </sch:assert>
                 </sch:rule>
         </sch:pattern>
         <sch:pattern id="link_fptr_fileid">
                 <sch:rule context="mets:fptr[@FILEID]">
-            <sch:assert test="(count(sets:distinct(str:tokenize(normalize-space(@FILEID),' ') | exsl:node-set($fileids))) = count(sets:distinct(exsl:node-set($fileids))))">
+            <sch:assert test="count(sets:distinct(str:tokenize(normalize-space(@FILEID),' ') | exsl:node-set($fileids))) = $fileids_c">
                                 Value '<sch:value-of select="@FILEID"/>' in attribute '<sch:value-of select="name(@FILEID)"/>' in element '<sch:name/>' contains a link to nowhere. The corresponding target attribute '@ID' with the same value was not found.
                         </sch:assert>
                 </sch:rule>
         </sch:pattern>
         <sch:pattern id="link_area_fileid">
                 <sch:rule context="mets:area[@FILEID]">
-            <sch:assert test="(count(sets:distinct(str:tokenize(normalize-space(@FILEID),' ') | exsl:node-set($fileids))) = count(sets:distinct(exsl:node-set($fileids))))">
+            <sch:assert test="count(sets:distinct(str:tokenize(normalize-space(@FILEID),' ') | exsl:node-set($fileids))) = $fileids_c">
                                 Value '<sch:value-of select="@FILEID"/>' in attribute '<sch:value-of select="name(@FILEID)"/>' in element '<sch:name/>' contains a link to nowhere. The corresponding target attribute '@ID' with the same value was not found.
                         </sch:assert>
                 </sch:rule>
