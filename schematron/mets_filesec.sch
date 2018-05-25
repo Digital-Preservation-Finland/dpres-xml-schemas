@@ -45,13 +45,13 @@ Validates METS fileSec.
         <sch:let name="techmd" value="/mets:mets/mets:amdSec/mets:techMD"/>
 
         <!-- techMd section ids of different metadata -->
-        <sch:let name="premis_file_id" value="$techmd[normalize-space(./mets:mdWrap[@MDTYPE='PREMIS:OBJECT']/mets:xmlData/premis:object/@xsi:type)='premis:file']/@ID"/>
-        <sch:let name="premis_stream_id" value="$techmd[normalize-space(./mets:mdWrap[@MDTYPE='PREMIS:OBJECT']/mets:xmlData/premis:object/@xsi:type)='premis:bitstream']/@ID"/>
-        <sch:let name="addml_mdids" value="$techmd[./mets:mdWrap[@OTHERMDTYPE='ADDML']/mets:xmlData/addml:*]/@ID"/>
-        <sch:let name="audiomd_mdids" value="$techmd[./mets:mdWrap[@OTHERMDTYPE='AudioMD']/mets:xmlData/audiomd:*]/@ID"/>
-        <sch:let name="mix_mdids" value="$techmd[./mets:mdWrap[@MDTYPE='NISOIMG']/mets:xmlData/mix:*]/@ID"/>
-        <sch:let name="textmd14_mdids" value="$techmd[./mets:mdWrap[@MDTYPE='TEXTMD']/mets:xmlData/textmd_kdk:*]/@ID"/>
-        <sch:let name="videomd_mdids" value="$techmd[./mets:mdWrap[@OTHERMDTYPE='VideoMD']/mets:xmlData/videomd:*]/@ID"/>
+        <sch:let name="premis_file_id" value="$techmd[normalize-space(./mets:mdWrap/@MDTYPE)='PREMIS:OBJECT' and normalize-space(./mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:file']/@ID"/>
+        <sch:let name="premis_stream_id" value="$techmd[normalize-space(./mets:mdWrap/@MDTYPE)='PREMIS:OBJECT' and normalize-space(./mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:bitstream']/@ID"/>
+        <sch:let name="addml_mdids" value="$techmd[normalize-space(./mets:mdWrap/@OTHERMDTYPE)='ADDML' and ./mets:mdWrap/mets:xmlData/addml:*]/@ID"/>
+        <sch:let name="audiomd_mdids" value="$techmd[normalize-space(./mets:mdWrap/@OTHERMDTYPE)='AudioMD' and ./mets:mdWrap/mets:xmlData/audiomd:*]/@ID"/>
+        <sch:let name="mix_mdids" value="$techmd[normalize-space(./mets:mdWrap/@MDTYPE)='NISOIMG' and ./mets:mdWrap/mets:xmlData/mix:*]/@ID"/>
+        <sch:let name="textmd14_mdids" value="$techmd[normalize-space(./mets:mdWrap/@MDTYPE)='TEXTMD' and ./mets:mdWrap/mets:xmlData/textmd_kdk:*]/@ID"/>
+        <sch:let name="videomd_mdids" value="$techmd[normalize-space(./mets:mdWrap/@OTHERMDTYPE)='VideoMD' and ./mets:mdWrap/mets:xmlData/videomd:*]/@ID"/>
 
 	<!-- PREMIS object ids of different file format types -->
         <sch:let name="addml_fileid" value="$premis_file_id[contains(concat(' ', $addml_types, ' '), concat(' ', normalize-space(../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName), ' '))]"/>
