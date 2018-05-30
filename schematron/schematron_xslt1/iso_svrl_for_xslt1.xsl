@@ -231,6 +231,10 @@
 			<xsl:with-param name="space"  select="$space" />
 		</xsl:call-template>
 	</xsl:if>
+
+                 <xsl:if test="$outputfilter='only_messages'">
+                        <axsl:comment>Activated patterns and fired rules with no resulted messages have been suppressed from the output.</axsl:comment>
+                 </xsl:if>
 		 
 		 <axsl:comment><axsl:value-of select="$archiveDirParameter"/>  &#xA0;
 		 <axsl:value-of select="$archiveNameParameter"/> &#xA0;

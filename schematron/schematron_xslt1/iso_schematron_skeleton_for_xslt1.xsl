@@ -865,9 +865,6 @@
  <xsl:template name="handle-root">
 		<!-- Process the top-level element -->
 		<axsl:template match="/">
-			<xsl:if test="$outputfilter='only_messages'">
-				<axsl:comment>Activated patterns and fired rules with no resulted messages are suppressed from the output.</axsl:comment>
-			</xsl:if>
 			<xsl:call-template name="process-root">
 				<xsl:with-param 	
 				name="title" select="(@id | iso:title)[last()]"/>
