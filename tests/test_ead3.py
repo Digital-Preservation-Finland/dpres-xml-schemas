@@ -28,6 +28,6 @@ def test_ead3_extension(schematron_fx, xml, failures):
     (xmltree, root) = parse_xml_string(xml)
     (xmltree, _) = add_containers(
         root, 'mets:mets/mets:dmdSec/mets:mdWrap/mets:xmlData/ead3:ead')
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=xmltree)
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=xmltree, params=False)
     assert svrl.count(SVRL_FIRED) == 1
     assert svrl.count(SVRL_FAILED) == failures

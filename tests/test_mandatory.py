@@ -63,6 +63,9 @@ def test_mandatory_elements(
         if leafelement is not None:
             elem_handler = root.find_element(leafelement, namespace)
             elem_handler.clear()
-        svrl = schematron_fx(schematronfile=schfile, xmltree=mets)
+        svrl = schematron_fx(schematronfile=schfile, xmltree=mets, params=False)
         assert svrl.count(SVRL_FIRED) == fired
+        assert svrl.count(SVRL_FAILED) == failed
+
+        svrl = schematron_fx(schematronfile=schfile, xmltree=mets)
         assert svrl.count(SVRL_FAILED) == failed

@@ -357,6 +357,10 @@
 				<axsl:apply-templates select="." mode="schematron-get-full-path"/>
 			</axsl:attribute>
 		</xsl:if>
+
+                <svrl:line-number>
+                        <axsl:value-of select="saxon:line-number()"/>
+                </svrl:line-number>
 	 
 		<svrl:text>
 			<xsl:apply-templates mode="text" />

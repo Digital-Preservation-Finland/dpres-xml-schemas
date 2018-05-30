@@ -40,7 +40,7 @@ def test_addml_reference_version(schematron_fx):
     # No checks with version 8.3
     elem_handler = root.find_element('mdWrap', 'mets')
     elem_handler.set_attribute('MDTYPEVERSION', 'mets', '8.3')
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets, params=False)
     assert svrl.count(SVRL_FIRED) == 0
     assert svrl.count(SVRL_FAILED) == 0
 
@@ -63,13 +63,13 @@ def test_addml_headerlevel_version(schematron_fx):
     (mets, root) = add_containers(root, 'mets:mets/mets:amdSec')
 
     # Element 'headerLevel' is forbidden in 8.2
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets, params=False)
     assert svrl.count(SVRL_FIRED) == 2
     assert svrl.count(SVRL_FAILED) == 1
 
     # No checks with version 8.3
     elem_handler = root.find_element('mdWrap', 'mets')
     elem_handler.set_attribute('MDTYPEVERSION', 'mets', '8.3')
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets, params=False)
     assert svrl.count(SVRL_FIRED) == 0
     assert svrl.count(SVRL_FAILED) == 0

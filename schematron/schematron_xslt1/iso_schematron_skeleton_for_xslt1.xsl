@@ -423,6 +423,8 @@
     </xsl:choose>
 </xsl:variable>
 
+<xsl:param name="outputfilter" select="''"/>
+
 <xsl:param name="phase">
   <xsl:choose>
     <xsl:when test="//sch:schema/@defaultPhase">
@@ -863,6 +865,9 @@
  <xsl:template name="handle-root">
 		<!-- Process the top-level element -->
 		<axsl:template match="/">
+			<xsl:if test="$outputfilter='only_messages'">
+				<axsl:comment>Activated patterns and fired rules with no resulted messages are suppressed from the output.</axsl:comment>
+			</xsl:if>
 			<xsl:call-template name="process-root">
 				<xsl:with-param 	
 				name="title" select="(@id | iso:title)[last()]"/>
@@ -919,6 +924,42 @@
 		<axsl:choose>
 			<axsl:when test="{@test}"/>
 			<axsl:otherwise>
+				<xsl:if test="$outputfilter='only_messages'">
+
+	                		<xsl:call-template name="process-pattern">
+						<!-- the following select statement assumes that
+                	             		@id | sch:title returns node-set in document order:
+                        			we want the title if it is there, otherwise the @id attribute -->
+                        			<xsl:with-param name="name" select="(ancestor::iso:pattern/@id | ancestor::iso:pattern/iso:title )[last()]"/>
+                        			<xsl:with-param name="is-a" select="''"/>
+
+						<!-- "Rich" properties -->
+        	                                <xsl:with-param name="fpi" select="ancestor::iso:pattern/@fpi"/>
+                	                        <xsl:with-param name="icon" select="ancestor::iso:pattern/@icon"/>
+                        	                <xsl:with-param name="id" select="ancestor::iso:pattern/@id"/>
+                                	        <xsl:with-param name="lang" select="ancestor::iso:pattern/@xml:lang"/>
+                                        	<xsl:with-param name="see" select="ancestor::iso:pattern/@see" />
+	                                        <xsl:with-param name="space" select="ancestor::iso:pattern/@xml:space" />
+        	        		</xsl:call-template>
+
+                	        	<xsl:call-template name="process-rule">
+                        	        	<xsl:with-param name="context" select="ancestor::iso:rule/@context"/>
+
+                                	        <!-- "Rich" properties -->
+	                                        <xsl:with-param name="fpi" select="ancestor::iso:rule/@fpi"/>
+        	                                <xsl:with-param name="icon" select="ancestor::iso:rule/@icon"/>
+                	                        <xsl:with-param name="id" select="ancestor::iso:rule/@id"/>
+                        	                <xsl:with-param name="lang" select="ancestor::iso:rule/@xml:lang"/>
+                                	        <xsl:with-param name="see" select="ancestor::iso:rule/@see" />
+                                        	<xsl:with-param name="space" select="ancestor::iso:rule/@xml:space" />
+
+	                                        <!-- "Linking" properties -->
+        	                                <xsl:with-param name="role" select="ancestor::iso:rule/@role" />
+                	                        <xsl:with-param name="subject" select="ancestor::iso:rule/@subject" />
+                        		</xsl:call-template>
+
+				</xsl:if>
+
 				<xsl:call-template name="process-assert">
 					<xsl:with-param name="test" select="normalize-space(@test)" />
 					<xsl:with-param name="diagnostics" select="@diagnostics"/>
@@ -935,8 +976,7 @@
 					<!-- "Linking" properties -->
 					<xsl:with-param name="role" select="@role" />
 					<xsl:with-param name="subject" select="@subject" />
-				</xsl:call-template>
- 			
+				</xsl:call-template> 			
 			</axsl:otherwise>
 		</axsl:choose>
 	</xsl:template>
@@ -950,7 +990,43 @@
 		<xsl:comment>REPORT <xsl:value-of select="@role" /> </xsl:comment><xsl:text>&#10;</xsl:text>      
 	
 		<axsl:if test="{@test}">
-		
+
+			<xsl:if test="$outputfilter='only_messages'">
+
+                                <xsl:call-template name="process-pattern">
+                                        <!-- the following select statement assumes that
+                                        @id | sch:title returns node-set in document order:
+                                        we want the title if it is there, otherwise the @id attribute -->
+                                        <xsl:with-param name="name" select="(ancestor::iso:pattern/@id | ancestor::iso:pattern/iso:title )[last()]"/>
+                                        <xsl:with-param name="is-a" select="''"/>
+
+                                        <!-- "Rich" properties -->
+                                        <xsl:with-param name="fpi" select="ancestor::iso:pattern/@fpi"/>
+                                        <xsl:with-param name="icon" select="ancestor::iso:pattern/@icon"/>
+                                        <xsl:with-param name="id" select="ancestor::iso:pattern/@id"/>
+                                        <xsl:with-param name="lang" select="ancestor::iso:pattern/@xml:lang"/>
+                                        <xsl:with-param name="see" select="ancestor::iso:pattern/@see" />
+                                        <xsl:with-param name="space" select="ancestor::iso:pattern/@xml:space" />
+                                </xsl:call-template>
+
+                                <xsl:call-template name="process-rule">
+                                        <xsl:with-param name="context" select="ancestor::iso:rule/@context"/>
+
+                                        <!-- "Rich" properties -->
+                                        <xsl:with-param name="fpi" select="ancestor::iso:rule/@fpi"/>
+                                        <xsl:with-param name="icon" select="ancestor::iso:rule/@icon"/>
+                                        <xsl:with-param name="id" select="ancestor::iso:rule/@id"/>
+                                        <xsl:with-param name="lang" select="ancestor::iso:rule/@xml:lang"/>
+                                        <xsl:with-param name="see" select="ancestor::iso:rule/@see" />
+                                        <xsl:with-param name="space" select="ancestor::iso:rule/@xml:space" />
+
+                                        <!-- "Linking" properties -->
+                                        <xsl:with-param name="role" select="ancestor::iso:rule/@role" />
+                                        <xsl:with-param name="subject" select="ancestor::iso:rule/@subject" />
+                                </xsl:call-template>
+
+                        </xsl:if>
+	
 			<xsl:call-template name="process-report">
 				<xsl:with-param name="test" select="normalize-space(@test)" />
 				<xsl:with-param name="diagnostics" select="@diagnostics"/>
@@ -1270,21 +1346,19 @@
 	<xsl:template match="iso:pattern" mode="do-all-patterns">
 	<xsl:if test="($phase = '#ALL') 
 	or (../iso:phase[@id= $phase]/iso:active[@pattern= current()/@id])">
-		<xsl:call-template name="process-pattern">
-			<!-- the following select statement assumes that
-			@id | sch:title returns node-set in document order:
-			we want the title if it is there, otherwise the @id attribute -->
-			<xsl:with-param name="name" select="(@id | iso:title )[last()]"/>
-			<xsl:with-param name="is-a" select="''"/>
+		<xsl:if test="$outputfilter!='only_messages'">
+			<xsl:call-template name="process-pattern">
+				<xsl:with-param name="name" select="(@id | iso:title )[last()]"/>
+				<xsl:with-param name="is-a" select="''"/>
 			
-					<!-- "Rich" properties -->
 					<xsl:with-param name="fpi" select="@fpi"/>
 					<xsl:with-param name="icon" select="@icon"/>
 					<xsl:with-param name="id" select="@id"/>
 					<xsl:with-param name="lang" select="@xml:lang"/>
 					<xsl:with-param name="see" select="@see" />
 					<xsl:with-param name="space" select="@xml:space" />
-		</xsl:call-template>
+			</xsl:call-template>
+		</xsl:if>
 		<xsl:choose>
 		  <xsl:when test="$select-contexts='key'">
 		    <axsl:apply-templates select="key('M','M{count(preceding-sibling::*)}')" mode="M{count(preceding-sibling::*)}"/>
@@ -1372,21 +1446,20 @@
 <!-- DPC priorities count up from 1000 not down from 4000 (templates in same priority order as before) -->
 		<axsl:template match="{@context}"
 		priority="{1000 + count(following-sibling::*)}" mode="M{count(../preceding-sibling::*)}">
-			<xsl:call-template name="process-rule">
-				<xsl:with-param name="context" select="@context"/>
+			<xsl:if test="$outputfilter!='only_messages'">
+				<xsl:call-template name="process-rule">
+					<xsl:with-param name="context" select="@context"/>
 				
-					<!-- "Rich" properties -->
 					<xsl:with-param name="fpi" select="@fpi"/>
 					<xsl:with-param name="icon" select="@icon"/>
 					<xsl:with-param name="id" select="@id"/>
 					<xsl:with-param name="lang" select="@xml:lang"/>
 					<xsl:with-param name="see" select="@see" />
 					<xsl:with-param name="space" select="@xml:space" />
-					
-					<!-- "Linking" properties -->
 					<xsl:with-param name="role" select="@role" />
 					<xsl:with-param name="subject" select="@subject" />
-			</xsl:call-template>
+				</xsl:call-template>
+			</xsl:if>
 			<xsl:apply-templates/>
 			<!-- DPC introduce context-xpath and select-contexts variables -->
 			<xsl:if test="not($select-contexts)">
