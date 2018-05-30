@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <!-- pass-filter: /mets:mets/mets:amdSec -->
 <!-- context-filter: mets:amdSec|mets:techMD|mets:rightsMD|mets:sourceMD|mets:digiprovMD -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">

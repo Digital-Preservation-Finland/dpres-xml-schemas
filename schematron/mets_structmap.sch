@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <!-- pass-filter: /mets:mets/mets:structMap -->
 <!-- context-filter: mets:structMap|mets:div|mets:fptr|mets:mptr|mets:par|mets:seq|mets:area -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">

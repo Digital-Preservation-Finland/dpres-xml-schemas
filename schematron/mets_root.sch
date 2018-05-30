@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <!-- pass-filter: / -->
 <!-- context-filter: mets:mets -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">
@@ -37,7 +36,7 @@ Validates METS root.
 	<!-- METS root -->
 	<sch:pattern id="mets_root">
 		<sch:rule context="/">
-			<sch:assert test="mets:mets">
+			<sch:assert test="/mets:mets">
 				This is not a METS document.
 			</sch:assert>
 		</sch:rule>
