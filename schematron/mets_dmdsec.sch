@@ -153,7 +153,7 @@ Validates METS dmdSec.
 	        <sch:param name="context_element" value="mets:dmdSec/mets:mdWrap"/>
                 <sch:param name="context_condition" value="normalize-space(@MDTYPE)='OTHER' and normalize-space(@OTHERMDTYPE)='DATACITE'"/>
                 <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
-                <sch:param name="valid_values" value="string('4.0')"/>
+                <sch:param name="valid_values" value="string('4.0; 4.1')"/>
                 <sch:param name="specifications" value="string('not: 1.4.1; 1.4; 1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
 
