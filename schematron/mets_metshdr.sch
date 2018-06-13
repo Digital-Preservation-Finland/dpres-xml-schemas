@@ -81,17 +81,14 @@ Validates metsHdr.
                 <sch:param name="required_attribute" value="@OTHERTYPE"/>
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
-
-        <sch:pattern id="required_mets_agent">
-                <sch:rule context="mets:metsHdr">
-			<sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
-                        <sch:assert test="(mets:agent[normalize-space(@ROLE)='CREATOR' and (normalize-space(@TYPE)='ORGANIZATION' or (normalize-space(@TYPE)='OTHER' and normalize-space(@OTHERTYPE)='SOFTWARE'))]) or contains(' 1.4 1.4.1 1.5.0 1.6.0 1.6.1 ', concat(' ', $given_specification,' '))">
-                                Such element 'mets:agent' is required in '<sch:name/>', where attribute '@ROLE' includes value 'CREATOR', and either '@TYPE' includes value 'ORGANIZATION' or '@TYPE' includes value 'OTHER' and '@OTHERTYPE' includes value 'SOFTWARE'.
-                        </sch:assert>
-                </sch:rule>
+	<sch:pattern id="mets_agent_creator" is-a="required_agent_pattern">
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="role" value="string('CREATOR')"/>
+                <sch:param name="type" value="string('')"/>
+                <sch:param name="specifications" value="string('not: 1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
 
-	<!-- METS Header elements -->
+        <!-- METS Header elements -->
 	<sch:pattern id="mets_metsHdr_altRecordID" is-a="disallowed_element_pattern">
 		<sch:param name="context_element" value="mets:metsHdr"/>
 		<sch:param name="context_condition" value="true()"/>
@@ -100,7 +97,7 @@ Validates metsHdr.
 	</sch:pattern>
 
 	<!-- COMPATIBILITY WITH DEPRECATED VERSIONS -->
-        <sch:pattern id="mets_agent_creator" is-a="required_agent_pattern">
+        <sch:pattern id="mets_agent_creator_old" is-a="required_agent_pattern">
                 <sch:param name="context_condition" value="true()"/>
                 <sch:param name="role" value="string('CREATOR')"/>
                 <sch:param name="type" value="string('ORGANIZATION')"/>

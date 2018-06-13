@@ -148,7 +148,3 @@ def test_mandatory_agents(schematron_fx):
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
-    elem_handler.set_attribute('OTHERTYPE', 'mets', 'FOO')
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 1
-

@@ -13,7 +13,7 @@
 	<sch:pattern id="required_agent_pattern" abstract="true" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:mets="http://www.loc.gov/METS/" xmlns:fi="http://digitalpreservation.fi/schemas/mets/fi-extensions" xmlns:fikdk="http://www.kdk.fi/standards/mets/kdk-extensions" xmlns:exsl="http://exslt.org/common" xmlns:sets="http://exslt.org/sets" xmlns:str="http://exslt.org/strings">
 		<sch:rule context="mets:metsHdr[($context_condition)]">
 			<sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
-			<sch:assert test="(mets:agent[normalize-space(@ROLE)=$role and normalize-space(@TYPE)=$type]) or not(normalize-space($specifications)=''
+			<sch:assert test="(mets:agent[normalize-space(@ROLE)=$role and (normalize-space(@TYPE)=$type or $type='')]) or not(normalize-space($specifications)=''
 			or ((normalize-space(substring($specifications,1,4))='not:') and (not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ', $given_specification, '; ')))))
 			or ((normalize-space(substring($specifications,1,4))!='not:') and (contains(concat('; ',normalize-space($specifications),'; '), concat('; ', $given_specification,'; ')))))">
 				Such element 'mets:agent' is required in '<sch:name/>', where attributes '@ROLE' and '@TYPE' include values '<sch:value-of select="$role"/>' and '<sch:value-of select="$type"/>', respectively.
