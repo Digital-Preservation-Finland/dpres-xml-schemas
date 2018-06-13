@@ -91,7 +91,7 @@ def test_mandatory_items_metshdr(schematron_fx, mandatory, nspace, context):
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
     elem_handler = root.find_element(context, 'mets')
 
-    # Missing ADMID or missing attribute in agent gives more than one error
+    # Missing attribute in agent gives more than one error
     extra = 0
     if context == 'agent':
         extra = 1
@@ -130,3 +130,25 @@ def test_arbitrary_attributes_metshdr(schematron_fx):
             svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
             assert svrl.count(SVRL_FAILED) == 1
             elem_handler.del_attribute('xxx', ns)
+
+
+def test_mandatory_agents(schematron_fx):
+    """Test that mandatory agents work.
+    """
+    (mets, root) = parse_xml_file('mets_valid_complete.xml')
+    elem_handler = root.find_element('agent', 'mets')
+
+    elem_handler.set_attribute('ROLE', 'mets', 'CREATOR')
+    elem_handler.set_attribute('TYPE', 'mets', 'OTHER')
+    elem_handler.set_attribute('OTHERTYPE', 'mets', 'SOFTWARE')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 1
+
+    fix_version_17(root)
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 0
+
+    elem_handler.set_attribute('OTHERTYPE', 'mets', 'FOO')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 1
+

@@ -83,7 +83,7 @@ def test_dependent_attributes_dmdsec(schematron_fx, nspaces, attributes,
     ('VRA', None, ['4.0']),
     ('DDI', None, ['3.2', '3.1', '2.5.1', '2.5', '2.1']),
     ('OTHER', 'EAD3', ['1.0.0']),
-    ('OTHER', 'DATACITE', ['4.0']),
+    ('OTHER', 'DATACITE', ['4.1']),
 ])
 def test_mdtype_items_dmdsec(schematron_fx, mdtype, othermdtype,
                              mdtypeversion):
