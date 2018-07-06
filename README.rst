@@ -45,11 +45,13 @@ Use the following commands to compile schematron files to XSL files::
     /usr/share/dpres-xml-schemas/schematron/<schematron schema>.sch
     xsltproc -o tempfile2 /usr/share/dpres-xml-schemas/schematron/schematron_xslt1/iso_abstract_expand.xsl tempfile1
     xsltproc -o tempfile3 /usr/share/dpres-xml-schemas/schematron/schematron_xslt1/optimize_schematron.xsl tempfile2
+    xsltproc -o <new compiled xsl>.xsl --stringparam outputfilter only_messages \
+    /usr/share/dpres-xml-schemas/schematron/schematron_xslt1/iso_svrl_for_xslt1.xsl tempfile3
+
+To print out also those activated patterns and fired rules which do not result any messages,
+use the following command instead of the last command (this may result to huge output)::
+
     xsltproc -o <new compiled xsl>.xsl /usr/share/dpres-xml-schemas/schematron/schematron_xslt1/iso_svrl_for_xslt1.xsl tempfile3
-
-If just the errors and messages are needed, use the following command instead of the last command::
-
-    xsltproc -o <new compiled xsl>.xsl --string_param outputfilter only_messages /usr/share/dpres-xml-schemas/schematron/schematron_xslt1/iso_svrl_for_xslt1.xsl tempfile3
 
 Use the following command to validate a METS document::
 
