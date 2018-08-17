@@ -248,7 +248,6 @@ See: http://www.loc.gov/standards/premis/
 			<xs:enumeration value="digital signature validation"/>
 			<xs:enumeration value="fixity check"/>
 			<xs:enumeration value="validation"/>
-			<xs:enumeration value="contract validation"/>
 			<xs:enumeration value="creation"/>
 			<xs:enumeration value="preservation responsibility change"/>
 		</xs:restriction>
