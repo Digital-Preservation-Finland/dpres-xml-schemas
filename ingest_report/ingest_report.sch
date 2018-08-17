@@ -202,6 +202,21 @@ See: http://www.loc.gov/standards/premis/
 		</sch:rule>
 	</sch:pattern>
 
+	<!-- Contract validation event check -->
+	<sch:pattern name="EventContractValidation">
+		<sch:rule context="premis:event[normalize-space(./premis:eventType)='validation' and ./premis:eventDetail='Validation of contract ID']">
+			<sch:assert test="normalize-space(./premis:eventDetail)='Validation of contract ID'">
+				Contract validation event '<sch:value-of select=".//premis:eventIdentifierValue"/>' must have an event detail: 'Validation of contract ID'
+			</sch:assert>		
+			<sch:assert test="(normalize-space(.//premis:linkingAgentIdentifierType)='preservation-agent-id') and (normalize-space(.//premis:linkingAgentIdentifierValue)=normalize-space(ancestor::premis:premis//premis:agentIdentifierValue[normalize-space(preceding-sibling::premis:agentIdentifierType)='preservation-agent-id' and contains(.,'contract.py')]))">
+				Contract validation event '<sch:value-of select=".//premis:eventIdentifierValue"/>' must link to a contract validation agent.
+			</sch:assert>
+			<sch:assert test="(normalize-space(.//premis:linkingObjectIdentifierType)='preservation-sip-id') and (normalize-space(.//premis:linkingObjectIdentifierValue)=normalize-space(ancestor::premis:premis//premis:objectIdentifierValue[normalize-space(preceding-sibling::premis:objectIdentifierType)='preservation-sip-id']))">
+				Contract validation event '<sch:value-of select=".//premis:eventIdentifierValue"/>' must link to a SIP object.
+			</sch:assert>
+		</sch:rule>
+	</sch:pattern>
+
 	<!-- METS schema validation event check -->
 	<sch:pattern name="EventMetsSchemaCheck">
         <sch:rule context="premis:event[normalize-space(./premis:eventType)='validation' and ./premis:eventDetail='METS schema validation']">
