@@ -269,7 +269,7 @@ See: http://www.loc.gov/standards/premis/
 	<!-- validation detail check -->
 	<sch:pattern name="EventValidationDetail">
         <sch:rule context="premis:event[normalize-space(./premis:eventType)='validation']">
-			<sch:assert test="((./premis:eventDetail='METS schema validation') or (./premis:eventDetail='Additional METS validation of required features')) or ((./premis:eventDetail='Digital object validation') or ((./premis:eventDetail='Validation of contract ID') or (./premis:eventDetail='Validation compilation of submission information package'))">
+			<sch:assert test="((./premis:eventDetail='METS schema validation') or (./premis:eventDetail='Additional METS validation of required features') or (./premis:eventDetail='Digital object validation') or (./premis:eventDetail='Validation of contract ID') or (./premis:eventDetail='Validation compilation of submission information package'))">
 				Incorrect event detail in '<sch:value-of select=".//premis:eventIdentifierValue"/>'.
 			</sch:assert>
 		</sch:rule>		
