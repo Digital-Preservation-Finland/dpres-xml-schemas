@@ -269,7 +269,7 @@ See: http://www.loc.gov/standards/premis/
 			<xs:enumeration value="METS schema validation"/>
 			<xs:enumeration value="Additional METS validation of required features"/>
 			<xs:enumeration value="Digital object validation"/>
-			<xs:enumeration value="Validation of contract ID"/>
+			<xs:enumeration value="Validation of contract identifier"/>
 			<xs:enumeration value="Validation compilation of submission information package"/>
 			<xs:enumeration value="Creation of archival information package"/>
 			<xs:enumeration value="Preservation responsibility change to the digital preservation system"/>

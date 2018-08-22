@@ -204,9 +204,9 @@ See: http://www.loc.gov/standards/premis/
 
 	<!-- Contract validation event check -->
 	<sch:pattern name="EventContractValidation">
-		<sch:rule context="premis:event[normalize-space(./premis:eventType)='validation' and ./premis:eventDetail='Validation of contract ID']">
-			<sch:assert test="normalize-space(./premis:eventDetail)='Validation of contract ID'">
-				Contract validation event '<sch:value-of select=".//premis:eventIdentifierValue"/>' must have an event detail: 'Validation of contract ID'
+		<sch:rule context="premis:event[normalize-space(./premis:eventType)='validation' and ./premis:eventDetail='Validation of contract identifier']">
+			<sch:assert test="normalize-space(./premis:eventDetail)='Validation of contract identifier'">
+				Contract validation event '<sch:value-of select=".//premis:eventIdentifierValue"/>' must have an event detail: 'Validation of contract identifier'
 			</sch:assert>		
 			<sch:assert test="(normalize-space(.//premis:linkingAgentIdentifierType)='preservation-agent-id') and (normalize-space(.//premis:linkingAgentIdentifierValue)=normalize-space(ancestor::premis:premis//premis:agentIdentifierValue[normalize-space(preceding-sibling::premis:agentIdentifierType)='preservation-agent-id' and contains(.,'contract.py')]))">
 				Contract validation event '<sch:value-of select=".//premis:eventIdentifierValue"/>' must link to a contract validation agent.
@@ -269,7 +269,7 @@ See: http://www.loc.gov/standards/premis/
 	<!-- validation detail check -->
 	<sch:pattern name="EventValidationDetail">
         <sch:rule context="premis:event[normalize-space(./premis:eventType)='validation']">
-			<sch:assert test="((./premis:eventDetail='METS schema validation') or (./premis:eventDetail='Additional METS validation of required features') or (./premis:eventDetail='Digital object validation') or (./premis:eventDetail='Validation of contract ID') or (./premis:eventDetail='Validation compilation of submission information package'))">
+			<sch:assert test="((./premis:eventDetail='METS schema validation') or (./premis:eventDetail='Additional METS validation of required features') or (./premis:eventDetail='Digital object validation') or (./premis:eventDetail='Validation of contract identifier') or (./premis:eventDetail='Validation compilation of submission information package'))">
 				Incorrect event detail in '<sch:value-of select=".//premis:eventIdentifierValue"/>'.
 			</sch:assert>
 		</sch:rule>		
