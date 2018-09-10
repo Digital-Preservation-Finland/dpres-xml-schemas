@@ -204,7 +204,7 @@ See: http://www.loc.gov/standards/premis/
 
 	<!-- Service contract validation event check -->
 	<sch:pattern name="EventServiceContractValidation">
-		<sch:rule context="premis:event[normalize-space(./premis:eventType)='validation' and contains(./premis:eventDetail='service contract')]">
+		<sch:rule context="premis:event[normalize-space(./premis:eventType)='validation' and contains(./premis:eventDetail,'service contract')]">
 			<sch:assert test="normalize-space(./premis:eventDetail)='Validation of service contract properties'">
 				Service contract validation event '<sch:value-of select=".//premis:eventIdentifierValue"/>' must have an event detail: 'Validation of service contract properties'
 			</sch:assert>		
