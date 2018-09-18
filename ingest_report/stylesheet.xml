@@ -21,7 +21,7 @@
             <body>
                 <div id="row">
                     <xsl:choose>
-                        <xsl:when test="((//premis:event/premis:eventOutcomeInformation/premis:eventOutcome = 'failure') and not (//premis:event/premis:eventType = 'approval of invalid objects'))">
+                        <xsl:when test="((//premis:event/premis:eventOutcomeInformation/premis:eventOutcome = 'failure') and not (//premis:event/premis:eventType = 'approval of failed ingest events'))">
                             <div class="col-md-10"><h1>Ingest report – <span class="text-red">Submission rejected</span></h1></div>
                         </xsl:when>
                         <xsl:otherwise>
