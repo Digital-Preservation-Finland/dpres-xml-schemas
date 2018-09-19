@@ -250,6 +250,7 @@ See: http://www.loc.gov/standards/premis/
 			<xs:enumeration value="validation"/>
 			<xs:enumeration value="creation"/>
 			<xs:enumeration value="preservation responsibility change"/>
+			<xs:enumeration value="approval of failed ingest events"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="eventOutcomeSimpleType">
@@ -273,6 +274,7 @@ See: http://www.loc.gov/standards/premis/
 			<xs:enumeration value="Validation compilation of submission information package"/>
 			<xs:enumeration value="Creation of archival information package"/>
 			<xs:enumeration value="Preservation responsibility change to the digital preservation system"/>
+			<xs:enumeration value="Failed ingest events approved by the service"/>
 		</xs:restriction>
 	</xs:simpleType>
 	
