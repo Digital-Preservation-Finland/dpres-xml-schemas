@@ -293,8 +293,8 @@ See: http://www.loc.gov/standards/premis/
 	<!-- preservation responsibility change event check -->
 	<sch:pattern name="EventResponsibilityChange">
         <sch:rule context="premis:event[normalize-space(./premis:eventType)='preservation responsibility change']">
-			<sch:assert test="normalize-space(./premis:eventDetail)='Preservation responsibility change to the digital preservation system'">
-				Preservation responsibility change event '<sch:value-of select=".//premis:eventIdentifierValue"/>' must have an event detail: 'Preservation responsibility change to the digital preservation system'
+			<sch:assert test="normalize-space(./premis:eventDetail)='Preservation responsibility change to the digital preservation service'">
+				Preservation responsibility change event '<sch:value-of select=".//premis:eventIdentifierValue"/>' must have an event detail: 'Preservation responsibility change to the digital preservation service'
 			</sch:assert>
 			<sch:assert test="(normalize-space(.//premis:linkingAgentIdentifierType)='preservation-agent-id') and (normalize-space(.//premis:linkingAgentIdentifierValue)=normalize-space(ancestor::premis:premis//premis:agentIdentifierValue[normalize-space(preceding-sibling::premis:agentIdentifierType)='preservation-agent-id' and contains(.,'create_premis_report.py')]))">
 				Preservation responsibility change event '<sch:value-of select=".//premis:eventIdentifierValue"/>' must link to a ingest report creation agent.
