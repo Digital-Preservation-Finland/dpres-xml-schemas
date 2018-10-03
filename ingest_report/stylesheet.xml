@@ -21,7 +21,7 @@
             <body>
                 <div id="row">
                     <xsl:choose>
-                        <xsl:when test="((//premis:event/premis:eventOutcomeInformation/premis:eventOutcome = 'failure') and not (//premis:event/premis:eventType = 'approval of failed ingest events'))">
+                        <xsl:when test="((//premis:event/premis:eventOutcomeInformation/premis:eventOutcome = 'failure') and not (//premis:event/premis:eventType = 'approval'))">
                             <div class="col-md-10"><h1>Ingest report – <span class="text-red">Submission rejected</span></h1></div>
                         </xsl:when>
                         <xsl:otherwise>
@@ -46,7 +46,7 @@
                 </div>
 
                 <xsl:choose>
-                    <xsl:when test="((//premis:event/premis:eventOutcomeInformation/premis:eventOutcome = 'failure') and not (//premis:event/premis:eventType = 'approval of invalid objects'))">
+                    <xsl:when test="((//premis:event/premis:eventOutcomeInformation/premis:eventOutcome = 'failure') and not (//premis:event/premis:eventType = 'approval'))">
                         <xsl:variable name="objid" select="//premis:object/premis:environment/premis:dependency/premis:dependencyIdentifier/premis:dependencyIdentifierType[text() = 'mets:OBJID']/../premis:dependencyIdentifierValue/text()"/>
                         <xsl:variable name="username" select="//premis:agent/premis:agentIdentifier/premis:agentIdentifierType[text() = 'preservation-user-id']/../../premis:agentName/text()"/>
 

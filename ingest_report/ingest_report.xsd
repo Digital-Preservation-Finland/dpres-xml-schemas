@@ -250,7 +250,7 @@ See: http://www.loc.gov/standards/premis/
 			<xs:enumeration value="validation"/>
 			<xs:enumeration value="creation"/>
 			<xs:enumeration value="preservation responsibility change"/>
-			<xs:enumeration value="approval of failed ingest events"/>
+			<xs:enumeration value="approval"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="eventOutcomeSimpleType">

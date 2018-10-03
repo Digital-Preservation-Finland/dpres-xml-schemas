@@ -305,9 +305,9 @@ See: http://www.loc.gov/standards/premis/
 		</sch:rule>
 	</sch:pattern>
 
-	<!-- approval of failed ingest events -->
+	<!-- approvals -->
 	<sch:pattern name="EventApproveFailedIngestEvents">
-        <sch:rule context="premis:event[normalize-space(./premis:eventType)='approval of failed ingest events']">
+        <sch:rule context="premis:event[normalize-space(./premis:eventType)='approval']">
 			<sch:assert test="normalize-space(./premis:eventDetail)='Failed ingest events approved by the service'">
 				Approve failed ingest events '<sch:value-of select=".//premis:eventIdentifierValue"/>' must have an event detail: 'Failed ingest events approved by the service'
 			</sch:assert>
