@@ -46,13 +46,12 @@ def test_disallowed_attribute_object(schematron_fx):
 
 def test_linking_premis(schematron_fx):
     """Test that check of PREMIS links work. A linking element must have a
-    corresponding PREMIS section. No errors are expected in any case, if the
-    specification is 1.4. We give lniks to 8 PREMIS sections without the
-    sections. Then we add the required sections one by one.
+    corresponding PREMIS section. We give lniks to 8 PREMIS sections without
+    the sections. Then we add the required sections one by one.
 
     :schematron_fx: Schematron compile fixture
     """
-    xml = '''<mets:mets fi:CATALOG="1.4" xmlns:mets="%(mets)s"
+    xml = '''<mets:mets fi:CATALOG="1.5.0" xmlns:mets="%(mets)s"
              xmlns:premis="%(premis)s" xmlns:fi="%(fikdk)s">
              <mets:amdSec><mets:techMD><mets:mdWrap><mets:xmlData>
                <premis:object><premis:linkingEventIdentifier>
@@ -114,12 +113,7 @@ def test_linking_premis(schematron_fx):
 
     (mets, root) = parse_xml_string(xml)
 
-    # No errors with specification 1.4
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 0
-
     # Eight dead links
-    root.set_attribute('CATALOG', 'fikdk', '1.5.0')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 8
 

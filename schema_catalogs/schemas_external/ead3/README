@@ -1,4 +1,4 @@
-DPres Schema Change to EAD3
+DPres Schema Change to EAD3 1.0.0
 
 Extension elements in rows 1404-1405:
 	<xs:any namespace="##other" processContents="lax"/>

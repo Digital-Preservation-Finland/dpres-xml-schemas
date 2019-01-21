@@ -5,7 +5,7 @@ in mets_dmdsec.sch.
 """
 import pytest
 from tests.common import SVRL_FAILED, parse_xml_file, \
-    parse_xml_string, NAMESPACES, fix_version_17, fix_version_14
+    parse_xml_string, NAMESPACES, fix_version_17
 
 SCHFILE = 'mets_dmdsec.sch'
 
@@ -75,14 +75,14 @@ def test_dependent_attributes_dmdsec(schematron_fx, nspaces, attributes,
     ('MARC', None, ['marcxml=1.2;marc=marc21',
                     'marcxml=1.2;marc=finmarc']),
     ('DC', None, ['1.1']),
-    ('MODS', None, ['3.6', '3.5', '3.4', '3.3', '3.2', '3.1',
+    ('MODS', None, ['3.7', '3.6', '3.5', '3.4', '3.3', '3.2', '3.1',
                     '3.0']),
     ('EAD', None, ['2002']),
     ('EAC-CPF', None, ['2010']),
     ('LIDO', None, ['1.0']),
     ('VRA', None, ['4.0']),
     ('DDI', None, ['3.2', '3.1', '2.5.1', '2.5', '2.1']),
-    ('OTHER', 'EAD3', ['1.0.0']),
+    ('OTHER', 'EAD3', ['1.1.0', '1.0.0']),
     ('OTHER', 'DATACITE', ['4.1']),
 ])
 def test_mdtype_items_dmdsec(schematron_fx, mdtype, othermdtype,
@@ -95,7 +95,6 @@ def test_mdtype_items_dmdsec(schematron_fx, mdtype, othermdtype,
     :mdtypeversion: MDTYPEVERSION attribute value
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    fix_version_14(root)
     elem_handler = root.find_element('dmdSec', 'mets')
     elem_handler = elem_handler.find_element('mdWrap', 'mets')
     elem_handler.set_attribute('MDTYPE', 'mets', mdtype)
@@ -103,8 +102,8 @@ def test_mdtype_items_dmdsec(schematron_fx, mdtype, othermdtype,
         elem_handler.set_attribute('OTHERMDTYPE', 'mets', othermdtype)
 
     # Test that all MDTYPEVERSIONs work with all specifications
-    for specversion in ['1.4', '1.4.1', '1.5.0', '1.6.0', '1.7.0']:
-        if specversion == '1.7.0':
+    for specversion in ['1.5.0', '1.6.0', '1.7.0', '1.7.1']:
+        if specversion in ['1.7.0', '1.7.1']:
             fix_version_17(root)
         else:
             root.set_attribute('CATALOG', 'fikdk', specversion)
@@ -177,8 +176,8 @@ def test_arbitrary_attributes_dmdsec(schematron_fx):
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
     elem_handler = root.find_element('dmdSec', 'mets')
-    for spec in [None, '1.7.0']:
-        if spec == '1.7.0':
+    for spec in [None, '1.7.1']:
+        if spec == '1.7.1':
             fix_version_17(root)
         for ns in ['fi', 'fikdk', 'dc']:
             elem_handler.set_attribute('xxx', ns, 'xxx')

@@ -122,8 +122,8 @@ def test_arbitrary_attributes_metshdr(schematron_fx):
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
     elem_handler = root.find_element('metsHdr', 'mets')
-    for spec in [None, '1.7.0']:
-        if spec == '1.7.0':
+    for spec in [None, '1.7.1']:
+        if spec == '1.7.1':
             fix_version_17(root)
         for ns in ['fi', 'fikdk', 'dc']:
             elem_handler.set_attribute('xxx', ns, 'xxx')

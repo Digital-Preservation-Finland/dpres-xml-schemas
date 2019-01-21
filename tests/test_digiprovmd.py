@@ -6,7 +6,7 @@ in mets_digiprovmd.sch.
 import xml.etree.ElementTree as ET
 import pytest
 from tests.common import SVRL_FAILED, parse_xml_file, \
-    parse_xml_string, NAMESPACES, fix_version_17, fix_version_14
+    parse_xml_string, NAMESPACES, fix_version_17
 
 SCHFILE = 'mets_digiprovmd.sch'
 
@@ -73,7 +73,6 @@ def test_mdtype_items_digiprovmd(schematron_fx, mdtype, othermdtype,
     :mdtypeversion: MDTYPEVERSION attribute value
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    fix_version_14(root)
     elem_handler = root.find_element('digiprovMD', 'mets')
     elem_handler = elem_handler.find_element('mdWrap', 'mets')
     elem_handler.set_attribute('MDTYPE', 'mets', mdtype)
@@ -81,8 +80,8 @@ def test_mdtype_items_digiprovmd(schematron_fx, mdtype, othermdtype,
         elem_handler.set_attribute('OTHERMDTYPE', 'mets', othermdtype)
 
     # Test that all MDTYPEVERSIONs work with all specifications
-    for specversion in ['1.4', '1.4.1', '1.5.0', '1.6.0', '1.7.0']:
-        if specversion == '1.7.0':
+    for specversion in ['1.5.0', '1.6.0', '1.7.0', '1.7.1']:
+        if specversion in ['1.7.0', '1.7.1']:
             fix_version_17(root)
         else:
             root.set_attribute('CATALOG', 'fikdk', specversion)

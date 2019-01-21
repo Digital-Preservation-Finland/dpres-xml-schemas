@@ -17,7 +17,7 @@ from tests.common import SVRL_FIRED, SVRL_FAILED, parse_xml_file
      'mets', 'mets_valid_minimal.xml', 'mets_dmdsec.sch'),
     ([(None, 8, 0), ('digiprovMD', 8, 2), ('techMD', 8, 4),
       ('amdSec', 2, 2)], 'mets', 'mets_valid_minimal.xml', 'mets_amdsec.sch'),
-    ([(None, 6, 0), ('structMap', 2, 1)],
+    ([(None, 4, 0), ('structMap', 1, 0)],
      'mets', 'mets_valid_minimal.xml', 'mets_structmap.sch'),
     ([(None, 4, 0), ('techMD', 1, 1)],
      'mets', 'mets_valid_minimal.xml', 'mets_techmd.sch'),

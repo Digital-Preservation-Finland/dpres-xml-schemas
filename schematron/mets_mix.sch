@@ -41,7 +41,7 @@ Validates NISOIMG (MIX) metadata.
 		<sch:param name="context_element" value="mix:mix"/>
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_element" value="mix:ImageAssessmentMetadata"/>
-		<sch:param name="specifications" value="string('not: 1.4; 1.4.1; 1.5.0')"/>
+		<sch:param name="specifications" value="string('not: 1.5.0')"/>
 	</sch:pattern>
 
 	<sch:pattern id="mix_objectIdentifierType" is-a="required_element_pattern">
@@ -371,7 +371,7 @@ Validates NISOIMG (MIX) metadata.
 		<sch:param name="context_element" value="mix:PhotometricInterpretation"/>
 		<sch:param name="context_condition" value="normalize-space(./mix:colorSpace)='ICCLab' or normalize-space(./mix:colorSpace)='ICCBased'"/>
 		<sch:param name="required_element" value="mix:ColorProfile"/>
-		<sch:param name="specifications" value="string('not: 1.4; 1.4.1; 1.5.0')"/>
+		<sch:param name="specifications" value="string('not: 1.5.0')"/>
 	</sch:pattern>
 	<sch:pattern id="mix_IccProfile" is-a="required_element_pattern">
 		<sch:param name="context_element" value="mix:ColorProfile"/>

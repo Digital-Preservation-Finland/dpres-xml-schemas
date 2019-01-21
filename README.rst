@@ -100,9 +100,6 @@ Paths are described in relation to base path ./schema_catalogs/schemas/
 ./mods/mods.xsd
   MODS patch file for compatibility
 
-./textmd/textmd_kdk.xsd
-  For historical purposes related to specifications v. 1.4
-
 ./w3/xlink.xsd
   Xlink patch file for the schema catalog
 
@@ -192,27 +189,6 @@ Paths related to schematron are described in relation to base path ./schematron/
 ./iso_schematron_xslt1/*
   XSLT files for Schematron conversions
 
-./mets_addml.sch
-  Schematron schema for ADDML
-
-./mets_avmd.sch
-  Schematron schema for AudioMD and VideoMD
-
-./mets_ead3.sch
-  Schematron schema for EAD3
-
-./mets_internal.sch
-  Schematron schema for METS internal checks
-
-./mets_mdtype.sch
-  Schematron schema for metadata wrapping in METS
-
-./mets_mix.sch
-  Schematron schema for MIX
-
-./mets_mods.sch
-  Schematron schema for MODS
-
-./mets_premis.sch
-  Schematron schema for PREMIS
+./*.sch
+  Schematron schemas
 

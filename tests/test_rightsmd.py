@@ -4,7 +4,7 @@ in mets_rightsmd.sch.
 .. seealso:: mets_rightsmd.sch
 """
 from tests.common import SVRL_FAILED, SVRL_REPORT, parse_xml_file, \
-    parse_xml_string, NAMESPACES, fix_version_17, fix_version_14
+    parse_xml_string, NAMESPACES, fix_version_17
 
 SCHFILE = 'mets_rightsmd.sch'
 
@@ -25,42 +25,19 @@ def test_valid_complete_rightsmd(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 0
 
 
-def test_metsrights(schematron_fx):
-    """Test that METSRIGHTS in MDTYPE is allowed only in 1.4.
-
-    :schematron_fx: Schematron compile fixture
-    """
-    (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    fix_version_14(root)
-
-    # Add METSRIGHTS to current specification.
-    elem_handler = root.find_element('rightsMD', 'mets')
-    elem_handler = elem_handler.find_element('mdWrap', 'mets')
-    elem_handler.set_attribute('MDTYPE', 'mets', 'METSRIGHTS')
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 1
-
-    # Change version to 1.4
-    root.set_attribute('CATALOG', 'fikdk', '1.4')
-    root.set_attribute('SPECIFICATION', 'fikdk', '1.4')
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 0
-
-
 def test_mdtype_items_rightsmd(schematron_fx):
     """Test that all valid metadata types and their versions work properly.
 
     :schematron_fx: Schematron compile fixture
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    fix_version_14(root)
     elem_handler = root.find_element('rightsMD', 'mets')
     elem_handler = elem_handler.find_element('mdWrap', 'mets')
     elem_handler.set_attribute('MDTYPE', 'mets', 'PREMIS:RIGHTS')
 
     # Test that all MDTYPEVERSIONs work with all specifications
-    for specversion in ['1.4', '1.4.1', '1.5.0', '1.6.0', '1.7.0']:
-        if specversion == '1.7.0':
+    for specversion in ['1.5.0', '1.6.0', '1.7.0', '1.7.1']:
+        if specversion in ['1.7.0', '1.7.1']:
             fix_version_17(root)
         else:
             root.set_attribute('CATALOG', 'fikdk', specversion)

@@ -6,10 +6,10 @@
     <group xml:base="./schemas/">
 	  <rewriteURI uriStartString="http://www.loc.gov/standards/xlink/xlink.xsd" rewritePrefix="w3/xlink.xsd"/>
 	  <rewriteURI uriStartString="http://www.w3.org/1999/xlink.xsd" rewritePrefix="w3/xlink.xsd"/>
-	  <rewriteURI uriStartString="http://www.kdk.fi/standards/textmd/textmd.xsd" rewritePrefix="textmd/textmd_kdk.xsd"/>
 	  <rewriteURI uriStartString="http://www.loc.gov/standards/mods/v3/mods.xsd" rewritePrefix="mods/mods.xsd"/>
 	  <rewriteURI uriStartString="http://www.loc.gov/standards/mods/mods.xsd" rewritePrefix="mods/mods.xsd"/>
 	  <rewriteURI uriStartString="http://kdk.fi/standards/mets/mets.xsd" rewritePrefix="mets/mets.xsd"/>
+	  <rewriteURI uriStartString="http://digitalpreservation.fi/schemas/mets/mets.xsd" rewritePrefix="mets/mets.xsd"/>
 	  <rewriteURI uriStartString="http://www.loc.gov/standards/mets/mets.xsd" rewritePrefix="mets/mets.xsd"/>
 	</group>
     <nextCatalog catalog="./catalog_external.xml"/>

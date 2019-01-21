@@ -184,7 +184,7 @@ Validates PREMIS metadata.
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="charset_mimes" value="$mimes_require_charset"/>
 		<sch:param name="charset" value="$supported_charsets"/>
-		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
+		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
 	<!-- Message digest algorithm check -->

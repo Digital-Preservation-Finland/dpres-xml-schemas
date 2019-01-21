@@ -5,7 +5,7 @@ in mets_techmd.sch.
 """
 import pytest
 from tests.common import SVRL_FAILED, parse_xml_file, \
-    fix_version_17, fix_version_14
+    fix_version_17
 
 SCHFILE = 'mets_techmd.sch'
 
@@ -22,20 +22,6 @@ def test_valid_complete_techmd(schematron_fx):
 
     # Use new specification
     fix_version_17(root)
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 0
-
-
-def test_textmd_techmd(schematron_fx):
-    """Test that TEXTMD is still allowed.
-
-    :schematron_fx: Schematron compile fixture
-    """
-    (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    fix_version_14(root)
-    elem_handler = root.find_element('techMD', 'mets')
-    elem_handler = elem_handler.find_element('mdWrap', 'mets')
-    elem_handler.set_attribute('MDTYPE', 'mets', 'TEXTMD')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
@@ -57,7 +43,6 @@ def test_mdtype_items_techmd(schematron_fx, mdtype, othermdtype,
     :mdtypeversion: MDTYPEVERSION attribute value
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    fix_version_14(root)
     elem_handler = root.find_element('techMD', 'mets')
     elem_handler = elem_handler.find_element('mdWrap', 'mets')
     elem_handler.set_attribute('MDTYPE', 'mets', mdtype)
@@ -65,8 +50,8 @@ def test_mdtype_items_techmd(schematron_fx, mdtype, othermdtype,
         elem_handler.set_attribute('OTHERMDTYPE', 'mets', othermdtype)
 
     # Test that all MDTYPEVERSIONs work with all specifications
-    for specversion in ['1.4', '1.4.1', '1.5.0', '1.6.0', '1.7.0']:
-        if specversion == '1.7.0':
+    for specversion in ['1.5.0', '1.6.0', '1.7.0', '1.7.1']:
+        if specversion in ['1.7.0', '1.7.1']:
             fix_version_17(root)
         else:
             root.set_attribute('CATALOG', 'fikdk', specversion)

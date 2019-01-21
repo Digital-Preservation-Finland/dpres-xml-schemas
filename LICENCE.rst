@@ -31,9 +31,6 @@ Paths related to schema catalog are described in relation to base path ./schema_
 ./mods/mods.xsd
   | LGPLv3+
   | (c) CSC - IT Center for Science
-./textmd/textmd_kdk.xsd
-  | See license below.
-  | Edited from https://www.loc.gov/standards/textMD/textMD-v3.01a.xsd
 ./w3/xlink.xsd
   | Edited from W3 xlink and METS xlink
   | (c) World Wide Web Consortium
@@ -141,9 +138,12 @@ Paths related to schema catalog are described in relation to base path ./schema_
 SCHEMATRON SCHEMAS:
 +++++++++++++++++++
 
-./schematron
+./schematron/
   | LGPLv3+
   | (c) CSC - IT Center for Science
+./schematron/schematron-xslt1/
+  | MIT
+  | (c) 2004-2010 Rick Jellife and Academia Sinica Computing Centre, Taiwan
 
 OTHERS:
 +++++++

@@ -74,35 +74,35 @@ Validates METS techMD.
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:OBJECT'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2.2; 2.3')"/>
-		<sch:param name="specifications" value="string('not: 1.4.1; 1.4; 1.5.0')"/>
+		<sch:param name="specifications" value="string('not: 1.5.0')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_techMD_MDTYPEVERSION_values_MIX" is-a="required_values_attribute_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap"/>
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='NISOIMG'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2.0')"/>
-		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
+		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_techMD_MDTYPEVERSION_values_AudioMD" is-a="required_values_attribute_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap"/>
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='OTHER' and normalize-space(@OTHERMDTYPE)='AudioMD'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2.0')"/>
-		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
+		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_techMD_MDTYPEVERSION_values_VideoMD" is-a="required_values_attribute_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap"/>
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='OTHER' and normalize-space(@OTHERMDTYPE)='VideoMD'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2.0')"/>
-		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
+		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_techMD_MDTYPEVERSION_values_ADDML" is-a="required_values_attribute_pattern">
 		<sch:param name="context_element" value="mets:techMD/mets:mdWrap"/>
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='OTHER' and normalize-space(@OTHERMDTYPE)='ADDML'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('8.2; 8.3')"/>
-		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
+		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
         <!-- Known descriptive, rights, technical, or provenance metadata can not be used inside wrong section -->

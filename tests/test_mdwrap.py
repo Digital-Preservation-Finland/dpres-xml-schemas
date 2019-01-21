@@ -5,7 +5,7 @@ in mets_mdwrap.sch.
 """
 import pytest
 from tests.common import SVRL_FAILED, parse_xml_file, \
-    parse_xml_string, NAMESPACES, fix_version_17, fix_version_14
+    parse_xml_string, NAMESPACES, fix_version_17
 
 SCHFILE = 'mets_mdwrap.sch'
 
@@ -30,8 +30,8 @@ def test_valid_complete_mdwrap(schematron_fx):
     ('dmdSec', 'MARC', None, ['marcxml=1.2;marc=marc21',
                               'marcxml=1.2;marc=finmarc']),
     ('dmdSec', 'DC', None, ['1.1']),
-    ('dmdSec', 'MODS', None, ['3.6', '3.5', '3.4', '3.3', '3.2', '3.1',
-                              '3.0']),
+    ('dmdSec', 'MODS', None, ['3.7', '3.6', '3.5', '3.4', '3.3', '3.2',
+                              '3.1', '3.0']),
     ('dmdSec', 'EAD', None, ['2002']),
     ('dmdSec', 'EAC-CPF', None, ['2010']),
     ('dmdSec', 'LIDO', None, ['1.0']),
@@ -118,7 +118,6 @@ def test_othermdtype(schematron_fx, context):
     :context: METS section to be tested
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    fix_version_14(root)
 
     # OTHERMDTYPE and version can be anything
     elem_handler = root.find_element(context, 'mets')
@@ -134,21 +133,9 @@ def test_othermdtype(schematron_fx, context):
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
-    # Version is not mandatory in 1.4
-    root.set_attribute('CATALOG', 'fikdk', '1.4')
-    root.set_attribute('SPECIFICATION', 'fikdk', '1.4')
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 0
-
-    # OTHERMDTYPE is mandatory in 1.4
+    # OTHERMDTYPE is missing
     elem_handler.del_attribute('OTHERMDTYPE', 'mets')
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 2
-
-    # OTHERMDTYPE is (still) missing
     elem_handler.set_attribute('MDTYPEVERSION', 'mets', 'xxx')
-    root.set_attribute('CATALOG', 'fikdk', '1.5.0')
-    root.set_attribute('SPECIFICATION', 'fikdk', '1.5.0')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 2
 
@@ -177,7 +164,7 @@ def test_mandatory_items(schematron_fx):
     ('dmdSec', ['OTHER', 'EAD3', '1.0.0', 'ead', 'ead3']),
     ('dmdSec', ['LIDO', None, '1.0', 'lido', 'lido']),
     ('dmdSec', ['VRA', None, '4.0', 'vra', 'vra']),
-    ('dmdSec', ['MODS', None, '3.6', 'mods', 'mods']),
+    ('dmdSec', ['MODS', None, '3.7', 'mods', 'mods']),
     ('dmdSec', ['EAC-CPF', None, '2010', 'eac-cpf', 'eac']),
     ('dmdSec', ['DDI', None, '3.2', 'instance', 'ddilc32']),
     ('dmdSec', ['DDI', None, '3.1', 'instance', 'ddilc31']),
@@ -186,7 +173,6 @@ def test_mandatory_items(schematron_fx):
     ('dmdSec', ['OTHER', 'DATACITE', '4.0', 'resource', 'datacite']),
     ('techMD', ['PREMIS:OBJECT', None, '2.3', 'object', 'premis']),
     ('techMD', ['NISOIMG', None, '2.0', 'mix', 'mix']),
-    ('techMD', ['TEXTMD', None, '3.01a', 'textMD', 'textmd']),
     ('techMD', ['OTHER', 'ADDML', '8.3', 'addml', 'addml']),
     ('techMD', ['OTHER', 'AudioMD', '2.0', 'AUDIOMD', 'audiomd']),
     ('techMD', ['OTHER', 'VideoMD', '2.0', 'VIDEOMD', 'videomd']),
@@ -210,7 +196,7 @@ def test_mdtype_namespace(schematron_fx, section, mdinfo):
               xmlns:mods="%(mods)s" xmlns:eac="%(eac)s"
               xmlns:ddilc32="%(ddilc32)s" xmlns:ddilc31="%(ddilc31)s"
               xmlns:ddicb25="%(ddicb25)s" xmlns:ddicb21="%(ddicb21)s"
-              xmlns:mix="%(mix)s" xmlns:textmd="%(textmd)s"
+              xmlns:mix="%(mix)s"
               xmlns:addml="%(addml)s" xmlns:audiomd="%(audiomd)s"
               xmlns:videomd="%(videomd)s">
                <mets:dmdSec><mets:mdWrap MDTYPE='DC' MDTYPEVERSION='1.1'>
@@ -290,52 +276,6 @@ def test_mdtype_namespace(schematron_fx, section, mdinfo):
                 '%(mets)s'+othersection) % NAMESPACES
             svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
             assert svrl.count(SVRL_FAILED) == 1
-
-
-def test_textmd(schematron_fx):
-    """When TEXTMD is used, the KDK version is required in 1.4, but standard
-    version in versions 1.5.0 (and later). They both have different namespaces.
-    Test namespace issue, when TEXMD is used.
-
-    :schematron_fx: Schematron compile fixture
-    """
-    xml = '''<mets:mets fi:CATALOG="1.5.0" xmlns:mets="%(mets)s"
-             xmlns:textmd="%(textmd)s" xmlns:premis="%(premis)s"
-             xmlns:fi="%(fikdk)s" xmlns:dc="%(dc)s">
-               <mets:dmdSec><mets:mdWrap MDTYPE="DC" MDTYPEVERSION="1.1">
-                 <mets:xmlData>
-                 <dc:subject/></mets:xmlData></mets:mdWrap></mets:dmdSec>
-               <mets:amdSec>
-               <mets:techMD>
-                 <mets:mdWrap MDTYPE="PREMIS:OBJECT" MDTYPEVERSION="2.3">
-                 <mets:xmlData><premis:object/></mets:xmlData></mets:mdWrap>
-               </mets:techMD>
-               <mets:techMD>
-                 <mets:mdWrap MDTYPE="TEXTMD" MDTYPEVERSION="3.01a">
-                 <mets:xmlData><textmd:textMD/>
-               </mets:xmlData></mets:mdWrap></mets:techMD>
-               <mets:digiprovMD>
-                 <mets:mdWrap MDTYPE="PREMIS:EVENT" MDTYPEVERSION="2.3">
-                 <mets:xmlData><premis:event/></mets:xmlData></mets:mdWrap>
-             </mets:digiprovMD></mets:amdSec></mets:mets>''' % NAMESPACES
-    (mets, root) = parse_xml_string(xml)
-
-    # Standard version works in specification 1.5.0
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 0
-
-    # KDK version fails in specification 1.5.0
-    elem_handler = root.find_element('mdWrap[@MDTYPE="TEXTMD"]', 'mets')
-    elem_handler = elem_handler.find_element('xmlData', 'mets')
-    elem_handler.clear()
-    elem_handler.set_element('textMD', 'textmd_kdk')
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 1
-
-    # KDK version works in specification 1.4
-    root.set_attribute('CATALOG', 'fikdk', '1.4')
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 0
 
 
 def test_rightsstatement_failure(schematron_fx):

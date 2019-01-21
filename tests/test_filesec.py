@@ -28,7 +28,7 @@ def test_valid_complete_filesec(schematron_fx):
 
 
 @pytest.mark.parametrize("specification, failed", [
-    ('1.4', 1), ('1.5.0', 1), ('1.6.0', 0), ('1.7.0', 0)
+    ('1.5.0', 1), ('1.6.0', 0), ('1.7.1', 0)
 ])
 def test_streams_catalogs(schematron_fx, specification, failed):
     """Test that streams are disallowed in old catalog versions.
@@ -38,10 +38,8 @@ def test_streams_catalogs(schematron_fx, specification, failed):
     :failed: Number of failures
     """
     (mets, root) = parse_xml_file('mets_video_container.xml')
-    if specification == '1.7.0':
+    if specification == '1.7.1':
         fix_version_17(root)
-        svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-        assert svrl.count(SVRL_FAILED) == failed
     else:
         root.set_attribute('CATALOG', 'fikdk', specification)
         root.set_attribute('SPECIFICATION', 'fikdk', specification)
@@ -156,32 +154,27 @@ def test_mix_with_tiff_dpx(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 0
 
 
-@pytest.mark.parametrize("fileformat, mdinfo, version", [
-    ('audio/x-aiff', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd'], None),
-    ('audio/x-wav', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd'], None),
-    ('audio/flac', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd'], None),
-    ('audio/mp4', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd'], None),
-    ('audio/mpeg', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd'], None),
-    ('audio/x-ms-wma', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd'], None),
-    ('video/jpeg2000', ['OTHER', 'VideoMD', 'VIDEOMD', 'videomd'], None),
-    ('video/mp4', ['OTHER', 'VideoMD', 'VIDEOMD', 'videomd'], None),
-    ('video/dv', ['OTHER', 'VideoMD', 'VIDEOMD', 'videomd'], None),
-    ('video/mpeg', ['OTHER', 'VideoMD', 'VIDEOMD', 'videomd'], None),
-    ('video/x-ms-wmv', ['OTHER', 'VideoMD', 'VIDEOMD', 'videomd'], None),
-    ('image/x-dpx', ['NISOIMG', None, 'mix', 'mix'], None),
-    ('image/tiff', ['NISOIMG', None, 'mix', 'mix'], None),
-    ('image/jpeg', ['NISOIMG', None, 'mix', 'mix'], None),
-    ('image/jp2', ['NISOIMG', None, 'mix', 'mix'], None),
-    ('image/png', ['NISOIMG', None, 'mix', 'mix'], None),
-    ('image/gif', ['NISOIMG', None, 'mix', 'mix'], None),
-    ('text/csv', ['OTHER', 'ADDML', 'addml', 'addml'], None),
-    ('text/plain', ['TEXTMD', None, 'textMD', 'textmd_kdk'], ['1.4']),
-    ('text/xml', ['TEXTMD', None, 'textMD', 'textmd_kdk'], ['1.4']),
-    ('text/html', ['TEXTMD', None, 'textMD', 'textmd_kdk'], ['1.4']),
-    ('application/xhtml+xml', ['TEXTMD', None, 'textMD', 'textmd_kdk'],
-     ['1.4'])
+@pytest.mark.parametrize("fileformat, mdinfo", [
+    ('audio/x-aiff', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd']),
+    ('audio/x-wav', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd']),
+    ('audio/flac', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd']),
+    ('audio/mp4', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd']),
+    ('audio/mpeg', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd']),
+    ('audio/x-ms-wma', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd']),
+    ('video/jpeg2000', ['OTHER', 'VideoMD', 'VIDEOMD', 'videomd']),
+    ('video/mp4', ['OTHER', 'VideoMD', 'VIDEOMD', 'videomd']),
+    ('video/dv', ['OTHER', 'VideoMD', 'VIDEOMD', 'videomd']),
+    ('video/mpeg', ['OTHER', 'VideoMD', 'VIDEOMD', 'videomd']),
+    ('video/x-ms-wmv', ['OTHER', 'VideoMD', 'VIDEOMD', 'videomd']),
+    ('image/x-dpx', ['NISOIMG', None, 'mix', 'mix']),
+    ('image/tiff', ['NISOIMG', None, 'mix', 'mix']),
+    ('image/jpeg', ['NISOIMG', None, 'mix', 'mix']),
+    ('image/jp2', ['NISOIMG', None, 'mix', 'mix']),
+    ('image/png', ['NISOIMG', None, 'mix', 'mix']),
+    ('image/gif', ['NISOIMG', None, 'mix', 'mix']),
+    ('text/csv', ['OTHER', 'ADDML', 'addml', 'addml'])
 ])
-def test_fileformat_metadata(schematron_fx, fileformat, mdinfo, version):
+def test_fileformat_metadata(schematron_fx, fileformat, mdinfo):
     """Some file formats require additonal metadata. Test that if such file
     format is used, additional metadat is required.
 
@@ -189,12 +182,10 @@ def test_fileformat_metadata(schematron_fx, fileformat, mdinfo, version):
     :fileformat: File format
     :mdinfo: Working metadata info: [MDTYPE, OTHERMDTYPE, root element in the
              metadata section, namespace of the root]
-    :version: Applied only in given specifications. If None, applied to all
-              specifications.
     """
     xml = '''<mets:mets fi:CATALOG="1.6.0" xmlns:mets="%(mets)s"
              xmlns:premis="%(premis)s" xmlns:fi="%(fikdk)s" xmlns:dc="%(dc)s"
-             xmlns:mix="%(mix)s" xmlns:textmd_kdk="%(textmd_kdk)s"
+             xmlns:mix="%(mix)s"
              xmlns:addml="%(addml)s" xmlns:audiomd="%(audiomd)s"
              xmlns:videomd="%(videomd)s" xmlns:xsi="%(xsi)s"
              xmlns:xlink="%(xlink)s">
@@ -233,8 +224,6 @@ def test_fileformat_metadata(schematron_fx, fileformat, mdinfo, version):
     elem_handler.set_attribute('MDTYPE', 'mets', mdinfo[0])
     if mdinfo[1] is not None:
         elem_handler.set_attribute('OTHERMDTYPE', 'mets', mdinfo[1])
-    if version is not None:
-        root.set_attribute('CATALOG', 'fikdk', version[0])
 
     extra = 0
     if fileformat in ['image/x-dpx', 'image/tiff']:
@@ -265,15 +254,14 @@ def test_fileformat_metadata(schematron_fx, fileformat, mdinfo, version):
 
     # Remove link to metadata section, and have failure
     elem_section.set_attribute('ID', 'mets', 'tech_nolink')
-    allversions = ['1.4', '1.4.1', '1.5.0', '1.6.0', '1.7.0']
+    allversions = ['1.5.0', '1.6.0', '1.7.0', '1.7.1']
     for testversion in allversions:
-        if testversion == '1.7.0':
+        if testversion in ['1.7.0', '1.7.1']:
             fix_version_17(root)
         else:
             root.set_attribute('CATALOG', 'fikdk', testversion)
         svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-        if version is None or testversion in version:
-            assert svrl.count(SVRL_FAILED) == 2 + extra
+        assert svrl.count(SVRL_FAILED) == 2 + extra
 
 
 def test_nisoimg_vs_othermdtype(schematron_fx):
@@ -284,7 +272,7 @@ def test_nisoimg_vs_othermdtype(schematron_fx):
     """
     xml = '''<mets:mets fi:CATALOG="1.6.0" xmlns:mets="%(mets)s"
              xmlns:premis="%(premis)s" xmlns:fi="%(fikdk)s" xmlns:dc="%(dc)s"
-             xmlns:mix="%(mix)s" xmlns:textmd_kdk="%(textmd_kdk)s"
+             xmlns:mix="%(mix)s"
              xmlns:addml="%(addml)s" xmlns:audiomd="%(audiomd)s"
              xmlns:videomd="%(videomd)s" xmlns:xsi="%(xsi)s"
              xmlns:xlink="%(xlink)s">
@@ -440,8 +428,8 @@ def test_arbitrary_attributes_filesec(schematron_fx, context):
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
     elem_handler = root.find_element(context, 'mets')
-    for spec in [None, '1.7.0']:
-        if spec == '1.7.0':
+    for spec in [None, '1.7.1']:
+        if spec == '1.7.1':
             fix_version_17(root)
         for ns in ['fi', 'fikdk', 'dc']:
             elem_handler.set_attribute('xxx', ns, 'xxx')
@@ -450,26 +438,19 @@ def test_arbitrary_attributes_filesec(schematron_fx, context):
             elem_handler.del_attribute('xxx', ns)
 
 
-@pytest.mark.parametrize("specification, check_report, check_error", [
-    ('1.5.0', 1, 0), ('1.4', 0, 1)
-])
-def test_native(schematron_fx, specification, check_report, check_error):
+def test_native(schematron_fx):
     """Test the native file case. Native file requires a migration event to
     a recommended/acceptable file format. Here we test various cases related to
     native files.
 
     :schematron_fx: Schematron compile fixture
-    :specification: Used specification sa string
-    :check_error: 1 natives are disallowed, 0 otherwise
-    :check_report: 1 native check done with specification, 0 otherwise
     """
     (mets, root) = parse_xml_file('mets_valid_native.xml')
 
     # Working case
-    root.set_attribute('CATALOG', 'fikdk', specification)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == check_error
-    assert svrl.count(SVRL_REPORT) == check_report
+    assert svrl.count(SVRL_FAILED) == 0
+    assert svrl.count(SVRL_REPORT) == 1
 
     # Make required migration event to something else
     elem_handler = root.find_element('eventType', 'premis')

@@ -57,19 +57,19 @@ Validates METS amdSec.
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_attribute1" value="@CREATED"/>
 		<sch:param name="required_attribute2" value="@fi:CREATED"/>
-		<sch:param name="specifications" value="string('not: 1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+		<sch:param name="specifications" value="string('not: 1.5.0; 1.6.0; 1.6.1')"/>
 	</sch:pattern>
         <sch:pattern id="mets_amdSec_PID" is-a="required_attribute_pattern">
                 <sch:param name="context_element" value="mets:amdSec/*"/>
                 <sch:param name="context_condition" value="@fi:PIDTYPE"/>
                 <sch:param name="required_attribute" value="@fi:PID"/>
-                <sch:param name="specifications" value="string('not: 1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+                <sch:param name="specifications" value="string('not: 1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
         <sch:pattern id="mets_amdSec_PIDTYPE" is-a="required_attribute_pattern">
                 <sch:param name="context_element" value="mets:amdSec/*"/>
                 <sch:param name="context_condition" value="@fi:PID"/>
                 <sch:param name="required_attribute" value="@fi:PIDTYPE"/>
-                <sch:param name="specifications" value="string('not: 1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+                <sch:param name="specifications" value="string('not: 1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
 
 	<!-- METS internal linking, cross-check part 2: From target to link -->
@@ -103,18 +103,18 @@ Validates METS amdSec.
                 <sch:param name="context_condition" value="true()"/>
                 <sch:param name="required_attribute1" value="@CREATED"/>
                 <sch:param name="required_attribute2" value="@fikdk:CREATED"/>
-                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+                <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
         <sch:pattern id="mets_amdSec_PID_old" is-a="required_attribute_pattern">
                 <sch:param name="context_element" value="mets:amdSec/*"/>
                 <sch:param name="context_condition" value="@fikdk:PIDTYPE"/>
                 <sch:param name="required_attribute" value="@fikdk:PID"/>
-                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+                <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
         <sch:pattern id="mets_amdSec_PIDTYPE_old" is-a="required_attribute_pattern">
                 <sch:param name="context_element" value="mets:amdSec/*"/>
                 <sch:param name="context_condition" value="@fikdk:PID"/>
                 <sch:param name="required_attribute" value="@fikdk:PIDTYPE"/>
-                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+                <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
 </sch:schema>

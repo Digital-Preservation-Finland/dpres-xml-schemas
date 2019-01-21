@@ -20,8 +20,6 @@ Validates METS digiprovMD.
         <sch:ns prefix="xml" uri="https://www.w3.org/XML/1998/namespace"/>
         <sch:ns prefix="premis" uri="info:lc/xmlns/premis-v2"/>
         <sch:ns prefix="mix" uri="http://www.loc.gov/mix/v20"/>
-        <sch:ns prefix="textmd" uri="info:lc/xmlns/textMD-v3"/>
-        <sch:ns prefix="textmd_kdk" uri="http://www.kdk.fi/standards/textmd"/>
         <sch:ns prefix="addml" uri="http://www.arkivverket.no/standarder/addml"/>
         <sch:ns prefix="audiomd" uri="http://www.loc.gov/audioMD/"/>
         <sch:ns prefix="videomd" uri="http://www.loc.gov/videoMD/"/>
@@ -71,21 +69,21 @@ Validates METS digiprovMD.
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:OBJECT'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2.2; 2.3')"/>
-		<sch:param name="specifications" value="string('not: 1.4.1; 1.4; 1.5.0')"/>
+		<sch:param name="specifications" value="string('not: 1.5.0')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_digiprovMD_MDTYPEVERSION_values_EVENT" is-a="required_values_attribute_pattern">
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:EVENT'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2.2; 2.3')"/>
-		<sch:param name="specifications" value="string('not: 1.4.1; 1.4; 1.5.0')"/>
+		<sch:param name="specifications" value="string('not: 1.5.0')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_digiprovMD_MDTYPEVERSION_values_AGENT" is-a="required_values_attribute_pattern">
 		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:AGENT'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2.2; 2.3')"/>
-		<sch:param name="specifications" value="string('not: 1.4.1; 1.4; 1.5.0')"/>
+		<sch:param name="specifications" value="string('not: 1.5.0')"/>
 	</sch:pattern>
 
 	<!-- mdRef attributes -->
@@ -173,7 +171,7 @@ Validates METS digiprovMD.
         <sch:pattern id="digiprovmd_no_tech" is-a="disallowed_element_pattern">
                 <sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap/mets:xmlData"/>
                 <sch:param name="context_condition" value="true()"/>
-                <sch:param name="disallowed_element" value="addml:* or textmd:* or textmd_kdk:* or mix:* or audiomd:* or videomd:*"/>
+                <sch:param name="disallowed_element" value="addml:* or mix:* or audiomd:* or videomd:*"/>
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
         <sch:pattern id="digiprovmd_only_representation" is-a="disallowed_element_pattern">
@@ -221,6 +219,6 @@ Validates METS digiprovMD.
                 <sch:param name="context_condition" value="/mets:mets/@PROFILE='http://www.kdk.fi/kdk-mets-profile'"/>
                 <sch:param name="context_attribute" value="@OTHERMDTYPE"/>
                 <sch:param name="valid_values" value="string('KDKPreservationPlan')"/>
-                <sch:param name="specifications" value="string('1.4.1; 1.4; 1.5.0; 1.6.0; 1.6.1')"/>
+                <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
 </sch:schema>

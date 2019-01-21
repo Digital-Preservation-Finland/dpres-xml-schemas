@@ -19,8 +19,6 @@ NAMESPACES = {'mets': 'http://www.loc.gov/METS/',
               'premis': 'info:lc/xmlns/premis-v2',
               'xsi': 'http://www.w3.org/2001/XMLSchema-instance',
               'mix': 'http://www.loc.gov/mix/v20',
-              'textmd': 'info:lc/xmlns/textMD-v3',
-              'textmd_kdk': 'http://www.kdk.fi/standards/textmd',
               'addml': 'http://www.arkivverket.no/standarder/addml',
               'audiomd': 'http://www.loc.gov/audioMD/',
               'videomd': 'http://www.loc.gov/videoMD/',
@@ -82,22 +80,9 @@ def add_containers(root, container_path):
     return (new_tree, new_root)
 
 
-def fix_version_14(root):
-    """PID needs to be removed from structMap and CONTENTID from root for
-    catalog version 1.4 to make the tree valid. This is used in various
-    tests below.
-
-    :root: METS root element
-    """
-    elem_handler = root.find_element('structMap', 'mets')
-    elem_handler.del_attribute('PID', 'fikdk')
-    elem_handler.del_attribute('PIDTYPE', 'fikdk')
-    root.del_attribute('CONTENTID', 'fikdk')
-
-
 def fix_version_17(root):
-    """Local namespaces need to be changed for catalog version 1.4 to make
-    the tree valid. This is used in various tests below.
+    """Local namespaces need to be changed for catalog version 1.7.1 to make
+    the tree valid. This is used in various tests.
 
     :root: METS root element
     """
@@ -124,7 +109,7 @@ def fix_version_17(root):
     root.set_attribute(
         'PROFILE', 'mets',
         'http://digitalpreservation.fi/mets-profiles/cultural-heritage')
-    root.set_attribute('CATALOG', 'fi', '1.7.0')
-    root.set_attribute('SPECIFICATION', 'fi', '1.7.0')
+    root.set_attribute('CATALOG', 'fi', '1.7.1')
+    root.set_attribute('SPECIFICATION', 'fi', '1.7.1')
     root.set_attribute('CONTRACTID', 'fi',
                        'urn:uuid:c5a193b3-bb63-4348-bd25-6c20bb72264b')

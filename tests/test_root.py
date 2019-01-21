@@ -6,7 +6,7 @@ rules located in mets_mdtype.sch.
 
 import pytest
 from tests.common import SVRL_FAILED, SVRL_REPORT, NAMESPACES, \
-    parse_xml_file, parse_xml_string, fix_version_17, fix_version_14
+    parse_xml_file, parse_xml_string, fix_version_17
 
 SCHFILE = 'mets_root.sch'
 
@@ -46,16 +46,17 @@ def test_catalogs(schematron_fx):
     :schematron_fx: Schematron compile fixture
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    fix_version_14(root)
 
     # Conflict between fi:CATALOG and fi:SPECIFICATION
-    root.set_attribute('CATALOG', 'fikdk', '1.4')
+    root.set_attribute('CATALOG', 'fikdk', '1.5.0')
+    root.del_attribute('CONTENTID', 'fikdk')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+
     assert svrl.count(SVRL_FAILED) == 1
     assert svrl.count(SVRL_REPORT) == 1
 
-    # Old specification
-    root.set_attribute('SPECIFICATION', 'fikdk', '1.4')
+    # Deprecated specification
+    root.set_attribute('SPECIFICATION', 'fikdk', '1.5.0')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
     assert svrl.count(SVRL_REPORT) == 1
@@ -77,7 +78,7 @@ def test_mandatory_sections_root(schematron_fx):
 
 
 @pytest.mark.parametrize("specification, failed", [
-    ('1.4', 2), ('1.5.0', 2), ('1.6.0', 1), ('1.7.0', 0)
+    ('1.5.0', 2), ('1.6.0', 1), ('1.7.1', 0)
 ])
 def test_new_mets_attributes_root(schematron_fx, specification, failed):
     """Test that CONTENTID, and CONTRACTID are
@@ -88,7 +89,7 @@ def test_new_mets_attributes_root(schematron_fx, specification, failed):
     :failed: Number of failures
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    if specification == '1.7.0':
+    if specification == '1.7.1':
         fix_version_17(root)
         svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
         assert svrl.count(SVRL_FAILED) == failed
@@ -103,8 +104,7 @@ def test_new_mets_attributes_root(schematron_fx, specification, failed):
 def test_identifiers_unique(schematron_fx):
     """Test that check for PREMIS identifiers are unique works. We give 8
     PREMIS sections with same identifiers, and loop those unique one by one.
-    Finally, when all are unique, no errors are expected. No errors are
-    expected in any case, if the specification is 1.4.
+    Finally, when all are unique, no errors are expected.
 
     :schematron_fx: Schematron compile fixture
     """
@@ -131,7 +131,7 @@ def test_identifiers_unique(schematron_fx):
                  <premis:agentIdentifierValue>xxx</premis:agentIdentifierValue>
                </premis:agentIdentifier></premis:agent></mets:xmlData></mets:mdWrap>
              </mets:digiprovMD>'''
-    head = '''<mets:mets fi:CATALOG="1.4" xmlns:mets="%(mets)s"
+    head = '''<mets:mets fi:CATALOG="1.5.0" xmlns:mets="%(mets)s"
                xmlns:premis="%(premis)s" xmlns:fi="%(fikdk)s"
                PROFILE="http://www.kdk.fi/kdk-mets-profile" OBJID="bbb">
               <mets:metsHdr/><mets:dmdSec/><mets:amdSec>''' \
@@ -139,12 +139,7 @@ def test_identifiers_unique(schematron_fx):
     tail = '''</mets:amdSec><mets:structMap/></mets:mets>'''
     (mets, root) = parse_xml_string(head+xml+xml+tail)
 
-    # No errors with specification 1.4
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 0
-
     # Errors with specification 1.5.0, we fix the identifiers one by one.
-    root.set_attribute('CATALOG', 'fikdk', '1.5.0')
     number = 0
     for idtag in ['objectIdentifierValue', 'rightsStatementIdentifierValue',
                   'eventIdentifierValue', 'agentIdentifierValue']:
@@ -310,8 +305,8 @@ def test_arbitrary_attributes_root(schematron_fx):
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
     elem_handler = root.find_element('mets', 'mets')
-    for spec in [None, '1.7.0']:
-        if spec == '1.7.0':
+    for spec in [None, '1.7.1']:
+        if spec == '1.7.1':
             fix_version_17(root)
         for ns in ['fi', 'fikdk', 'dc']:
             elem_handler.set_attribute('xxx', ns, 'xxx')

@@ -61,34 +61,21 @@ Validates METS structMap.
         </sch:pattern>
 
 	<!-- StructMap div and attributes -->
-	<sch:pattern id="mets_structMap_div" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:structMap"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="required_element" value="mets:div"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_structMap_div_max" is-a="required_max_elements_pattern">
-		<sch:param name="context_element" value="mets:structMap"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="required_element" value="mets:div"/>
-		<sch:param name="num" value="1"/>
-		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
-	</sch:pattern>
         <sch:pattern id="mets_structMap_PID" is-a="required_attribute_pattern">
                 <sch:param name="context_element" value="mets:structMap"/>
                 <sch:param name="context_condition" value="@fi:PIDTYPE"/>
                 <sch:param name="required_attribute" value="@fi:PID"/>
-                <sch:param name="specifications" value="string('not: 1.4.1; 1.4; 1.5.0; 1.6.0; 1.6.1')"/>
+                <sch:param name="specifications" value="string('not: 1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
         <sch:pattern id="mets_structMap_PIDTYPE" is-a="required_attribute_pattern">
                 <sch:param name="context_element" value="mets:structMap"/>
                 <sch:param name="context_condition" value="@fi:PID"/>
                 <sch:param name="required_attribute" value="@fi:PIDTYPE"/>
-                <sch:param name="specifications" value="string('not: 1.4.1; 1.4; 1.5.0; 1.6.0; 1.6.1')"/>
+                <sch:param name="specifications" value="string('not: 1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
 	<sch:pattern id="mets_div_TYPE" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:div"/>
-		<sch:param name="context_condition" value="count(../mets:div)=1 or ..=./mets:div"/>
+		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="required_attribute" value="@TYPE"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
@@ -182,18 +169,6 @@ Validates METS structMap.
         </sch:pattern>
 
 	<!-- PIDTYPE and PID in old specifications -->
-        <sch:pattern id="mets14_structMap_PID" is-a="disallowed_attribute_pattern">
-                <sch:param name="context_element" value="mets:structMap"/>
-                <sch:param name="context_condition" value="true()"/>
-                <sch:param name="disallowed_attribute" value="@fikdk:PID"/>
-                <sch:param name="specifications" value="string('1.4.1; 1.4')"/>
-        </sch:pattern>
-        <sch:pattern id="mets14_structMap_PIDTYPE" is-a="disallowed_attribute_pattern">
-                <sch:param name="context_element" value="mets:structMap"/>
-                <sch:param name="context_condition" value="true()"/>
-                <sch:param name="disallowed_attribute" value="@fikdk:PIDTYPE"/>
-                <sch:param name="specifications" value="string('1.4.1; 1.4')"/>
-        </sch:pattern>
         <sch:pattern id="mets_structMap_PID_old" is-a="required_attribute_pattern">
                 <sch:param name="context_element" value="mets:structMap"/>
                 <sch:param name="context_condition" value="@fikdk:PIDTYPE"/>

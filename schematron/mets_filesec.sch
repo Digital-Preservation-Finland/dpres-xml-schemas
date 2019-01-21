@@ -19,7 +19,6 @@ Validates METS fileSec.
 	<sch:ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
         <sch:ns prefix="xml" uri="https://www.w3.org/XML/1998/namespace"/>
         <sch:ns prefix="mix" uri="http://www.loc.gov/mix/v20"/>
-        <sch:ns prefix="textmd_kdk" uri="http://www.kdk.fi/standards/textmd"/>
         <sch:ns prefix="addml" uri="http://www.arkivverket.no/standarder/addml"/>
         <sch:ns prefix="audiomd" uri="http://www.loc.gov/audioMD/"/>
         <sch:ns prefix="videomd" uri="http://www.loc.gov/videoMD/"/>
@@ -37,7 +36,6 @@ Validates METS fileSec.
         <sch:let name="addml_types" value="string('text/csv')"/>
         <sch:let name="audiomd_types" value="string('audio/x-aiff audio/x-wave audio/flac audio/mp4 audio/x-wav audio/mpeg audio/x-ms-wma')"/>
         <sch:let name="mix_types" value="string('image/tiff image/jpeg image/jp2 image/png image/gif image/x-dpx')"/>
-        <sch:let name="textmd_types" value="string('application/xhtml+xml text/html text/xml text/plain')"/>
         <sch:let name="videomd_types" value="string('video/jpeg2000 video/mp4 video/dv video/mpeg video/x-ms-wmv')"/>
 
         <!-- techmd elements -->
@@ -49,7 +47,6 @@ Validates METS fileSec.
         <sch:let name="addml_mdids" value="$techmd[normalize-space(./mets:mdWrap/@OTHERMDTYPE)='ADDML' and ./mets:mdWrap/mets:xmlData/addml:*]/@ID"/>
         <sch:let name="audiomd_mdids" value="$techmd[normalize-space(./mets:mdWrap/@OTHERMDTYPE)='AudioMD' and ./mets:mdWrap/mets:xmlData/audiomd:*]/@ID"/>
         <sch:let name="mix_mdids" value="$techmd[normalize-space(./mets:mdWrap/@MDTYPE)='NISOIMG' and ./mets:mdWrap/mets:xmlData/mix:*]/@ID"/>
-        <sch:let name="textmd14_mdids" value="$techmd[normalize-space(./mets:mdWrap/@MDTYPE)='TEXTMD' and ./mets:mdWrap/mets:xmlData/textmd_kdk:*]/@ID"/>
         <sch:let name="videomd_mdids" value="$techmd[normalize-space(./mets:mdWrap/@OTHERMDTYPE)='VideoMD' and ./mets:mdWrap/mets:xmlData/videomd:*]/@ID"/>
 
 	<!-- PREMIS object ids of different file format types -->
@@ -57,11 +54,10 @@ Validates METS fileSec.
         <sch:let name="audiomd_fileid" value="$premis_file_id[contains(concat(' ', $audiomd_types, ' '), concat(' ', normalize-space(../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName), ' '))]"/>
         <sch:let name="audiomd_fileid_stream" value="$premis_stream_id[contains(concat(' ', $audiomd_types, ' '), concat(' ', normalize-space(../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName), ' '))]"/>
         <sch:let name="mix_fileid" value="$premis_file_id[contains(concat(' ', $mix_types, ' '), concat(' ', normalize-space(../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName), ' '))]"/>
-        <sch:let name="textmd_fileid" value="$premis_file_id[contains(concat(' ', $textmd_types, ' '), concat(' ', normalize-space(../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName), ' '))]"/>
         <sch:let name="videomd_fileid" value="$premis_file_id[contains(concat(' ', $videomd_types, ' '), concat(' ', normalize-space(../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName), ' '))]"/>
         <sch:let name="videomd_fileid_stream" value="$premis_stream_id[contains(concat(' ', $videomd_types, ' '), concat(' ', normalize-space(../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName), ' '))]"/>
 
-	<!-- Sectoin ids of different requirements -->
+	<!-- Section ids of different requirements -->
         <sch:let name="csv_fileid" value="$addml_fileid[../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName='text/csv']"/>
         <sch:let name="jp2_fileid" value="$mix_fileid[../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName='image/jp2']"/>
         <sch:let name="not_jp2_fileid" value="$premis_file_id[../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName!='image/jp2']"/>
@@ -84,8 +80,6 @@ Validates METS fileSec.
         <sch:let name="not_jp2_countfiles" value="count($not_jp2_fileid)"/>
         <sch:let name="premis_file_count" value="count($premis_file_id)"/>
         <sch:let name="premis_stream_count" value="count($premis_stream_id)"/>
-        <sch:let name="textmd14_countmd" value="count($textmd14_mdids)"/>
-        <sch:let name="textmd_countfiles" value="count($textmd_fileid)"/>
         <sch:let name="tiff_countfiles" value="count($tiff_fileid)"/>
         <sch:let name="tiff_countmix" value="count($tiff_mixids)"/>
         <sch:let name="videomd_countfiles" value="count($videomd_fileid)"/>
@@ -263,7 +257,7 @@ Validates METS fileSec.
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
                         <sch:let name="countfilescomb_premis_stream" value="count(sets:distinct(exsl:node-set($premis_stream_id) | str:tokenize($admids, ' ')))"/>
                         <sch:assert test="(($premis_stream_count+$countadm) &gt; $countfilescomb_premis_stream)
-			or contains(' 1.4 1.4.1 1.5.0 ', concat(' ', $given_specification,' '))">
+			or contains(' 1.5.0 ', concat(' ', $given_specification,' '))">
                                 Linking between PREMIS:OBJECT metadata and stream in file '<sch:value-of select="../mets:FLocat/@xlink:href"/>' is required.
                         </sch:assert>
                 </sch:rule>
@@ -278,7 +272,7 @@ Validates METS fileSec.
                         <sch:let name="countfilescomb_audio_stream" value="count(sets:distinct(exsl:node-set($audiomd_fileid_stream) | str:tokenize($admids, ' ')))"/>
                         <sch:let name="countmdcomb_audio_stream" value="count(sets:distinct(exsl:node-set($audiomd_mdids) | str:tokenize($admids, ' ')))"/>
                         <sch:assert test="(($audiomd_countfiles_stream+$countadm)=$countfilescomb_audio_stream) or not(($audiomd_countmd+$countadm)=$countmdcomb_audio_stream)
-                        or contains(' 1.4 1.4.1 1.5.0 ', concat(' ', $given_specification,' '))">
+                        or contains(' 1.5.0 ', concat(' ', $given_specification,' '))">
                                 Linking between AudioMD metadata and stream in file '<sch:value-of select="../mets:FLocat/@xlink:href"/>' is required.
                         </sch:assert>
                 </sch:rule>
@@ -291,7 +285,7 @@ Validates METS fileSec.
                         <sch:let name="countfilescomb_video_stream" value="count(sets:distinct(exsl:node-set($videomd_fileid_stream) | str:tokenize($admids, ' ')))"/>
                         <sch:let name="countmdcomb_video_stream" value="count(sets:distinct(exsl:node-set($videomd_mdids) | str:tokenize($admids, ' ')))"/>
                         <sch:assert test="(($videomd_countfiles_stream+$countadm)=$countfilescomb_video_stream) or not(($videomd_countmd+$countadm)=$countmdcomb_video_stream)
-                        or contains(' 1.4 1.4.1 1.5.0 ', concat(' ', $given_specification,' '))">
+                        or contains(' 1.5.0 ', concat(' ', $given_specification,' '))">
                                 Linking between VideoMD metadata and stream in file '<sch:value-of select="../mets:FLocat/@xlink:href"/>' is required.
                         </sch:assert>
                 </sch:rule>
@@ -403,7 +397,6 @@ Validates METS fileSec.
         <!-- Native file check -->
         <sch:pattern id="required_features_native">
                 <sch:rule context="mets:fileGrp/mets:file[(normalize-space(@USE)='no-file-format-validation')]">
-                        <sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
                         <sch:let name="admid" value="normalize-space(@ADMID)"/>
                         <sch:let name="source_techmd_id" value="normalize-space($techmd/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' ')) and ../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName])"/>
                         <sch:let name="source_object_id" value="normalize-space($techmd[normalize-space(@ID) = $source_techmd_id]/mets:mdWrap/mets:xmlData/premis:object/premis:objectIdentifier/premis:objectIdentifierValue)"/>
@@ -411,16 +404,13 @@ Validates METS fileSec.
                         <sch:let name="event_not_outcome_link" value="exsl:node-set($digiprovmd_migration/mets:mdWrap/mets:xmlData/premis:event/premis:linkingObjectIdentifier[normalize-space(./premis:linkingObjectRole)='outcome' and not(normalize-space(./premis:linkingObjectIdentifierValue)=$source_object_id)]/..)"/>
                         <sch:let name="event_links_source_ok" value="sets:intersection($event_source_link, $event_not_outcome_link)"/>
 
-                        <sch:assert test="(count($digiprovmd_migration) &gt; 0 and count($digiprovmd_migration/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' '))]) &gt; 0)
-                        or contains(' 1.4 1.4.1 ', concat(' ', $given_specification,' '))">
+                        <sch:assert test="(count($digiprovmd_migration) &gt; 0 and count($digiprovmd_migration/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' '))]) &gt; 0)">
                                 Value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' found for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'. Succeeded PREMIS event for migration is required.
                         </sch:assert>
-                        <sch:assert test="(count($digiprovmd_migration) = 0 or count($event_links_source_ok) &gt; 0)
-                        or contains(' 1.4 1.4.1 ', concat(' ', $given_specification,' '))">
+                        <sch:assert test="(count($digiprovmd_migration) = 0 or count($event_links_source_ok) &gt; 0)">
                                 Value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' found for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'. PREMIS event for migration contains ambiguous links to object identifiers.
                         </sch:assert>
-                        <sch:report test="(count($digiprovmd_migration) &gt; 0 and count($digiprovmd_migration/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' '))]) &gt; 0 and count($event_links_source_ok) &gt; 0)
-                        and not(contains(' 1.4 1.4.1 ', concat(' ', $given_specification,' ')))">
+                        <sch:report test="(count($digiprovmd_migration) &gt; 0 and count($digiprovmd_migration/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' '))]) &gt; 0 and count($event_links_source_ok) &gt; 0)">
                                 INFO: Value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' found for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'. No file format validation is executed for this file.
                         </sch:report>
                 </sch:rule>
@@ -433,7 +423,7 @@ Validates METS fileSec.
                         <sch:let name="container_admid" value="normalize-space(../@ADMID)"/>
                         <sch:let name="container_techmd" value="$techmd[contains(concat(' ', $container_admid, ' '), concat(' ', normalize-space(@ID), ' ')) and normalize-space(./mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:file' and ./mets:mdWrap/mets:xmlData/premis:object/premis:relationship/premis:relatedObjectIdentification/premis:relatedObjectIdentifierValue]"/>
                         <sch:let name="stream_techmd" value="$techmd[contains(concat(' ', $stream_admid, ' '), concat(' ', normalize-space(@ID), ' ')) and normalize-space(./mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:bitstream']"/>
-                        <sch:assert test="($container_techmd/mets:mdWrap/mets:xmlData/premis:object/premis:relationship/premis:relatedObjectIdentification/premis:relatedObjectIdentifierValue = $stream_techmd/mets:mdWrap/mets:xmlData/premis:object/premis:objectIdentifier/premis:objectIdentifierValue) or contains(' 1.4 1.4.1 1.5.0 ', concat(' ', $given_specification,' '))">
+                        <sch:assert test="($container_techmd/mets:mdWrap/mets:xmlData/premis:object/premis:relationship/premis:relatedObjectIdentification/premis:relatedObjectIdentifierValue = $stream_techmd/mets:mdWrap/mets:xmlData/premis:object/premis:objectIdentifier/premis:objectIdentifierValue) or contains(' 1.5.0 ', concat(' ', $given_specification,' '))">
                                 Container or stream mismatch between METS fileSec and PREMIS linkings for file '<sch:value-of select="../mets:FLocat/@xlink:href"/>'.
                         </sch:assert>
                 </sch:rule>
@@ -442,38 +432,12 @@ Validates METS fileSec.
 
 	<!-- COMPATIBILITY WITH DEPRECATED VERSIONS -->
 
-
-	<!-- TEXTMD -->
-	<sch:pattern id="textmd_requirement14">
-        	<sch:rule context="mets:fileGrp/mets:file">
-			<sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
-			<sch:let name="admids" value="normalize-space(@ADMID)"/>
-			<sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
-			<sch:let name="countfilescomb_textmd" value="count(sets:distinct(exsl:node-set($textmd_fileid) | str:tokenize($admids, ' ')))"/>
-			<sch:let name="countmdcomb_textmd" value="count(sets:distinct(exsl:node-set($textmd14_mdids) | str:tokenize($admids, ' ')))"/>
-			<sch:assert test="(($textmd_countfiles+$countadm)=$countfilescomb_textmd) or not(($textmd14_countmd+$countadm)=$countmdcomb_textmd)
-                        or not(contains(' 1.4 1.4.1 ', concat(' ', $given_specification,' ')))">
-				Linking between TextMD metadata and file '<sch:value-of select="./mets:FLocat/@xlink:href"/>' is required.
-			</sch:assert>
-		</sch:rule>
-	</sch:pattern>
-
 	<!-- Disallow streams in secifications older than 1.6.0 -->
         <sch:pattern id="mets_file_stream" is-a="disallowed_element_pattern">
                 <sch:param name="context_element" value="mets:fileGrp/mets:file"/>
                 <sch:param name="context_condition" value="true()"/>
                 <sch:param name="disallowed_element" value="mets:stream"/>
-                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0')"/>
-        </sch:pattern>
-
-        <!-- Disallow native files with specification 1.4 -->
-        <sch:pattern id="disallow_no_file_format_validation">
-                <sch:rule context="mets:fileGrp/mets:file">
-                        <sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
-                        <sch:assert test="not(normalize-space(@USE)='no-file-format-validation') or not(contains(' 1.4 1.4.1 ', concat(' ', $given_specification,' ')))">
-                                Disallowed value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' in element '<sch:name/>'.
-                        </sch:assert>
-                </sch:rule>
+                <sch:param name="specifications" value="string('1.5.0')"/>
         </sch:pattern>
 
 </sch:schema>

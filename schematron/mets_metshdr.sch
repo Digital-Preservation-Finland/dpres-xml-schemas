@@ -21,6 +21,7 @@ Validates metsHdr.
 
         <sch:include href="./abstracts/allowed_attribute_list_pattern.incl"/>
 	<sch:include href="./abstracts/disallowed_element_pattern.incl"/>
+	<sch:include href="./abstracts/disallowed_attribute_pattern.incl"/>
 	<sch:include href="./abstracts/required_attribute_pattern.incl"/>
 	<sch:include href="./abstracts/required_element_pattern.incl"/>
 	<sch:include href="./abstracts/required_values_attribute_pattern.incl"/>
@@ -85,7 +86,13 @@ Validates metsHdr.
                 <sch:param name="context_condition" value="true()"/>
                 <sch:param name="role" value="string('CREATOR')"/>
                 <sch:param name="type" value="string('')"/>
-                <sch:param name="specifications" value="string('not: 1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+                <sch:param name="specifications" value="string('not: 1.5.0; 1.6.0; 1.6.1')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_no_note_attributes" is-a="disallowed_attribute_pattern">
+                <sch:param name="context_element" value="mets:metsHdr/mets:agent/mets:note"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_attribute" value="@*"/>
+                <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
 
         <!-- METS Header elements -->
@@ -101,7 +108,7 @@ Validates metsHdr.
                 <sch:param name="context_condition" value="true()"/>
                 <sch:param name="role" value="string('CREATOR')"/>
                 <sch:param name="type" value="string('ORGANIZATION')"/>
-                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+                <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
 
 </sch:schema>

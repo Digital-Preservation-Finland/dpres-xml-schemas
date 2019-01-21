@@ -178,8 +178,8 @@ def test_charset_parameter(schematron_fx, fileformat):
     :schematron_fx: Schematron compile fixture
     :fileformat: Text file format
     """
-    xml = '''<mets:mets fi:CATALOG="1.4" xmlns:mets="%(mets)s"
-             xmlns:premis="%(premis)s" xmlns:fi="%(fikdk)s"><mets:amdSec>
+    xml = '''<mets:mets fikdk:CATALOG="1.5.0" xmlns:mets="%(mets)s"
+             xmlns:premis="%(premis)s" xmlns:fikdk="%(fikdk)s"><mets:amdSec>
              <mets:techMD><mets:mdWrap MDTYPEVERSION="2.3"><mets:xmlData>
                <premis:object><premis:objectCharacteristics>
                  <premis:format><premis:formatDesignation>
@@ -191,14 +191,9 @@ def test_charset_parameter(schematron_fx, fileformat):
                 'utf-8', 'utf-16', 'utf-32']
     (mets, root) = parse_xml_string(xml)
     elem_handler = root.find_element('formatName', 'premis')
-
-    # Missing charset is valid in specification 1.4
     elem_handler.text = fileformat
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 0
 
     # Error, since charset is missing
-    root.set_attribute('CATALOG', 'fikdk', '1.5.0')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 

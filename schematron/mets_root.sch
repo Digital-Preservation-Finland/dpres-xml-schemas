@@ -109,7 +109,7 @@ Validates METS root.
                 <sch:param name="context_element" value="mets:mets"/>
                 <sch:param name="context_condition" value="true()"/>
                 <sch:param name="context_attribute" value="@fi:CONTENTID"/>
-                <sch:param name="specifications" value="string('not: 1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+                <sch:param name="specifications" value="string('not: 1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
 
 	<sch:pattern id="mets_PROFILE" is-a="required_attribute_pattern">
@@ -170,7 +170,7 @@ Validates METS root.
                 <sch:param name="required_metadata" value="mets:dmdSec/mets:mdWrap[@MDTYPE='LIDO' or @MDTYPE='EAC-CPF' or @MDTYPE='EAD' or @OTHERMDTYPE='EAD3'
                 or @MDTYPE='VRA' or @MDTYPE='MODS' or @MDTYPE='MARC' or @MDTYPE='DC' or @MDTYPE='DDI' or @OTHERMDTYPE='EN15744' or @OTHERMDTYPE='DATACITE']"/>
                 <sch:param name="metadata_name" value="string('Standard portfolio descriptive')"/>
-                <sch:param name="specifications" value="string('not: 1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+                <sch:param name="specifications" value="string('not: 1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
         <sch:pattern id="mets_object_exists" is-a="required_metadata_pattern">
                 <sch:param name="context_condition" value="true()"/>
@@ -214,9 +214,7 @@ Validates METS root.
         <sch:pattern id="premis_identifierValue_unique">
                 <sch:rule context="mets:mets">
                          <sch:let name="unique_elements" value="$objectid | $eventid | $agentid | $rightsid"/>
-                        <sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
-                        <sch:assert test="(count(sets:distinct($unique_elements)) = count($unique_elements))
-                        or contains(' 1.4 1.4.1 ', concat(' ', $given_specification,' '))">
+                        <sch:assert test="count(sets:distinct($unique_elements)) = count($unique_elements)">
                                 Value '<sch:value-of select="normalize-space(sets:difference($unique_elements, sets:distinct($unique_elements)))"/>' in the elements 'premis:objectIdentifierValue; premis:eventIdentifierValue; premis:agentIdentifierValue; premis:rightsStatementIdentifierValue' is required to be unique.
                         </sch:assert>
                 </sch:rule>
@@ -243,7 +241,6 @@ Validates METS root.
         </sch:pattern>
         <sch:pattern id="mets_specification_old" is-a="required_specification_pattern">
                 <sch:param name="required_condition" value="normalize-space(@fikdk:CATALOG) = normalize-space(@fikdk:SPECIFICATION)
-                        or (normalize-space(@fikdk:CATALOG)='1.4.1' and normalize-space(@fikdk:SPECIFICATION)='1.4')
                         or (normalize-space(@fikdk:CATALOG)='1.6.0' and normalize-space(@fikdk:SPECIFICATION)='1.6.1')"/>
         </sch:pattern>
 
@@ -258,13 +255,13 @@ Validates METS root.
                 <sch:param name="context_element" value="mets:mets"/>
                 <sch:param name="context_condition" value="true()"/>
                 <sch:param name="disallowed_attribute" value="@fikdk:CONTENTID"/>
-                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0')"/>
+                <sch:param name="specifications" value="string('1.5.0')"/>
         </sch:pattern>
         <sch:pattern id="mets_no_CONTENTID" is-a="disallowed_attribute_pattern">
                 <sch:param name="context_element" value="mets:mets"/>
                 <sch:param name="context_condition" value="true()"/>
                 <sch:param name="disallowed_attribute" value="@fi:CONTENTID"/>
-                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+                <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
 
         <!-- Standard portfolio descriptive metadata formats with old specifications -->
@@ -273,7 +270,7 @@ Validates METS root.
                 <sch:param name="required_metadata" value="mets:dmdSec/mets:mdWrap[@MDTYPE='LIDO' or @MDTYPE='EAC-CPF' or @MDTYPE='EAD' or @OTHERMDTYPE='EAD3'
                 or @MDTYPE='VRA' or @MDTYPE='MODS' or @MDTYPE='MARC' or @MDTYPE='DC' or @MDTYPE='DDI' or @OTHERMDTYPE='EN15744']"/>
                 <sch:param name="metadata_name" value="string('Standard portfolio descriptive')"/>
-                <sch:param name="specifications" value="string('1.4; 1.4.1; 1.5.0; 1.6.0; 1.6.1')"/>
+                <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
 
 </sch:schema>

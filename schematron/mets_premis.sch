@@ -60,34 +60,26 @@ Validates PREMIS metadata.
 	<!-- Premis linking check -->
 	<sch:pattern id="link_premis_element">
 		<sch:rule context="premis:linkingObjectIdentifierValue">
-			<sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
 			<sch:let name="id_value" value="normalize-space(.)"/>
-			<sch:assert test="(count($objectid[normalize-space(.) = $id_value]) = 1)
-                        or contains(' 1.4 1.4.1 ', concat(' ', $given_specification,' '))">
+			<sch:assert test="count($objectid[normalize-space(.) = $id_value]) = 1">
 				Value '<sch:value-of select="."/>' in element '<sch:name/>' is a link to nowhere. The corresponding target element 'objectIdentifierValue' with the same value was not found.
 			</sch:assert>
 		</sch:rule>
 		<sch:rule context="premis:linkingEventIdentifierValue">
-			<sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
 			<sch:let name="id_value" value="normalize-space(.)"/>
-			<sch:assert test="(count($eventid[normalize-space(.) = $id_value]) = 1)
-                        or contains(' 1.4 1.4.1 ', concat(' ', $given_specification,' '))">
+			<sch:assert test="count($eventid[normalize-space(.) = $id_value]) = 1">
 				Value '<sch:value-of select="."/>' in element '<sch:name/>' is a link to nowhere. The corresponding target element 'eventIdentifierValue' with the same value was not found.
 			</sch:assert>
 		</sch:rule>
 		<sch:rule context="premis:linkingAgentIdentifierValue">
-			<sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
 			<sch:let name="id_value" value="normalize-space(.)"/>
-			<sch:assert test="(count($agentid[normalize-space(.) = $id_value]) = 1)
-                        or contains(' 1.4 1.4.1 ', concat(' ', $given_specification,' '))">
+			<sch:assert test="count($agentid[normalize-space(.) = $id_value]) = 1">
 				Value '<sch:value-of select="."/>' in element '<sch:name/>' is a link to nowhere. The corresponding target element 'agentIdentifierValue' with the same value was not found.
 			</sch:assert>
 		</sch:rule>
 		<sch:rule context="premis:linkingRightsStatementIdentifierValue">
-			<sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
 			<sch:let name="id_value" value="normalize-space(.)"/>
-			<sch:assert test="(count($rightsid[normalize-space(.) = $id_value]) = 1)
-                        or contains(' 1.4 1.4.1 ', concat(' ', $given_specification,' '))">
+			<sch:assert test="count($rightsid[normalize-space(.) = $id_value]) = 1">
 				Value '<sch:value-of select="."/>' in element '<sch:name/>' is a link to nowhere. The corresponding target element 'rightsStatementIdentifierValue' with the same value was not found.
 			</sch:assert>
 		</sch:rule>

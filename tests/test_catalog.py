@@ -24,8 +24,8 @@ def test_catalog_mets_complete(catalog_fx):
     (returncode, _, _) = catalog_fx(xmltree=mets)
     assert returncode == 0
 
-    root.set_attribute('CATALOG', 'fikdk', '1.7.0')
-    root.set_attribute('SPECIFICATION', 'fikdk', '1.7.0')
+    root.set_attribute('CATALOG', 'fikdk', '1.7.1')
+    root.set_attribute('SPECIFICATION', 'fikdk', '1.7.1')
     (returncode, _, _) = catalog_fx(xmltree=mets)
     assert returncode == 3
 

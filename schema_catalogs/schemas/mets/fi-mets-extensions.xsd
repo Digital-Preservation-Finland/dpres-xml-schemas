@@ -5,17 +5,17 @@ xmlns="http://digitalpreservation.fi/schemas/mets/fi-extensions"
 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 elementFormDefault="qualified" attributeFormDefault="unqualified">
 
-	<xsd:attribute name="CATALOG" type="kdkCatVersionType">
+	<xsd:attribute name="CATALOG" type="fiCatVersionType">
 		<xsd:annotation>
 			<xsd:documentation xml:lang="en">
-				CATALOG (enumerated string/O): Version number of the used KDK schema catalog.
+				CATALOG (enumerated string/O): Version number of the used national schema catalog.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:attribute>
-	<xsd:attribute name="SPECIFICATION" type="kdkSpecVersionType">
+	<xsd:attribute name="SPECIFICATION" type="fiSpecVersionType">
 		<xsd:annotation>
 			<xsd:documentation xml:lang="en">
-				SPECIFICATION (enumerated string/O): Version number of the used KDK METS specification.
+				SPECIFICATION (enumerated string/O): Version number of the used national METS specification.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:attribute>
@@ -55,17 +55,19 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 		</xsd:annotation>
 	</xsd:attribute>
 
-	<!-- KDK schema catalog version type -->
-	<xsd:simpleType name="kdkCatVersionType">
+	<!-- Schema catalog version type -->
+	<xsd:simpleType name="fiCatVersionType">
 		<xsd:restriction base="xsd:string">
 			<xsd:enumeration value="1.7.0"/>
+			<xsd:enumeration value="1.7.1"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 
-	<!-- KDK METS specification version type -->
-	<xsd:simpleType name="kdkSpecVersionType">
+	<!-- Specification version type -->
+	<xsd:simpleType name="fiSpecVersionType">
 		<xsd:restriction base="xsd:string">
 			<xsd:enumeration value="1.7.0"/>
+			<xsd:enumeration value="1.7.1"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	

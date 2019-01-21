@@ -20,8 +20,6 @@ Validates METS rightsMD.
         <sch:ns prefix="xml" uri="https://www.w3.org/XML/1998/namespace"/>
         <sch:ns prefix="premis" uri="info:lc/xmlns/premis-v2"/>
         <sch:ns prefix="mix" uri="http://www.loc.gov/mix/v20"/>
-        <sch:ns prefix="textmd" uri="info:lc/xmlns/textMD-v3"/>
-        <sch:ns prefix="textmd_kdk" uri="http://www.kdk.fi/standards/textmd"/>
         <sch:ns prefix="addml" uri="http://www.arkivverket.no/standarder/addml"/>
         <sch:ns prefix="audiomd" uri="http://www.loc.gov/audioMD/"/>
         <sch:ns prefix="videomd" uri="http://www.loc.gov/videoMD/"/>
@@ -63,7 +61,7 @@ Validates METS rightsMD.
 		<sch:param name="context_condition" value="true()"/>
 		<sch:param name="context_attribute" value="@MDTYPE"/>
 		<sch:param name="valid_values" value="string('PREMIS:RIGHTS; OTHER')"/>
-		<sch:param name="specifications" value="string('not: 1.4.1; 1.4')"/>
+		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 
 	<!-- Attribute MDTYPE version values -->
@@ -72,14 +70,14 @@ Validates METS rightsMD.
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:RIGHTS'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
 		<sch:param name="valid_values" value="string('2.2; 2.3')"/>
-                <sch:param name="specifications" value="string('not: 1.4.1; 1.4; 1.5.0')"/>
+                <sch:param name="specifications" value="string('not: 1.5.0')"/>
 	</sch:pattern>
 
         <!-- Known descriptive, technical, or provenance metadata can not be used inside wrong section -->
         <sch:pattern id="rights_no_tech" is-a="disallowed_element_pattern">
                 <sch:param name="context_element" value="mets:rightsMD/mets:mdWrap/mets:xmlData"/>
                 <sch:param name="context_condition" value="true()"/>
-                <sch:param name="disallowed_element" value="premis:object or addml:* or textmd:* or textmd_kdk:* or mix:* or audiomd:* or videomd:*"/>
+                <sch:param name="disallowed_element" value="premis:object or addml:* or mix:* or audiomd:* or videomd:*"/>
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
         <sch:pattern id="rights_no_digiprov" is-a="disallowed_element_pattern">
@@ -96,15 +94,6 @@ Validates METS rightsMD.
         </sch:pattern>
 
 	<!-- COMPATIBILITY WITH DEPRECATED VERSIONS -->
-
-	<!-- METSRIGHTS in specification 1.4 -->
-        <sch:pattern id="mets14_rightsMD_MDTYPE" is-a="required_values_attribute_pattern">
-                <sch:param name="context_element" value="mets:rightsMD/mets:mdWrap"/>
-                <sch:param name="context_condition" value="true()"/>
-                <sch:param name="context_attribute" value="@MDTYPE"/>
-                <sch:param name="valid_values" value="string('METSRIGHTS; PREMIS:RIGHTS; OTHER')"/>
-                <sch:param name="specifications" value="string('1.4.1; 1.4')"/>
-        </sch:pattern>
 
 	<!-- PREMIS 2.1 in specification 1.5.0 -->
         <sch:pattern id="mets15_rightsMD_MDTYPEVERSION_values_RIGHTS" is-a="required_values_attribute_pattern">
