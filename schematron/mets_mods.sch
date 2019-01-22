@@ -25,6 +25,89 @@ Validates version differences from MODS metadata.
 	<sch:include href="./abstracts/required_subelements_smaller_version_pattern.incl"/>
 	<sch:include href="./abstracts/disallowed_value_attribute_smaller_version_pattern.incl"/>
 	<sch:include href="./abstracts/disallowed_value_element_smaller_version_pattern.incl"/>
+        <sch:include href="./abstracts/required_values_element_pattern.incl"/>
+
+        <!--- Version check -->
+	<sch:pattern id="mods_version">
+		<sch:rule context="mods:mods[@version]">
+			<sch:assert test="@version = ancestor::mets:mdWrap/@MDTYPEVERSION">
+				Value '<sch:value-of select="@version"/>' in attribute '<sch:value-of select="name(@version)"/>' in element '<sch:name/>' is required to be equal to @MDTYPEVERSION attribute.
+			</sch:assert>
+		</sch:rule>
+	</sch:pattern>
+
+
+        <!-- Version specific check until smaller than 3.7 -->
+        <sch:pattern id="mods37_alternativeName" is-a="disallowed_element_smaller_version_pattern">
+                <sch:param name="context_element" value="mods:mods/mods:name"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_element" value="mods:alternativeName"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.7')"/>
+        </sch:pattern>
+        <sch:pattern id="mods37_publisher_authority" is-a="disallowed_attribute_smaller_version_pattern">
+                <sch:param name="context_element" value="mods:publisher"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_attribute" value="@authority"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.7')"/>
+        </sch:pattern>
+        <sch:pattern id="mods37_publisher_authorityURI" is-a="disallowed_attribute_smaller_version_pattern">
+                <sch:param name="context_element" value="mods:publisher"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_attribute" value="@authorityURI"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.7')"/>
+        </sch:pattern> 
+        <sch:pattern id="mods37_publisher_valueURI" is-a="disallowed_attribute_smaller_version_pattern">
+                <sch:param name="context_element" value="mods:publisher"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_attribute" value="@valueURI"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.7')"/>
+        </sch:pattern>
+        <sch:pattern id="mods37_originInfo_calendar" is-a="disallowed_attribute_smaller_version_pattern">
+                <sch:param name="context_element" value="mods:originInfo/*"/>
+                <sch:param name="context_condition" value="self::mods:dateIssued or self::mods:dateCreated or self::mods:dateCaptured or self::mods:dateValid or self::mods:dateModified or self::mods:copyrightDate or mods:dateOther"/>
+                <sch:param name="disallowed_attribute" value="@calendar"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.7')"/>
+        </sch:pattern>
+        <sch:pattern id="mods37_date_calendar" is-a="disallowed_attribute_smaller_version_pattern">
+                <sch:param name="context_element" value="mods:date"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_attribute" value="@calendar"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.7')"/>
+        </sch:pattern>
+        <sch:pattern id="mods37_recordInfo_calendar" is-a="disallowed_attribute_smaller_version_pattern">
+                <sch:param name="context_element" value="mods:recordInfo/*"/>
+                <sch:param name="context_condition" value="self::mods:recordCreationDate or self::mods:recordChangeDate"/>
+                <sch:param name="disallowed_attribute" value="@calendar"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.7')"/>
+        </sch:pattern>
+        <sch:pattern id="mods37_temporal_calendar" is-a="disallowed_attribute_smaller_version_pattern">
+                <sch:param name="context_element" value="mods:temporal"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_attribute" value="@calendar"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.7')"/>
+        </sch:pattern>
+        <sch:pattern id="mods37_typeOfResource_values" is-a="required_values_element_pattern">
+                <sch:param name="context_element" value="mods:typeOfResource"/>
+                <sch:param name="context_condition" value="ancestor::mets:mdWrap/@MDTYPE='MODS' and number(ancestor::mets:mdWrap/@MDTYPEVERSION) &lt; 3.7"/>
+                <sch:param name="valid_values" value="string('text; cartographic; notated music; sound recording-musical; sound recording-nonmusical; sound recording; still image; moving image; three dimensional object; software, multimedia; mixed material; ')"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
 
 	<!-- Version specific check from version 3.6 -->
 	<sch:pattern id="mods36_extraterrestrialArea" is-a="disallowed_element_from_version_pattern">
