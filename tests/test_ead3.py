@@ -74,6 +74,26 @@ def test_disallowed_field(
     assert svrl.count(SVRL_FAILED) == 0
 
 
+def test_containerid_values(schematron_fx):
+    """Test that containerid can have any characters in EAD3 1.1.0
+    but only characters listed in xsd:NMTOKEN in EAD3 1.0.0.
+
+    :schematron_fx: Schematron compile fixture
+    """
+    (ead3, elem_context, elem_version) = prepare_xml('container', '1.1.0')
+    elem_context.set_attribute('containerid', 'ead3', '###')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=ead3)
+    assert svrl.count(SVRL_FAILED) == 0
+
+    elem_version.set_attribute('MDTYPEVERSION', 'mets', '1.0.0')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=ead3)
+    assert svrl.count(SVRL_FAILED) == 1
+
+    elem_context.set_attribute('containerid', 'ead3', 'abc')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=ead3)
+    assert svrl.count(SVRL_FAILED) == 0
+
+
 @pytest.mark.parametrize("xml, failures", [
     ('''<ead3:objectxmlwrap xmlns:ead3="%(ead3)s">
         <ead3:xxx/></ead3:objectxmlwrap>''' % NAMESPACES, 1),
