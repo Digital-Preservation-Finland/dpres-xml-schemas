@@ -2,7 +2,7 @@
 
 <!-- pass-filter: /mets:mets/mets:dmdSec/mets:mdWrap/mets:xmlData/ead3:ead -->
 <!-- context-filter: ead3:* -->
-<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">
+<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.1">
 	<sch:title>EAD3 metadata validation</sch:title>
 
 <!--

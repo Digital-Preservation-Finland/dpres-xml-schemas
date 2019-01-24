@@ -2,7 +2,7 @@
 
 <!-- pass-filter: /mets:mets/mets:dmdSec/mets:mdWrap|/mets:mets/mets:amdSec/mets:*/mets:mdWrap -->
 <!-- context-filter: mets:mdWrap -->
-<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">
+<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.1">
 	<sch:title>METS mdWrap validation</sch:title>
 
 <!--

@@ -2,7 +2,7 @@
 
 <!-- pass-filter: /mets:mets/mets:dmdSec/mets:mdWrap/mets:xmlData/mods:* -->
 <!-- context-filter: mods:* -->
-<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">
+<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.1">
 	<sch:title>MODS metadata validation</sch:title>
 
 <!--
@@ -38,7 +38,7 @@ Validates version differences from MODS metadata.
 
 
         <!-- Version specific check until smaller than 3.7 -->
-        <sch:pattern id="mods37_alternativeName" is-a="disallowed_element_smaller_version_pattern">
+        <sch:pattern id="mods37_name_alternativeName" is-a="disallowed_element_smaller_version_pattern">
                 <sch:param name="context_element" value="mods:mods/mods:name"/>
                 <sch:param name="context_condition" value="true()"/>
                 <sch:param name="disallowed_element" value="mods:alternativeName"/>
@@ -72,7 +72,7 @@ Validates version differences from MODS metadata.
         </sch:pattern>
         <sch:pattern id="mods37_originInfo_calendar" is-a="disallowed_attribute_smaller_version_pattern">
                 <sch:param name="context_element" value="mods:originInfo/*"/>
-                <sch:param name="context_condition" value="self::mods:dateIssued or self::mods:dateCreated or self::mods:dateCaptured or self::mods:dateValid or self::mods:dateModified or self::mods:copyrightDate or mods:dateOther"/>
+                <sch:param name="context_condition" value="self::mods:dateIssued or self::mods:dateCreated or self::mods:dateCaptured or self::mods:dateValid or self::mods:dateModified or self::mods:copyrightDate or self::mods:dateOther"/>
                 <sch:param name="disallowed_attribute" value="@calendar"/>
                 <sch:param name="mdattribute" value="@MDTYPE"/>
                 <sch:param name="mdtype_name" value="string('MODS')"/>

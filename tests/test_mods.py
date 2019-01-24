@@ -18,7 +18,7 @@ def prepare_xml(context_element, version):
     :version: MODS version to be used.
     """
     xml = '''<mets:dmdSec xmlns:mets="%(mets)s" xmlns:mods="%(mods)s">
-               <mets:mdWrap MDTYPE="MODS" MDTYPEVERSION="3.6">
+               <mets:mdWrap MDTYPE="MODS" MDTYPEVERSION="3.7">
                <mets:xmlData><mods:mods/></mets:xmlData></mets:mdWrap>
              </mets:dmdSec>''' % NAMESPACES
     (mods, root) = parse_xml_string(xml)
@@ -45,6 +45,7 @@ def prepare_xml(context_element, version):
                         '@script', '@transliteration'], '3.4'),
     ('classification', ['@displayLabel'], '3.1'),
     ('copyInformation', ['itemIdentifier'], '3.6'),
+    ('date', ['@calendar'], '3.7'),
     ('dateOther', ['@type'], '3.1'),
     ('extension', ['@displayLabel'], '3.4'),
     ('form', ['@type'], '3.1'),
@@ -67,6 +68,7 @@ def prepare_xml(context_element, version):
     ('location', ['@displayLabel'], '3.4'),
     ('location', ['shelfLocator', 'holdingSimple', 'holdingExternal'], '3.3'),
     ('mods', ['part'], '3.1'),
+    ('name', ['alternativeName'], '3.7'),
     ('name', ['nameIdentifier'], '3.6'),
     ('name', ['@displayLabel', '@lang', '@{%(xml)s}lang' % NAMESPACES,
               '@script', '@transliteration'], '3.4'),
@@ -92,6 +94,7 @@ def prepare_xml(context_element, version):
                           '@{%(xlink)s}show' % NAMESPACES,
                           '@{%(xlink)s}actuate' % NAMESPACES], '3.3'),
     ('physicalLocation', ['@type'], '3.1'),
+    ('publisher', ['@authority', '@authorityURI', '@valueURI'], '3.7'),
     ('recordContentSource', ['@lang', '@{%(xml)s}lang' % NAMESPACES,
                              '@script', '@transliteration'], '3.4'),
     ('recordInfo', ['recordInfoNote'], '3.6'),
@@ -111,6 +114,7 @@ def prepare_xml(context_element, version):
     ('targetAudience', ['@displayLabel', '@lang',
                         '@{%(xml)s}lang' % NAMESPACES,
                         '@script', '@transliteration'], '3.4'),
+    ('temporal', ['@calendar'], '3.7'),
     ('temporal', ['@authority'], '3.4'),
     ('titleInfo', ['@otherType', '@altFormat', '@contentType'], '3.5'),
     ('titleInfo', ['@usage', '@lang', '@{%(xml)s}lang' % NAMESPACES,
@@ -162,7 +166,6 @@ def test_disallowed_field(
         ('issuance', None, 'multipart monograph', '3.4'),
         ('issuance', None, 'serial', '3.4'),
         ('issuance', None, 'integrating resource', '3.4'),
-        ('typeOfResource', None, '', '3.3'),
         ('digitalOrigin', None, 'digitized microfilm', '3.2'),
         ('digitalOrigin', None, 'digitized other analog', '3.2'),
         ('languageTerm', 'authority', 'rfc5646', '3.5'),
@@ -223,6 +226,15 @@ def test_disallowed_value(
     ('hierarchicalGeographic', 'xxx', 'authority', '3.6'),
     ('hierarchicalGeographic', 'xxx', 'authorityURI', '3.6'),
     ('hierarchicalGeographic', 'xxx', 'valueURI', '3.6'),
+    ('originInfo', 'dateIssued', 'calendar', '3.7'),
+    ('originInfo', 'dateCreated', 'calendar', '3.7'),
+    ('originInfo', 'dateCaptured', 'calendar', '3.7'),
+    ('originInfo', 'dateValid', 'calendar', '3.7'),
+    ('originInfo', 'dateModified', 'calendar', '3.7'),
+    ('originInfo', 'copyrightDate', 'calendar', '3.7'),
+    ('originInfo', 'dateOther', 'calendar', '3.7'),
+    ('recordInfo', 'recordCreationDate', 'calendar', '3.7'),
+    ('recordInfo', 'recordChangeDate', 'calendar', '3.7')
 ])
 def test_disallowed_hierarch_attrib(
         schematron_fx, container, context, disallowed_attribute, version):
@@ -388,5 +400,44 @@ def test_deprecated_value(schematron_fx):
 
     # New value 'primary' is an error with MODS 3.3
     elem_version.set_attribute('MDTYPEVERSION', 'mets', '3.3')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
+    assert svrl.count(SVRL_FAILED) == 1
+
+
+def test_typeOfResource_values(schematron_fx):
+    """Test the case that the value of typeOfResource element is free from
+    MODS 3.7, but is mandatory controlled dictionary until MOD 3.6.
+    Empty value is allowed from MODS 3.3.
+
+    :schematron_fx: Schematron compile fixture
+    """
+    (mods, elem_context, elem_version) = prepare_xml(
+        'typeOfResource', '3.7')
+
+    # Free value allowed from MODS 3.7
+    elem_context.text = 'xxx'
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
+    assert svrl.count(SVRL_FAILED) == 0
+ 
+    elem_context.text = ''
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
+    assert svrl.count(SVRL_FAILED) == 0
+
+    # Controlled dictionary in older versions
+    elem_version.set_attribute('MDTYPEVERSION', 'mets', '3.6')
+    elem_context.text = 'xxx'
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
+    assert svrl.count(SVRL_FAILED) == 1
+
+    elem_context.text = 'text'
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
+    assert svrl.count(SVRL_FAILED) == 0
+
+    elem_context.text = ''
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
+    assert svrl.count(SVRL_FAILED) == 0
+
+    # Empty value disallowed in MODS 3.2
+    elem_version.set_attribute('MDTYPEVERSION', 'mets', '3.2')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_FAILED) == 1

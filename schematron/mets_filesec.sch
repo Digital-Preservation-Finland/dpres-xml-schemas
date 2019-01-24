@@ -2,7 +2,7 @@
 
 <!-- pass-filter: /mets:mets/mets:fileSec -->
 <!-- context-filter: mets:fileSec|mets:fileGrp|mets:file|mets:FLocat|mets:stream -->
-<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">
+<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.1">
 	<sch:title>METS fileSec validation</sch:title>
 
 <!--
@@ -36,7 +36,7 @@ Validates METS fileSec.
         <sch:let name="addml_types" value="string('text/csv')"/>
         <sch:let name="audiomd_types" value="string('audio/x-aiff audio/x-wave audio/flac audio/mp4 audio/x-wav audio/mpeg audio/x-ms-wma')"/>
         <sch:let name="mix_types" value="string('image/tiff image/jpeg image/jp2 image/png image/gif image/x-dpx')"/>
-        <sch:let name="videomd_types" value="string('video/jpeg2000 video/mp4 video/dv video/mpeg video/x-ms-wmv')"/>
+        <sch:let name="videomd_types" value="string('video/jpeg2000 video/mp4 video/dv video/mpeg video/x-ms-wmv video/x-ffv')"/>
 
         <!-- techmd elements -->
         <sch:let name="techmd" value="/mets:mets/mets:amdSec/mets:techMD"/>

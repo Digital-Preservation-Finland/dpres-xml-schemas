@@ -2,7 +2,7 @@
 
 <!-- pass-filter: /mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:* -->
 <!-- context-filter: premis:* -->
-<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.0">
+<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.1">
 	<sch:title>PREMIS metadata validation</sch:title>
 
 <!--
@@ -21,55 +21,60 @@ Validates PREMIS metadata.
 
 	<!-- Supported MIME types -->
 	<sch:let name="supported_mime_types" value="concat(
-		'text/csv', '; ',
-		'application/epub+zip', '; ',
-		'application/xhtml+xml', '; ',
-		'text/xml', '; ',
-		'text/html', '; ',
-		'application/vnd.oasis.opendocument.text', '; ',
-		'application/vnd.oasis.opendocument.spreadsheet', '; ',
-		'application/vnd.oasis.opendocument.presentation', '; ',
-		'application/vnd.oasis.opendocument.graphics', '; ',
-		'application/vnd.oasis.opendocument.formula', '; ',
-		'application/pdf', '; ',
-		'text/plain', '; ',
-		'audio/x-aiff', '; ',
-		'audio/x-wav', '; ',
-		'audio/flac', '; ',
-		'audio/mp4', '; ',
-		'video/jpeg2000', '; ',
-		'video/mp4', '; ',
-		'image/jpeg', '; ',
-		'image/jp2', '; ',
-		'image/tiff', '; ',
-		'image/png', '; ',
-		'application/warc', '; ',
-		'application/msword', '; ',
-		'application/vnd.ms-excel', '; ',
-		'application/vnd.ms-powerpoint', '; ',
-		'audio/mpeg', '; ',
-		'audio/x-ms-wma', '; ',
-		'video/dv', '; ',
-		'video/mpeg', '; ',
-		'video/x-ms-wmv', '; ',
-		'application/postscript', '; ',
-		'image/gif', '; ',
-		'application/x-internet-archive', '; ',
-		'application/vnd.openxmlformats-officedocument.wordprocessingml.document', '; ',
-		'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', '; ',
-		'application/vnd.openxmlformats-officedocument.presentationml.presentation', '; ',
-		'image/x-dpx', '; ',
-		'application/gml+xml', '; ',
-		'application/vnd.google-earth.kml+xml', '; ',
-		'application/x-spss-por', '; ',
-		'video/x-ms-asf', '; ',
-		'video/avi', '; ',
-		'video/MP1S', '; ',
-		'video/MP2P', '; ',
-		'video/MP2T', '; ',
-		'video/mp4', '; ',
-		'application/mxf', '; ',
-		'video/mj2', '; ',
+		'text/csv; ',
+		'application/epub+zip; ',
+		'application/xhtml+xml; ',
+		'text/xml; ',
+		'text/html; ',
+		'application/vnd.oasis.opendocument.text; ',
+		'application/vnd.oasis.opendocument.spreadsheet; ',
+		'application/vnd.oasis.opendocument.presentation; ',
+		'application/vnd.oasis.opendocument.graphics; ',
+		'application/vnd.oasis.opendocument.formula; ',
+		'application/pdf; ',
+		'text/plain; ',
+		'audio/x-aiff; ',
+		'audio/x-wav; ',
+		'audio/flac; ',
+		'audio/mp4; ',
+		'video/jpeg2000; ',
+		'video/mp4; ',
+		'image/jpeg; ',
+		'image/jp2; ',
+		'image/tiff; ',
+		'image/png; ',
+		'application/warc; ',
+		'application/msword; ',
+		'application/vnd.ms-excel; ',
+		'application/vnd.ms-powerpoint; ',
+		'audio/mpeg; ',
+		'audio/x-ms-wma; ',
+		'video/dv; ',
+		'video/mpeg; ',
+		'video/x-ms-wmv; ',
+		'application/postscript; ',
+		'image/gif; ',
+		'application/x-internet-archive; ',
+		'application/vnd.openxmlformats-officedocument.wordprocessingml.document; ',
+		'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; ',
+		'application/vnd.openxmlformats-officedocument.presentationml.presentation; ',
+		'image/x-dpx; ',
+		'application/gml+xml; ',
+		'application/vnd.google-earth.kml+xml; ',
+		'application/x-spss-por; ',
+                'video/x-ffv; ',
+                'image/svg+xml; ',
+                'application/x-siard; ',
+                'application/matlab; ',
+                'application/x-hdf5; ',
+		'video/x-ms-asf; ',
+		'video/avi; ',
+		'video/MP1S; ',
+		'video/MP2P; ',
+		'video/MP2T; ',
+		'video/mp4; ',
+		'application/mxf; ',
+		'video/mj2; ',
 		'video/quicktime')"/>
 
 	<!--
@@ -87,9 +92,9 @@ Validates PREMIS metadata.
 		| exsl:node-set('fmt/138 fmt/292 fmt/293')
 		| exsl:node-set('fmt/139 fmt/296 fmt/297')
 		| exsl:node-set('')
-		| exsl:node-set('fmt/95 fmt/354 fmt/476 fmt/477 fmt/478 fmt/16 fmt/17 fmt/18 fmt/19 fmt/20 fmt/276 fmt/480 fmt/481')
+		| exsl:node-set('fmt/95 fmt/354 fmt/476 fmt/477 fmt/478 fmt/16 fmt/17 fmt/18 fmt/19 fmt/20 fmt/276 fmt/479 fmt/480 fmt/481')
 		| exsl:node-set('x-fmt/111')
-		| exsl:node-set('x-fmt/135')
+		| exsl:node-set('x-fmt/135 x-fmt/136')
 		| exsl:node-set('fmt/527 fmt/141') 
 		| exsl:node-set('fmt/279')
 		| exsl:node-set('fmt/199')
@@ -118,6 +123,11 @@ Validates PREMIS metadata.
 		| exsl:node-set('x-fmt/227')
 		| exsl:node-set('fmt/224')
 		| exsl:node-set('fmt/997')
+                | exsl:node-set('')
+                | exsl:node-set('fmt/92')
+                | exsl:node-set('fmt/995 fmt/1196')
+                | exsl:node-set('fmt/806 fmt/828')
+                | exsl:node-set('fmt/807 fmt/286 fmt/287')
 		| exsl:node-set('fmt/131')
 		| exsl:node-set('fmt/5')
 		| exsl:node-set('x-fmt/385')
