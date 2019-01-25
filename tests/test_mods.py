@@ -26,6 +26,8 @@ def prepare_xml(context_element, version):
     elem_handler = root.find_element('mods', 'mods')
     if context_element is not None:
         elem_context = elem_handler.set_element(context_element, 'mods')
+    else:
+        elem_context = elem_handler
     elem_version = root.find_element('mdWrap', 'mets')
     elem_version.set_attribute('MDTYPEVERSION', 'mets', version)
     return (mods, elem_context, elem_version)
@@ -439,5 +441,18 @@ def test_typeOfResource_values(schematron_fx):
 
     # Empty value disallowed in MODS 3.2
     elem_version.set_attribute('MDTYPEVERSION', 'mets', '3.2')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
+    assert svrl.count(SVRL_FAILED) == 1
+
+
+def test_version(schematron_fx):
+    """Test the case that MODS version differs from @MDTYPEVERSION.
+    """
+    (mods, elem_context, elem_version) = prepare_xml(None, '3.7')
+    elem_context.set_attribute('version', 'mods', '3.7')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
+    assert svrl.count(SVRL_FAILED) == 0
+
+    elem_context.set_attribute('version', 'mods', '3.6')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_FAILED) == 1
