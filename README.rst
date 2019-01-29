@@ -7,8 +7,8 @@ catalogs and schmematron files which together can be used to validate all metada
 included in METS document against the national specifications. The catalog can
 be used also for validating XML formatted digital objects.
 
-The current METS catalog version is 1.7.0.
-The same catalog can be used also with older specifications, starting from version 1.4.
+The current METS catalog version is 1.7.1.
+The same catalog can be used also with older specifications, starting from version 1.5.0.
 
 For further information about specifications, see: http://digitalpreservation.fi/
 
@@ -95,7 +95,7 @@ Paths are described in relation to base path ./schema_catalogs/schemas/
   National METS extensions
 
 ./mets/kdk-mets-extensions.xsd
-  Deprecated National METS extensions for specifications v.1.4 - 1.6.1
+  Deprecated National METS extensions for specifications v.1.5.0 - 1.6.1
 
 ./mods/mods.xsd
   MODS patch file for compatibility
