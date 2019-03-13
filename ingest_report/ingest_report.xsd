@@ -53,7 +53,7 @@ See: http://www.loc.gov/standards/premis/
 	<!-- environment-dependency structure -->
 	<xs:complexType name="environmentComplexType">
 		<xs:sequence>
-			<xs:element ref="dependency"/>
+			<xs:element ref="dependency" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="dependencyComplexType">
