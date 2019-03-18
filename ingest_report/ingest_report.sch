@@ -34,15 +34,6 @@ See: http://www.loc.gov/standards/premis/
 				&lt;dependencyIdentifierValue&gt; in object '<sch:value-of select=".//premis:objectIdentifierValue"/>' must not be empty.
 			</sch:assert>
 		</sch:rule>	
-		<!-- In case environment is not found, see that METS schema validation was not successful -->
-        <sch:rule context="premis:object[normalize-space(.//premis:objectIdentifierType)='preservation-sip-id' and not(./premis:environment)]">
-			<!--
-				Get success/failure outcome from METS schema validation. Error message about missing environment given, if outcome is 'success' (i.e. something else than missing or 'failure')
-			-->
-			<sch:assert test="not(ancestor::premis:premis/premis:event[normalize-space(./premis:eventType)='validation' and normalize-space(./premis:eventDetail)='METS schema validation']//premis:eventOutcome) or normalize-space(ancestor::premis:premis/premis:event[normalize-space(./premis:eventType)='validation' and normalize-space(./premis:eventDetail)='METS schema validation']//premis:eventOutcome) = 'failure'">
-				&lt;environment&gt; element must be used in object '<sch:value-of select=".//premis:objectIdentifierValue"/>'.
-			</sch:assert>
-		</sch:rule>	
 	</sch:pattern>
 
 	
