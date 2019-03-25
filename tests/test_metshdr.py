@@ -34,7 +34,7 @@ def test_recordstatus(schematron_fx):
 
     hdr.set_attribute('RECORDSTATUS', 'mets', 'update')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 1
+    assert svrl.count(SVRL_FAILED) == 0
 
     hdr.set_attribute('RECORDSTATUS', 'mets', 'dissemination')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
