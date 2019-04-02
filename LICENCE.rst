@@ -141,10 +141,6 @@ SCHEMATRON SCHEMAS:
 ./schematron/
   | LGPLv3+
   | (c) CSC - IT Center for Science
-./schematron/schematron-xslt1/
-  | MIT
-  | (c) 2004-2010 Rick Jellife and Academia Sinica Computing Centre, Taiwan
-  | Optimized by (c) CSC - IT Center for Science
 
 OTHERS:
 +++++++
