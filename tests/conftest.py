@@ -9,15 +9,16 @@ import pytest
 
 SCH_DIRECTORY = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..', 'schematron'))
-ISO_DIRECTORY = os.path.abspath(
-    os.path.join(os.path.dirname(__file__),
-                 '..', 'schematron', 'schematron_xslt1'))
+ISO_DIRECTORY = '/usr/share/iso_schematron_xslt1'
 CATALOG_DIRECTORY = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..', 'schema_catalogs'))
 SCHEMA_DIRECTORY = os.path.abspath(
     os.path.join(os.path.dirname(__file__),
                  '..', 'schema_catalogs', 'schemas'))
 CACHE_DIRECTORY = os.path.expanduser('~/.dpres-xml-schemas/schematron-cache')
+
+
+# TODO: Could use file-scraper
 
 
 @pytest.fixture(scope='session', autouse=True)

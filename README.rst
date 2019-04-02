@@ -21,6 +21,7 @@ Installation and usage requires additional software:
 
         * GNU Make
         * libxml2 & libxslt / xmllint & xsltproc ( with exslt extension )
+        * Schematron conversion scripts: https://github.com/Digital-Preservation-Finland/iso-schematron-xslt1.git
 
 Install with commands::
 
@@ -41,17 +42,15 @@ If no error messages are produced, schema validation is successful.
 
 Use the following commands to compile schematron files to XSL files::
 
-    xsltproc -o tempfile1 /usr/share/dpres-xml-schemas/schematron/schematron_xslt1/iso_dsdl_include.xsl \
-    /usr/share/dpres-xml-schemas/schematron/<schematron schema>.sch
-    xsltproc -o tempfile2 /usr/share/dpres-xml-schemas/schematron/schematron_xslt1/iso_abstract_expand.xsl tempfile1
-    xsltproc -o tempfile3 /usr/share/dpres-xml-schemas/schematron/schematron_xslt1/optimize_schematron.xsl tempfile2
-    xsltproc -o <new compiled xsl>.xsl --stringparam outputfilter only_messages \
-    /usr/share/dpres-xml-schemas/schematron/schematron_xslt1/iso_svrl_for_xslt1.xsl tempfile3
+    xsltproc -o tempfile1 /usr/share/iso_schematron_xslt1/iso_dsdl_include.xsl /usr/share/dpres-xml-schemas/schematron/<schematron schema>.sch
+    xsltproc -o tempfile2 /usr/share/iso_schematron_xslt1/iso_abstract_expand.xsl tempfile1
+    xsltproc -o tempfile3 /usr/share/iso_schematron_xslt1/optimize_schematron.xsl tempfile2
+    xsltproc -o <new compiled xsl>.xsl --stringparam outputfilter only_messages /usr/share/iso_schematron_xslt1/iso_svrl_for_xslt1.xsl tempfile3
 
 To print out also those activated patterns and fired rules which do not result any messages,
 use the following command instead of the last command (this may result to huge output)::
 
-    xsltproc -o <new compiled xsl>.xsl /usr/share/dpres-xml-schemas/schematron/schematron_xslt1/iso_svrl_for_xslt1.xsl tempfile3
+    xsltproc -o <new compiled xsl>.xsl /usr/share/iso_schematron_xslt1/iso_svrl_for_xslt1.xsl tempfile3
 
 Use the following command to validate a METS document::
 
@@ -185,9 +184,6 @@ Paths related to schematron are described in relation to base path ./schematron/
 
 ./abstracts/*
   Abstract patterns used by schematron schemas
-
-./iso_schematron_xslt1/*
-  XSLT files for Schematron conversions
 
 ./*.sch
   Schematron schemas

@@ -20,7 +20,7 @@ Source0:        %{file_prefix}-v%{file_version}%{?file_release_tag}-%{file_build
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
-Requires: python xml-common
+Requires: python xml-common iso-schematron-xslt1
 Requires: libxslt python-setuptools
 Obsoletes: kdk-mets-private < 0.1-4
 Obsoletes: kdk-mets-schemas < 0.2-4
