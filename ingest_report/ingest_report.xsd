@@ -92,8 +92,8 @@ See: http://www.loc.gov/standards/premis/
 			<xs:element ref="eventDateTime"/>
 			<xs:element ref="eventDetail"/>
 			<xs:element ref="eventOutcomeInformation"/>
-			<xs:element ref="linkingAgentIdentifier" minOccurs="0"/>
-			<xs:element ref="linkingObjectIdentifier" minOccurs="0"/>
+			<xs:element ref="linkingAgentIdentifier"/>
+			<xs:element ref="linkingObjectIdentifier"/>
 		</xs:sequence>
 	</xs:complexType>
 
