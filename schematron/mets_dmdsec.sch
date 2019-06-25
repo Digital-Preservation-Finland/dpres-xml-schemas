@@ -8,7 +8,7 @@
 <!--
 Validates METS dmdSec.
 -->
-	
+
 	<sch:ns prefix="mets" uri="http://www.loc.gov/METS/"/>
 	<sch:ns prefix="fikdk" uri="http://www.kdk.fi/standards/mets/kdk-extensions"/>
 	<sch:ns prefix="fi" uri="http://digitalpreservation.fi/schemas/mets/fi-extensions"/>
@@ -32,6 +32,9 @@ Validates METS dmdSec.
 	<sch:include href="./abstracts/required_element_pattern.incl"/>
 	<sch:include href="./abstracts/required_values_attribute_pattern.incl"/>
         <sch:include href="./abstracts/required_metadata_pattern.incl"/>
+
+	<!-- METS internal linking, cross-check part 2: From target to link -->
+	<sch:let name="divlinks" value="/mets:mets/mets:structMap//mets:div"/>
 
         <!-- Allow only given attributes -->
 	<sch:pattern id="mets_dmdSec_attribute_list" is-a="allowed_attribute_list_pattern">
@@ -156,7 +159,6 @@ Validates METS dmdSec.
         </sch:pattern>
 
 	<!-- METS internal linking, cross-check part 2: From target to link -->
-	<sch:let name="divlinks" value="/mets:mets/mets:structMap//mets:div"/>
 	<sch:pattern id="id_references_desc">
 		<sch:rule context="mets:dmdSec">
 			<sch:let name="id" value="normalize-space(@ID)"/>

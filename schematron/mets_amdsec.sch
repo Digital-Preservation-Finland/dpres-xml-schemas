@@ -8,7 +8,7 @@
 <!--
 Validates METS amdSec.
 -->
-	
+
 	<sch:ns prefix="mets" uri="http://www.loc.gov/METS/"/>
 	<sch:ns prefix="fikdk" uri="http://www.kdk.fi/standards/mets/kdk-extensions"/>
 	<sch:ns prefix="fi" uri="http://digitalpreservation.fi/schemas/mets/fi-extensions"/>
@@ -24,6 +24,10 @@ Validates METS amdSec.
 	<sch:include href="./abstracts/required_attribute_pattern.incl"/>
 	<sch:include href="./abstracts/required_element_pattern.incl"/>
 
+	<!-- METS internal linking, cross-check part 2: From target to link -->
+	<sch:let name="divlinks" value="/mets:mets/mets:structMap//mets:div"/>
+	<sch:let name="filelinks" value="/mets:mets/mets:fileSec/mets:fileGrp/mets:file"/>
+	<sch:let name="streamlinks" value="/mets:mets/mets:fileSec/mets:fileGrp/mets:file/mets:stream"/>
 
         <sch:pattern id="mets_amdSec_attribute_list" is-a="allowed_attribute_list_pattern">
                 <sch:param name="context_element" value="mets:amdSec/*"/>
@@ -73,9 +77,6 @@ Validates METS amdSec.
         </sch:pattern>
 
 	<!-- METS internal linking, cross-check part 2: From target to link -->
-	<sch:let name="divlinks" value="/mets:mets/mets:structMap//mets:div"/>
-	<sch:let name="filelinks" value="/mets:mets/mets:fileSec/mets:fileGrp/mets:file"/>
-	<sch:let name="streamlinks" value="/mets:mets/mets:fileSec/mets:fileGrp/mets:file/mets:stream"/>
 	<sch:pattern id="id_references_adm">
         <sch:rule context="mets:amdSec/*">
 			<sch:let name="id" value="normalize-space(@ID)"/>

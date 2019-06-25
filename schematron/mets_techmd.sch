@@ -8,7 +8,7 @@
 <!--
 Validates METS techMD.
 -->
-	
+
 	<sch:ns prefix="mets" uri="http://www.loc.gov/METS/"/>
 	<sch:ns prefix="fikdk" uri="http://www.kdk.fi/standards/mets/kdk-extensions"/>
 	<sch:ns prefix="fi" uri="http://digitalpreservation.fi/schemas/mets/fi-extensions"/>
@@ -126,7 +126,7 @@ Validates METS techMD.
         </sch:pattern>
 
         <!-- Container and stream checks -->
-        <sch:pattern id="container_with streams">
+        <sch:pattern id="container_with_streams">
                 <sch:rule context="mets:techMD[./mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName and ancestor-or-self::mets:mets/mets:fileSec]">
                         <sch:let name="tech_id" value="normalize-space(@ID)"/>
                         <sch:let name="premis_format" value="normalize-space(./mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName)"/>

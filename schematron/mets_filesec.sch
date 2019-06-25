@@ -8,7 +8,7 @@
 <!--
 Validates METS fileSec.
 -->
-	
+
 	<sch:ns prefix="mets" uri="http://www.loc.gov/METS/"/>
 	<sch:ns prefix="fikdk" uri="http://www.kdk.fi/standards/mets/kdk-extensions"/>
 	<sch:ns prefix="fi" uri="http://digitalpreservation.fi/schemas/mets/fi-extensions"/>
@@ -94,8 +94,15 @@ Validates METS fileSec.
         <sch:let name="tiff_mixids" value="$mix_mdids[../mets:mdWrap/mets:xmlData/mix:mix/mix:BasicDigitalObjectInformation/mix:byteOrder]"/>
         <sch:let name="digiprovmd_migration" value="exsl:node-set(/mets:mets/mets:amdSec/mets:digiprovMD[normalize-space(./mets:mdWrap/mets:xmlData/premis:event/premis:eventType)='migration' and normalize-space(./mets:mdWrap/mets:xmlData/premis:event/premis:eventOutcomeInformation/premis:eventOutcome)='success'])"/>
 
+        <!-- METS internal linking, cross-check part 1: From link to target -->
+        <sch:let name="admids_targets" value="/mets:mets/mets:amdSec/*/@ID"/>
+        <sch:let name="admids_target_count" value="count($admids_targets)"/>
 
-	<!-- Allow only given attributes --> 
+	<!-- METS internal linking, cross-check part 2: From target to link -->
+	<sch:let name="fileidfptrlinks" value="/mets:mets/mets:structMap//mets:fptr"/>
+	<sch:let name="fileidarealinks" value="/mets:mets/mets:structMap//mets:area"/>
+
+	<!-- Allow only given attributes -->
         <sch:pattern id="mets_fileSec_attribute_list" is-a="allowed_attribute_list_pattern">
                 <sch:param name="context_element" value="mets:fileSec"/>
                 <sch:param name="context_condition" value="true()"/>
@@ -207,11 +214,8 @@ Validates METS fileSec.
 	</sch:pattern>
 
         <!-- METS internal linking, cross-check part 1: From link to target -->
-        <sch:let name="admids_targets" value="/mets:mets/mets:amdSec/*/@ID"/>
-        <sch:let name="admids_target_count" value="count($admids_targets)"/>
         <sch:pattern id="link_file_admid">
                 <sch:rule context="mets:fileGrp/mets:file[@ADMID]">
-                        <sch:let name="admid_tokens" select="str:tokenize(normalize-space(@ADMID))"/>
                         <sch:assert test="count(sets:distinct(str:tokenize(normalize-space(@ADMID),' ') | exsl:node-set($admids_targets))) = $admids_target_count">
                                 Value '<sch:value-of select="@ADMID"/>' in attribute '<sch:value-of select="name(@ADMID)"/>' in element '<sch:name/>' contains a link to nowhere. The corresponding target attribute '@ID' with the same value was not found.
                         </sch:assert>
@@ -219,7 +223,6 @@ Validates METS fileSec.
         </sch:pattern>
         <sch:pattern id="link_stream_admid">
                 <sch:rule context="mets:stream[@ADMID]">
-                        <sch:let name="admid_tokens" select="str:tokenize(normalize-space(@ADMID), ' ')"/>
                         <sch:assert test="count(sets:distinct(str:tokenize(normalize-space(@ADMID),' ') | exsl:node-set($admids_targets))) = $admids_target_count">
                                 Value '<sch:value-of select="@ADMID"/>' in attribute '<sch:value-of select="name(@ADMID)"/>' in element '<sch:name/>' contains a link to nowhere. The corresponding target attribute '@ID' with the same value was not found.
                         </sch:assert>
@@ -227,8 +230,6 @@ Validates METS fileSec.
         </sch:pattern>
 
 	<!-- METS internal linking, cross-check part 2: From target to link -->
-	<sch:let name="fileidfptrlinks" value="/mets:mets/mets:structMap//mets:fptr"/>
-	<sch:let name="fileidarealinks" value="/mets:mets/mets:structMap//mets:area"/>
 	<sch:pattern id="id_references_file">
         <sch:rule context="mets:fileGrp/mets:file">
 			<sch:let name="id" value="normalize-space(@ID)"/>

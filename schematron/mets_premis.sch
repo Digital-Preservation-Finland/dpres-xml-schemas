@@ -24,13 +24,19 @@ Validates PREMIS metadata.
 	<sch:include href="./abstracts/disallowed_value_attribute_smaller_version_pattern.incl"/>
 	<sch:include href="./abstracts/disallowed_value_element_smaller_version_pattern.incl"/>
 
+	<!-- Check that identifiers of PREMIS sections are unique between the sections -->
+        <sch:let name="objectid" value="/mets:mets/mets:amdSec/mets:*/mets:mdWrap/mets:xmlData/premis:object/premis:objectIdentifier/premis:objectIdentifierValue"/>
+        <sch:let name="eventid" value="/mets:mets/mets:amdSec/mets:*/mets:mdWrap/mets:xmlData/premis:event/premis:eventIdentifier/premis:eventIdentifierValue"/>
+        <sch:let name="agentid" value="/mets:mets/mets:amdSec/mets:*/mets:mdWrap/mets:xmlData/premis:agent/premis:agentIdentifier/premis:agentIdentifierValue"/>
+        <sch:let name="rightsid" value="/mets:mets/mets:amdSec/mets:*/mets:mdWrap/mets:xmlData/premis:rights/premis:rightsStatement/premis:rightsStatementIdentifier/premis:rightsStatementIdentifierValue"/>
+
 	<!-- Version specific checks until smaller than 2.3 -->
 	<sch:pattern id="premis23_object_authority" is-a="disallowed_attribute_smaller_version_pattern">
 		<sch:param name="context_element" value="premis:object//*"/>
 		<sch:param name="context_condition" value="@authority"/>
 		<sch:param name="disallowed_attribute" value="@authority"/>
 		<sch:param name="mdattribute" value="@MDTYPE"/>
-		<sch:param name="mdtype_name" value="string('PREMIS:OBJECT')"/>		
+		<sch:param name="mdtype_name" value="string('PREMIS:OBJECT')"/>
 		<sch:param name="mdtype_version" value="string('2.3')"/>
 	</sch:pattern>
 	<sch:pattern id="premis23_object_authorityURI" is-a="disallowed_attribute_smaller_version_pattern">
@@ -38,7 +44,7 @@ Validates PREMIS metadata.
 		<sch:param name="context_condition" value="@authorityURI"/>
 		<sch:param name="disallowed_attribute" value="@authorityURI"/>
 		<sch:param name="mdattribute" value="@MDTYPE"/>
-		<sch:param name="mdtype_name" value="string('PREMIS:OBJECT')"/>		
+		<sch:param name="mdtype_name" value="string('PREMIS:OBJECT')"/>
 		<sch:param name="mdtype_version" value="string('2.3')"/>
 	</sch:pattern>
 	<sch:pattern id="premis23_object_valueURI" is-a="disallowed_attribute_smaller_version_pattern">
@@ -46,16 +52,10 @@ Validates PREMIS metadata.
 		<sch:param name="context_condition" value="@valueURI"/>
 		<sch:param name="disallowed_attribute" value="@valueURI"/>
 		<sch:param name="mdattribute" value="@MDTYPE"/>
-		<sch:param name="mdtype_name" value="string('PREMIS:OBJECT')"/>		
+		<sch:param name="mdtype_name" value="string('PREMIS:OBJECT')"/>
 		<sch:param name="mdtype_version" value="string('2.3')"/>
 	</sch:pattern>
 
-
-        <!-- Check that identifiers of PREMIS sections are unique between the sections -->
-        <sch:let name="objectid" value="/mets:mets/mets:amdSec/mets:*/mets:mdWrap/mets:xmlData/premis:object/premis:objectIdentifier/premis:objectIdentifierValue"/>
-        <sch:let name="eventid" value="/mets:mets/mets:amdSec/mets:*/mets:mdWrap/mets:xmlData/premis:event/premis:eventIdentifier/premis:eventIdentifierValue"/>
-        <sch:let name="agentid" value="/mets:mets/mets:amdSec/mets:*/mets:mdWrap/mets:xmlData/premis:agent/premis:agentIdentifier/premis:agentIdentifierValue"/>
-        <sch:let name="rightsid" value="/mets:mets/mets:amdSec/mets:*/mets:mdWrap/mets:xmlData/premis:rights/premis:rightsStatement/premis:rightsStatementIdentifier/premis:rightsStatementIdentifierValue"/>
 
 	<!-- Premis linking check -->
 	<sch:pattern id="link_premis_element">

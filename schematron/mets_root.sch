@@ -8,7 +8,7 @@
 <!--
 Validates METS root.
 -->
-	
+
 	<sch:ns prefix="mets" uri="http://www.loc.gov/METS/"/>
 	<sch:ns prefix="fikdk" uri="http://www.kdk.fi/standards/mets/kdk-extensions"/>
 	<sch:ns prefix="fi" uri="http://digitalpreservation.fi/schemas/mets/fi-extensions"/>
@@ -32,6 +32,11 @@ Validates METS root.
 	<sch:include href="./abstracts/required_values_attribute_pattern.incl"/>
 	<sch:include href="./abstracts/required_nonempty_attribute_pattern.incl"/>
 
+        <!-- Check that identifiers of PREMIS sections are unique between the sections -->
+	<sch:let name="objectid" value="/mets:mets/mets:amdSec/mets:*/mets:mdWrap/mets:xmlData/premis:object/premis:objectIdentifier/premis:objectIdentifierValue"/>
+        <sch:let name="eventid" value="/mets:mets/mets:amdSec/mets:*/mets:mdWrap/mets:xmlData/premis:event/premis:eventIdentifier/premis:eventIdentifierValue"/>
+        <sch:let name="agentid" value="/mets:mets/mets:amdSec/mets:*/mets:mdWrap/mets:xmlData/premis:agent/premis:agentIdentifier/premis:agentIdentifierValue"/>
+        <sch:let name="rightsid" value="/mets:mets/mets:amdSec/mets:*/mets:mdWrap/mets:xmlData/premis:rights/premis:rightsStatement/premis:rightsStatementIdentifier/premis:rightsStatementIdentifierValue"/>
 
 	<!-- METS root -->
 	<sch:pattern id="mets_root">
@@ -59,7 +64,7 @@ Validates METS root.
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
 
-	<!-- Allow only given attributes --> 
+	<!-- Allow only given attributes -->
         <sch:pattern id="mets_mets_attribute_list" is-a="allowed_attribute_list_pattern">
                 <sch:param name="context_element" value="mets:mets"/>
                 <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,44)='http://digitalpreservation.fi/mets-profiles'"/>
@@ -207,10 +212,6 @@ Validates METS root.
 
 
         <!-- Check that identifiers of PREMIS sections are unique between the sections -->
-        <sch:let name="objectid" value="/mets:mets/mets:amdSec/mets:*/mets:mdWrap/mets:xmlData/premis:object/premis:objectIdentifier/premis:objectIdentifierValue"/>
-        <sch:let name="eventid" value="/mets:mets/mets:amdSec/mets:*/mets:mdWrap/mets:xmlData/premis:event/premis:eventIdentifier/premis:eventIdentifierValue"/>
-        <sch:let name="agentid" value="/mets:mets/mets:amdSec/mets:*/mets:mdWrap/mets:xmlData/premis:agent/premis:agentIdentifier/premis:agentIdentifierValue"/>
-        <sch:let name="rightsid" value="/mets:mets/mets:amdSec/mets:*/mets:mdWrap/mets:xmlData/premis:rights/premis:rightsStatement/premis:rightsStatementIdentifier/premis:rightsStatementIdentifierValue"/>
         <sch:pattern id="premis_identifierValue_unique">
                 <sch:rule context="mets:mets">
                          <sch:let name="unique_elements" value="$objectid | $eventid | $agentid | $rightsid"/>

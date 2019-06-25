@@ -8,7 +8,7 @@
 <!--
 Validates METS structMap.
 -->
-	
+
 	<sch:ns prefix="mets" uri="http://www.loc.gov/METS/"/>
 	<sch:ns prefix="fikdk" uri="http://www.kdk.fi/standards/mets/kdk-extensions"/>
 	<sch:ns prefix="fi" uri="http://digitalpreservation.fi/schemas/mets/fi-extensions"/>
@@ -27,8 +27,15 @@ Validates METS structMap.
 	<sch:include href="./abstracts/required_max_elements_pattern.incl"/>
 	<sch:include href="./abstracts/required_values_attribute_pattern.incl"/>
 
+        <!-- METS internal linking, cross-check part 1: From link to target -->
+        <sch:let name="dmdids" value="/mets:mets/mets:dmdSec/@ID"/>
+        <sch:let name="admids" value="/mets:mets/mets:amdSec/*/@ID"/>
+        <sch:let name="fileids" value="/mets:mets/mets:fileSec/mets:fileGrp/mets:file/@ID"/>
+        <sch:let name="dmdids_c" value="count($dmdids)"/>
+        <sch:let name="admids_c" value="count($admids)"/>
+        <sch:let name="fileids_c" value="count($fileids)"/>
 
-	<!-- Allow only given attributes --> 
+	<!-- Allow only given attributes -->
         <sch:pattern id="mets_structMap_attribute_list" is-a="allowed_attribute_list_pattern">
                 <sch:param name="context_element" value="mets:structMap"/>
                 <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,44)='http://digitalpreservation.fi/mets-profiles'"/>
@@ -87,7 +94,7 @@ Validates METS structMap.
 		<sch:param name="required_attribute" value="@FILEID"/>
 		<sch:param name="required_element" value=".//mets:area"/>
 		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>	
+	</sch:pattern>
 	<sch:pattern id="mets_mptr_href" is-a="required_attribute_pattern">
 		<sch:param name="context_element" value="mets:mptr"/>
 		<sch:param name="context_condition" value="true()"/>
@@ -122,12 +129,6 @@ Validates METS structMap.
 	</sch:pattern>
 
         <!-- METS internal linking, cross-check part 1: From link to target -->
-        <sch:let name="dmdids" value="/mets:mets/mets:dmdSec/@ID"/>
-        <sch:let name="admids" value="/mets:mets/mets:amdSec/*/@ID"/>
-        <sch:let name="fileids" value="/mets:mets/mets:fileSec/mets:fileGrp/mets:file/@ID"/>
-        <sch:let name="dmdids_c" value="count($dmdids)"/>
-        <sch:let name="admids_c" value="count($admids)"/>
-        <sch:let name="fileids_c" value="count($fileids)"/>
         <sch:pattern id="link_div_dmdid">
                 <sch:rule context="mets:div[@DMDID]">
             <sch:assert test="count(sets:distinct(str:tokenize(normalize-space(@DMDID),' ') | exsl:node-set($dmdids))) = $dmdids_c">

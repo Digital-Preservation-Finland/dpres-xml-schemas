@@ -6,7 +6,7 @@
 	<sch:title>PREMIS metadata validation</sch:title>
 
 <!--
-Validates PREMIS metadata.
+Validates PREMIS metadata
 -->
 
 	<sch:ns prefix="mets" uri="http://www.loc.gov/METS/"/>
@@ -18,6 +18,13 @@ Validates PREMIS metadata.
 	<sch:ns prefix="exsl" uri="http://exslt.org/common"/>
 	<sch:ns prefix="sets" uri="http://exslt.org/sets"/>
 	<sch:ns prefix="str" uri="http://exslt.org/strings"/>
+
+	<sch:include href="./abstracts/disallowed_value_element_smaller_version_pattern.incl"/>
+	<sch:include href="./abstracts/required_element_pattern.incl"/>
+	<sch:include href="./abstracts/required_values_element_pattern.incl"/>
+	<sch:include href="./abstracts/required_value_premis_formatname_pattern.incl"/>
+	<sch:include href="./abstracts/required_parameters_premis_formatname_pattern.incl"/>
+	<sch:include href="./abstracts/required_nonempty_element_pattern.incl"/>
 
 	<!-- Supported MIME types -->
 	<sch:let name="supported_mime_types" value="concat(
@@ -95,11 +102,11 @@ Validates PREMIS metadata.
 		| exsl:node-set('fmt/95 fmt/354 fmt/476 fmt/477 fmt/478 fmt/16 fmt/17 fmt/18 fmt/19 fmt/20 fmt/276 fmt/479 fmt/480 fmt/481')
 		| exsl:node-set('x-fmt/111')
 		| exsl:node-set('x-fmt/135 x-fmt/136')
-		| exsl:node-set('fmt/527 fmt/141') 
+		| exsl:node-set('fmt/527 fmt/141')
 		| exsl:node-set('fmt/279')
 		| exsl:node-set('fmt/199')
-		| exsl:node-set('x-fmt/392') 
-		| exsl:node-set('fmt/199') 
+		| exsl:node-set('x-fmt/392')
+		| exsl:node-set('fmt/199')
 		| exsl:node-set('fmt/42 fmt/43 fmt/44 x-fmt/398 x-fmt/390 x-fmt/391 fmt/645')
 		| exsl:node-set('x-fmt/392')
 		| exsl:node-set('fmt/353 fmt/438 fmt/730 fmt/155')
@@ -140,21 +147,12 @@ Validates PREMIS metadata.
 
 	<!-- Supported checksum types divided with a space+semicolon characters -->
 	<sch:let name="supported_checksum_algorithms" value="string('MD5; SHA-1; SHA-224; SHA-256; SHA-384; SHA-512; md5; sha-1; sha-224; sha-256; sha-384; sha-512')"/>
-	
+
 	<!-- Supported character encodings divided with a space character -->
 	<sch:let name="supported_charsets" value="string('ISO-8859-15 UTF-8 UTF-16 UTF-32 iso-8859-15 utf-8 utf-16 utf-32')"/>
 
 	<!-- MIME types that require charset -->
 	<sch:let name="mimes_require_charset" value="string('application/xhtml+xml text/xml text/html text/csv text/plain application/gml+xml application/vnd.google-earth.kml+xml')"/>
-
-
-	<sch:include href="./abstracts/disallowed_value_element_smaller_version_pattern.incl"/>
-	<sch:include href="./abstracts/required_element_pattern.incl"/>
-	<sch:include href="./abstracts/required_values_element_pattern.incl"/>
-	<sch:include href="./abstracts/required_value_premis_formatname_pattern.incl"/>
-	<sch:include href="./abstracts/required_parameters_premis_formatname_pattern.incl"/>
-	<sch:include href="./abstracts/required_nonempty_element_pattern.incl"/>
-
 
 	<!-- PREMIS mandatory elements -->
 	<sch:pattern id="premis_fixity" is-a="required_element_pattern">
@@ -181,7 +179,7 @@ Validates PREMIS metadata.
 		<sch:param name="required_element" value="premis:formatDesignation"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
-	
+
 	<!-- Registy key check. -->
 	<sch:pattern id="premis_formatName_values" is-a="required_value_premis_formatname_pattern">
 		<sch:param name="context_condition" value="true()"/>
