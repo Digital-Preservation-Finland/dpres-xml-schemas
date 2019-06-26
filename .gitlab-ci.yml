@@ -11,8 +11,20 @@ rpm-package:
   except:
     - master
 
+static-analysis:
+  stage: local-test
+  tags:
+    - docker
+  script:
+    - 'static-analysis.sh'
+  allow_failure: true
+  except:
+    - master
+
 unit-test:
   stage: local-test
+  variables:
+    ANSIBLE_REPOSITORY: 'ansible-preservation-system'
   script:
     - 'unit-test.sh'
   except:
@@ -38,6 +50,17 @@ unit-test-python36:
   except:
     - master
 
+coverage-python36:
+  stage: local-test
+  tags:
+    - docker
+  script:
+    - 'coverage-virtualenv.sh python36'
+  coverage: '/TOTAL.*\s+(\d+%)$/'
+  allow_failure: true
+  except:
+    - master
+
 e2e-localhost-preservation:
   stage: local-test
   script:
@@ -58,8 +81,6 @@ e2e-distributed-preservation:
     - e2e-distributed
   script:
     - 'e2e-distributed.sh preservation'
-  after_script:
-    - 'sudo umount e2e-distributed-preservation/.sshfs'
   only:
     - develop
     - tags
