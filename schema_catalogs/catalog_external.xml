@@ -33,6 +33,13 @@
 	<rewriteURI uriStartString="http://www.loc.gov/standards/alto/v1/alto-1-4.xsd" rewritePrefix="alto/1.4/alto-1-4.xsd"/>
 	<rewriteURI uriStartString="http://www.loc.gov/standards/alto/v2/alto-2-0.xsd" rewritePrefix="alto/2.0/alto-2-0.xsd"/>
 	<rewriteURI uriStartString="http://www.loc.gov/standards/alto/v2/alto-2-1.xsd" rewritePrefix="alto/2.1/alto-2-1.xsd"/>
+	<rewriteURI uriStartString="http://www.loc.gov/standards/alto/v3/alto-3-0.xsd" rewritePrefix="alto/3.0/alto-3-0.xsd"/>
+	<rewriteURI uriStartString="http://www.loc.gov/standards/alto/v3/alto-3-1.xsd" rewritePrefix="alto/3.1/alto-3-1.xsd"/>
+	<rewriteURI uriStartString="http://www.loc.gov/standards/alto/v3/alto.xsd" rewritePrefix="alto/3.1/alto-3-1.xsd"/>
+	<rewriteURI uriStartString="http://www.loc.gov/standards/alto/v4/alto-4-0.xsd" rewritePrefix="alto/4.0/alto-4-0.xsd"/>
+	<rewriteURI uriStartString="http://www.loc.gov/standards/alto/v4/alto-4-1.xsd" rewritePrefix="alto/4.1/alto-4-1.xsd"/>
+	<rewriteURI uriStartString="http://www.loc.gov/standards/alto/v4/alto.xsd" rewritePrefix="alto/4.1/alto-4-1.xsd"/>
+	<!-- File /alto/alto.xsd in loc.gov server still contains ALTO version 2.1. Possibly historical URL? -->
 	<rewriteURI uriStartString="http://www.loc.gov/standards/alto/alto.xsd" rewritePrefix="alto/2.1/alto-2-1.xsd"/>
 
 	<!-- AudioMD, VideoMD -->
