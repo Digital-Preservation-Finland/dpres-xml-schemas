@@ -190,19 +190,13 @@ Validates METS root.
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
 
-	<!-- Check that OBJID attribute is unique with METS internal IDs -->
+	<!-- Check that OBJID attribute is unique with METS internal IDs (except for CONTENTID) -->
 	<sch:pattern id="unique_objid">
 		<sch:rule context="mets:mets[@OBJID]">
 		    <sch:let name="objid" value="normalize-space(@OBJID)"/>
 		    <sch:let name="same_id_count" value="count(@ID[.=$objid] | ./mets:*/@ID[.=$objid] | ./mets:*/mets:*/@ID[.=$objid] | ./mets:*/mets:*/mets:*/@ID[.=$objid] | ./mets:fileSec/mets:fileGrp/mets:file/*/@ID[.=$objid] | ./mets:structMap//@ID[.=$objid])"/>
 			<sch:assert test="$same_id_count = 0">
 				Value '<sch:value-of select="@OBJID"/>' in attribute '<sch:value-of select="name(@OBJID)"/>' in element '<sch:name/>' is required to be unique. Another attribute 'ID' with the same value exists.
-			</sch:assert>
-                        <sch:assert test="not($objid = normalize-space(@fi:CONTENTID)) or not(@fi:CONTENTID)">
-                                Value '<sch:value-of select="@OBJID"/>' in attribute '<sch:value-of select="name(@OBJID)"/>' in element '<sch:name/>' is required to be unique. Another attribute '<sch:value-of select="name(@fi:CONTENTID)"/>' with the same value exists.
-                        </sch:assert>
-			<sch:assert test="not($objid = normalize-space(@fikdk:CONTENTID)) or not(@fikdk:CONTENTID)">
-				Value '<sch:value-of select="@OBJID"/>' in attribute '<sch:value-of select="name(@OBJID)"/>' in element '<sch:name/>' is required to be unique. Another attribute '<sch:value-of select="name(@fikdk:CONTENTID)"/>' with the same value exists.
 			</sch:assert>
                         <sch:assert test="not($objid = normalize-space(@fi:CONTRACTID)) or not(@fi:CONTRACTID)">
                                 Value '<sch:value-of select="@OBJID"/>' in attribute '<sch:value-of select="name(@OBJID)"/>' in element '<sch:name/>' is required to be unique. Another attribute '<sch:value-of select="name(@fi:CONTRACTID)"/>' with the same value exists.

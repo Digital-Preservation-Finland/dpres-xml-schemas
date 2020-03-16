@@ -274,7 +274,8 @@ def test_disallowed_items_root(schematron_fx, disallowed):
 
 
 def test_objid_unique(schematron_fx):
-    """Check that error is given, if OBJID is not unique with METS IDs.
+    """Check that error is given, if OBJID is not unique with METS IDs,
+    except for CONTENTID that can be identical to OBJID.
 
     :schematron_fx: Schematron compile fixture
     """
@@ -283,7 +284,7 @@ def test_objid_unique(schematron_fx):
     contentid = root.get_attribute('CONTENTID', 'fikdk')
     root.set_attribute('CONTENTID', 'fikdk', objid)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 1
+    assert svrl.count(SVRL_FAILED) == 0
 
     root.set_attribute('CONTENTID', 'fikdk', contentid)
     elem_handler = root.find_element('dmdSec', 'mets')
