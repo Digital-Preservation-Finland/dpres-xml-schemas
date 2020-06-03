@@ -34,10 +34,6 @@
                     <hr class="divider"/>
                 </div>
 
-                <div id="row" class="text-right">
-                    <xsl:value-of select="//premis:event/premis:eventType[text() = 'validation']/../premis:eventDateTime/text()"/>
-                </div>
-
                 <xsl:choose>
                     <xsl:when test="((//premis:event/premis:eventOutcomeInformation/premis:eventOutcome = 'failure') and not (//premis:event/premis:eventType = 'approval'))">
                         <xsl:variable name="objid" select="//premis:object/premis:environment/premis:dependency/premis:dependencyIdentifier/premis:dependencyIdentifierType[text() = 'mets:OBJID']/../premis:dependencyIdentifierValue/text()"/>
@@ -79,7 +75,8 @@
                         <table class="table table-condensed">
                             <tr class="row">
                                 <th class="col-md-8">Event name</th>
-                                <th class="col-md-4">Outcome</th>
+                                <th class="col-md-2">Time</th>
+                                <th class="col-md-2 text-right">Outcome</th>
                             </tr>
 
                             <xsl:for-each select="//premis:event/premis:linkingObjectIdentifier/premis:linkingObjectIdentifierValue[text() = $object_id_value]">
@@ -91,13 +88,15 @@
                                         <xsl:when test="../../premis:eventOutcomeInformation/premis:eventOutcome = 'failure'">
                                             <tr class="red row">
                                                 <td class="col-md-8"><xsl:value-of select="../../premis:eventDetail"/></td>
-                                                <td class="col-md-4"><xsl:value-of select="../../premis:eventOutcomeInformation/premis:eventOutcome"/></td>
+                                                <td class="col-md-2"><xsl:value-of select="../../premis:eventDateTime/text()"/></td>
+                                                <td class="col-md-2 text-right"><xsl:value-of select="../../premis:eventOutcomeInformation/premis:eventOutcome"/></td>
                                             </tr>
                                         </xsl:when>
                                         <xsl:otherwise>
                                             <tr class="success row">
                                                 <td class="col-md-8"><xsl:value-of select="../../premis:eventDetail"/></td>
-                                                <td class="col-md-4"><xsl:value-of select="../../premis:eventOutcomeInformation/premis:eventOutcome"/></td>
+                                                <td class="col-md-2"><xsl:value-of select="../../premis:eventDateTime/text()"/></td>
+                                                <td class="col-md-2 text-right"><xsl:value-of select="../../premis:eventOutcomeInformation/premis:eventOutcome"/></td>
                                             </tr>
                                         </xsl:otherwise>
                                     </xsl:choose>
