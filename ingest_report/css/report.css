@@ -16,6 +16,10 @@ h2 {
     margin-top: 30px;
 }
 
+h2 small {
+    color: #555;
+}
+
 .divider {
     margin-top: 0;
     margin-bottom: 0;
