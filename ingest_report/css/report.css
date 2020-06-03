@@ -34,10 +34,11 @@ td:first-letter {
 }
 
 .red {
-    background-color: #f77;
+    background-color: #8b0000;
+    color: white;
 }
 
 .text-red {
-    color: rgb(255,60,60);
+    color: #8b0000;
 }
 <!--/*-->]]></root><!--*/-->
