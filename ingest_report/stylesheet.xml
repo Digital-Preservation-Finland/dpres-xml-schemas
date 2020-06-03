@@ -71,38 +71,40 @@
                     <xsl:if test="$object_id_type = 'preservation-object-id'">
                         <h2>Digital object <small><xsl:value-of select="premis:originalName"/></small></h2>
                     </xsl:if>
-                    <xsl:if test="$object_id_type = 'preservation-aip-id'">
+                    <xsl:if test="($object_id_type = 'preservation-aip-id') and not (//premis:event/premis:eventOutcomeInformation/premis:eventOutcome = 'failure')">
                         <h2>Archival information package <small><xsl:value-of select="premis:originalName"/></small></h2>
                     </xsl:if>
 
-                    <table class="table table-condensed">
-                        <tr class="row">
-                            <th class="col-md-8">Event name</th>
-                            <th class="col-md-4">Outcome</th>
-                        </tr>
+                    <xsl:if test="not ($object_id_type = 'preservation-aip-id' and //premis:event/premis:eventOutcomeInformation/premis:eventOutcome = 'failure')">
+                        <table class="table table-condensed">
+                            <tr class="row">
+                                <th class="col-md-8">Event name</th>
+                                <th class="col-md-4">Outcome</th>
+                            </tr>
 
-                        <xsl:for-each select="//premis:event/premis:linkingObjectIdentifier/premis:linkingObjectIdentifierValue[text() = $object_id_value]">
-                            <!-- Filter out some events -->
-                            <xsl:variable name="eventDetail" select="../../premis:eventDetail"/>
-                            <xsl:if test="not(contains($eventDetail, 'Validation compilation of submission information package')) and not(contains($eventDetail, 'Transfer of submission information package'))">
+                            <xsl:for-each select="//premis:event/premis:linkingObjectIdentifier/premis:linkingObjectIdentifierValue[text() = $object_id_value]">
+                                <!-- Filter out some events -->
+                                <xsl:variable name="eventDetail" select="../../premis:eventDetail"/>
+                                <xsl:if test="not(contains($eventDetail, 'Validation compilation of submission information package')) and not(contains($eventDetail, 'Transfer of submission information package'))">
 
-                                <xsl:choose>
-                                    <xsl:when test="../../premis:eventOutcomeInformation/premis:eventOutcome = 'failure'">
-                                        <tr class="red row">
-                                            <td class="col-md-8"><xsl:value-of select="../../premis:eventDetail"/></td>
-                                            <td class="col-md-4"><xsl:value-of select="../../premis:eventOutcomeInformation/premis:eventOutcome"/></td>
-                                        </tr>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <tr class="success row">
-                                            <td class="col-md-8"><xsl:value-of select="../../premis:eventDetail"/></td>
-                                            <td class="col-md-4"><xsl:value-of select="../../premis:eventOutcomeInformation/premis:eventOutcome"/></td>
-                                        </tr>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </xsl:if>
-                        </xsl:for-each>
-                    </table>
+                                    <xsl:choose>
+                                        <xsl:when test="../../premis:eventOutcomeInformation/premis:eventOutcome = 'failure'">
+                                            <tr class="red row">
+                                                <td class="col-md-8"><xsl:value-of select="../../premis:eventDetail"/></td>
+                                                <td class="col-md-4"><xsl:value-of select="../../premis:eventOutcomeInformation/premis:eventOutcome"/></td>
+                                            </tr>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <tr class="success row">
+                                                <td class="col-md-8"><xsl:value-of select="../../premis:eventDetail"/></td>
+                                                <td class="col-md-4"><xsl:value-of select="../../premis:eventOutcomeInformation/premis:eventOutcome"/></td>
+                                            </tr>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:if>
+                            </xsl:for-each>
+                        </table>
+                    </xsl:if>
                 </xsl:for-each>
             <br/>
             <hr/>
