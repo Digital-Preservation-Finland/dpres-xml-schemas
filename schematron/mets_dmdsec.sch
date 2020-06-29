@@ -91,7 +91,7 @@ Validates METS dmdSec.
 		<sch:param name="context_element" value="mets:dmdSec/mets:mdWrap"/>
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='DC'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
-		<sch:param name="valid_values" value="string('1.1')"/>
+		<sch:param name="valid_values" value="string('1.1; 2008')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_MODS" is-a="required_values_attribute_pattern">
@@ -112,7 +112,7 @@ Validates METS dmdSec.
 		<sch:param name="context_element" value="mets:dmdSec/mets:mdWrap"/>
 		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='EAC-CPF'"/>
 		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
-		<sch:param name="valid_values" value="string('2010')"/>
+		<sch:param name="valid_values" value="string('2010_revised')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
 	<sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_LIDO" is-a="required_values_attribute_pattern">
@@ -154,7 +154,7 @@ Validates METS dmdSec.
 	        <sch:param name="context_element" value="mets:dmdSec/mets:mdWrap"/>
                 <sch:param name="context_condition" value="normalize-space(@MDTYPE)='OTHER' and normalize-space(@OTHERMDTYPE)='DATACITE'"/>
                 <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
-                <sch:param name="valid_values" value="string('4.1')"/>
+                <sch:param name="valid_values" value="string('4.3; 4.2; 4.1')"/>
                 <sch:param name="specifications" value="string('not: 1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
 
