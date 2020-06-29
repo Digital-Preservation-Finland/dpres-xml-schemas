@@ -81,7 +81,7 @@ def add_containers(root, container_path):
 
 
 def fix_version_17(root):
-    """Local namespaces need to be changed for catalog version 1.7.1 to make
+    """Local namespaces need to be changed for catalog version 1.7.2 to make
     the tree valid. This is used in various tests.
 
     :root: METS root element
@@ -109,7 +109,7 @@ def fix_version_17(root):
     root.set_attribute(
         'PROFILE', 'mets',
         'http://digitalpreservation.fi/mets-profiles/cultural-heritage')
-    root.set_attribute('CATALOG', 'fi', '1.7.1')
-    root.set_attribute('SPECIFICATION', 'fi', '1.7.1')
+    root.set_attribute('CATALOG', 'fi', '1.7.2')
+    root.set_attribute('SPECIFICATION', 'fi', '1.7.2')
     root.set_attribute('CONTRACTID', 'fi',
                        'urn:uuid:c5a193b3-bb63-4348-bd25-6c20bb72264b')

@@ -102,8 +102,8 @@ def test_mdtype_items_dmdsec(schematron_fx, mdtype, othermdtype,
         elem_handler.set_attribute('OTHERMDTYPE', 'mets', othermdtype)
 
     # Test that all MDTYPEVERSIONs work with all specifications
-    for specversion in ['1.5.0', '1.6.0', '1.7.0', '1.7.1']:
-        if specversion in ['1.7.0', '1.7.1']:
+    for specversion in ['1.5.0', '1.6.0', '1.7.0', '1.7.1', '1.7.2']:
+        if specversion in ['1.7.0', '1.7.1', '1.7.2']:
             fix_version_17(root)
         else:
             root.set_attribute('CATALOG', 'fikdk', specversion)
@@ -176,8 +176,8 @@ def test_arbitrary_attributes_dmdsec(schematron_fx):
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
     elem_handler = root.find_element('dmdSec', 'mets')
-    for spec in [None, '1.7.1']:
-        if spec == '1.7.1':
+    for spec in [None, '1.7.2']:
+        if spec == '1.7.2':
             fix_version_17(root)
         for ns in ['fi', 'fikdk', 'dc']:
             elem_handler.set_attribute('xxx', ns, 'xxx')

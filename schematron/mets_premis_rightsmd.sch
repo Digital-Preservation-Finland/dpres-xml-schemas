@@ -2,7 +2,7 @@
 
 <!-- pass-filter: /mets:mets/mets:amdSec/mets:rightsMD/mets:mdWrap/mets:xmlData/premis:* -->
 <!-- context-filter: premis:* -->
-<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.1">
+<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.2">
 	<sch:title>PREMIS metadata validation</sch:title>
 
 <!--

@@ -80,8 +80,8 @@ def test_mdtype_items_digiprovmd(schematron_fx, mdtype, othermdtype,
         elem_handler.set_attribute('OTHERMDTYPE', 'mets', othermdtype)
 
     # Test that all MDTYPEVERSIONs work with all specifications
-    for specversion in ['1.5.0', '1.6.0', '1.7.0', '1.7.1']:
-        if specversion in ['1.7.0', '1.7.1']:
+    for specversion in ['1.5.0', '1.6.0', '1.7.0', '1.7.1', '1.7.2']:
+        if specversion in ['1.7.0', '1.7.1', '1.7.2']:
             fix_version_17(root)
         else:
             root.set_attribute('CATALOG', 'fikdk', specversion)

@@ -2,7 +2,7 @@
 
 <!-- pass-filter: /mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/videomd:VIDEOMD -->
 <!-- context-filter: videomd:VIDEOMD|videomd:fileData|videomd:compression|videomd:frame -->
-<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.1">
+<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.2">
 	<sch:title>VideoMD metadata validation</sch:title>
 
 <!--
