@@ -88,14 +88,28 @@
                                         <xsl:when test="../../premis:eventOutcomeInformation/premis:eventOutcome = 'failure'">
                                             <tr class="red row">
                                                 <td class="col-md-8"><xsl:value-of select="../../premis:eventDetail"/></td>
-                                                <td class="col-md-2"><xsl:value-of select="../../premis:eventDateTime/text()"/></td>
+                                                <xsl:choose>
+                                                    <xsl:when test="contains(../../premis:eventDateTime/text(), '.')">
+                                                        <td class="col-md-2"><xsl:value-of select="substring-before(../../premis:eventDateTime/text(), '.')"/></td>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <td class="col-md-2"><xsl:value-of select="../../premis:eventDateTime/text()"/></td>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
                                                 <td class="col-md-2 text-right"><xsl:value-of select="../../premis:eventOutcomeInformation/premis:eventOutcome"/></td>
                                             </tr>
                                         </xsl:when>
                                         <xsl:otherwise>
                                             <tr class="success row">
                                                 <td class="col-md-8"><xsl:value-of select="../../premis:eventDetail"/></td>
-                                                <td class="col-md-2"><xsl:value-of select="../../premis:eventDateTime/text()"/></td>
+                                                <xsl:choose>
+                                                    <xsl:when test="contains(../../premis:eventDateTime/text(), '.')">
+                                                        <td class="col-md-2"><xsl:value-of select="substring-before(../../premis:eventDateTime/text(), '.')"/></td>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <td class="col-md-2"><xsl:value-of select="../../premis:eventDateTime/text()"/></td>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
                                                 <td class="col-md-2 text-right"><xsl:value-of select="../../premis:eventOutcomeInformation/premis:eventOutcome"/></td>
                                             </tr>
                                         </xsl:otherwise>
