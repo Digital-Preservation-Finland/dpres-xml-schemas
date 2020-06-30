@@ -21,7 +21,7 @@
             <body>
                 <div id="row">
                     <xsl:choose>
-                        <xsl:when test="((//premis:event/premis:eventOutcomeInformation/premis:eventOutcome = 'failure') and not (//premis:event/premis:eventType = 'approval'))">
+                        <xsl:when test="((/premis:premis/premis:event/premis:eventOutcomeInformation/premis:eventOutcome = 'failure') and not (/premis:premis/premis:event/premis:eventType = 'approval'))">
                             <h1>Ingest report – <span class="text-red">Submission rejected</span></h1>
                         </xsl:when>
                         <xsl:otherwise>
@@ -35,7 +35,7 @@
                 </div>
 
                 <xsl:choose>
-                    <xsl:when test="((//premis:event/premis:eventOutcomeInformation/premis:eventOutcome = 'failure') and not (//premis:event/premis:eventType = 'approval'))">
+                    <xsl:when test="((/premis:premis/premis:event/premis:eventOutcomeInformation/premis:eventOutcome = 'failure') and not (/premis:premis/premis:event/premis:eventType = 'approval'))">
                         <xsl:variable name="objid" select="//premis:object/premis:environment/premis:dependency/premis:dependencyIdentifier/premis:dependencyIdentifierType[text() = 'mets:OBJID']/../premis:dependencyIdentifierValue/text()"/>
                         <xsl:variable name="username" select="//premis:agent/premis:agentIdentifier/premis:agentIdentifierType[text() = 'preservation-user-id']/../../premis:agentName/text()"/>
 
@@ -67,11 +67,11 @@
                     <xsl:if test="$object_id_type = 'preservation-object-id'">
                         <h2>Digital object <small><xsl:value-of select="premis:originalName"/></small></h2>
                     </xsl:if>
-                    <xsl:if test="($object_id_type = 'preservation-aip-id') and not (//premis:event/premis:eventOutcomeInformation/premis:eventOutcome = 'failure')">
+                    <xsl:if test="($object_id_type = 'preservation-aip-id') and not (/premis:premis/premis:event/premis:eventOutcomeInformation/premis:eventOutcome = 'failure')">
                         <h2>Archival information package <small><xsl:value-of select="premis:originalName"/></small></h2>
                     </xsl:if>
 
-                    <xsl:if test="not ($object_id_type = 'preservation-aip-id' and //premis:event/premis:eventOutcomeInformation/premis:eventOutcome = 'failure')">
+                    <xsl:if test="not ($object_id_type = 'preservation-aip-id' and /premis:premis/premis:event/premis:eventOutcomeInformation/premis:eventOutcome = 'failure')">
                         <table class="table table-condensed">
                             <tr class="row">
                                 <th class="col-md-8">Event name</th>
@@ -79,7 +79,7 @@
                                 <th class="col-md-2 text-right">Outcome</th>
                             </tr>
 
-                            <xsl:for-each select="//premis:event/premis:linkingObjectIdentifier/premis:linkingObjectIdentifierValue[text() = $object_id_value]">
+                            <xsl:for-each select="/premis:premis/premis:event/premis:linkingObjectIdentifier/premis:linkingObjectIdentifierValue[text() = $object_id_value]">
                                 <!-- Filter out some events -->
                                 <xsl:variable name="eventDetail" select="../../premis:eventDetail"/>
                                 <xsl:if test="not(contains($eventDetail, 'Validation compilation of submission information package')) and not(contains($eventDetail, 'Transfer of submission information package'))">
