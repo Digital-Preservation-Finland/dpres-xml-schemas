@@ -99,7 +99,7 @@ Paths related to schema catalog are described in relation to base path ./schema_
   | No copyright, see:
   | http://creativecommons.org/publicdomain/zero/1.0/legalcode
 ./metsrights
-  | License N/A
+  | Creative Commons CC0 1.0 Universal Public Domain Dedication
   | http://www.loc.gov/standards/rights/METSRights.xsd
   | Copyright N/A
 ./mix

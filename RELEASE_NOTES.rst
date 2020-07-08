@@ -1,6 +1,16 @@
 Release notes
 =============
 
+Version 0.25
+------------
+
+- Licence update.
+
+Version 0.24
+------------
+
+- Update METSRIGHTS schema.
+
 Version 0.23
 ------------
 
