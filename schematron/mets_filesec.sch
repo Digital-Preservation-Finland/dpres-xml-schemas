@@ -92,7 +92,7 @@ Validates METS fileSec.
         <sch:let name="jp2_mixjp2ids" value="$mix_mdids[../mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics/mix:JPEG2000]"/>
         <sch:let name="jp2_mixsfcids" value="$mix_mdids[../mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics]"/>
         <sch:let name="tiff_mixids" value="$mix_mdids[../mets:mdWrap/mets:xmlData/mix:mix/mix:BasicDigitalObjectInformation/mix:byteOrder]"/>
-        <sch:let name="digiprovmd_migration" value="exsl:node-set(/mets:mets/mets:amdSec/mets:digiprovMD[normalize-space(./mets:mdWrap/mets:xmlData/premis:event/premis:eventType)='migration' and normalize-space(./mets:mdWrap/mets:xmlData/premis:event/premis:eventOutcomeInformation/premis:eventOutcome)='success'])"/>
+        <sch:let name="digiprovmd_migration" value="exsl:node-set(/mets:mets/mets:amdSec/mets:digiprovMD[(normalize-space(./mets:mdWrap/mets:xmlData/premis:event/premis:eventType)='migration' or normalize-space(./mets:mdWrap/mets:xmlData/premis:event/premis:eventType)='normalization') and normalize-space(./mets:mdWrap/mets:xmlData/premis:event/premis:eventOutcomeInformation/premis:eventOutcome)='success'])"/>
 
         <!-- METS internal linking, cross-check part 1: From link to target -->
         <sch:let name="admids_targets" value="/mets:mets/mets:amdSec/*/@ID"/>
@@ -406,10 +406,10 @@ Validates METS fileSec.
                         <sch:let name="event_links_source_ok" value="sets:intersection($event_source_link, $event_not_outcome_link)"/>
 
                         <sch:assert test="(count($digiprovmd_migration) &gt; 0 and count($digiprovmd_migration/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' '))]) &gt; 0)">
-                                Value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' found for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'. Succeeded PREMIS event for migration is required.
+                                Value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' found for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'. Succeeded PREMIS event for migration/normalization is required.
                         </sch:assert>
                         <sch:assert test="(count($digiprovmd_migration) = 0 or count($event_links_source_ok) &gt; 0)">
-                                Value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' found for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'. PREMIS event for migration contains ambiguous links to object identifiers.
+                                Value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' found for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'. PREMIS event for migration/normalization contains ambiguous links to object identifiers.
                         </sch:assert>
                         <sch:report test="(count($digiprovmd_migration) &gt; 0 and count($digiprovmd_migration/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' '))]) &gt; 0 and count($event_links_source_ok) &gt; 0)">
                                 INFO: Value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' found for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'. No file format validation is executed for this file.
