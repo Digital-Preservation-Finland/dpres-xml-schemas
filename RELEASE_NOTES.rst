@@ -1,6 +1,11 @@
 Release notes
 =============
 
+Version 0.26
+------------
+
+- Add normalization event type for native files.
+
 Version 0.25
 ------------
 
