@@ -1,6 +1,12 @@
 Release notes
 =============
 
+Version 0.27
+------------
+
+- Allow known video container to have unknown streams when marked as a native
+  file.
+
 Version 0.26
 ------------
 
