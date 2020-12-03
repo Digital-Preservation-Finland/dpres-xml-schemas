@@ -1,6 +1,11 @@
 Release notes
 =============
 
+Version 0.28
+------------
+
+- Build el8 rpms
+
 Version 0.27
 ------------
 
