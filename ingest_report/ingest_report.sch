@@ -223,7 +223,7 @@ See: http://www.loc.gov/standards/premis/
 	<!-- METS additional validation event check -->
 	<sch:pattern name="EventMetsAdditionalCheck">
         <sch:rule context="premis:event[normalize-space(./premis:eventType)='validation' and ./premis:eventDetail='Additional METS validation of required features']">
-			<sch:assert test="(normalize-space(.//premis:linkingAgentIdentifierType)='preservation-agent-id') and (normalize-space(.//premis:linkingAgentIdentifierValue)=normalize-space(ancestor::premis:premis//premis:agentIdentifierValue[normalize-space(preceding-sibling::premis:agentIdentifierType)='preservation-agent-id' and (contains(.,'validate_mets_schematron.py') or contains(.,'sip_version.py'))]))">
+		<sch:assert test="(normalize-space(.//premis:linkingAgentIdentifierType)='preservation-agent-id') and (normalize-space(.//premis:linkingAgentIdentifierValue)=normalize-space(ancestor::premis:premis//premis:agentIdentifierValue[normalize-space(preceding-sibling::premis:agentIdentifierType)='preservation-agent-id' and contains(.,'sip_version.py')]) or normalize-space(.//premis:linkingAgentIdentifierValue)=normalize-space(ancestor::premis:premis//premis:agentIdentifierValue[normalize-space(preceding-sibling::premis:agentIdentifierType)='preservation-agent-id' and contains(.,'validate_mets_schematron.py')]))">
 				METS validation event '<sch:value-of select=".//premis:eventIdentifierValue"/>' must link to a METS schematron validation agent.
 			</sch:assert>
 			<sch:assert test="(normalize-space(.//premis:linkingObjectIdentifierType)='preservation-mets-id') and (normalize-space(.//premis:linkingObjectIdentifierValue)=normalize-space(ancestor::premis:premis//premis:objectIdentifierValue[normalize-space(preceding-sibling::premis:objectIdentifierType)='preservation-mets-id']))">
@@ -272,7 +272,7 @@ See: http://www.loc.gov/standards/premis/
 			<sch:assert test="normalize-space(./premis:eventDetail)='Creation of archival information package'">
 				AIP creation event '<sch:value-of select=".//premis:eventIdentifierValue"/>' must have an event detail: 'Creation of archival information package'
 			</sch:assert>
-			<sch:assert test="(normalize-space(.//premis:linkingAgentIdentifierType)='preservation-agent-id') and (normalize-space(.//premis:linkingAgentIdentifierValue)=normalize-space(ancestor::premis:premis//premis:agentIdentifierValue[normalize-space(preceding-sibling::premis:agentIdentifierType)='preservation-agent-id' and contains(.,'create_premis_report.py')]))">
+			<sch:assert test="(normalize-space(.//premis:linkingAgentIdentifierType)='preservation-agent-id') and (normalize-space(.//premis:linkingAgentIdentifierValue)=normalize-space(ancestor::premis:premis//premis:agentIdentifierValue[normalize-space(preceding-sibling::premis:agentIdentifierType)='preservation-agent-id' and contains(.,'create_aip.py')]))">
 				AIP creation event '<sch:value-of select=".//premis:eventIdentifierValue"/>' must link to a ingest report creation agent.
 			</sch:assert>
 			<sch:assert test="(normalize-space(.//premis:linkingObjectIdentifierType)='preservation-aip-id') and (normalize-space(.//premis:linkingObjectIdentifierValue)=normalize-space(ancestor::premis:premis//premis:objectIdentifierValue[normalize-space(preceding-sibling::premis:objectIdentifierType)='preservation-aip-id']))">
