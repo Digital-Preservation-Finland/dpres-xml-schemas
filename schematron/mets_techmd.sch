@@ -2,7 +2,7 @@
 
 <!-- pass-filter: /mets:mets/mets:amdSec/mets:techMD -->
 <!-- context-filter: mets:techMD|mets:mdWrap|mets:xmlData -->
-<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.2">
+<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.3">
 	<sch:title>METS techMD validation</sch:title>
 
 <!--
@@ -29,6 +29,7 @@ Validates METS techMD.
         <sch:ns prefix="eac" uri="urn:isbn:1-931666-33-4"/>
         <sch:ns prefix="vra" uri="http://www.vraweb.org/vracore4.htm"/>
         <sch:ns prefix="lido" uri="http://www.lido-schema.org"/>
+        <sch:ns prefix="ddilc33" uri="ddi:instance:3_3"/>
         <sch:ns prefix="ddilc32" uri="ddi:instance:3_2"/>
         <sch:ns prefix="ddilc31" uri="ddi:instance:3_1"/>
         <sch:ns prefix="ddicb25" uri="ddi:codebook:2_5"/>
@@ -104,6 +105,13 @@ Validates METS techMD.
 		<sch:param name="valid_values" value="string('8.2; 8.3')"/>
 		<sch:param name="specifications" value="string('')"/>
 	</sch:pattern>
+        <sch:pattern id="mets_techMD_MDTYPEVERSION_values_EBUCORE" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:techMD/mets:mdWrap"/>
+                <sch:param name="context_condition" value="normalize-space(@MDTYPE)='OTHER' and normalize-space(@OTHERMDTYPE)='EBUCORE'"/>
+                <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
+                <sch:param name="valid_values" value="string('1.10')"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
 
         <!-- Known descriptive, rights, technical, or provenance metadata can not be used inside wrong section -->
         <sch:pattern id="techmd_no_rights" is-a="disallowed_element_pattern">
@@ -121,7 +129,7 @@ Validates METS techMD.
         <sch:pattern id="techmd_no_descriptive" is-a="disallowed_element_pattern">
                 <sch:param name="context_element" value="mets:techMD/mets:mdWrap/mets:xmlData"/>
                 <sch:param name="context_condition" value="true()"/>
-                <sch:param name="disallowed_element" value="datacite:* or lido:* or ead:* or ead3:* or vra:* or mods:* or marc21:* or dc:* or dcterms:* or dcmitype:* or ddilc32:* or ddilc31:* or ddicb25:* or ddicb21:*"/>
+                <sch:param name="disallowed_element" value="datacite:* or lido:* or ead:* or ead3:* or vra:* or mods:* or marc21:* or dc:* or dcterms:* or dcmitype:* or ddilc33:* or ddilc32:* or ddilc31:* or ddicb25:* or ddicb21:*"/>
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
 

@@ -61,9 +61,10 @@ Paths related to schema catalog are described in relation to base path ./schema_
   | http://dublincore.org/
   | (c) 1995-2016 DCMI
 ./ddi*
-  | LGPL3
+  | Creative Commons Attribution 4.0 International (CC BY 4.0)
+  | https://creativecommons.org/licenses/by/4.0/
   | http://www.ddialliance.org/
-  | (c) 2014 DDI Alliance
+  | (c) 2020 DDI Alliance
 ./eac
   | License N/A
   | http://eac.staatsbibliothek-berlin.de/
@@ -76,11 +77,16 @@ Paths related to schema catalog are described in relation to base path ./schema_
   | CC0 1.0
   | https://www.loc.gov/ead/
   | Copyright N/A
+./ebucore
+  | Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)
+  | https://tech.ebu.ch/MetadataEbuCore
+  | (c) 2020 EBU
 ./gml
   | License: See ./gml/License
   | http://www.opengeospatial.org/
   | (c) 2001,2005,2010 Open Geospatial Consortium.
 ./lido
+  | Creative Commons ttribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
   | http://creativecommons.org/licenses/by-sa/3.0/
   | http://www.lido-schema.org
   | Copyright 2009-2010 ICOM-CIDOC for the

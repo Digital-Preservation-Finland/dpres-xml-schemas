@@ -24,8 +24,8 @@ def test_catalog_mets_complete(catalog_fx):
     (returncode, _, _) = catalog_fx(xmltree=mets)
     assert returncode == 0
 
-    root.set_attribute('CATALOG', 'fikdk', '1.7.2')
-    root.set_attribute('SPECIFICATION', 'fikdk', '1.7.2')
+    root.set_attribute('CATALOG', 'fikdk', '1.7.3')
+    root.set_attribute('SPECIFICATION', 'fikdk', '1.7.3')
     (returncode, _, _) = catalog_fx(xmltree=mets)
     assert returncode == 3
 
@@ -66,6 +66,7 @@ def test_contractid_format(catalog_fx):
     ('eac-cpf', 'eac', 'dmdSec'),
     ('vra', 'vra', 'dmdSec'),
     ('lido', 'lido', 'dmdSec'),
+    ('DDIInstance', 'ddilc33', 'dmdSec'),
     ('DDIInstance', 'ddilc32', 'dmdSec'),
     ('DDIInstance', 'ddilc31', 'dmdSec'),
     ('codeBook', 'ddicb25', 'dmdSec'),
@@ -78,7 +79,9 @@ def test_contractid_format(catalog_fx):
     ('mix', 'mix', 'techMD'),
     ('AUDIOMD', 'audiomd', 'techMD'),
     ('VIDEOMD', 'videomd', 'techMD'),
-    ('resource', 'datacite', 'dmdSec')
+    ('resource', 'datacite', 'dmdSec'),
+    ('ebuCoreMain', 'ebucore', 'dmdSec'),
+    ('ebuCoreMain', 'ebucore', 'techMD')
 ])
 def test_section_schemas(catalog_fx, rootelement, namespace, section):
     """Test that section schemas in the catalog work in validation.

@@ -11,6 +11,9 @@
 	  <rewriteURI uriStartString="http://kdk.fi/standards/mets/mets.xsd" rewritePrefix="mets/mets.xsd"/>
 	  <rewriteURI uriStartString="http://digitalpreservation.fi/schemas/mets/mets.xsd" rewritePrefix="mets/mets.xsd"/>
 	  <rewriteURI uriStartString="http://www.loc.gov/standards/mets/mets.xsd" rewritePrefix="mets/mets.xsd"/>
-	</group>
+	  <rewriteURI uriStartString="http://dublincore.org/schemas/xmls/qdc/dc.xsd" rewritePrefix="dc/dc.xsd"/>
+	  <rewriteURI uriStartString="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd" rewritePrefix="dc/dc.xsd"/>
+	  <rewriteURI uriStartString="http://dublincore.org/schemas/xmls/simpledc20021212.xsd" rewritePrefix="dc/dc.xsd"/>
+    </group>
     <nextCatalog catalog="./catalog_external.xml"/>
 </catalog>

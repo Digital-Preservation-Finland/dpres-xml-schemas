@@ -34,10 +34,12 @@ NAMESPACES = {'mets': 'http://www.loc.gov/METS/',
               'vra': 'http://www.vraweb.org/vracore4.htm',
               'lido': 'http://www.lido-schema.org',
               'datacite': 'http://datacite.org/schema/kernel-4',
+              'ddilc33': 'ddi:instance:3_3',
               'ddilc32': 'ddi:instance:3_2',
               'ddilc31': 'ddi:instance:3_1',
               'ddicb25': 'ddi:codebook:2_5',
-              'ddicb21': 'http://www.icpsr.umich.edu/DDI'}
+              'ddicb21': 'http://www.icpsr.umich.edu/DDI',
+              'ebucore': 'urn:ebu:metadata-schema:ebucore'}
 
 
 def parse_xml_file(filename):
@@ -81,7 +83,7 @@ def add_containers(root, container_path):
 
 
 def fix_version_17(root):
-    """Local namespaces need to be changed for catalog version 1.7.2 to make
+    """Local namespaces need to be changed for catalog version 1.7.3 to make
     the tree valid. This is used in various tests.
 
     :root: METS root element
@@ -109,7 +111,7 @@ def fix_version_17(root):
     root.set_attribute(
         'PROFILE', 'mets',
         'http://digitalpreservation.fi/mets-profiles/cultural-heritage')
-    root.set_attribute('CATALOG', 'fi', '1.7.2')
-    root.set_attribute('SPECIFICATION', 'fi', '1.7.2')
+    root.set_attribute('CATALOG', 'fi', '1.7.3')
+    root.set_attribute('SPECIFICATION', 'fi', '1.7.3')
     root.set_attribute('CONTRACTID', 'fi',
                        'urn:uuid:c5a193b3-bb63-4348-bd25-6c20bb72264b')

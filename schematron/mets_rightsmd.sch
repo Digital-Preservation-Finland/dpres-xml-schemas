@@ -2,7 +2,7 @@
 
 <!-- pass-filter: /mets:mets/mets:amdSec/mets:rightsMD -->
 <!-- context-filter: mets:rightsMD|mets:mdWrap|mets:xmlData -->
-<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.2">
+<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.3">
 	<sch:title>METS rightsMD validation</sch:title>
 
 <!--
@@ -33,11 +33,13 @@ Validates METS rightsMD.
         <sch:ns prefix="eac" uri="urn:isbn:1-931666-33-4"/>
         <sch:ns prefix="vra" uri="http://www.vraweb.org/vracore4.htm"/>
         <sch:ns prefix="lido" uri="http://www.lido-schema.org"/>
+        <sch:ns prefix="ddilc33" uri="ddi:instance:3_3"/>
         <sch:ns prefix="ddilc32" uri="ddi:instance:3_2"/>
         <sch:ns prefix="ddilc31" uri="ddi:instance:3_1"/>
         <sch:ns prefix="ddicb25" uri="ddi:codebook:2_5"/>
         <sch:ns prefix="ddicb21" uri="http://www.icpsr.umich.edu/DDI"/>
         <sch:ns prefix="datacite" uri="http://datacite.org/schema/kernel-4"/>
+        <sch:ns prefix="ebucore" uri="urn:ebu:metadata-schema:ebucore"/>
 
 	<sch:include href="./abstracts/disallowed_element_pattern.incl"/>
 	<sch:include href="./abstracts/required_element_pattern.incl"/>
@@ -89,7 +91,7 @@ Validates METS rightsMD.
         <sch:pattern id="rights_no_descriptive" is-a="disallowed_element_pattern">
                 <sch:param name="context_element" value="mets:rightsMD/mets:mdWrap/mets:xmlData"/>
                 <sch:param name="context_condition" value="true()"/>
-                <sch:param name="disallowed_element" value="datacite:* or lido:* or ead:* or ead3:* or vra:* or mods:* or marc21:* or dc:* or dcterms:* or dcmitype:* or ddilc32:* or ddilc31:* or ddicb25:* or ddicb21:*"/>
+                <sch:param name="disallowed_element" value="ebucore:* or datacite:* or lido:* or ead:* or ead3:* or vra:* or mods:* or marc21:* or dc:* or dcterms:* or dcmitype:* or ddilc33:* or ddilc32:* or ddilc31:* or ddicb25:* or ddicb21:*"/>
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
 

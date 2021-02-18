@@ -71,28 +71,44 @@ def test_dependent_attributes_dmdsec(schematron_fx, nspaces, attributes,
     assert svrl.count(SVRL_FAILED) == error[1]
 
 
-@pytest.mark.parametrize("mdtype, othermdtype, mdtypeversion", [
-    ('MARC', None, ['marcxml=1.2;marc=marc21',
-                    'marcxml=1.2;marc=finmarc']),
-    ('DC', None, ['1.1', '2008']),
+@pytest.mark.parametrize("mdtype, othermdtype, mdtypeversion, specversion", [
+    ('MARC', None, ['marcxml=1.2;marc=marc21'], ['1.7.3']),
+    ('MARC', None, ['marcxml=1.2;marc=marc21', 'marcxml=1.2;marc=finmarc'],
+     ['1.5.0', '1.6.0', '1.6.1', '1.7.0', '1.7.1', '1.7.2']),
+    ('DC', None, ['1.1', '2008'], ['1.7.2', '1.7.3']),
+    ('DC', None, ['1.1'], ['1.5.0', '1.6.0', '1.6.1', '1.7.0', '1.7.1']),
     ('MODS', None, ['3.7', '3.6', '3.5', '3.4', '3.3', '3.2', '3.1',
-                    '3.0']),
-    ('EAD', None, ['2002']),
-    ('EAC-CPF', None, ['2010_revised']),
-    ('LIDO', None, ['1.0']),
-    ('VRA', None, ['4.0']),
-    ('DDI', None, ['3.2', '3.1', '2.5.1', '2.5', '2.1']),
-    ('OTHER', 'EAD3', ['1.1.0', '1.0.0']),
-    ('OTHER', 'DATACITE', ['4.3', '4.2', '4.1']),
+                    '3.0'], ['1.7.1', '1.7.2', '1.7.3']),
+    ('MODS', None, ['3.6', '3.5', '3.4', '3.3', '3.2', '3.1',
+                    '3.0'], ['1.5.0', '1.6.0', '1.6.1', '1.7.0']),
+    ('EAD', None, ['2002'], ['1.5.0', '1.6.0', '1.6.1', '1.7.0', '1.7.1',
+                             '1.7.2', '1.7.3']),
+    ('EAC-CPF', None, ['2010_revised'], ['1.5.0', '1.6.0', '1.6.1', '1.7.0',
+                                         '1.7.1', '1.7.2', '1.7.3']),
+    ('LIDO', None, ['1.0'], ['1.5.0', '1.6.0', '1.6.1', '1.7.0', '1.7.1',
+                             '1.7.2', '1.7.3']),
+    ('VRA', None, ['4.0'], ['1.5.0', '1.6.0', '1.6.1', '1.7.0', '1.7.1',
+                            '1.7.2', '1.7.3']),
+    ('DDI', None, ['3.3', '3.2', '3.1', '2.5.1', '2.5', '2.1'], ['1.7.3']),
+    ('DDI', None, ['3.2', '3.1', '2.5.1', '2.5', '2.1'],
+     ['1.5.0', '1.6.0', '1.6.1', '1.7.0', '1.7.1', '1.7.2']),
+    ('OTHER', 'EAD3', ['1.1.1', '1.1.0', '1.0.0'], ['1.7.3']),
+    ('OTHER', 'EAD3', ['1.1.0', '1.0.0'], ['1.7.1', '1.7.2']),
+    ('OTHER', 'EAD3', ['1.0.0'], ['1.5.0', '1.6.0', '1.6.1', '1.7.0']),
+    ('OTHER', 'DATACITE', ['4.3', '4.2', '4.1'], ['1.7.2', '1.7.3']),
+    ('OTHER', 'DATACITE', ['4.1'],
+     ['1.5.0', '1.6.0', '1.6.1', '1.7.0', '1.7.1']),
+    ('OTHER', 'EBUCORE', ['1.10'], ['1.7.3'])
 ])
 def test_mdtype_items_dmdsec(schematron_fx, mdtype, othermdtype,
-                             mdtypeversion):
+                             mdtypeversion, specversion):
     """Test that all valid metadata types and their versions work properly.
 
     :schematron_fx: Schematron compile fixture
     :mdtype: MDTYPE attribute value
     :othermdtype: OTHERMDTYPE attribute valur
-    :mdtypeversion: MDTYPEVERSION attribute value
+    :mdtypeversion: MDTYPEVERSION attribute values
+    :specversion: Specification versions
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
     elem_handler = root.find_element('dmdSec', 'mets')
@@ -102,15 +118,18 @@ def test_mdtype_items_dmdsec(schematron_fx, mdtype, othermdtype,
         elem_handler.set_attribute('OTHERMDTYPE', 'mets', othermdtype)
 
     # Test that all MDTYPEVERSIONs work with all specifications
-    for specversion in ['1.5.0', '1.6.0', '1.7.0', '1.7.1', '1.7.2']:
-        if specversion in ['1.7.0', '1.7.1', '1.7.2']:
+    for sversion in specversion:
+        if sversion in ['1.7.0', '1.7.1', '1.7.2', '1.7.3']:
             fix_version_17(root)
         else:
-            root.set_attribute('CATALOG', 'fikdk', specversion)
-            root.set_attribute('SPECIFICATION', 'fikdk', specversion)
+            root.set_attribute('CATALOG', 'fikdk', sversion)
+            root.set_attribute('SPECIFICATION', 'fikdk', sversion)
         for version in mdtypeversion:
             elem_handler.set_attribute('MDTYPEVERSION', 'mets', version)
             svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+            print sversion
+            print version
+            print svrl
             assert svrl.count(SVRL_FAILED) == 0
 
     # Test unknown version
@@ -176,8 +195,8 @@ def test_arbitrary_attributes_dmdsec(schematron_fx):
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
     elem_handler = root.find_element('dmdSec', 'mets')
-    for spec in [None, '1.7.2']:
-        if spec == '1.7.2':
+    for spec in [None, '1.7.3']:
+        if spec == '1.7.3':
             fix_version_17(root)
         for ns in ['fi', 'fikdk', 'dc']:
             elem_handler.set_attribute('xxx', ns, 'xxx')

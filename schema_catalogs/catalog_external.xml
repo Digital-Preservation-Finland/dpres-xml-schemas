@@ -48,11 +48,21 @@
 	<rewriteURI uriStartString="http://www.loc.gov/standards/amdvmd/audioMD.xsd" rewritePrefix="avmd/2.0/audioMD.xsd"/>
 	<rewriteURI uriStartString="http://www.loc.gov/standards/amdvmd/videoMD.xsd" rewritePrefix="avmd/2.0/videoMD.xsd"/>
 
+	<!-- EBUCore -->
+	<rewriteURI uriStartString="https://www.ebu.ch/metadata/schemas/EBUCore/ebucore.xsd" rewritePrefix="ebucore/1.10/ebucore.xsd"/>
+	<rewriteURI uriStartString="https://www.ebu.ch/metadata/schemas/EBUCore/20200805/ebucore.xsd" rewritePrefix="ebucore/1.10/ebucore.xsd"/>
+
 	<!-- Dublin Core -->
-	<rewriteURI uriStartString="http://dublincore.org/schemas/xmls/qdc/2003/04/02/" rewritePrefix="dc/2002/"/>
+	<rewriteURI uriStartString="http://dublincore.org/schemas/xmls/qdc/2003/04/02/" rewritePrefix="dc/2003/"/>
 	<rewriteURI uriStartString="http://dublincore.org/schemas/xmls/qdc/2006/01/06/" rewritePrefix="dc/2006/"/>
-	<rewriteURI uriStartString="http://dublincore.org/schemas/xmls/qdc/2008/02/11/" rewritePrefix="dc/2008/"/>
-	<rewriteURI uriStartString="http://dublincore.org/schemas/xmls/qdc/" rewritePrefix="dc/2008/"/>
+        <!-- dc/2008/dc.xsd exists in main catalog, extended for EBUCore -->
+	<rewriteURI uriStartString="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dcterms.xsd" rewritePrefix="dc/2008/dcterms.xsd"/>
+	<rewriteURI uriStartString="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dcmitype.xsd" rewritePrefix="dc/2008/dcmitype.xsd"/>
+	<rewriteURI uriStartString="http://dublincore.org/schemas/xmls/qdc/2008/02/11/simpledc.xsd" rewritePrefix="dc/2008/simpledc.xsd"/>
+	<rewriteURI uriStartString="http://dublincore.org/schemas/xmls/qdc/2008/02/11/qualifieddc.xsd" rewritePrefix="dc/2008/qualifieddc.xsd"/>
+        <!-- dc/2008/dc.xsd exists in main catalog, extended for EBUCore -->
+	<rewriteURI uriStartString="http://dublincore.org/schemas/xmls/qdc/dcterms.xsd" rewritePrefix="dc/2008/dcterms.xsd"/>
+	<rewriteURI uriStartString="http://dublincore.org/schemas/xmls/qdc/dcmitype.xsd" rewritePrefix="dc/2008/dcmitype.xsd"/>
 
 	<!-- DDI -->
 	<rewriteURI uriStartString="http://www.icpsr.umich.edu/DDI/Version2-0.dtd" rewritePrefix="ddi-codebook/2.0/Version2-0.dtd"/>
@@ -62,6 +72,7 @@
 	<rewriteURI uriStartString="http://www.ddialliance.org/Specification/DDI-Lifecycle/3.0/XMLSchema/" rewritePrefix="ddi-lifecycle/3.0/"/>
 	<rewriteURI uriStartString="http://www.ddialliance.org/Specification/DDI-Lifecycle/3.1/XMLSchema/" rewritePrefix="ddi-lifecycle/3.1/"/>
 	<rewriteURI uriStartString="http://www.ddialliance.org/Specification/DDI-Lifecycle/3.2/XMLSchema/" rewritePrefix="ddi-lifecycle/3.2/"/>
+	<rewriteURI uriStartString="http://www.ddialliance.org/Specification/DDI-Lifecycle/3.3/XMLSchema/" rewritePrefix="ddi-lifecycle/3.3/"/>
 
 	<!-- MODS -->
 	<rewriteURI uriStartString="http://www.loc.gov/standards/mods/v3/mods-3-0.xsd" rewritePrefix="mods/3.0/mods-3-0.xsd"/>

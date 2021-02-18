@@ -31,7 +31,8 @@ def test_valid_complete_techmd(schematron_fx):
     ('PREMIS:OBJECT', None, ['2.3', '2.2']),
     ('OTHER', 'AudioMD', ['2.0']),
     ('OTHER', 'VideoMD', ['2.0']),
-    ('OTHER', 'ADDML', ['8.2', '8.3'])
+    ('OTHER', 'ADDML', ['8.2', '8.3']),
+    ('OTHER', 'EBUCORE', ['1.10'])
 ])
 def test_mdtype_items_techmd(schematron_fx, mdtype, othermdtype,
                              mdtypeversion):
@@ -50,8 +51,8 @@ def test_mdtype_items_techmd(schematron_fx, mdtype, othermdtype,
         elem_handler.set_attribute('OTHERMDTYPE', 'mets', othermdtype)
 
     # Test that all MDTYPEVERSIONs work with all specifications
-    for specversion in ['1.5.0', '1.6.0', '1.7.0', '1.7.1', '1.7.2']:
-        if specversion in ['1.7.0', '1.7.1', '1.7.2']:
+    for specversion in ['1.5.0', '1.6.0', '1.7.0', '1.7.1', '1.7.2', '1.7.3']:
+        if specversion in ['1.7.0', '1.7.1', '1.7.2', '1.7.3']:
             fix_version_17(root)
         else:
             root.set_attribute('CATALOG', 'fikdk', specversion)

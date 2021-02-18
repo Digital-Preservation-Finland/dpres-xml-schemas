@@ -2,7 +2,7 @@
 
 <!-- pass-filter: /mets:mets/mets:dmdSec/mets:mdWrap/mets:xmlData/ead3:ead -->
 <!-- context-filter: ead3:* -->
-<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.2">
+<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.3">
 	<sch:title>EAD3 metadata validation</sch:title>
 
 <!--
@@ -20,6 +20,13 @@ Validates EAD3 metadata.
 	<sch:include href="./abstracts/disallowed_element_pattern.incl"/>
 	<sch:include href="./abstracts/disallowed_attribute_pattern.incl"/>
 
+        <!-- EAD3 checks for EAD3 1.1.0 -->
+        <sch:pattern id="ead3_ref_foreign" is-a="disallowed_element_pattern">
+                <sch:param name="context_element" value="ead3:ref"/>
+                <sch:param name="context_condition" value="ancestor::mets:mdWrap/@MDTYPEVERSION='1.1.0' or ancestor::mets:mdWrap/@MDTYPEVERSION='1.0.0'"/>
+                <sch:param name="disallowed_element" value="ead3:foreign"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
 
         <!-- EAD3 checks for EAD3 1.0.0  -->
         <sch:pattern id="ead3_100_control_rightsdeclaration" is-a="disallowed_element_pattern">

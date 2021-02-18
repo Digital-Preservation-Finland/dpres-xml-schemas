@@ -7,7 +7,7 @@ catalogs and schmematron files which together can be used to validate all metada
 included in METS document against the national specifications. The catalog can
 be used also for validating XML formatted digital objects.
 
-The current METS catalog version is 1.7.2.
+The current METS catalog version is 1.7.3.
 The same catalog can be used also with older specifications, starting from version 1.5.0.
 
 For further information about specifications, see: http://digitalpreservation.fi/
@@ -137,6 +137,9 @@ Paths are described in relation to base path ./schema_catalogs/schemas_external/
 
 ./ead3
   EAD3 schema files (changed, see ./ead3/README)
+
+./ebucore
+  EBUCore schema files
 
 ./lido
   LIDO schema files

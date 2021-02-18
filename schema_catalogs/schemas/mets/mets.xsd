@@ -21,11 +21,13 @@ xmlns:ead3="http://ead3.archivists.org/schema/"
 xmlns:eac="urn:isbn:1-931666-33-4"
 xmlns:vra="http://www.vraweb.org/vracore4.htm"
 xmlns:lido="http://www.lido-schema.org"
+xmlns:ddilc33="ddi:instance:3_3"
 xmlns:ddilc32="ddi:instance:3_2"
 xmlns:ddilc31="ddi:instance:3_1"
 xmlns:ddicb25="ddi:codebook:2_5"
 xmlns:ddicb21="http://www.icpsr.umich.edu/DDI"
 xmlns:datacite="http://datacite.org/schema/kernel-4"
+xmlns:ebucore="urn:ebu:metadata-schema:ebucore"
 
 elementFormDefault="qualified" attributeFormDefault="unqualified">
 
@@ -41,17 +43,21 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xsd:import namespace="http://www.loc.gov/videoMD/" schemaLocation="http://www.loc.gov/standards/amdvmd/videoMD.xsd"/>
 	<xsd:import namespace="http://www.loc.gov/MARC21/slim" schemaLocation="http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd"/>
 	<xsd:import namespace="http://www.loc.gov/mods/v3" schemaLocation="http://www.loc.gov/standards/mods/v3/mods.xsd"/>
+	<xsd:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/dc.xsd"/>
 	<xsd:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/dcterms.xsd"/>
+	<xsd:import namespace="http://purl.org/dc/dcmitype/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/dcmitype.xsd"/>
 	<xsd:import namespace="urn:isbn:1-931666-22-9" schemaLocation="http://www.loc.gov/ead/ead.xsd"/>
 	<xsd:import namespace="http://ead3.archivists.org/schema/" schemaLocation="http://www.loc.gov/ead/ead3.xsd"/>
 	<xsd:import namespace="urn:isbn:1-931666-33-4" schemaLocation="http://eac.staatsbibliothek-berlin.de/schema/cpf.xsd"/>
 	<xsd:import namespace="http://www.vraweb.org/vracore4.htm" schemaLocation="http://www.loc.gov/standards/vracore/vra-strict.xsd"/>
 	<xsd:import namespace="http://www.lido-schema.org" schemaLocation="http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd"/>
+	<xsd:import namespace="ddi:instance:3_3" schemaLocation="http://www.ddialliance.org/Specification/DDI-Lifecycle/3.3/XMLSchema/instance.xsd"/>
 	<xsd:import namespace="ddi:instance:3_2" schemaLocation="http://www.ddialliance.org/Specification/DDI-Lifecycle/3.2/XMLSchema/instance.xsd"/>
 	<xsd:import namespace="ddi:instance:3_1" schemaLocation="http://www.ddialliance.org/Specification/DDI-Lifecycle/3.1/XMLSchema/instance.xsd"/>
 	<xsd:import namespace="ddi:codebook:2_5" schemaLocation="http://www.ddialliance.org/Specification/DDI-Codebook/2.5/XMLSchema/codebook.xsd"/>
 	<xsd:import namespace="http://www.icpsr.umich.edu/DDI" schemaLocation="http://www.ddialliance.org/Specification/DDI-Codebook/2.1/XMLSchema/Version2-1.xsd"/>
         <xsd:import namespace="http://datacite.org/schema/kernel-4" schemaLocation="https://schema.datacite.org/meta/kernel-4.1/metadata.xsd"/>
+        <xsd:import namespace="urn:ebu:metadata-schema:ebucore" schemaLocation="https://www.ebu.ch/metadata/schemas/EBUCore/ebucore.xsd"/>
 
 	<xsd:redefine schemaLocation="../../schemas_external/mets/1.12.1/mets-1-12-1.xsd">
 		<xsd:complexType name="metsType">
