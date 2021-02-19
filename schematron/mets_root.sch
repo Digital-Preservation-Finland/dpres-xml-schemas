@@ -52,17 +52,10 @@ Validates METS root.
                 <sch:param name="context_element" value="mets:mets"/>
                 <sch:param name="context_condition" value="true()"/>
                 <sch:param name="context_attribute" value="@PROFILE"/>
-                <sch:param name="valid_values" value="string('http://www.kdk.fi/kdk-mets-profile; http://digitalpreservation.fi/mets-profiles/cultural-heritage; http://digitalpreservation.fi/mets-profiles/research-data')"/>
-                <sch:param name="specifications" value="string('')"/>
-        </sch:pattern>
-        <sch:pattern id="mets_profile_deprecated" is-a="deprecated_value_attribute_pattern">
-                <sch:param name="context_element" value="mets:mets"/>
-                <sch:param name="context_condition" value="true()"/>
-                <sch:param name="context_attribute" value="@PROFILE"/>
-                <sch:param name="deprecated_value" value="string('http://www.kdk.fi/kdk-mets-profile')"/>
                 <sch:param name="valid_values" value="string('http://digitalpreservation.fi/mets-profiles/cultural-heritage; http://digitalpreservation.fi/mets-profiles/research-data')"/>
-                <sch:param name="specifications" value="string('')"/>
+                <sch:param name="specifications" value="string('not: 1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
+
 
 	<!-- Allow only given attributes -->
         <sch:pattern id="mets_mets_attribute_list" is-a="allowed_attribute_list_pattern">
@@ -218,12 +211,29 @@ Validates METS root.
 
 	<!-- COMPATIBILITY WITH DEPRECATED VERSIONS -->
 
+        <!-- METS profile -->
+        <sch:pattern id="mets_profile_pre170" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:mets"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="context_attribute" value="@PROFILE"/>
+                <sch:param name="valid_values" value="string('http://www.kdk.fi/kdk-mets-profile')"/>
+                <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_profile_deprecated_pre170" is-a="deprecated_value_attribute_pattern">
+                <sch:param name="context_element" value="mets:mets"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="context_attribute" value="@PROFILE"/>
+                <sch:param name="deprecated_value" value="string('http://www.kdk.fi/kdk-mets-profile')"/>
+                <sch:param name="valid_values" value="string('http://digitalpreservation.fi/mets-profiles/cultural-heritage; http://digitalpreservation.fi/mets-profiles/research-data')"/>
+                <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
+        </sch:pattern>
+
 	<!-- Allow only given attributes -->
         <sch:pattern id="mets_mets_attribute_list_pre170" is-a="allowed_attribute_list_pattern">
                 <sch:param name="context_element" value="mets:mets"/>
                 <sch:param name="context_condition" value="normalize-space(/mets:mets/@PROFILE)='http://www.kdk.fi/kdk-mets-profile'"/>
                 <sch:param name="allowed_attributes" value="@xsi:schemaLocation | @PROFILE | @OBJID | @LABEL | @ID | @TYPE | @fikdk:CATALOG | @fikdk:SPECIFICATION | @fikdk:CONTENTID"/>
-                <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
+                <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
 
         <!-- Specification attributes -->
@@ -232,7 +242,7 @@ Validates METS root.
                 <sch:param name="context_condition" value="@PROFILE='http://www.kdk.fi/kdk-mets-profile'"/>
                 <sch:param name="required_attribute1" value="@fikdk:CATALOG"/>
                 <sch:param name="required_attribute2" value="@fikdk:SPECIFICATION"/>
-                <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
+                <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
         <sch:pattern id="mets_specification_pre170" is-a="required_specification_pattern">
                 <sch:param name="required_condition" value="normalize-space(@fikdk:CATALOG) = normalize-space(@fikdk:SPECIFICATION)

@@ -221,6 +221,6 @@ Validates METS digiprovMD.
                 <sch:param name="context_condition" value="/mets:mets/@PROFILE='http://www.kdk.fi/kdk-mets-profile'"/>
                 <sch:param name="context_attribute" value="@OTHERMDTYPE"/>
                 <sch:param name="valid_values" value="string('KDKPreservationPlan')"/>
-                <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
+                <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
 </sch:schema>

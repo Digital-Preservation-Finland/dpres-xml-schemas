@@ -95,7 +95,7 @@ Validates METS amdSec.
                 <sch:param name="context_element" value="mets:amdSec/*"/>
                 <sch:param name="context_condition" value="normalize-space(/mets:mets/@PROFILE)='http://www.kdk.fi/kdk-mets-profile'"/>
                 <sch:param name="allowed_attributes" value="@ID | @CREATED | @GROUPID | @ADMID | @STATUS | @fikdk:CREATED | @fikdk:PID | @fikdk:PIDTYPE | @xml:lang"/>
-                <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
+                <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
 
 	<!-- CREATED, PIDTYPE and PID in old specifications -->

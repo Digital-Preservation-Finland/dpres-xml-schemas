@@ -166,7 +166,7 @@ Validates METS structMap.
                 <sch:param name="context_element" value="mets:structMap"/>
                 <sch:param name="context_condition" value="normalize-space(/mets:mets/@PROFILE)='http://www.kdk.fi/kdk-mets-profile'"/>
                 <sch:param name="allowed_attributes" value="@ID | @TYPE | @LABEL | @fikdk:PID | @fikdk:PIDTYPE"/>
-                <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
+                <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
 
 	<!-- PIDTYPE and PID in old specifications -->

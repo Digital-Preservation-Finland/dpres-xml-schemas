@@ -153,47 +153,47 @@ def test_identifiers_unique(schematron_fx):
                 assert svrl.count(SVRL_FAILED) == 0
 
 
-@pytest.mark.parametrize("nspaces, attributes, error", [
-    (['fikdk', 'fikdk'], ['CATALOG', 'SPECIFICATION'], [1, 0, 0, 0]),
-    (['fi', 'fi'], ['CATALOG', 'SPECIFICATION'], [1, 0, 0, 0]),
+@pytest.mark.parametrize("nspaces, attributes, version", [
+    (['fikdk', 'fikdk'], ['CATALOG', 'SPECIFICATION'], "1.6.0"),
+    (['fi', 'fi'], ['CATALOG', 'SPECIFICATION'], "1.7.3"),
 ])
 def test_dependent_attributes_root(schematron_fx, nspaces, attributes,
-                                   error):
+                                   version):
     """Test attribute dependencies with another attribute. Some attributes
     become mandatory or disallowed, if another attribute is used.
 
     :schematron_fx: Schematron compile fixture
     :nspaces: Namespace keys of the attributes (two)
     :attributes: Dependent attributes (two)
-    :error: The error table [a, b, c, d] where the values are the number of
-            expected errors. (a) both attributes missing, (b) first exists,
-            (c) second exists, (d) both exist.
+    :version: Specification version
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
     elem_handler = root.find_element('mets', 'mets')
+    failed = 2
     if nspaces[0] == 'fi':
         fix_version_17(root)
+        failed = 1
 
     # Both attributes
-    elem_handler.set_attribute(attributes[0], nspaces[0], 'xxx')
-    elem_handler.set_attribute(attributes[1], nspaces[1], 'xxx')
+    elem_handler.set_attribute(attributes[0], nspaces[0], version)
+    elem_handler.set_attribute(attributes[1], nspaces[1], version)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == error[3]
+    assert svrl.count(SVRL_FAILED) == 0
 
     # Just the second attribute
     elem_handler.del_attribute(attributes[0], nspaces[0])
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == error[2]
+    assert svrl.count(SVRL_FAILED) == 0
 
     # No attributes
     elem_handler.del_attribute(attributes[1], nspaces[1])
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == error[0]
+    assert svrl.count(SVRL_FAILED) == failed
 
     # Just the first attribute
-    elem_handler.set_attribute(attributes[0], nspaces[0], 'xxx')
+    elem_handler.set_attribute(attributes[0], nspaces[0], version)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == error[1]
+    assert svrl.count(SVRL_FAILED) == 0
 
 
 @pytest.mark.parametrize("attribute, nspace, fixed", [
