@@ -127,9 +127,6 @@ def test_mdtype_items_dmdsec(schematron_fx, mdtype, othermdtype,
         for version in mdtypeversion:
             elem_handler.set_attribute('MDTYPEVERSION', 'mets', version)
             svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-            print sversion
-            print version
-            print svrl
             assert svrl.count(SVRL_FAILED) == 0
 
     # Test unknown version
