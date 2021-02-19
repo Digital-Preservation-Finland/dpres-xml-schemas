@@ -91,28 +91,28 @@ Validates METS amdSec.
 	<!-- COMPATIBILITY WITH DEPRECATED VERSIONS -->
 
 	<!-- Allow only given attributes -->
-        <sch:pattern id="mets_amdSec_attribute_list_old" is-a="allowed_attribute_list_pattern">
+        <sch:pattern id="mets_amdSec_attribute_list_pre170" is-a="allowed_attribute_list_pattern">
                 <sch:param name="context_element" value="mets:amdSec/*"/>
                 <sch:param name="context_condition" value="normalize-space(/mets:mets/@PROFILE)='http://www.kdk.fi/kdk-mets-profile'"/>
                 <sch:param name="allowed_attributes" value="@ID | @CREATED | @GROUPID | @ADMID | @STATUS | @fikdk:CREATED | @fikdk:PID | @fikdk:PIDTYPE | @xml:lang"/>
-                <sch:param name="specifications" value="string('')"/>
+                <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
 
 	<!-- CREATED, PIDTYPE and PID in old specifications -->
-        <sch:pattern id="mets_amdSec_CREATED_old" is-a="required_attribute_xor_attribute_pattern">
+        <sch:pattern id="mets_amdSec_CREATED_pre170" is-a="required_attribute_xor_attribute_pattern">
                 <sch:param name="context_element" value="mets:amdSec/*"/>
                 <sch:param name="context_condition" value="true()"/>
                 <sch:param name="required_attribute1" value="@CREATED"/>
                 <sch:param name="required_attribute2" value="@fikdk:CREATED"/>
                 <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
-        <sch:pattern id="mets_amdSec_PID_old" is-a="required_attribute_pattern">
+        <sch:pattern id="mets_amdSec_PID_pre170" is-a="required_attribute_pattern">
                 <sch:param name="context_element" value="mets:amdSec/*"/>
                 <sch:param name="context_condition" value="@fikdk:PIDTYPE"/>
                 <sch:param name="required_attribute" value="@fikdk:PID"/>
                 <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
-        <sch:pattern id="mets_amdSec_PIDTYPE_old" is-a="required_attribute_pattern">
+        <sch:pattern id="mets_amdSec_PIDTYPE_pre170" is-a="required_attribute_pattern">
                 <sch:param name="context_element" value="mets:amdSec/*"/>
                 <sch:param name="context_condition" value="@fikdk:PID"/>
                 <sch:param name="required_attribute" value="@fikdk:PIDTYPE"/>

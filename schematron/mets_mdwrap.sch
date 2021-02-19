@@ -139,7 +139,7 @@ Validates METS mdWrap.
         <!-- COMPATIBILITY WITH DEPRECATED VERSIONS -->
 
         <!-- Check metadata content in mdWrap with old specifications -->
-        <sch:pattern id="mets_mdtype_content_old" is-a="required_metadata_match_pattern">
+        <sch:pattern id="mets_mdtype_content_pre173" is-a="required_metadata_match_pattern">
                 <sch:param name="context_condition" value="not(@OTHERMDTYPE)"/>
                 <sch:param name="required_condition" value="(number(normalize-space(@MDTYPE)='PREMIS:OBJECT')*count(mets:xmlData/premis:object)*count(mets:xmlData/*)
                           + number(normalize-space(@MDTYPE)='PREMIS:RIGHTS')*count(mets:xmlData/premis:rights)*count(mets:xmlData/*)
@@ -161,7 +161,7 @@ Validates METS mdWrap.
                 <sch:param name="used_attribute" value="@MDTYPE"/>
                 <sch:param name="specifications" value="string('1.6.0; 1.6.1; 1.7.0; 1.7.1; 1.7.2')"/>
         </sch:pattern>
-        <sch:pattern id="mets_othermdtype_content_old" is-a="required_metadata_match_pattern">
+        <sch:pattern id="mets_othermdtype_content_pre173" is-a="required_metadata_match_pattern">
                 <sch:param name="context_condition" value="@OTHERMDTYPE"/>
                 <sch:param name="required_condition" value="(number(normalize-space(@OTHERMDTYPE)='ADDML')*number(boolean(mets:xmlData/addml:*))*count(mets:xmlData/*)
                           + number(normalize-space(@OTHERMDTYPE)='AudioMD')*number(boolean(mets:xmlData/audiomd:*))*count(mets:xmlData/*)
@@ -174,14 +174,14 @@ Validates METS mdWrap.
         </sch:pattern>
 
         <!-- Notify the existence of unsupported metadata with old specifications -->
-        <sch:pattern id="mets_allowedmd_unsupported_old" is-a="allowed_unsupported_metadata_pattern">
+        <sch:pattern id="mets_allowedmd_unsupported_pre173" is-a="allowed_unsupported_metadata_pattern">
                 <sch:param name="context_condition" value="true()"/>
                 <sch:param name="required_condition" value="@OTHERMDTYPE!='AudioMD' and @OTHERMDTYPE!='VideoMD' and @OTHERMDTYPE!='EN15744' and @OTHERMDTYPE!='EAD3' and @OTHERMDTYPE!='ADDML' and @OTHERMDTYPE!='DATACITE'"/>
                 <sch:param name="specifications" value="string('1.7.0; 1.7.1; 1.7.2')"/>
         </sch:pattern>
 
         <!-- Check metadata content in mdWrap with old specifications -->
-        <sch:pattern id="mets15_mdtype_content" is-a="required_metadata_match_pattern">
+        <sch:pattern id="mets_mdtype_content_150" is-a="required_metadata_match_pattern">
                 <sch:param name="context_condition" value="not(@OTHERMDTYPE)"/>
                 <sch:param name="required_condition" value="(number(normalize-space(@MDTYPE)='PREMIS:OBJECT')*count(mets:xmlData/premis:object)*count(mets:xmlData/*)
                           + number(normalize-space(@MDTYPE)='PREMIS:RIGHTS')*count(mets:xmlData/premis:rights)*count(mets:xmlData/*)
@@ -204,7 +204,7 @@ Validates METS mdWrap.
                 <sch:param name="used_attribute" value="@MDTYPE"/>
                 <sch:param name="specifications" value="string('1.5.0')"/>
         </sch:pattern>
-        <sch:pattern id="mets_othermdtype_content_old2" is-a="required_metadata_match_pattern">
+        <sch:pattern id="mets_othermdtype_content_pre170" is-a="required_metadata_match_pattern">
                 <sch:param name="context_condition" value="@OTHERMDTYPE"/>
                 <sch:param name="required_condition" value="(number(normalize-space(@OTHERMDTYPE)='ADDML')*number(boolean(mets:xmlData/addml:*))*count(mets:xmlData/*)
                           + number(normalize-space(@OTHERMDTYPE)='AudioMD')*number(boolean(mets:xmlData/audiomd:*))*count(mets:xmlData/*)
@@ -214,7 +214,7 @@ Validates METS mdWrap.
                 <sch:param name="used_attribute" value="@OTHERMDTYPE"/>
                 <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
-        <sch:pattern id="mets_allowedmd_unsupported_old2" is-a="allowed_unsupported_metadata_pattern">
+        <sch:pattern id="mets_allowedmd_unsupported_pre170" is-a="allowed_unsupported_metadata_pattern">
                 <sch:param name="context_condition" value="true()"/>
                 <sch:param name="required_condition" value="@OTHERMDTYPE!='AudioMD' and @OTHERMDTYPE!='VideoMD' and @OTHERMDTYPE!='EN15744' and @OTHERMDTYPE!='EAD3' and @OTHERMDTYPE!='ADDML'"/>
                 <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>

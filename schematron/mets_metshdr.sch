@@ -104,7 +104,7 @@ Validates metsHdr.
 	</sch:pattern>
 
 	<!-- COMPATIBILITY WITH DEPRECATED VERSIONS -->
-        <sch:pattern id="mets_agent_creator_old" is-a="required_agent_pattern">
+        <sch:pattern id="mets_agent_creator_pre170" is-a="required_agent_pattern">
                 <sch:param name="context_condition" value="true()"/>
                 <sch:param name="role" value="string('CREATOR')"/>
                 <sch:param name="type" value="string('ORGANIZATION')"/>

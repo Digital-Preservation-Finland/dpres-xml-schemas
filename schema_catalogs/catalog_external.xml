@@ -119,7 +119,7 @@
 	<!-- EAC, EAD, LIDO, MARC21, VRA Core, METSRights, OpenGis GML, Sahke2, Datacite -->
 	<rewriteURI uriStartString="http://eac.staatsbibliothek-berlin.de/schema/cpf.xsd" rewritePrefix="eac/2010/cpf.xsd"/>
 	<rewriteURI uriStartString="http://www.loc.gov/ead/ead.xsd" rewritePrefix="ead/2002/ead.xsd"/>
-	<rewriteURI uriStartString="http://www.loc.gov/ead/ead3.xsd" rewritePrefix="ead3/1.1.0/ead3.xsd"/>
+	<rewriteURI uriStartString="http://www.loc.gov/ead/ead3.xsd" rewritePrefix="ead3/1.1.1/ead3.xsd"/>
 	<rewriteURI uriStartString="http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd" rewritePrefix="lido/1.0/lido-v1.0.xsd"/>
 	<rewriteURI uriStartString="http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd" rewritePrefix="marc/1.2/MARC21slim.xsd"/>
 	<rewriteURI uriStartString="http://www.loc.gov/standards/vracore/" rewritePrefix="vra/4.0/"/>

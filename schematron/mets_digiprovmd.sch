@@ -216,7 +216,7 @@ Validates METS digiprovMD.
         </sch:pattern>
 
 	<!-- KDKPreservationPlan in old specifications -->
-        <sch:pattern id="mets_mdRef_OTHERMDTYPE_values_old" is-a="required_values_attribute_pattern">
+        <sch:pattern id="mets_mdRef_OTHERMDTYPE_values_pre170" is-a="required_values_attribute_pattern">
                 <sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
                 <sch:param name="context_condition" value="/mets:mets/@PROFILE='http://www.kdk.fi/kdk-mets-profile'"/>
                 <sch:param name="context_attribute" value="@OTHERMDTYPE"/>

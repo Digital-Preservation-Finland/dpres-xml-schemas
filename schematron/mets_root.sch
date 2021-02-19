@@ -219,40 +219,40 @@ Validates METS root.
 	<!-- COMPATIBILITY WITH DEPRECATED VERSIONS -->
 
 	<!-- Allow only given attributes -->
-        <sch:pattern id="mets_mets_attribute_list_old" is-a="allowed_attribute_list_pattern">
+        <sch:pattern id="mets_mets_attribute_list_pre170" is-a="allowed_attribute_list_pattern">
                 <sch:param name="context_element" value="mets:mets"/>
                 <sch:param name="context_condition" value="normalize-space(/mets:mets/@PROFILE)='http://www.kdk.fi/kdk-mets-profile'"/>
                 <sch:param name="allowed_attributes" value="@xsi:schemaLocation | @PROFILE | @OBJID | @LABEL | @ID | @TYPE | @fikdk:CATALOG | @fikdk:SPECIFICATION | @fikdk:CONTENTID"/>
-                <sch:param name="specifications" value="string('')"/>
+                <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
 
         <!-- Specification attributes -->
-        <sch:pattern id="mets_CATALOG_SPECIFICATION_old" is-a="required_attribute_or_attribute_pattern">
+        <sch:pattern id="mets_CATALOG_SPECIFICATION_pre170" is-a="required_attribute_or_attribute_pattern">
                 <sch:param name="context_element" value="mets:mets"/>
                 <sch:param name="context_condition" value="@PROFILE='http://www.kdk.fi/kdk-mets-profile'"/>
                 <sch:param name="required_attribute1" value="@fikdk:CATALOG"/>
                 <sch:param name="required_attribute2" value="@fikdk:SPECIFICATION"/>
-                <sch:param name="specifications" value="string('')"/>
+                <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
-        <sch:pattern id="mets_specification_old" is-a="required_specification_pattern">
+        <sch:pattern id="mets_specification_pre170" is-a="required_specification_pattern">
                 <sch:param name="required_condition" value="normalize-space(@fikdk:CATALOG) = normalize-space(@fikdk:SPECIFICATION)
                         or (normalize-space(@fikdk:CATALOG)='1.6.0' and normalize-space(@fikdk:SPECIFICATION)='1.6.1')"/>
         </sch:pattern>
 
 	<!-- CONTENTID in old specifications -->
-        <sch:pattern id="mets_CONTENTID_value_old" is-a="required_nonempty_attribute_pattern">
+        <sch:pattern id="mets_CONTENTID_value_pre170" is-a="required_nonempty_attribute_pattern">
                 <sch:param name="context_element" value="mets:mets"/>
                 <sch:param name="context_condition" value="true()"/>
                 <sch:param name="context_attribute" value="@fikdk:CONTENTID"/>
                 <sch:param name="specifications" value="string('1.6.0; 1.6.1')"/>
         </sch:pattern>
-        <sch:pattern id="mets_no_CONTENTID_old" is-a="disallowed_attribute_pattern">
+        <sch:pattern id="mets_no_CONTENTID_150" is-a="disallowed_attribute_pattern">
                 <sch:param name="context_element" value="mets:mets"/>
                 <sch:param name="context_condition" value="true()"/>
                 <sch:param name="disallowed_attribute" value="@fikdk:CONTENTID"/>
                 <sch:param name="specifications" value="string('1.5.0')"/>
         </sch:pattern>
-        <sch:pattern id="mets_no_CONTENTID" is-a="disallowed_attribute_pattern">
+        <sch:pattern id="mets_no_CONTENTID_pre170" is-a="disallowed_attribute_pattern">
                 <sch:param name="context_element" value="mets:mets"/>
                 <sch:param name="context_condition" value="true()"/>
                 <sch:param name="disallowed_attribute" value="@fi:CONTENTID"/>
@@ -260,7 +260,7 @@ Validates METS root.
         </sch:pattern>
 
         <!-- Standard portfolio descriptive metadata formats with old specifications -->
-        <sch:pattern id="mets_descriptive_exists_old" is-a="required_metadata_pattern">
+        <sch:pattern id="mets_descriptive_exists_pre170" is-a="required_metadata_pattern">
                 <sch:param name="context_condition" value="true()"/>
                 <sch:param name="required_metadata" value="mets:dmdSec/mets:mdWrap[@MDTYPE='LIDO' or @MDTYPE='EAC-CPF' or @MDTYPE='EAD' or @OTHERMDTYPE='EAD3'
                 or @MDTYPE='VRA' or @MDTYPE='MODS' or @MDTYPE='MARC' or @MDTYPE='DC' or @MDTYPE='DDI' or @OTHERMDTYPE='EN15744']"/>

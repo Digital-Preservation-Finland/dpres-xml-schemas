@@ -207,28 +207,28 @@ Validates METS dmdSec.
         <!-- COMPATIBILITY WITH DEPRECATED VERSIONS -->
 
 	<!-- Allow only given attributes -->
-        <sch:pattern id="mets_dmdSec_attribute_list_old" is-a="allowed_attribute_list_pattern">
+        <sch:pattern id="mets_dmdSec_attribute_list_pre170" is-a="allowed_attribute_list_pattern">
                 <sch:param name="context_element" value="mets:dmdSec"/>
                 <sch:param name="context_condition" value="normalize-space(/mets:mets/@PROFILE)='http://www.kdk.fi/kdk-mets-profile'"/>
                 <sch:param name="allowed_attributes" value="@ID | @CREATED | @GROUPID | @ADMID | @STATUS | @fikdk:CREATED | @fikdk:PID | @fikdk:PIDTYPE | @xml:lang"/>
-                <sch:param name="specifications" value="string('')"/>
+                <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
 
 	<!-- CREATED, PIDTYPE and PID in old specifications -->
-        <sch:pattern id="mets_dmdSec_CREATED_old" is-a="required_attribute_xor_attribute_pattern">
+        <sch:pattern id="mets_dmdSec_CREATED_pre170" is-a="required_attribute_xor_attribute_pattern">
                 <sch:param name="context_element" value="mets:dmdSec"/>
                 <sch:param name="context_condition" value="true()"/>
                 <sch:param name="required_attribute1" value="@CREATED"/>
                 <sch:param name="required_attribute2" value="@fikdk:CREATED"/>
                 <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
-        <sch:pattern id="mets_dmdSec_PID_old" is-a="required_attribute_pattern">
+        <sch:pattern id="mets_dmdSec_PID_pre170" is-a="required_attribute_pattern">
                 <sch:param name="context_element" value="mets:dmdSec"/>
                 <sch:param name="context_condition" value="@fikdk:PIDTYPE"/>
                 <sch:param name="required_attribute" value="@fikdk:PID"/>
                 <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
-        <sch:pattern id="mets_dmdSec_PIDTYPE_old" is-a="required_attribute_pattern">
+        <sch:pattern id="mets_dmdSec_PIDTYPE_pre170" is-a="required_attribute_pattern">
                 <sch:param name="context_element" value="mets:dmdSec"/>
                 <sch:param name="context_condition" value="@fikdk:PID"/>
                 <sch:param name="required_attribute" value="@fikdk:PIDTYPE"/>
@@ -236,49 +236,49 @@ Validates METS dmdSec.
         </sch:pattern>
 
         <!-- Metadata types and versions in old specifications -->
-        <sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_DC_old" is-a="required_values_attribute_pattern">
+        <sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_DC_pre172" is-a="required_values_attribute_pattern">
                 <sch:param name="context_element" value="mets:dmdSec/mets:mdWrap"/>
                 <sch:param name="context_condition" value="normalize-space(@MDTYPE)='DC'"/>
                 <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
                 <sch:param name="valid_values" value="string('1.1')"/>
                 <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1; 1.7.0; 1.7.1')"/>
         </sch:pattern>
-        <sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_MODS_old" is-a="required_values_attribute_pattern">
+        <sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_MODS_pre171" is-a="required_values_attribute_pattern">
                 <sch:param name="context_element" value="mets:dmdSec/mets:mdWrap"/>
                 <sch:param name="context_condition" value="normalize-space(@MDTYPE)='MODS'"/>
                 <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
                 <sch:param name="valid_values" value="string('3.0; 3.1; 3.2; 3.3; 3.4; 3.5; 3.6')"/>
                 <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1; 1.7.0')"/>
         </sch:pattern>
-        <sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_DDI_old" is-a="required_values_attribute_pattern">
+        <sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_DDI_pre173" is-a="required_values_attribute_pattern">
                 <sch:param name="context_element" value="mets:dmdSec/mets:mdWrap"/>
                 <sch:param name="context_condition" value="normalize-space(@MDTYPE)='DDI'"/>
                 <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
                 <sch:param name="valid_values" value="string('3.2; 3.1; 2.5.1; 2.5; 2.1')"/>
                 <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1; 1.7.0; 1.7.1; 1.7.2')"/>
         </sch:pattern>
-        <sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_MARC_old" is-a="required_values_attribute_pattern">
+        <sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_MARC_pre173" is-a="required_values_attribute_pattern">
                 <sch:param name="context_element" value="mets:dmdSec/mets:mdWrap"/>
                 <sch:param name="context_condition" value="normalize-space(@MDTYPE)='MARC'"/>
                 <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
                 <sch:param name="valid_values" value="string('marcxml=1.2;marc=marc21; marcxml=1.2;marc=finmarc')"/>
                 <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1; 1.7.0; 1.7.1; 1.7.2')"/>
         </sch:pattern>
-        <sch:pattern id="mets_techMD_MDTYPEVERSION_values_EAD3_old" is-a="required_values_attribute_pattern">
+        <sch:pattern id="mets_techMD_MDTYPEVERSION_values_EAD3_pre171" is-a="required_values_attribute_pattern">
                 <sch:param name="context_element" value="mets:dmdSec/mets:mdWrap"/>
                 <sch:param name="context_condition" value="normalize-space(@MDTYPE)='OTHER' and normalize-space(@OTHERMDTYPE)='EAD3'"/>
                 <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
                 <sch:param name="valid_values" value="string('1.0.0')"/>
                 <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1; 1.7.0')"/>
         </sch:pattern>
-        <sch:pattern id="mets_techMD_MDTYPEVERSION_values_EAD3_old2" is-a="required_values_attribute_pattern">
+        <sch:pattern id="mets_techMD_MDTYPEVERSION_values_EAD3_pre173" is-a="required_values_attribute_pattern">
                 <sch:param name="context_element" value="mets:dmdSec/mets:mdWrap"/>
                 <sch:param name="context_condition" value="normalize-space(@MDTYPE)='OTHER' and normalize-space(@OTHERMDTYPE)='EAD3'"/>
                 <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
                 <sch:param name="valid_values" value="string('1.1.0; 1.0.0')"/>
                 <sch:param name="specifications" value="string('1.7.1; 1.7.2')"/>
         </sch:pattern>
-        <sch:pattern id="mets_techMD_MDTYPEVERSION_values_DATACITE_old" is-a="required_values_attribute_pattern">
+        <sch:pattern id="mets_techMD_MDTYPEVERSION_values_DATACITE_pre172" is-a="required_values_attribute_pattern">
                 <sch:param name="context_element" value="mets:dmdSec/mets:mdWrap"/>
                 <sch:param name="context_condition" value="normalize-space(@MDTYPE)='OTHER' and normalize-space(@OTHERMDTYPE)='DATACITE'"/>
                 <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
