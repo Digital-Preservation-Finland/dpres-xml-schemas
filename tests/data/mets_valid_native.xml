@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mets:mets OBJID="f694a5d9-d168-487b-808c-120fa3da0a34"
-		PROFILE="http://www.kdk.fi/kdk-mets-profile"
+		PROFILE="http://digitalpreservation.fi/mets-profiles/cultural-heritage"
 		fi:CATALOG="1.7.3"
 		xmlns:mets="http://www.loc.gov/METS/"
-        xmlns:fi="http://www.kdk.fi/standards/mets/kdk-extensions"
+        xmlns:fi="http://digitalpreservation.fi/schemas/mets/fi-extensions"
         xmlns:premis="info:lc/xmlns/premis-v2"
 		xmlns:dc="http://purl.org/dc/elements/1.1/"
         xmlns:xlink="http://www.w3.org/1999/xlink"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.loc.gov/METS/
-                            http://www.kdk.fi/standards/mets/mets.xsd">
+                            http://digitalpreservation.fi/schemas/mets/mets.xsd">
   <mets:metsHdr CREATEDATE="2016-04-12T14:30:00" RECORDSTATUS="submission">
     <mets:agent ROLE="CREATOR" TYPE="ORGANIZATION">
       <mets:name>CSC - IT Center for Science Ltd.</mets:name>
