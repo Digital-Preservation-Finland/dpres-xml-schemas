@@ -115,13 +115,14 @@ def test_stream(schematron_fx, container_format):
 def test_native_stream(schematron_fx):
     """
     Test a case where a video container listed in specifications contains
-    an unsupported stream, and no-file-format-validation is marked.
-    In this case, streams are not required in METS.
+    an unsupported stream, and fi-preservation-no-file-format-validation is
+    marked. In this case, streams are not required in METS.
     """
     (mets, root) = parse_xml_file("mets_video_container.xml")
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     elem_handler = root.find_element("file", "mets")
-    elem_handler.set_attribute("USE", "mets", "no-file-format-validation")
+    elem_handler.set_attribute(
+        "USE", "mets", "fi-preservation-no-file-format-validation")
     elem_handler.del_element("stream", "mets")
     elem_handler.del_element("stream", "mets")
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)

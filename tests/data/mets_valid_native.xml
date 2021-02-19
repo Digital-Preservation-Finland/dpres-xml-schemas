@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mets:mets OBJID="f694a5d9-d168-487b-808c-120fa3da0a34"
 		PROFILE="http://www.kdk.fi/kdk-mets-profile"
-		fi:CATALOG="1.6.0"
+		fi:CATALOG="1.7.3"
 		xmlns:mets="http://www.loc.gov/METS/"
         xmlns:fi="http://www.kdk.fi/standards/mets/kdk-extensions"
         xmlns:premis="info:lc/xmlns/premis-v2"
@@ -126,7 +126,7 @@
   </mets:amdSec>
   <mets:fileSec>
     <mets:fileGrp>
-      <mets:file USE="no-file-format-validation" ADMID="techmd-001 event-001 agent-001" ID="fileid-001">
+      <mets:file USE="fi-preservation-no-file-format-validation" ADMID="techmd-001 event-001 agent-001" ID="fileid-001">
         <mets:FLocat LOCTYPE="URL" xlink:href="file://./file.cdr" xlink:type="simple"/>
       </mets:file>
       <mets:file ADMID="techmd-002 event-001 agent-001" ID="fileid-002">

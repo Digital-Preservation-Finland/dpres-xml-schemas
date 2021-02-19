@@ -242,13 +242,16 @@ See: http://www.loc.gov/standards/premis/
 	<xs:simpleType name="eventTypeSimpleType">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="transfer"/>
-			<xs:enumeration value="decompression"/>
+			<xs:enumeration value="unpacking"/>
 			<xs:enumeration value="update"/>            
 			<xs:enumeration value="virus check"/>
 			<xs:enumeration value="digital signature validation"/>
 			<xs:enumeration value="fixity check"/>
 			<xs:enumeration value="validation"/>
 			<xs:enumeration value="creation"/>
+			<xs:enumeration value="information package creation"/>
+			<xs:enumeration value="accession"/>
+			<!-- preservation responsibility change is kept because of possible compatibility issues. -->
 			<xs:enumeration value="preservation responsibility change"/>
 			<xs:enumeration value="approval"/>
 		</xs:restriction>
@@ -262,7 +265,7 @@ See: http://www.loc.gov/standards/premis/
 	<xs:simpleType name="eventDetailSimpleType">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="Transfer of submission information package"/>
-			<xs:enumeration value="Decompression of submission information package"/>
+			<xs:enumeration value="Unpacking of submission information package"/>
             <xs:enumeration value="Update existing archival information package"/>
 			<xs:enumeration value="Virus check of transferred files"/>
 			<xs:enumeration value="Submission information package digital signature validation"/>

@@ -133,17 +133,17 @@ See: http://www.loc.gov/standards/premis/
 		</sch:rule>	
 	</sch:pattern>
 	
-	<!-- Decompression event check -->
-	<sch:pattern name="EventDecompression">
-        <sch:rule context="premis:event[normalize-space(./premis:eventType)='decompression']">
-			<sch:assert test="normalize-space(./premis:eventDetail)='Decompression of submission information package'">
-				Decompression event '<sch:value-of select=".//premis:eventIdentifierValue"/>' must have an event detail: 'Decompression of submission information package'
+	<!-- Unpacking event check -->
+	<sch:pattern name="EventUnpacking">
+        <sch:rule context="premis:event[normalize-space(./premis:eventType)='unpacking']">
+			<sch:assert test="normalize-space(./premis:eventDetail)='Unpacking of submission information package'">
+				Unpacking event '<sch:value-of select=".//premis:eventIdentifierValue"/>' must have an event detail: 'Unpacking of submission information package'
 			</sch:assert>
 			<sch:assert test="(normalize-space(.//premis:linkingAgentIdentifierType)='preservation-agent-id') and (normalize-space(.//premis:linkingAgentIdentifierValue)=normalize-space(ancestor::premis:premis//premis:agentIdentifierValue[normalize-space(preceding-sibling::premis:agentIdentifierType)='preservation-agent-id' and contains(.,'extract_sip.py')]))">
-				Decompression event '<sch:value-of select=".//premis:eventIdentifierValue"/>' must link to a decompression agent.
+				Unpacking event '<sch:value-of select=".//premis:eventIdentifierValue"/>' must link to a unpacking agent.
 			</sch:assert>
 			<sch:assert test="(normalize-space(.//premis:linkingObjectIdentifierType)='preservation-sip-id') and (normalize-space(.//premis:linkingObjectIdentifierValue)=normalize-space(ancestor::premis:premis//premis:objectIdentifierValue[normalize-space(preceding-sibling::premis:objectIdentifierType)='preservation-sip-id']))">
-				Decompression event '<sch:value-of select=".//premis:eventIdentifierValue"/>' must link to a SIP object.
+				Unpacking event '<sch:value-of select=".//premis:eventIdentifierValue"/>' must link to a SIP object.
 			</sch:assert>
 		</sch:rule>	
 	</sch:pattern>
@@ -268,7 +268,7 @@ See: http://www.loc.gov/standards/premis/
 
 	<!-- AIP creation event check -->
 	<sch:pattern name="EventAIPCreation">
-        <sch:rule context="premis:event[normalize-space(./premis:eventType)='creation']">
+        <sch:rule context="premis:event[normalize-space(./premis:eventType)='information package creation']">
 			<sch:assert test="normalize-space(./premis:eventDetail)='Creation of archival information package'">
 				AIP creation event '<sch:value-of select=".//premis:eventIdentifierValue"/>' must have an event detail: 'Creation of archival information package'
 			</sch:assert>
@@ -283,7 +283,7 @@ See: http://www.loc.gov/standards/premis/
 
 	<!-- preservation responsibility change event check -->
 	<sch:pattern name="EventResponsibilityChange">
-        <sch:rule context="premis:event[normalize-space(./premis:eventType)='preservation responsibility change']">
+        <sch:rule context="premis:event[normalize-space(./premis:eventType)='preservation responsibility change' or normalize-space(./premis:eventType)='accession']">
 			<sch:assert test="normalize-space(./premis:eventDetail)='Preservation responsibility change to the digital preservation service'">
 				Preservation responsibility change event '<sch:value-of select=".//premis:eventIdentifierValue"/>' must have an event detail: 'Preservation responsibility change to the digital preservation service'
 			</sch:assert>
@@ -295,6 +295,15 @@ See: http://www.loc.gov/standards/premis/
 			</sch:assert>
 		</sch:rule>
 	</sch:pattern>
+
+	<!-- Preservation responsibility change timestamp check -->
+        <sch:pattern name="EventResponsibilityChangeTimestamp">
+        <sch:rule context="premis:event[normalize-space(./premis:eventType)='preservation responsibility change']">
+                        <sch:assert test="premis:eventDateTime=following-sibling::premis:event[normalize-space(./premis:eventType)='accession']/premis:eventDateTime or premis:eventDateTime=preceding-sibling::premis:event[normalize-space(./premis:eventType)='accession']/premis:eventDateTime">
+                                Preservation responsibility change events must have same timestamps.
+                        </sch:assert>
+                </sch:rule>
+        </sch:pattern>
 
 	<!-- approvals -->
 	<sch:pattern name="EventApproveFailedIngestEvents">
