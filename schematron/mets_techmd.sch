@@ -110,7 +110,7 @@ Validates METS techMD.
                 <sch:param name="context_condition" value="normalize-space(@MDTYPE)='OTHER' and normalize-space(@OTHERMDTYPE)='EBUCORE'"/>
                 <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
                 <sch:param name="valid_values" value="string('1.10')"/>
-                <sch:param name="specifications" value="string('')"/>
+                <sch:param name="specifications" value="string('not: 1.5.0; 1.6.0; 1.6.1; 1.7.0; 1.7.1; 1.7.2')"/>
         </sch:pattern>
 
         <!-- Known descriptive, rights, technical, or provenance metadata can not be used inside wrong section -->
