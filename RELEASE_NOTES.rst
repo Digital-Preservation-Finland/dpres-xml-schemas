@@ -1,6 +1,11 @@
 Release notes
 =============
 
+Version 0.30
+------------
+
+- Update PRONOM codes for file formats.
+
 Version 0.29
 ------------
 
