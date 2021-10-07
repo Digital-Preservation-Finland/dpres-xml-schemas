@@ -397,7 +397,7 @@ Validates METS fileSec.
 
         <!-- Native file check -->
         <sch:pattern id="required_features_native">
-                <sch:rule context="mets:fileGrp/mets:file[(normalize-space(@USE)='fi-preservation-no-file-format-validation')]">
+                <sch:rule context="mets:fileGrp/mets:file[(normalize-space(@USE)='fi-dpres-no-file-format-validation')]">
                         <sch:let name="admid" value="normalize-space(@ADMID)"/>
                         <sch:let name="source_techmd_id" value="normalize-space($techmd/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' ')) and ../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName])"/>
                         <sch:let name="source_object_id" value="normalize-space($techmd[normalize-space(@ID) = $source_techmd_id]/mets:mdWrap/mets:xmlData/premis:object/premis:objectIdentifier/premis:objectIdentifierValue)"/>

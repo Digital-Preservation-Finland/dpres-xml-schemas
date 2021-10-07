@@ -126,7 +126,7 @@
   </mets:amdSec>
   <mets:fileSec>
     <mets:fileGrp>
-      <mets:file USE="fi-preservation-no-file-format-validation" ADMID="techmd-001 event-001 agent-001" ID="fileid-001">
+      <mets:file USE="fi-dpres-no-file-format-validation" ADMID="techmd-001 event-001 agent-001" ID="fileid-001">
         <mets:FLocat LOCTYPE="URL" xlink:href="file://./file.cdr" xlink:type="simple"/>
       </mets:file>
       <mets:file ADMID="techmd-002 event-001 agent-001" ID="fileid-002">
