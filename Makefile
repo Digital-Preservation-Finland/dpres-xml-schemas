@@ -28,9 +28,6 @@ install:
 	chmod -R 755 "${SHAREDIR}"
 	find "${SHAREDIR}" -type f -exec chmod 644 \{\} \;
 
-test:
-	py.test --junitprefix=dpres-xml-schemas --junitxml=junit.xml tests
-
 docs:
 	make -C doc html
 	make -C doc pdf
@@ -41,10 +38,6 @@ docserver:
 killdocserver:
 	make -C doc killdocserver
 
-coverage:
-	mkdir htmlcov
-	touch htmlcov/index.html
-
 clean: clean-rpm
 	find . -iname '*.pyc' -type f -delete
 	find . -iname '__pycache__' -exec rm -rf '{}' \; | true
@@ -52,7 +45,3 @@ clean: clean-rpm
 clean-rpm:
 	rm -rf rpmbuild
 
-rpm: clean-rpm
-	create-archive.sh
-	preprocess-spec-m4-macros.sh include/rhel7
-	build-rpm.sh ${MOCK_CONFIG}
