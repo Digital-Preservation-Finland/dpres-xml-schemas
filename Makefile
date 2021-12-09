@@ -28,6 +28,9 @@ install:
 	chmod -R 755 "${SHAREDIR}"
 	find "${SHAREDIR}" -type f -exec chmod 644 \{\} \;
 
+test:
+	py.test --junitprefix=dpres-xml-schemas --junitxml=junit.xml tests
+
 docs:
 	make -C doc html
 	make -C doc pdf
