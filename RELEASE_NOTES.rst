@@ -1,6 +1,11 @@
 Release notes
 =============
 
+Version 0.31
+------------
+
+- Terminology change to fi-dpres.
+
 Version 0.30
 ------------
 
