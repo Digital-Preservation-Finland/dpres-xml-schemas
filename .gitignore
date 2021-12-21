@@ -24,4 +24,5 @@ Thumbs.db
 rpmbuild
 tests/data/popen
 .venv/
+venv*/
 junit*.xml

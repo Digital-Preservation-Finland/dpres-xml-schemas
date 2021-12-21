@@ -92,7 +92,7 @@ def schematron_fx(request):
                 for chunk in iter(lambda s=incl_stream: s.read(1024 * 1024),
                                   b""):
                     hash_md5_abstracts.update(chunk)
-    abstracts_hash = hash_md5_abstracts.hexdigest()
+    abstracts_hash = hash_md5_abstracts.hexdigest().encode('utf-8')
     hash_md5_xslt = hashlib.md5()
     for xslfile in os.listdir(os.path.join(ISO_DIRECTORY)):
         if xslfile.endswith('*.xsl'):
@@ -101,7 +101,7 @@ def schematron_fx(request):
                 for chunk in iter(lambda s=xsl_stream: s.read(1024 * 1024),
                                   b""):
                     hash_md5_xslt.update(chunk)
-    xslt_hash = hash_md5_abstracts.hexdigest()
+    xslt_hash = hash_md5_abstracts.hexdigest().encode('utf-8')
     for schfile in os.listdir(SCH_DIRECTORY):
         if schfile.endswith('.sch'):
             sch_path = os.path.join(SCH_DIRECTORY, schfile)
