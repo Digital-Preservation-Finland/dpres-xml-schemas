@@ -33,11 +33,11 @@ def prepare_xml(context_element, version):
 
 @pytest.mark.parametrize(
     "context_element, disallowedlist, version", [
-    ('control', ['rightsdeclaration'], '1.1.0'),
-    ('part', ['date'], '1.1.0'),
-    ('quote', ['@render'], '1.1.0'),
-    ('conventiondeclaration', ['@localtype'], '1.1.0')
-])
+        ('control', ['rightsdeclaration'], '1.1.0'),
+        ('part', ['date'], '1.1.0'),
+        ('quote', ['@render'], '1.1.0'),
+        ('conventiondeclaration', ['@localtype'], '1.1.0')
+    ])
 def test_disallowed_field(
         schematron_fx, context_element, disallowedlist, version):
     """Various elements and attributes have been added to newer EAD3 version.

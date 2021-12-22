@@ -50,13 +50,19 @@ def schematron_fx(request):
         xmlfile = os.path.join(tmp_directory, 'xmltree_schematron.xml')
         xmltree.write(xmlfile)
         if params:
-            ps = subprocess.Popen(['xsltproc', os.path.join(CACHE_DIRECTORY, schematronfile+'.xsl'),
-                 xmlfile], stdout=subprocess.PIPE)
+            ps = subprocess.Popen(['xsltproc',
+                                   os.path.join(CACHE_DIRECTORY,
+                                                schematronfile+'.xsl'),
+                                   xmlfile], stdout=subprocess.PIPE)
             svrl = subprocess.check_output(['xsltproc',
-                 os.path.join(ISO_DIRECTORY, 'trim_optimized_result.xsl'), '-'], stdin=ps.stdout)
+                                            os.path.join(
+                                                ISO_DIRECTORY,
+                                                'trim_optimized_result.xsl'),
+                                            '-'], stdin=ps.stdout)
         else:
             svrl = subprocess.check_output(
-                ['xsltproc', os.path.join(CACHE_DIRECTORY, schematronfile+'_full.xsl'),
+                ['xsltproc', os.path.join(CACHE_DIRECTORY,
+                                          schematronfile+'_full.xsl'),
                  xmlfile])
         os.remove(os.path.join(tmp_directory, 'xmltree_schematron.xml'))
         return svrl
@@ -70,7 +76,8 @@ def schematron_fx(request):
         """
         if params:
             step = subprocess.check_output(
-                ['xsltproc', '--stringparam', 'outputfilter', 'only_messages', os.path.join(ISO_DIRECTORY, isofile), infile])
+                ['xsltproc', '--stringparam', 'outputfilter', 'only_messages',
+                 os.path.join(ISO_DIRECTORY, isofile), infile])
         else:
             step = subprocess.check_output(
                 ['xsltproc', os.path.join(ISO_DIRECTORY, isofile), infile])
@@ -85,7 +92,7 @@ def schematron_fx(request):
         os.makedirs(CACHE_DIRECTORY)
 
     hash_md5_abstracts = hashlib.md5()
-    for inclfile in os.listdir(os.path.join(SCH_DIRECTORY,'abstracts')):
+    for inclfile in os.listdir(os.path.join(SCH_DIRECTORY, 'abstracts')):
         if inclfile.endswith('.incl'):
             incl_path = os.path.join(SCH_DIRECTORY, 'abstracts', inclfile)
             with open(incl_path, "rb") as incl_stream:

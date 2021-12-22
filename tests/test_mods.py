@@ -420,7 +420,7 @@ def test_typeOfResource_values(schematron_fx):
     elem_context.text = 'xxx'
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_FAILED) == 0
- 
+
     elem_context.text = ''
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_FAILED) == 0

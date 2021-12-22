@@ -147,4 +147,3 @@ def test_mandatory_agents(schematron_fx):
     fix_version_17(root)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
-
