@@ -4,8 +4,10 @@ in mets_dmdsec.sch.
 .. seealso:: mets_dmdsec.sch
 """
 import pytest
-from tests.common import SVRL_FAILED, parse_xml_file, \
-    parse_xml_string, NAMESPACES, fix_version_17
+from tests.common import (SVRL_FAILED, parse_xml_file,
+                          parse_xml_string, NAMESPACES, fix_version_17,
+                          find_element, set_element, set_attribute,
+                          del_attribute, get_attribute)
 
 SCHFILE = 'mets_dmdsec.sch'
 
@@ -45,28 +47,28 @@ def test_dependent_attributes_dmdsec(schematron_fx, nspaces, attributes,
             (c) second exists, (d) both exist.
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element('dmdSec', 'mets')
+    elem_handler = find_element(root, 'dmdSec', 'mets')
     if nspaces[0] == 'fi':
         fix_version_17(root)
 
     # Both attributes
-    elem_handler.set_attribute(attributes[0], nspaces[0], 'xxx')
-    elem_handler.set_attribute(attributes[1], nspaces[1], 'xxx')
+    set_attribute(elem_handler, attributes[0], nspaces[0], 'xxx')
+    set_attribute(elem_handler, attributes[1], nspaces[1], 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == error[3]
 
     # Just the second attribute
-    elem_handler.del_attribute(attributes[0], nspaces[0])
+    del_attribute(elem_handler, attributes[0], nspaces[0])
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == error[2]
 
     # No attributes
-    elem_handler.del_attribute(attributes[1], nspaces[1])
+    del_attribute(elem_handler, attributes[1], nspaces[1])
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == error[0]
 
     # Just the first attribute
-    elem_handler.set_attribute(attributes[0], nspaces[0], 'xxx')
+    set_attribute(elem_handler, attributes[0], nspaces[0], 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == error[1]
 
@@ -111,27 +113,27 @@ def test_mdtype_items_dmdsec(schematron_fx, mdtype, othermdtype,
     :specversion: Specification versions
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element('dmdSec', 'mets')
-    elem_handler = elem_handler.find_element('mdWrap', 'mets')
-    elem_handler.set_attribute('MDTYPE', 'mets', mdtype)
+    elem_handler = find_element(root, 'dmdSec', 'mets')
+    elem_handler = find_element(elem_handler, 'mdWrap', 'mets')
+    set_attribute(elem_handler, 'MDTYPE', 'mets', mdtype)
     if othermdtype is not None:
-        elem_handler.set_attribute('OTHERMDTYPE', 'mets', othermdtype)
+        set_attribute(elem_handler, 'OTHERMDTYPE', 'mets', othermdtype)
 
     # Test that all MDTYPEVERSIONs work with all specifications
     for sversion in specversion:
         if sversion in ['1.7.0', '1.7.1', '1.7.2', '1.7.3']:
             fix_version_17(root)
         else:
-            root.set_attribute('CATALOG', 'fikdk', sversion)
-            root.set_attribute('SPECIFICATION', 'fikdk', sversion)
+            set_attribute(root, 'CATALOG', 'fikdk', sversion)
+            set_attribute(root, 'SPECIFICATION', 'fikdk', sversion)
         for version in mdtypeversion:
-            elem_handler.set_attribute('MDTYPEVERSION', 'mets', version)
+            set_attribute(elem_handler, 'MDTYPEVERSION', 'mets', version)
             svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
             assert svrl.count(SVRL_FAILED) == 0
 
     # Test unknown version
     fix_version_17(root)
-    elem_handler.set_attribute('MDTYPEVERSION', 'mets', 'xxx')
+    set_attribute(elem_handler, 'MDTYPEVERSION', 'mets', 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -144,8 +146,8 @@ def test_disallowed_items_dmdsec(schematron_fx):
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
 
     # Set disallowed attribute/element
-    elem_handler = root.find_element('dmdSec', 'mets')
-    elem_handler.set_element('mdRef', 'mets')
+    elem_handler = find_element(root, 'dmdSec', 'mets')
+    set_element(elem_handler, 'mdRef', 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -180,8 +182,8 @@ def test_special_mdtype(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 1
 
     # Everything works, if something else is given
-    elem_handler = root.find_element('mdWrap[@MDTYPE="OTHER"]', 'mets')
-    elem_handler.set_attribute('OTHERMDTYPE', 'mets', 'xxx')
+    elem_handler = find_element(root, 'mdWrap[@MDTYPE="OTHER"]', 'mets')
+    set_attribute(elem_handler, 'OTHERMDTYPE', 'mets', 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
@@ -191,15 +193,15 @@ def test_arbitrary_attributes_dmdsec(schematron_fx):
        sections.
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element('dmdSec', 'mets')
+    elem_handler = find_element(root, 'dmdSec', 'mets')
     for spec in [None, '1.7.3']:
         if spec == '1.7.3':
             fix_version_17(root)
         for ns in ['fi', 'fikdk', 'dc']:
-            elem_handler.set_attribute('xxx', ns, 'xxx')
+            set_attribute(elem_handler, 'xxx', ns, 'xxx')
             svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
             assert svrl.count(SVRL_FAILED) == 1
-            elem_handler.del_attribute('xxx', ns)
+            del_attribute(elem_handler, 'xxx', ns)
 
 
 def test_missing_links_dmdsec(schematron_fx):
@@ -209,8 +211,8 @@ def test_missing_links_dmdsec(schematron_fx):
     :schematron_fx: Schematron compile fixture
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element('div', 'mets')
-    refs = elem_handler.get_attribute('DMDID', 'mets').split()
-    elem_handler.set_attribute('DMDID', 'mets', '')
+    elem_handler = find_element(root, 'div', 'mets')
+    refs = get_attribute(elem_handler, 'DMDID', 'mets').split()
+    set_attribute(elem_handler, 'DMDID', 'mets', '')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == len(refs)
