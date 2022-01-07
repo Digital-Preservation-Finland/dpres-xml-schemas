@@ -5,8 +5,9 @@ rules located in mets_ead3.sch.
 """
 
 import pytest
-from tests.common import SVRL_FIRED, SVRL_FAILED, NAMESPACES, \
-    parse_xml_string, add_containers
+from tests.common import (SVRL_FIRED, SVRL_FAILED, NAMESPACES,
+                          parse_xml_string, add_containers, find_element,
+                          set_element, set_attribute)
 
 SCHFILE = 'mets_ead3.sch'
 
@@ -23,11 +24,11 @@ def prepare_xml(context_element, version):
              </mets:dmdSec>''' % NAMESPACES
     (ead3, root) = parse_xml_string(xml)
     (ead3, root) = add_containers(root, 'mets:mets')
-    elem_handler = root.find_element('ead', 'ead3')
+    elem_handler = find_element(root, 'ead', 'ead3')
     if context_element is not None:
-        elem_context = elem_handler.set_element(context_element, 'ead3')
-    elem_version = root.find_element('mdWrap', 'mets')
-    elem_version.set_attribute('MDTYPEVERSION', 'mets', version)
+        elem_context = set_element(elem_handler, context_element, 'ead3')
+    elem_version = find_element(root, 'mdWrap', 'mets')
+    set_attribute(elem_version, 'MDTYPEVERSION', 'mets', version)
     return (ead3, elem_context, elem_version)
 
 
@@ -53,18 +54,17 @@ def test_disallowed_field(
     (ead3, elem_context, elem_version) = prepare_xml(context_element, version)
     for disallowed in disallowedlist:
         if disallowed[0] == '@':
-            elem_context.set_attribute(disallowed[1:], 'ead3', 'default')
+            set_attribute(elem_context, disallowed[1:], 'ead3', 'default')
         else:
-            elem_context.set_element(disallowed, 'ead3')
+            set_element(elem_context, disallowed, 'ead3')
 
     # The elements/attributes are allowed in the given EAD3 version
-    elem_version.set_attribute('MDTYPEVERSION', 'mets', version)
+    set_attribute(elem_version, 'MDTYPEVERSION', 'mets', version)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=ead3)
     assert svrl.count(SVRL_FAILED) == 0
 
     # The elements/attributes are disallowed in the previous EAD3 version
-    elem_version.set_attribute(
-        'MDTYPEVERSION', 'mets', '1.0.0')
+    set_attribute(elem_version, 'MDTYPEVERSION', 'mets', '1.0.0')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=ead3)
     assert svrl.count(SVRL_FAILED) == len(disallowedlist)
 
@@ -81,15 +81,15 @@ def test_containerid_values(schematron_fx):
     :schematron_fx: Schematron compile fixture
     """
     (ead3, elem_context, elem_version) = prepare_xml('container', '1.1.0')
-    elem_context.set_attribute('containerid', 'ead3', '###')
+    set_attribute(elem_context, 'containerid', 'ead3', '###')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=ead3)
     assert svrl.count(SVRL_FAILED) == 0
 
-    elem_version.set_attribute('MDTYPEVERSION', 'mets', '1.0.0')
+    set_attribute(elem_version, 'MDTYPEVERSION', 'mets', '1.0.0')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=ead3)
     assert svrl.count(SVRL_FAILED) == 1
 
-    elem_context.set_attribute('containerid', 'ead3', 'abc')
+    set_attribute(elem_context, 'containerid', 'ead3', 'abc')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=ead3)
     assert svrl.count(SVRL_FAILED) == 0
 
@@ -111,12 +111,12 @@ def test_ead3_extension(schematron_fx, xml, failures):
     (xmltree, root) = parse_xml_string(xml)
     (xmltree, mets_root) = add_containers(
         root, 'mets:mets/mets:dmdSec/mets:mdWrap/mets:xmlData/ead3:ead')
-    mdwrap = mets_root.find_element('mdWrap', 'mets')
-    mdwrap.set_attribute('MDTYPEVERSION', 'mets', '1.0.0')
+    mdwrap = find_element(mets_root, 'mdWrap', 'mets')
+    set_attribute(mdwrap, 'MDTYPEVERSION', 'mets', '1.0.0')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=xmltree, params=False)
     assert svrl.count(SVRL_FIRED) == 1
     assert svrl.count(SVRL_FAILED) == failures
 
-    mdwrap.set_attribute('MDTYPEVERSION', 'mets', '1.1.0')
+    set_attribute(mdwrap, 'MDTYPEVERSION', 'mets', '1.1.0')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=xmltree, params=False)
     assert svrl.count(SVRL_FIRED) == 0
