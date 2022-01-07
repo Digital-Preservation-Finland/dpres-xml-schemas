@@ -4,8 +4,9 @@ rules located in mets_addml.sch.
 .. seealso:: mets_addml.sch
 """
 
-from tests.common import SVRL_FIRED, SVRL_FAILED, NAMESPACES, \
-    parse_xml_string, add_containers
+from tests.common import (SVRL_FIRED, SVRL_FAILED, NAMESPACES,
+                          parse_xml_string, add_containers, find_element,
+                          set_element, set_attribute)
 
 SCHFILE = 'mets_addml.sch'
 
@@ -32,14 +33,14 @@ def test_addml_reference_version(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 1
 
     # Element 'reference' is required in 8.2, and it exists
-    elem_handler = root.find_element('dataset', 'addml')
-    elem_handler.set_element('reference', 'addml')
+    elem_handler = find_element(root, 'dataset', 'addml')
+    set_element(elem_handler, 'reference', 'addml')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
     # No checks with version 8.3
-    elem_handler = root.find_element('mdWrap', 'mets')
-    elem_handler.set_attribute('MDTYPEVERSION', 'mets', '8.3')
+    elem_handler = find_element(root, 'mdWrap', 'mets')
+    set_attribute(elem_handler, 'MDTYPEVERSION', 'mets', '8.3')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets, params=False)
     assert svrl.count(SVRL_FIRED) == 0
     assert svrl.count(SVRL_FAILED) == 0
@@ -68,8 +69,8 @@ def test_addml_headerlevel_version(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 1
 
     # No checks with version 8.3
-    elem_handler = root.find_element('mdWrap', 'mets')
-    elem_handler.set_attribute('MDTYPEVERSION', 'mets', '8.3')
+    elem_handler = find_element(root, 'mdWrap', 'mets')
+    set_attribute(elem_handler, 'MDTYPEVERSION', 'mets', '8.3')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets, params=False)
     assert svrl.count(SVRL_FIRED) == 0
     assert svrl.count(SVRL_FAILED) == 0
