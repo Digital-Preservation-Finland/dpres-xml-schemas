@@ -2,13 +2,13 @@
 """
 
 import os
-import xml.etree.ElementTree as ET
-from tests.customelement import CustomElement
+import six
+import lxml.etree as ET
 
 
-SVRL_FIRED = '<svrl:fired-rule'
-SVRL_FAILED = '<svrl:failed-assert'
-SVRL_REPORT = '<svrl:successful-report'
+SVRL_FIRED = b'<svrl:fired-rule'
+SVRL_FAILED = b'<svrl:failed-assert'
+SVRL_REPORT = b'<svrl:successful-report'
 DATA = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data'))
 
 NAMESPACES = {'mets': 'http://www.loc.gov/METS/',
@@ -49,7 +49,6 @@ def parse_xml_file(filename):
     """
     xmltree = ET.parse(os.path.join(DATA, filename))
     root = xmltree.getroot()
-    CustomElement.cast(root, NAMESPACES)
     return (xmltree, root)
 
 
@@ -60,7 +59,6 @@ def parse_xml_string(xml):
     """
     xmltree = ET.ElementTree(ET.fromstring(xml))
     root = xmltree.getroot()
-    CustomElement.cast(root, NAMESPACES)
     return (xmltree, root)
 
 
@@ -77,9 +75,140 @@ def add_containers(root, container_path):
     elem = new_root
     for path_part in split_path[1:]:
         part = path_part.split(':')
-        elem = elem.set_element(part[1], part[0])
+        elem = set_element(elem, part[1], part[0])
     elem.append(root)
     return (new_tree, new_root)
+
+
+def set_element(parent, element, namespace):
+    """Adds a new element as subelement of given element.
+
+    :parent: Element to which the new element is added.
+    :element: Element name to add.
+    :namespace: Namespace key, in which the element belongs to.
+    :returns: The added element
+    """
+    if namespace is not None:
+        elem_tag = ('{%s}'+element) % NAMESPACES[namespace]
+        elem = ET.SubElement(parent, elem_tag)
+    else:
+        elem = ET.SubElement(parent, element)
+    return elem
+
+
+def del_element(parent, element, namespace):
+    """Removes subelement from given element.
+
+    :parent: Element from which the subelement is removed.
+    :element: Name of the element to remove.
+    :namespace: Namespace key, in which the element belongs to.
+    """
+    if namespace is None:
+        elem = parent.find('./'+element)
+    else:
+        elem_tag = ('{%s}'+element) % NAMESPACES[namespace]
+        elem = parent.find('./'+elem_tag)
+    if elem is not None:
+        parent.remove(elem)
+
+
+def find_all_elements(parent, element, namespace):
+    """Finds all elements with certain tag name under given element.
+
+    :parent: Element to search under.
+    :element: Element tag name to find.
+    :namespace: Namespace key, in which the element belongs to.
+    :returns: The found elements as list.
+    """
+    elem_tag = element
+    if namespace is None:
+        elemlist = parent.findall('.//'+element)
+    else:
+        elem_tag = ('{%s}'+element) % NAMESPACES[namespace]
+        elemlist = parent.findall('.//'+elem_tag)
+    if elemlist is None and parent.tag == elem_tag:
+        return parent
+    return elemlist
+
+
+def find_element(parent, element, namespace):
+    """Finds the first element with certain tag name under given element.
+
+    :parent: Element to search under.
+    :element: Element name tag to find.
+    :namespace: Namespace key, in which the element belongs to.
+    :returns: The found element.
+    """
+    elem = None
+    element = element
+    if namespace is None:
+        elem = parent.find('.//'+element)
+        if elem is None and parent.tag == element:
+            return parent
+    else:
+        elem_tag = ('{%s}'+element) % NAMESPACES[namespace]
+        elem = parent.find('.//'+elem_tag)
+        if elem is None and parent.tag == elem_tag:
+            return parent
+    return elem
+
+
+def set_attribute(parent, attribute, namespace, value):
+    """Sets a new or resets an existing attribute to given element.
+
+    :parent: Element whose attribute is edited.
+    :attribute: Attribute key.
+    :namespace: Namespace key, in which the attribute belongs to.
+                Overridden, if the attribute key contains namespace.
+    :value: Value for the attribute.
+    """
+    if namespace is None:
+        parent.set(attribute, value)
+    elif '{%s}' % NAMESPACES[namespace] in parent.tag:
+        parent.set(attribute, value)
+    elif attribute[0] == '{':
+        parent.set(attribute, value)
+    else:
+        parent.set(('{%s}'+attribute) % NAMESPACES[namespace], value)
+
+
+def get_attribute(parent, attribute, namespace):
+    """Gets an attribute from given element.
+
+    :parent: Element whose attribute is gotten.
+    :attribute: Attribute key.
+    :namespace: Namespace key, in which the attribute belongs to.
+                Overridden, if the attribute key contains namespace.
+    :returns: The found attribute.
+    """
+    if namespace is None:
+        return parent.get(attribute)
+    elif '{%s}' % NAMESPACES[namespace] in parent.tag:
+        return parent.get(attribute)
+    elif attribute[0] == '{':
+        return parent.get(attribute)
+    else:
+        return parent.get(
+            ('{%s}'+attribute) % NAMESPACES[namespace])
+
+
+def del_attribute(parent, attribute, namespace):
+    """Deletes an attribute from given element.
+
+    :parent: Element whose attribute is deleted.
+    :attribute: Attribute key.
+    :namespace: Namespace key, in which the attribute belongs to.
+                Overridden, if the attribute key contains namespace.
+    """
+    if namespace is None:
+        del parent.attrib[attribute]
+    elif '{%s}' % NAMESPACES[namespace] in parent.tag:
+        del parent.attrib[attribute]
+    elif attribute[0] == '{':
+        del parent.attrib[attribute]
+    else:
+        del parent.attrib[
+            ('{%s}'+attribute) % NAMESPACES[namespace]]
 
 
 def fix_version_17(root):
@@ -95,23 +224,23 @@ def fix_version_17(root):
                   'sourceMD': ['CREATED', 'PID', 'PIDTYPE'],
                   'digiprovMD': ['CREATED', 'PID', 'PIDTYPE'],
                   'structMap': ['PID', 'PIDTYPE']}
-    for elem, attributes in fikdk_dict.iteritems():
-        element_list = root.find_all_elements(elem, 'mets')
+    for elem, attributes in six.iteritems(fikdk_dict):
+        element_list = find_all_elements(root, elem, 'mets')
         if elem == 'mets':
             element_list = [root]
         for elem_tree in element_list:
             for attr in attributes:
-                fi_attrib = elem_tree.get_attribute(attr, 'fikdk')
+                fi_attrib = get_attribute(elem_tree, attr, 'fikdk')
                 if fi_attrib is not None:
-                    elem_tree.del_attribute(attr, 'fikdk')
-                    elem_tree.set_attribute(attr, 'fi', fi_attrib)
-    mdref = root.find_element('mdRef', 'mets')
+                    del_attribute(elem_tree, attr, 'fikdk')
+                    set_attribute(elem_tree, attr, 'fi', fi_attrib)
+    mdref = find_element(root, 'mdRef', 'mets')
     if mdref is not None:
-        mdref.set_attribute('OTHERMDTYPE', 'mets', 'FiPreservationPlan')
-    root.set_attribute(
-        'PROFILE', 'mets',
+        set_attribute(mdref, 'OTHERMDTYPE', 'mets', 'FiPreservationPlan')
+    set_attribute(
+        root, 'PROFILE', 'mets',
         'http://digitalpreservation.fi/mets-profiles/cultural-heritage')
-    root.set_attribute('CATALOG', 'fi', '1.7.3')
-    root.set_attribute('SPECIFICATION', 'fi', '1.7.3')
-    root.set_attribute('CONTRACTID', 'fi',
-                       'urn:uuid:c5a193b3-bb63-4348-bd25-6c20bb72264b')
+    set_attribute(root, 'CATALOG', 'fi', '1.7.3')
+    set_attribute(root, 'SPECIFICATION', 'fi', '1.7.3')
+    set_attribute(root, 'CONTRACTID', 'fi',
+                  'urn:uuid:c5a193b3-bb63-4348-bd25-6c20bb72264b')
