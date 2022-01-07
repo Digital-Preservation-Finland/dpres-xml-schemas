@@ -4,7 +4,9 @@ in mets_amdsec.sch.
 .. seealso:: mets_amdsec.sch
 """
 import pytest
-from tests.common import SVRL_FAILED, parse_xml_file, fix_version_17
+from tests.common import (SVRL_FAILED, parse_xml_file, fix_version_17,
+                          find_element, set_attribute, get_attribute,
+                          del_attribute)
 
 SCHFILE = 'mets_amdsec.sch'
 
@@ -57,28 +59,28 @@ def test_dependent_attributes_amdsec(schematron_fx, context, nspaces,
             (c) second exists, (d) both exist.
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element(context, 'mets')
+    elem_handler = find_element(root, context, 'mets')
     if nspaces[0] == 'fi':
         fix_version_17(root)
 
     # Both attributes
-    elem_handler.set_attribute(attributes[0], nspaces[0], 'xxx')
-    elem_handler.set_attribute(attributes[1], nspaces[1], 'xxx')
+    set_attribute(elem_handler, attributes[0], nspaces[0], 'xxx')
+    set_attribute(elem_handler, attributes[1], nspaces[1], 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == error[3]
 
     # Just the second attribute
-    elem_handler.del_attribute(attributes[0], nspaces[0])
+    del_attribute(elem_handler, attributes[0], nspaces[0])
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == error[2]
 
     # No attributes
-    elem_handler.del_attribute(attributes[1], nspaces[1])
+    del_attribute(elem_handler, attributes[1], nspaces[1])
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == error[0]
 
     # Just the first attribute
-    elem_handler.set_attribute(attributes[0], nspaces[0], 'xxx')
+    set_attribute(elem_handler, attributes[0], nspaces[0], 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == error[1]
 
@@ -94,15 +96,15 @@ def test_arbitrary_attributes_amdsec(schematron_fx, context):
     :context: Element to be checked
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element(context, 'mets')
+    elem_handler = find_element(root, context, 'mets')
     for spec in [None, '1.7.3']:
         if spec == '1.7.3':
             fix_version_17(root)
         for ns in ['fi', 'fikdk', 'dc']:
-            elem_handler.set_attribute('xxx', ns, 'xxx')
+            set_attribute(elem_handler, 'xxx', ns, 'xxx')
             svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
             assert svrl.count(SVRL_FAILED) == 1
-            elem_handler.del_attribute('xxx', ns)
+            del_attribute(elem_handler, 'xxx', ns)
 
 
 @pytest.mark.parametrize("context", [
@@ -116,8 +118,8 @@ def test_missing_links_admid(schematron_fx, context):
     :context: Element, where the reference attribute exists
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element(context, 'mets')
-    refs = elem_handler.get_attribute('ADMID', 'mets').split()
-    elem_handler.set_attribute('ADMID', 'mets', '')
+    elem_handler = find_element(root, context, 'mets')
+    refs = get_attribute(elem_handler, 'ADMID', 'mets').split()
+    set_attribute(elem_handler, 'ADMID', 'mets', '')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == len(refs)
