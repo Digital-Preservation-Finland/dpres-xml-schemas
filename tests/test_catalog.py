@@ -1,9 +1,10 @@
 """Tests for the METS XMML schema catalog
 """
 
-import xml.etree.ElementTree as ET
+import lxml.etree as ET
 import pytest
-from tests.common import NAMESPACES, parse_xml_file, fix_version_17
+from tests.common import (NAMESPACES, parse_xml_file, fix_version_17,
+                          set_element, find_element, set_attribute)
 
 
 def prepare_xml_for_tests():
@@ -24,8 +25,8 @@ def test_catalog_mets_complete(catalog_fx):
     (returncode, _, _) = catalog_fx(xmltree=mets)
     assert returncode == 0
 
-    root.set_attribute('CATALOG', 'fikdk', '1.7.3')
-    root.set_attribute('SPECIFICATION', 'fikdk', '1.7.3')
+    set_attribute(root, 'CATALOG', 'fikdk', '1.7.3')
+    set_attribute(root, 'SPECIFICATION', 'fikdk', '1.7.3')
     (returncode, _, _) = catalog_fx(xmltree=mets)
     assert returncode == 3
 
@@ -34,8 +35,8 @@ def test_catalog_mets_complete(catalog_fx):
     (returncode, _, _) = catalog_fx(xmltree=mets)
     assert returncode == 0
 
-    root.set_attribute('CATALOG', 'fi', '1.6.0')
-    root.set_attribute('SPECIFICATION', 'fi', '1.6.0')
+    set_attribute(root, 'CATALOG', 'fi', '1.6.0')
+    set_attribute(root, 'SPECIFICATION', 'fi', '1.6.0')
     (returncode, _, _) = catalog_fx(xmltree=mets)
     assert returncode == 3
 
@@ -48,12 +49,12 @@ def test_contractid_format(catalog_fx):
     (returncode, _, _) = catalog_fx(xmltree=mets)
     assert returncode == 0
 
-    root.set_attribute('CONTRACTID', 'fi',
-                       'c5a193b3-bb63-4348-bd25-6c20bb72264b')
+    set_attribute(root, 'CONTRACTID', 'fi',
+                        'c5a193b3-bb63-4348-bd25-6c20bb72264b')
     (returncode, _, _) = catalog_fx(xmltree=mets)
     assert returncode == 3
 
-    root.set_attribute('CONTRACTID', 'fi', 'urn:uuid:xxx')
+    set_attribute(root, 'CONTRACTID', 'fi', 'urn:uuid:xxx')
     (returncode, _, _) = catalog_fx(xmltree=mets)
     assert returncode == 3
 
@@ -92,15 +93,13 @@ def test_section_schemas(catalog_fx, rootelement, namespace, section):
     :section: METS metadata section
     """
     (mets, root) = prepare_xml_for_tests()
-    elem_handler = root.find_element(section, 'mets')
-    elem_handler = elem_handler.find_element('xmlData', 'mets')
+    elem_handler = find_element(root, section, 'mets')
+    elem_handler = find_element(elem_handler, 'xmlData', 'mets')
     elem_handler.clear()
-    elem_handler = elem_handler.set_element(rootelement, namespace)
-    if namespace != 'premis':
-        root.set_attribute(('xmlns:'+namespace), None, NAMESPACES[namespace])
-    elif rootelement == 'object':
-        elem_handler.set_attribute('type', 'xsi', 'premis:file')
-    elem_handler.set_element('xxx', namespace)
+    elem_handler = set_element(elem_handler, rootelement, namespace)
+    if rootelement == 'object':
+        set_attribute(elem_handler, 'type', 'xsi', 'premis:file')
+    set_element(elem_handler, 'xxx', namespace)
     (returncode, _, stderr) = catalog_fx(xmltree=mets)
     assert returncode == 3
-    assert 'xxx' in stderr
+    assert b'xxx' in stderr
