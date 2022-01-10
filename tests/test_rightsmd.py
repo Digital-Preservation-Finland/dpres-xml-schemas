@@ -3,8 +3,9 @@ in mets_rightsmd.sch.
 
 .. seealso:: mets_rightsmd.sch
 """
-from tests.common import SVRL_FAILED, SVRL_REPORT, parse_xml_file, \
-    parse_xml_string, NAMESPACES, fix_version_17
+from tests.common import (SVRL_FAILED, SVRL_REPORT, parse_xml_file,
+                          parse_xml_string, NAMESPACES, fix_version_17,
+                          find_element, set_element, set_attribute)
 
 SCHFILE = 'mets_rightsmd.sch'
 
@@ -31,25 +32,25 @@ def test_mdtype_items_rightsmd(schematron_fx):
     :schematron_fx: Schematron compile fixture
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element('rightsMD', 'mets')
-    elem_handler = elem_handler.find_element('mdWrap', 'mets')
-    elem_handler.set_attribute('MDTYPE', 'mets', 'PREMIS:RIGHTS')
+    elem_handler = find_element(root, 'rightsMD', 'mets')
+    elem_handler = find_element(elem_handler, 'mdWrap', 'mets')
+    set_attribute(elem_handler, 'MDTYPE', 'mets', 'PREMIS:RIGHTS')
 
     # Test that all MDTYPEVERSIONs work with all specifications
     for specversion in ['1.5.0', '1.6.0', '1.7.0', '1.7.1', '1.7.2', '1.7.3']:
         if specversion in ['1.7.0', '1.7.1', '1.7.3']:
             fix_version_17(root)
         else:
-            root.set_attribute('CATALOG', 'fikdk', specversion)
-            root.set_attribute('SPECIFICATION', 'fikdk', specversion)
+            set_attribute(root, 'CATALOG', 'fikdk', specversion)
+            set_attribute(root, 'SPECIFICATION', 'fikdk', specversion)
         for version in ['2.3', '2.2']:
-            elem_handler.set_attribute('MDTYPEVERSION', 'mets', version)
+            set_attribute(elem_handler, 'MDTYPEVERSION', 'mets', version)
             svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
             assert svrl.count(SVRL_FAILED) == 0
 
     # Test unknown version
     fix_version_17(root)
-    elem_handler.set_attribute('MDTYPEVERSION', 'mets', 'xxx')
+    set_attribute(elem_handler, 'MDTYPEVERSION', 'mets', 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -62,8 +63,8 @@ def test_disallowed_items_rightsmd(schematron_fx):
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
 
     # Set disallowed attribute/element
-    elem_handler = root.find_element('rightsMD', 'mets')
-    elem_handler.set_element('mdRef', 'mets')
+    elem_handler = find_element(root, 'rightsMD', 'mets')
+    set_element(elem_handler, 'mdRef', 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
