@@ -3,7 +3,8 @@ in mets_sourcemd.sch.
 
 .. seealso:: mets_sourcemd.sch
 """
-from tests.common import SVRL_FAILED, parse_xml_file, fix_version_17
+from tests.common import (SVRL_FAILED, parse_xml_file, fix_version_17,
+                          find_element, set_element)
 
 SCHFILE = 'mets_sourcemd.sch'
 
@@ -32,7 +33,7 @@ def test_disallowed_items_sourcemd(schematron_fx):
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
 
     # Set disallowed attribute/element
-    elem_handler = root.find_element('sourceMD', 'mets')
-    elem_handler.set_element('mdRef', 'mets')
+    elem_handler = find_element(root, 'sourceMD', 'mets')
+    set_element(elem_handler, 'mdRef', 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
