@@ -4,7 +4,9 @@ in mets_metshdr.sch.
 .. seealso:: mets_metshdr.sch
 """
 import pytest
-from tests.common import SVRL_FAILED, parse_xml_file, fix_version_17
+from tests.common import (SVRL_FAILED, parse_xml_file, fix_version_17,
+                          find_element, set_element, set_attribute,
+                          del_attribute)
 
 SCHFILE = 'mets_metshdr.sch'
 
@@ -30,28 +32,28 @@ def test_recordstatus(schematron_fx):
     and also 'update' and 'dissemination' for CSC.
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    hdr = root.find_element('metsHdr', 'mets')
+    hdr = find_element(root, 'metsHdr', 'mets')
 
-    hdr.set_attribute('RECORDSTATUS', 'mets', 'update')
+    set_attribute(hdr, 'RECORDSTATUS', 'mets', 'update')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
-    hdr.set_attribute('RECORDSTATUS', 'mets', 'dissemination')
+    set_attribute(hdr, 'RECORDSTATUS', 'mets', 'dissemination')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
-    agent = hdr.find_element('name', 'mets')
+    agent = find_element(hdr, 'name', 'mets')
     agent.text = 'CSC - IT Center for Science Ltd.'
 
-    hdr.set_attribute('RECORDSTATUS', 'mets', 'submission')
+    set_attribute(hdr, 'RECORDSTATUS', 'mets', 'submission')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
-    hdr.set_attribute('RECORDSTATUS', 'mets', 'update')
+    set_attribute(hdr, 'RECORDSTATUS', 'mets', 'update')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
-    hdr.set_attribute('RECORDSTATUS', 'mets', 'dissemination')
+    set_attribute(hdr, 'RECORDSTATUS', 'mets', 'dissemination')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
@@ -64,13 +66,13 @@ def test_value_items_metshdr(schematron_fx):
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
 
     # Use arbitrary value
-    elem_handler = root.find_element('metsHdr', 'mets')
-    elem_handler.set_attribute('RECORDSTATUS', 'mets', 'aaa')
+    elem_handler = find_element(root, 'metsHdr', 'mets')
+    set_attribute(elem_handler, 'RECORDSTATUS', 'mets', 'aaa')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
     # Use empty value
-    elem_handler.set_attribute('RECORDSTATUS', 'mets', '')
+    set_attribute(elem_handler, 'RECORDSTATUS', 'mets', '')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -89,7 +91,7 @@ def test_mandatory_items_metshdr(schematron_fx, mandatory, nspace, context):
     :context: Element, where the attribute exists
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element(context, 'mets')
+    elem_handler = find_element(root, context, 'mets')
 
     # Missing attribute in agent gives more than one error
     extra = 0
@@ -97,7 +99,7 @@ def test_mandatory_items_metshdr(schematron_fx, mandatory, nspace, context):
         extra = 1
 
     # Remove mandatory attribute
-    elem_handler.del_attribute(mandatory, nspace)
+    del_attribute(elem_handler, mandatory, nspace)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1 + extra
 
@@ -110,8 +112,8 @@ def test_disallowed_items_metshdr(schematron_fx):
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
 
     # Set disallowed attribute/element
-    elem_handler = root.find_element('metsHdr', 'mets')
-    elem_handler.set_element('altRecordID', 'mets')
+    elem_handler = find_element(root, 'metsHdr', 'mets')
+    set_element(elem_handler, 'altRecordID', 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -121,26 +123,26 @@ def test_arbitrary_attributes_metshdr(schematron_fx):
        sections.
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element('metsHdr', 'mets')
+    elem_handler = find_element(root, 'metsHdr', 'mets')
     for spec in [None, '1.7.3']:
         if spec == '1.7.3':
             fix_version_17(root)
         for ns in ['fi', 'fikdk', 'dc']:
-            elem_handler.set_attribute('xxx', ns, 'xxx')
+            set_attribute(elem_handler, 'xxx', ns, 'xxx')
             svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
             assert svrl.count(SVRL_FAILED) == 1
-            elem_handler.del_attribute('xxx', ns)
+            del_attribute(elem_handler, 'xxx', ns)
 
 
 def test_mandatory_agents(schematron_fx):
     """Test that mandatory agents work.
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element('agent', 'mets')
+    elem_handler = find_element(root, 'agent', 'mets')
 
-    elem_handler.set_attribute('ROLE', 'mets', 'CREATOR')
-    elem_handler.set_attribute('TYPE', 'mets', 'OTHER')
-    elem_handler.set_attribute('OTHERTYPE', 'mets', 'SOFTWARE')
+    set_attribute(elem_handler, 'ROLE', 'mets', 'CREATOR')
+    set_attribute(elem_handler, 'TYPE', 'mets', 'OTHER')
+    set_attribute(elem_handler, 'OTHERTYPE', 'mets', 'SOFTWARE')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
