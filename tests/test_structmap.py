@@ -4,7 +4,9 @@ in mets_structmap.sch.
 .. seealso:: mets_structmap.sch
 """
 import pytest
-from tests.common import SVRL_FAILED, parse_xml_file, fix_version_17
+from tests.common import (SVRL_FAILED, parse_xml_file, fix_version_17,
+                          find_element, set_element, del_element,
+                          get_attribute, set_attribute, del_attribute)
 
 SCHFILE = 'mets_structmap.sch'
 
@@ -34,20 +36,20 @@ def test_fileid(schematron_fx):
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
 
     # FILEID in fptr and area
-    elem_handler = root.find_element('fptr', 'mets')
-    elem_handler_area = elem_handler.set_element('area', 'mets')
-    elem_handler_area.set_attribute(
-        'FILEID', 'mets', elem_handler.get_attribute('FILEID', 'mets'))
+    elem_handler = find_element(root, 'fptr', 'mets')
+    elem_handler_area = set_element(elem_handler, 'area', 'mets')
+    set_attribute(elem_handler_area, 'FILEID', 'mets',
+                  get_attribute(elem_handler, 'FILEID', 'mets'))
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
     # FILEID only in area
-    elem_handler.del_attribute('FILEID', 'mets')
+    del_attribute(elem_handler, 'FILEID', 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
     # Also area missing
-    elem_handler.del_element('area', 'mets')
+    del_element(elem_handler, 'area', 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -63,28 +65,28 @@ def test_dependent_attributes_structmap(schematron_fx, nspace):
     :nspace: Namespace key of the attributes
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element('structMap', 'mets')
+    elem_handler = find_element(root, 'structMap', 'mets')
     if nspace == 'fi':
         fix_version_17(root)
 
     # Both attributes
-    elem_handler.set_attribute('PID', nspace, 'xxx')
-    elem_handler.set_attribute('PIDTYPE', nspace, 'xxx')
+    set_attribute(elem_handler, 'PID', nspace, 'xxx')
+    set_attribute(elem_handler, 'PIDTYPE', nspace, 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
     # Just the second attribute
-    elem_handler.del_attribute('PID', nspace)
+    del_attribute(elem_handler, 'PID', nspace)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
     # No attributes
-    elem_handler.del_attribute('PIDTYPE', nspace)
+    del_attribute(elem_handler, 'PIDTYPE', nspace)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
     # Just the first attribute
-    elem_handler.set_attribute('PID', nspace, 'xxx')
+    set_attribute(elem_handler, 'PID', nspace, 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -103,13 +105,13 @@ def test_value_items_structmap(schematron_fx, attribute, nspace):
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
 
     # Use arbitrary value
-    elem_handler = root.find_element('mptr', 'mets')
-    elem_handler.set_attribute(attribute, nspace, 'aaa')
+    elem_handler = find_element(root, 'mptr', 'mets')
+    set_attribute(elem_handler, attribute, nspace, 'aaa')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
     # Use empty value
-    elem_handler.set_attribute(attribute, nspace, '')
+    set_attribute(elem_handler, attribute, nspace, '')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -128,10 +130,10 @@ def test_mandatory_items_structmap(schematron_fx, mandatory, nspace, context):
     :context: Element, where the attribute exists
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element(context, 'mets')
+    elem_handler = find_element(root, context, 'mets')
 
     # Remove mandatory attribute
-    elem_handler.del_attribute(mandatory, nspace)
+    del_attribute(elem_handler, mandatory, nspace)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -150,11 +152,11 @@ def test_disallowed_items_structmap(schematron_fx, disallowed, context):
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
 
     # Set disallowed attribute/element
-    elem_handler = root.find_element(context, 'mets')
+    elem_handler = find_element(root, context, 'mets')
     if disallowed[0] == '@':
-        elem_handler.set_attribute(disallowed[1:], 'mets', 'default')
+        set_attribute(elem_handler, disallowed[1:], 'mets', 'default')
     else:
-        elem_handler.set_element(disallowed, 'mets')
+        set_element(elem_handler, disallowed, 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -167,15 +169,15 @@ def test_arbitrary_attributes_structmap(schematron_fx, context):
        sections.
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element(context, 'mets')
+    elem_handler = find_element(root, context, 'mets')
     for spec in [None, '1.7.0']:
         if spec == '1.7.0':
             fix_version_17(root)
         for ns in ['fi', 'fikdk', 'dc']:
-            elem_handler.set_attribute('xxx', ns, 'xxx')
+            set_attribute(elem_handler, 'xxx', ns, 'xxx')
             svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
             assert svrl.count(SVRL_FAILED) == 1
-            elem_handler.del_attribute('xxx', ns)
+            del_attribute(elem_handler, 'xxx', ns)
 
 
 @pytest.mark.parametrize("context", [
@@ -189,8 +191,8 @@ def test_missing_ids_structmap(schematron_fx, context):
     :context: Section to be removed.
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element(context, 'mets')
+    elem_handler = find_element(root, context, 'mets')
     # We actually just remove the id
-    elem_handler.set_attribute('ID', 'mets', '')
+    set_attribute(elem_handler, 'ID', 'mets', '')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
