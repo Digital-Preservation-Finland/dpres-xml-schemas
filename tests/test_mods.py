@@ -5,8 +5,9 @@ rules located in mets_mods.sch.
 """
 
 import pytest
-from tests.common import SVRL_FAILED, SVRL_REPORT, NAMESPACES, \
-    parse_xml_string, add_containers
+from tests.common import (SVRL_FAILED, SVRL_REPORT, NAMESPACES,
+                          parse_xml_string, add_containers, find_element,
+                          set_element, set_attribute)
 
 SCHFILE = 'mets_mods.sch'
 
@@ -23,13 +24,13 @@ def prepare_xml(context_element, version):
              </mets:dmdSec>''' % NAMESPACES
     (mods, root) = parse_xml_string(xml)
     (mods, root) = add_containers(root, 'mets:mets')
-    elem_handler = root.find_element('mods', 'mods')
+    elem_handler = find_element(root, 'mods', 'mods')
     if context_element is not None:
-        elem_context = elem_handler.set_element(context_element, 'mods')
+        elem_context = set_element(elem_handler, context_element, 'mods')
     else:
         elem_context = elem_handler
-    elem_version = root.find_element('mdWrap', 'mets')
-    elem_version.set_attribute('MDTYPEVERSION', 'mets', version)
+    elem_version = find_element(root, 'mdWrap', 'mets')
+    set_attribute(elem_version, 'MDTYPEVERSION', 'mets', version)
     return (mods, elem_context, elem_version)
 
 
@@ -141,18 +142,18 @@ def test_disallowed_field(
     (mods, elem_context, elem_version) = prepare_xml(context_element, version)
     for disallowed in disallowedlist:
         if disallowed[0] == '@':
-            elem_context.set_attribute(disallowed[1:], 'mods', 'default')
+            set_attribute(elem_context, disallowed[1:], 'mods', 'default')
         else:
-            elem_context.set_element(disallowed, 'mods')
+            set_element(elem_context, disallowed, 'mods')
 
     # The elements/attributes are allowed in the given MODS version
-    elem_version.set_attribute('MDTYPEVERSION', 'mets', version)
+    set_attribute(elem_version, 'MDTYPEVERSION', 'mets', version)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_FAILED) == 0
 
     # The elements/attributes are disallowed in the previous MODS version
-    elem_version.set_attribute(
-        'MDTYPEVERSION', 'mets', '%.1f' % (float(version)-0.1))
+    set_attribute(elem_version,  'MDTYPEVERSION', 'mets',
+                  '%.1f' % (float(version)-0.1))
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_FAILED) == len(disallowedlist)
 
@@ -195,7 +196,8 @@ def test_disallowed_value(
     """
     (mods, elem_context, elem_version) = prepare_xml(context_element, version)
     if context_attribute is not None:
-        elem_context.set_attribute(context_attribute, 'mods', disallowed_value)
+        set_attribute(elem_context, context_attribute, 'mods',
+                      disallowed_value)
     else:
         elem_context.text = disallowed_value
 
@@ -204,15 +206,15 @@ def test_disallowed_value(
     assert svrl.count(SVRL_FAILED) == 0
 
     # Disallowed in the previous MODS version
-    elem_version.set_attribute(
-        'MDTYPEVERSION', 'mets', '%.1f' % (float(version)-0.1))
+    set_attribute(elem_version, 'MDTYPEVERSION', 'mets',
+                  '%.1f' % (float(version)-0.1))
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_FAILED) == 1
 
     # Arbitrary value should not give error
     # These are handled in the MODS schema
     if context_attribute is not None:
-        elem_context.set_attribute(context_attribute, 'mods', 'default')
+        set_attribute(elem_context, context_attribute, 'mods', 'default')
     else:
         elem_context.text = 'default'
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
@@ -252,16 +254,16 @@ def test_disallowed_hierarch_attrib(
     :version: Earliest MODS version where the attribute applies
     """
     (mods, elem_context, elem_version) = prepare_xml(container, version)
-    elem_context = elem_context.set_element(context, 'mods')
-    elem_context.set_attribute(disallowed_attribute, 'mods', 'default')
+    elem_context = set_element(elem_context, context, 'mods')
+    set_attribute(elem_context, disallowed_attribute, 'mods', 'default')
 
     # Success with given version
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_FAILED) == 0
 
     # Error with earlier versions
-    elem_version.set_attribute(
-        'MDTYPEVERSION', 'mets', '%.1f' % (float(version)-0.1))
+    set_attribute(elem_version, 'MDTYPEVERSION', 'mets',
+                  '%.1f' % (float(version)-0.1))
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -292,13 +294,13 @@ def test_required_subelements(schematron_fx, elementname, version):
     assert svrl.count(SVRL_FAILED) == 0
 
     # Element is empty, earlier MODS version
-    elem_version.set_attribute(
-        'MDTYPEVERSION', 'mets', '%.1f' % (float(version)-0.1))
+    set_attribute(elem_version, 'MDTYPEVERSION', 'mets',
+                  '%.1f' % (float(version)-0.1))
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_FAILED) == 1
 
     # Success, when we add something
-    elem_context.set_element('xxx', None)
+    set_element(elem_context, 'xxx', None)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_FAILED) == 0
 
@@ -311,7 +313,7 @@ def test_exempt_element(schematron_fx):
     (mods, elem_context, elem_version) = prepare_xml('cartographics', '3.0')
 
     # Add 'coordinates' to 'cartographics'
-    elem_context.set_element('coordinates', 'mods')
+    set_element(elem_context, 'coordinates', 'mods')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_FAILED) == 0
 
@@ -321,7 +323,7 @@ def test_exempt_element(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 1
 
     # No error, if MODS version changed
-    elem_version.set_attribute('MDTYPEVERSION', 'mets', '3.1')
+    set_attribute(elem_version, 'MDTYPEVERSION', 'mets', '3.1')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_FAILED) == 0
 
@@ -339,12 +341,12 @@ def test_removed_element(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 0
 
     # Error, if 'extraterrestrialArea' exists
-    elem_context.set_element('extraterrestrialArea', 'mods')
+    set_element(elem_context, 'extraterrestrialArea', 'mods')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_FAILED) == 1
 
     # Success when version changed to 3.5
-    elem_version.set_attribute('MDTYPEVERSION', 'mets', '3.5')
+    set_attribute(elem_version, 'MDTYPEVERSION', 'mets', '3.5')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_FAILED) == 0
 
@@ -360,14 +362,14 @@ def test_deprecated_element(schematron_fx):
     # Success without 'province'
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_REPORT) == 0
-    elem_context.set_element('province', 'mods')
+    set_element(elem_context, 'province', 'mods')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
 
     # Warning, if 'province' exists
     assert svrl.count(SVRL_REPORT) == 1
 
     # Success when version changed to 3.5
-    elem_version.set_attribute('MDTYPEVERSION', 'mets', '3.5')
+    set_attribute(elem_version, 'MDTYPEVERSION', 'mets', '3.5')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_REPORT) == 0
 
@@ -385,23 +387,23 @@ def test_deprecated_value(schematron_fx):
     assert svrl.count(SVRL_REPORT) == 0
 
     # Warning with 'primary display'
-    elem_context.set_attribute('usage', 'mods', 'primary display')
+    set_attribute(elem_context, 'usage', 'mods', 'primary display')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_REPORT) == 1
 
     # No warning with old version 3.3
-    elem_version.set_attribute('MDTYPEVERSION', 'mets', '3.3')
+    set_attribute(elem_version, 'MDTYPEVERSION', 'mets', '3.3')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_REPORT) == 0
 
     # No warning with MODS 3.4, when using 'primary'
-    elem_version.set_attribute('MDTYPEVERSION', 'mets', '3.4')
-    elem_context.set_attribute('usage', 'mods', 'primary')
+    set_attribute(elem_version, 'MDTYPEVERSION', 'mets', '3.4')
+    set_attribute(elem_context, 'usage', 'mods', 'primary')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_REPORT) == 0
 
     # New value 'primary' is an error with MODS 3.3
-    elem_version.set_attribute('MDTYPEVERSION', 'mets', '3.3')
+    set_attribute(elem_version, 'MDTYPEVERSION', 'mets', '3.3')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -426,7 +428,7 @@ def test_typeOfResource_values(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 0
 
     # Controlled dictionary in older versions
-    elem_version.set_attribute('MDTYPEVERSION', 'mets', '3.6')
+    set_attribute(elem_version, 'MDTYPEVERSION', 'mets', '3.6')
     elem_context.text = 'xxx'
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_FAILED) == 1
@@ -440,7 +442,7 @@ def test_typeOfResource_values(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 0
 
     # Empty value disallowed in MODS 3.2
-    elem_version.set_attribute('MDTYPEVERSION', 'mets', '3.2')
+    set_attribute(elem_version, 'MDTYPEVERSION', 'mets', '3.2')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -449,10 +451,10 @@ def test_version(schematron_fx):
     """Test the case that MODS version differs from @MDTYPEVERSION.
     """
     (mods, elem_context, elem_version) = prepare_xml(None, '3.7')
-    elem_context.set_attribute('version', 'mods', '3.7')
+    set_attribute(elem_context, 'version', 'mods', '3.7')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_FAILED) == 0
 
-    elem_context.set_attribute('version', 'mods', '3.6')
+    set_attribute(elem_context, 'version', 'mods', '3.6')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_FAILED) == 1
