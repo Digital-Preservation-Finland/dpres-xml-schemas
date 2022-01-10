@@ -4,9 +4,10 @@ rules located in mets_premis.sch.
 .. seealso:: mets_premis.sch
 """
 
-import xml.etree.ElementTree as ET
-from tests.common import SVRL_FAILED, NAMESPACES, \
-    parse_xml_string, add_containers
+import lxml.etree as ET
+from tests.common import (SVRL_FAILED, NAMESPACES, parse_xml_string,
+                          add_containers, find_element, set_element,
+                          set_attribute)
 
 SCHFILE = 'mets_premis.sch'
 
@@ -23,18 +24,18 @@ def test_disallowed_attribute_object(schematron_fx):
              </mets:techMD>''' % NAMESPACES
     (mets, root) = parse_xml_string(xml)
     (mets, root) = add_containers(root, 'mets:mets/mets:amdSec')
-    elem_handler = root.find_element('object', 'premis')
-    elem_handler = elem_handler.set_element('xxx', 'premis')
+    elem_handler = find_element(root, 'object', 'premis')
+    elem_handler = set_element(elem_handler, 'xxx', 'premis')
     for disallowed in ['authority', 'authorityURI', 'valueURI']:
-        elem_handler.set_attribute(disallowed, 'premis', 'default')
+        set_attribute(elem_handler, disallowed, 'premis', 'default')
 
     # Works in 2.3
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
     # Disallowed in 2.2
-    elem_wrap = root.find_element('mdWrap', 'mets')
-    elem_wrap.set_attribute('MDTYPEVERSION', 'mets', '2.2')
+    elem_wrap = find_element(root, 'mdWrap', 'mets')
+    set_attribute(elem_wrap, 'MDTYPEVERSION', 'mets', '2.2')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 3
 
@@ -118,7 +119,7 @@ def test_linking_premis(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 8
 
     # Object section added, six dead links
-    elem_handler = root.find_element('object', 'premis')
+    elem_handler = find_element(root, 'object', 'premis')
     xml_id = '''<premis:objectIdentifier xmlns:premis="%(premis)s">
                 <premis:objectIdentifierType>local
                 </premis:objectIdentifierType>
@@ -130,7 +131,7 @@ def test_linking_premis(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 6
 
     # Event section added, four dead links
-    elem_handler = root.find_element('event', 'premis')
+    elem_handler = find_element(root, 'event', 'premis')
     xml_id = '''<premis:eventIdentifier xmlns:premis="%(premis)s">
                 <premis:eventIdentifierType>local
                 </premis:eventIdentifierType>
@@ -142,7 +143,7 @@ def test_linking_premis(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 4
 
     # Agent section added, two dead links
-    elem_handler = root.find_element('agent', 'premis')
+    elem_handler = find_element(root, 'agent', 'premis')
     xml_id = '''<premis:agentIdentifier xmlns:premis="%(premis)s">
                 <premis:agentIdentifierType>local
                 </premis:agentIdentifierType>
@@ -154,7 +155,7 @@ def test_linking_premis(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 2
 
     # Rights section added, no dead links
-    elem_handler = root.find_element('rightsStatement', 'premis')
+    elem_handler = find_element(root, 'rightsStatement', 'premis')
     xml_id = '''<premis:rightsStatementIdentifier xmlns:premis="%(premis)s">
                 <premis:rightsStatementIdentifierType>local
                 </premis:rightsStatementIdentifierType>
