@@ -5,8 +5,9 @@ rules located in mets_premis_rightsmd.sch.
 """
 
 import pytest
-from tests.common import SVRL_FAILED, NAMESPACES, \
-    parse_xml_string, add_containers
+from tests.common import (SVRL_FAILED, NAMESPACES, parse_xml_string,
+                          add_containers, find_element, set_element,
+                          set_attribute)
 
 SCHFILE = 'mets_premis_rightsmd.sch'
 
@@ -24,18 +25,18 @@ def test_disallowed_attribute_premis_rightsmd(schematron_fx):
              </mets:rightsMD>''' % NAMESPACES
     (mets, root) = parse_xml_string(xml)
     (mets, root) = add_containers(root, 'mets:mets/mets:amdSec')
-    elem_handler = root.find_element('rightsStatement', 'premis')
-    elem_handler = elem_handler.set_element('xxx', 'premis')
+    elem_handler = find_element(root, 'rightsStatement', 'premis')
+    elem_handler = set_element(elem_handler, 'xxx', 'premis')
     for disallowed in ['authority', 'authorityURI', 'valueURI']:
-        elem_handler.set_attribute(disallowed, 'premis', 'default')
+        set_attribute(elem_handler, disallowed, 'premis', 'default')
 
     # Works in 2.3
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
     # Disallowed in 2.2
-    elem_wrap = root.find_element('mdWrap', 'mets')
-    elem_wrap.set_attribute('MDTYPEVERSION', 'mets', '2.2')
+    elem_wrap = find_element(root, 'mdWrap', 'mets')
+    set_attribute(elem_wrap, 'MDTYPEVERSION', 'mets', '2.2')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 3
 
@@ -64,8 +65,8 @@ def test_identifier_value_rights(schematron_fx, nonempty):
              </mets:rightsMD>''' % NAMESPACES
     (mets, root) = parse_xml_string(xml)
     (mets, root) = add_containers(root, 'mets:mets/mets:amdSec')
-    elem_handler = root.find_element('rightsStatementIdentifier', 'premis')
-    elem_handler = elem_handler.set_element(nonempty, 'premis')
+    elem_handler = find_element(root, 'rightsStatementIdentifier', 'premis')
+    elem_handler = set_element(elem_handler, nonempty, 'premis')
 
     # Empty identifier element fails
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
