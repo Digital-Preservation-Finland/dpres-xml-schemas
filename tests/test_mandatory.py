@@ -5,7 +5,8 @@ MIX. This module tests only the minimum case inside a certain namespace.
 """
 
 import pytest
-from tests.common import SVRL_FIRED, SVRL_FAILED, parse_xml_file
+from tests.common import (SVRL_FIRED, SVRL_FAILED, parse_xml_file,
+                          find_element)
 
 
 @pytest.mark.parametrize("testset, namespace, filename, schfile", [
@@ -61,7 +62,7 @@ def test_mandatory_elements(
     for testcase in testset:
         (leafelement, fired, failed) = testcase
         if leafelement is not None:
-            elem_handler = root.find_element(leafelement, namespace)
+            elem_handler = find_element(root, leafelement, namespace)
             elem_handler.clear()
         svrl = schematron_fx(schematronfile=schfile, xmltree=mets,
                              params=False)
