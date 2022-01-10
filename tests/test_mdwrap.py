@@ -4,8 +4,9 @@ in mets_mdwrap.sch.
 .. seealso:: mets_mdwrap.sch
 """
 import pytest
-from tests.common import SVRL_FAILED, parse_xml_file, \
-    parse_xml_string, NAMESPACES, fix_version_17
+from tests.common import (SVRL_FAILED, parse_xml_file, parse_xml_string,
+                          NAMESPACES, fix_version_17, find_element,
+                          set_element, set_attribute, del_attribute)
 
 SCHFILE = 'mets_mdwrap.sch'
 
@@ -61,15 +62,15 @@ def test_mdtype_items_mdwrap(schematron_fx, context, mdtype, othermdtype,
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
     fix_version_17(root)
-    elem_handler = root.find_element(context, 'mets')
-    elem_handler = elem_handler.find_element('mdWrap', 'mets')
-    elem_handler.set_attribute('MDTYPE', 'mets', mdtype)
+    elem_handler = find_element(root, context, 'mets')
+    elem_handler = find_element(elem_handler, 'mdWrap', 'mets')
+    set_attribute(elem_handler, 'MDTYPE', 'mets', mdtype)
     if othermdtype is not None:
-        elem_handler.set_attribute('OTHERMDTYPE', 'mets', othermdtype)
+        set_attribute(elem_handler, 'OTHERMDTYPE', 'mets', othermdtype)
 
     # Test that unknown OTHERMDTYPE gives error, if MDTYPE is not 'OTHER'
-    elem_handler.set_attribute('MDTYPEVERSION', 'mets', mdtypeversion[0])
-    elem_handler.set_attribute('OTHERMDTYPE', 'mets', 'xxx')
+    set_attribute(elem_handler, 'MDTYPEVERSION', 'mets', mdtypeversion[0])
+    set_attribute(elem_handler, 'OTHERMDTYPE', 'mets', 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     if mdtype == 'OTHER':
         assert svrl.count(SVRL_FAILED) == 0
@@ -84,26 +85,26 @@ def test_dependent_attributes_mdwrap(schematron_fx):
     :schematron_fx: Schematron compile fixture
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element('mdWrap', 'mets')
+    elem_handler = find_element(root, 'mdWrap', 'mets')
 
     # Both attributes
-    elem_handler.set_attribute('CHECKSUM', 'mets', 'xxx')
-    elem_handler.set_attribute('CHECKSUMTYPE', 'mets', 'xxx')
+    set_attribute(elem_handler, 'CHECKSUM', 'mets', 'xxx')
+    set_attribute(elem_handler, 'CHECKSUMTYPE', 'mets', 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
     # Just the second attribute
-    elem_handler.del_attribute('CHECKSUM', 'mets')
+    del_attribute(elem_handler, 'CHECKSUM', 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
     # No attributes
-    elem_handler.del_attribute('CHECKSUMTYPE', 'mets')
+    del_attribute(elem_handler, 'CHECKSUMTYPE', 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
     # Just the first attribute
-    elem_handler.set_attribute('CHECKSUM', 'mets', 'xxx')
+    set_attribute(elem_handler, 'CHECKSUM', 'mets', 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -121,22 +122,22 @@ def test_othermdtype(schematron_fx, context):
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
 
     # OTHERMDTYPE and version can be anything
-    elem_handler = root.find_element(context, 'mets')
-    elem_handler = elem_handler.find_element('mdWrap', 'mets')
-    elem_handler.set_attribute('MDTYPE', 'mets', 'OTHER')
-    elem_handler.set_attribute('OTHERMDTYPE', 'mets', 'xxx')
-    elem_handler.set_attribute('MDTYPEVERSION', 'mets', 'xxx')
+    elem_handler = find_element(root, context, 'mets')
+    elem_handler = find_element(elem_handler, 'mdWrap', 'mets')
+    set_attribute(elem_handler, 'MDTYPE', 'mets', 'OTHER')
+    set_attribute(elem_handler, 'OTHERMDTYPE', 'mets', 'xxx')
+    set_attribute(elem_handler, 'MDTYPEVERSION', 'mets', 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
     # Version is mandatory
-    elem_handler.del_attribute('MDTYPEVERSION', 'mets')
+    del_attribute(elem_handler, 'MDTYPEVERSION', 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
     # OTHERMDTYPE is missing
-    elem_handler.del_attribute('OTHERMDTYPE', 'mets')
-    elem_handler.set_attribute('MDTYPEVERSION', 'mets', 'xxx')
+    del_attribute(elem_handler, 'OTHERMDTYPE', 'mets')
+    set_attribute(elem_handler, 'MDTYPEVERSION', 'mets', 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 2
 
@@ -150,10 +151,10 @@ def test_mandatory_items(schematron_fx):
     :context: Element, where the attribute exists
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element('mdWrap', 'mets')
+    elem_handler = find_element(root, 'mdWrap', 'mets')
 
     # Remove mandatory attribute
-    elem_handler.del_attribute('MDTYPEVERSION', 'mets')
+    del_attribute(elem_handler, 'MDTYPEVERSION', 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -236,45 +237,43 @@ def test_mdtype_namespace(schematron_fx, section, mdinfo):
         fix_version_17(root)
 
     # Test that the given combination works
-    elem_section = root.find_element(section, 'mets')
-    elem_wrap = elem_section.find_element('mdWrap', 'mets')
-    elem_wrap.set_attribute('MDTYPE', 'mets', mdinfo[0])
+    elem_section = find_element(root, section, 'mets')
+    elem_wrap = find_element(elem_section, 'mdWrap', 'mets')
+    set_attribute(elem_wrap, 'MDTYPE', 'mets', mdinfo[0])
     if mdinfo[1] is not None:
-        elem_wrap.set_attribute('OTHERMDTYPE', 'mets', mdinfo[1])
-    elem_wrap.set_attribute('MDTYPEVERSION', 'mets', mdinfo[2])
-    elem_handler = elem_wrap.find_element('xmlData', 'mets')
+        set_attribute(elem_wrap, 'OTHERMDTYPE', 'mets', mdinfo[1])
+    set_attribute(elem_wrap, 'MDTYPEVERSION', 'mets', mdinfo[2])
+    elem_handler = find_element(elem_wrap, 'xmlData', 'mets')
     elem_handler.clear()
-    elem_handler.set_element(mdinfo[3], mdinfo[4])
+    set_element(elem_handler, mdinfo[3], mdinfo[4])
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
     # Wrong (empty) namespace
     elem_handler.clear()
-    elem_handler.set_element(mdinfo[3], None)
+    set_element(elem_handler, mdinfo[3], None)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
     # Arbitrary MDTYPE (wrong)
-    elem_wrap.set_attribute('MDTYPE', 'mets', 'xxx')
+    set_attribute(elem_wrap, 'MDTYPE', 'mets', 'xxx')
     if mdinfo[1] is not None:
-        elem_wrap.del_attribute('OTHERMDTYPE', 'mets')
+        del_attribute(elem_wrap, 'OTHERMDTYPE', 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    elem_wrap.set_attribute('MDTYPE', 'mets', mdinfo[0])
+    set_attribute(elem_wrap, 'MDTYPE', 'mets', mdinfo[0])
     if mdinfo[1] is not None:
-        elem_wrap.set_attribute('OTHERMDTYPE', 'mets', mdinfo[1])
+        set_attribute(elem_wrap, 'OTHERMDTYPE', 'mets', mdinfo[1])
     assert svrl.count(SVRL_FAILED) == 1
 
     # Arbitrary MDTYPEVERSION (wrong)
-    elem_wrap.set_attribute('MDTYPEVERSION', 'mets', 'xxx')
+    set_attribute(elem_wrap, 'MDTYPEVERSION', 'mets', 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    elem_wrap.set_attribute('MDTYPEVERSION', 'mets', mdinfo[2])
+    set_attribute(elem_wrap, 'MDTYPEVERSION', 'mets', mdinfo[2])
     assert svrl.count(SVRL_FAILED) == 1
 
     # Check that the metadata fails in other sections
     for othersection in ['dmdSec', 'techMD', 'rightsMD', 'digiprovMD']:
         if othersection != section:
-            elem_section.key = (
-                '%(mets)s'+othersection) % NAMESPACES
             svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
             assert svrl.count(SVRL_FAILED) == 1
 
@@ -313,20 +312,21 @@ def test_rightsstatement_failure(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 1
 
     # rightsStatement works with specification 1.5.0
-    root.set_attribute('CATALOG', 'fikdk', '1.5.0')
+    set_attribute(root, 'CATALOG', 'fikdk', '1.5.0')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
     # rights works with specification 1.6.0
-    root.set_attribute('CATALOG', 'fikdk', '1.6.0')
-    elem_handler = root.find_element('mdWrap[@MDTYPE="PREMIS:RIGHTS"]', 'mets')
-    elem_handler = elem_handler.find_element('xmlData', 'mets')
+    set_attribute(root, 'CATALOG', 'fikdk', '1.6.0')
+    elem_handler = find_element(
+        root, 'mdWrap[@MDTYPE="PREMIS:RIGHTS"]', 'mets')
+    elem_handler = find_element(elem_handler, 'xmlData', 'mets')
     elem_handler.clear()
-    elem_handler.set_element('rights', 'premis')
+    set_element(elem_handler, 'rights', 'premis')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
     # rights works with specification 1.5.0
-    root.set_attribute('CATALOG', 'fikdk', '1.5.0')
+    set_attribute(root, 'CATALOG', 'fikdk', '1.5.0')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
