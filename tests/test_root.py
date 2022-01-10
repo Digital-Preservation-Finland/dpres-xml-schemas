@@ -5,8 +5,10 @@ rules located in mets_mdtype.sch.
 """
 
 import pytest
-from tests.common import SVRL_FAILED, SVRL_REPORT, NAMESPACES, \
-    parse_xml_file, parse_xml_string, fix_version_17
+from tests.common import (SVRL_FAILED, SVRL_REPORT, NAMESPACES,
+                          parse_xml_file, parse_xml_string, fix_version_17,
+                          find_element, find_all_elements, set_element,
+                          get_attribute, set_attribute, del_attribute)
 
 SCHFILE = 'mets_root.sch'
 
@@ -48,15 +50,15 @@ def test_catalogs(schematron_fx):
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
 
     # Conflict between fi:CATALOG and fi:SPECIFICATION
-    root.set_attribute('CATALOG', 'fikdk', '1.5.0')
-    root.del_attribute('CONTENTID', 'fikdk')
+    set_attribute(root, 'CATALOG', 'fikdk', '1.5.0')
+    del_attribute(root, 'CONTENTID', 'fikdk')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
 
     assert svrl.count(SVRL_FAILED) == 1
     assert svrl.count(SVRL_REPORT) == 1
 
     # Deprecated specification
-    root.set_attribute('SPECIFICATION', 'fikdk', '1.5.0')
+    set_attribute(root, 'SPECIFICATION', 'fikdk', '1.5.0')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
     assert svrl.count(SVRL_REPORT) == 1
@@ -94,9 +96,9 @@ def test_new_mets_attributes_root(schematron_fx, specification, failed):
         svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
         assert svrl.count(SVRL_FAILED) == failed
     else:
-        root.set_attribute('CATALOG', 'fikdk', specification)
-        root.set_attribute('SPECIFICATION', 'fikdk', specification)
-        root.set_attribute('CONTRACTID', 'fikdk', specification)
+        set_attribute(root, 'CATALOG', 'fikdk', specification)
+        set_attribute(root, 'SPECIFICATION', 'fikdk', specification)
+        set_attribute(root, 'CONTRACTID', 'fikdk', specification)
         svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
         assert svrl.count(SVRL_FAILED) == failed
 
@@ -143,7 +145,7 @@ def test_identifiers_unique(schematron_fx):
     number = 0
     for idtag in ['objectIdentifierValue', 'rightsStatementIdentifierValue',
                   'eventIdentifierValue', 'agentIdentifierValue']:
-        for tag in root.find_all_elements(idtag, 'premis'):
+        for tag in find_all_elements(root, idtag, 'premis'):
             svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
             number = number + 1
             tag.text = 'xxx'+str(number)
@@ -168,30 +170,30 @@ def test_dependent_attributes_root(schematron_fx, nspaces, attributes,
     :version: Specification version
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element('mets', 'mets')
+    elem_handler = find_element(root, 'mets', 'mets')
     failed = 2
     if nspaces[0] == 'fi':
         fix_version_17(root)
         failed = 1
 
     # Both attributes
-    elem_handler.set_attribute(attributes[0], nspaces[0], version)
-    elem_handler.set_attribute(attributes[1], nspaces[1], version)
+    set_attribute(elem_handler, attributes[0], nspaces[0], version)
+    set_attribute(elem_handler, attributes[1], nspaces[1], version)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
     # Just the second attribute
-    elem_handler.del_attribute(attributes[0], nspaces[0])
+    del_attribute(elem_handler, attributes[0], nspaces[0])
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
     # No attributes
-    elem_handler.del_attribute(attributes[1], nspaces[1])
+    del_attribute(elem_handler, attributes[1], nspaces[1])
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == failed
 
     # Just the first attribute
-    elem_handler.set_attribute(attributes[0], nspaces[0], version)
+    set_attribute(elem_handler, attributes[0], nspaces[0], version)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
@@ -216,8 +218,8 @@ def test_value_items_root(schematron_fx, attribute, nspace, fixed):
         fix_version_17(root)
 
     # Use arbitrary value
-    elem_handler = root.find_element('mets', 'mets')
-    elem_handler.set_attribute(attribute, nspace, 'aaa')
+    elem_handler = find_element(root, 'mets', 'mets')
+    set_attribute(elem_handler, attribute, nspace, 'aaa')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     if fixed:
         assert svrl.count(SVRL_FAILED) == 1
@@ -225,7 +227,7 @@ def test_value_items_root(schematron_fx, attribute, nspace, fixed):
         assert svrl.count(SVRL_FAILED) == 0
 
     # Use empty value
-    elem_handler.set_attribute(attribute, nspace, '')
+    set_attribute(elem_handler, attribute, nspace, '')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -245,10 +247,10 @@ def test_mandatory_items_root(schematron_fx, mandatory, nspace):
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
     if nspace == 'fi':
         fix_version_17(root)
-    elem_handler = root.find_element('mets', 'mets')
+    elem_handler = find_element(root, 'mets', 'mets')
 
     # Remove mandatory attribute
-    elem_handler.del_attribute(mandatory, nspace)
+    del_attribute(elem_handler, mandatory, nspace)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -267,8 +269,8 @@ def test_disallowed_items_root(schematron_fx, disallowed):
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
 
     # Set disallowed attribute/element
-    elem_handler = root.find_element('mets', 'mets')
-    elem_handler.set_element(disallowed, 'mets')
+    elem_handler = find_element(root, 'mets', 'mets')
+    set_element(elem_handler, disallowed, 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -280,22 +282,22 @@ def test_objid_unique(schematron_fx):
     :schematron_fx: Schematron compile fixture
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    objid = root.get_attribute('OBJID', 'mets')
-    contentid = root.get_attribute('CONTENTID', 'fikdk')
-    root.set_attribute('CONTENTID', 'fikdk', objid)
+    objid = get_attribute(root, 'OBJID', 'mets')
+    contentid = get_attribute(root, 'CONTENTID', 'fikdk')
+    set_attribute(root, 'CONTENTID', 'fikdk', objid)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
-    root.set_attribute('CONTENTID', 'fikdk', contentid)
-    elem_handler = root.find_element('dmdSec', 'mets')
-    section_id = elem_handler.get_attribute('ID', 'mets')
-    root.set_attribute('OBJID', 'mets', section_id)
+    set_attribute(root, 'CONTENTID', 'fikdk', contentid)
+    elem_handler = find_element(root, 'dmdSec', 'mets')
+    section_id = get_attribute(elem_handler, 'ID', 'mets')
+    set_attribute(root, 'OBJID', 'mets', section_id)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
-    root.set_attribute('OBJID', 'mets', objid)
+    set_attribute(root, 'OBJID', 'mets', objid)
     fix_version_17(root)
-    root.set_attribute('CONTRACTID', 'fi', objid)
+    set_attribute(root, 'CONTRACTID', 'fi', objid)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -305,12 +307,12 @@ def test_arbitrary_attributes_root(schematron_fx):
        sections.
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element('mets', 'mets')
+    elem_handler = find_element(root, 'mets', 'mets')
     for spec in [None, '1.7.3']:
         if spec == '1.7.3':
             fix_version_17(root)
         for ns in ['fi', 'fikdk', 'dc']:
-            elem_handler.set_attribute('xxx', ns, 'xxx')
+            set_attribute(elem_handler, 'xxx', ns, 'xxx')
             svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
             assert svrl.count(SVRL_FAILED) == 1
-            elem_handler.del_attribute('xxx', ns)
+            del_attribute(elem_handler, 'xxx', ns)
