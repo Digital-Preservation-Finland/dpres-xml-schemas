@@ -3,10 +3,12 @@ rules located in mets_filesec.sch.
 
 .. seealso:: mets_filesec.sch
 """
-import xml.etree.ElementTree as ET
+import lxml.etree as ET
 import pytest
-from tests.common import SVRL_FAILED, SVRL_REPORT, NAMESPACES, \
-    parse_xml_string, parse_xml_file, fix_version_17
+from tests.common import (SVRL_FAILED, SVRL_REPORT, NAMESPACES,
+                          parse_xml_string, parse_xml_file, fix_version_17,
+                          get_attribute, set_attribute, del_attribute,
+                          find_element, set_element, del_element)
 
 SCHFILE = 'mets_filesec.sch'
 
@@ -41,19 +43,19 @@ def test_streams_catalogs(schematron_fx, specification, failed):
     if specification == '1.7.3':
         fix_version_17(root)
     else:
-        root.set_attribute('CATALOG', 'fikdk', specification)
-        root.set_attribute('SPECIFICATION', 'fikdk', specification)
+        set_attribute(root, 'CATALOG', 'fikdk', specification)
+        set_attribute(root, 'SPECIFICATION', 'fikdk', specification)
 
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == failed
 
-    elem_handler = root.find_element('file', 'mets')
-    elem_handler.del_element('stream', 'mets')
-    elem_handler.del_element('stream', 'mets')
+    elem_handler = find_element(root, 'file', 'mets')
+    del_element(elem_handler, 'stream', 'mets')
+    del_element(elem_handler, 'stream', 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
-    elem_handler = root.find_element('formatName', 'premis')
+    elem_handler = find_element(root, 'formatName', 'premis')
     elem_handler.text = 'video/mp4'
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
@@ -72,7 +74,7 @@ def test_addml_with_csv(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 0
 
     # Test missing ADDML elements
-    elem_handler = root.find_element('delimFileFormat', 'addml')
+    elem_handler = find_element(root, 'delimFileFormat', 'addml')
     elem_handler.clear()
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 2
@@ -90,15 +92,15 @@ def test_mix_with_jp2(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 0
 
     # Extra elements are required with JPEG2000
-    elem_handler = root.find_element('formatName', 'premis')
+    elem_handler = find_element(root, 'formatName', 'premis')
     elem_handler.text = 'image/jp2'
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 2
 
     # SpecialFormatCharacteristics added, still requires JPEG2000 element
-    elem_handler = root.find_element('BasicImageInformation', 'mix')
-    elem_handler = elem_handler.set_element(
-        'SpecialFormatCharacteristics', 'mix')
+    elem_handler = find_element(root, 'BasicImageInformation', 'mix')
+    elem_handler = set_element(
+        elem_handler, 'SpecialFormatCharacteristics', 'mix')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -112,7 +114,7 @@ def test_mix_with_jp2(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 0
 
     # JPEG2000 element is disallowed with other file formats
-    elem_handler = root.find_element('formatName', 'premis')
+    elem_handler = find_element(root, 'formatName', 'premis')
     elem_handler.text = 'image/png'
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
@@ -130,25 +132,25 @@ def test_mix_with_tiff_dpx(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 0
 
     # byteOrder missing with TIFF
-    elem_handler = root.find_element('formatName', 'premis')
+    elem_handler = find_element(root, 'formatName', 'premis')
     elem_handler.text = 'image/tiff'
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
     # byteOrder missing with DPX
-    elem_handler = root.find_element('formatName', 'premis')
+    elem_handler = find_element(root, 'formatName', 'premis')
     elem_handler.text = 'image/x-dpx'
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
     # byteOrder added, success with DPX
-    elem_handler = root.find_element('BasicDigitalObjectInformation', 'mix')
-    elem_handler.set_element('byteOrder', 'mix')
+    elem_handler = find_element(root, 'BasicDigitalObjectInformation', 'mix')
+    set_element(elem_handler, 'byteOrder', 'mix')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
     # byteOrder added, success with TIFF
-    elem_handler = root.find_element('formatName', 'premis')
+    elem_handler = find_element(root, 'formatName', 'premis')
     elem_handler.text = 'image/tiff'
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
@@ -214,38 +216,38 @@ def test_fileformat_metadata(schematron_fx, fileformat, mdinfo):
     (mets, root) = parse_xml_string(xml)
 
     # Insert given metadata
-    elem_handler = root.find_element('formatName', 'premis')
+    elem_handler = find_element(root, 'formatName', 'premis')
     elem_handler.text = fileformat
-    elem_section = root.find_element('techMD[@ID="tech02"]', 'mets')
-    elem_handler = elem_section.find_element('xmlData', 'mets')
+    elem_section = find_element(root, 'techMD[@ID="tech02"]', 'mets')
+    elem_handler = find_element(elem_section, 'xmlData', 'mets')
     elem_handler.clear()
-    elem_meta = elem_handler.set_element(mdinfo[2], mdinfo[3])
-    elem_handler = elem_section.find_element('mdWrap', 'mets')
-    elem_handler.set_attribute('MDTYPE', 'mets', mdinfo[0])
+    elem_meta = set_element(elem_handler, mdinfo[2], mdinfo[3])
+    elem_handler = find_element(elem_section, 'mdWrap', 'mets')
+    set_attribute(elem_handler, 'MDTYPE', 'mets', mdinfo[0])
     if mdinfo[1] is not None:
-        elem_handler.set_attribute('OTHERMDTYPE', 'mets', mdinfo[1])
+        set_attribute(elem_handler, 'OTHERMDTYPE', 'mets', mdinfo[1])
 
     extra = 0
     if fileformat in ['image/x-dpx', 'image/tiff']:
-        elem_meta = elem_meta.set_element(
-            'BasicDigitalObjectInformation', 'mix')
-        elem_meta.set_element('byteOrder', 'mix')
+        elem_meta = set_element(
+            elem_meta, 'BasicDigitalObjectInformation', 'mix')
+        set_element(elem_meta, 'byteOrder', 'mix')
         extra = 1
     if fileformat in ['image/jp2']:
-        elem_meta = elem_meta.set_element('BasicImageInformation', 'mix')
-        elem_meta = elem_meta.set_element(
-            'SpecialFormatCharacteristics', 'mix')
-        elem_meta.set_element('JPEG2000', 'mix')
+        elem_meta = set_element(elem_meta, 'BasicImageInformation', 'mix')
+        elem_meta = set_element(
+            elem_meta, 'SpecialFormatCharacteristics', 'mix')
+        set_element(elem_meta, 'JPEG2000', 'mix')
         extra = 2
     if fileformat in ['text/csv']:
-        elem_meta = elem_meta.set_element('dataset', 'addml')
-        elem_meta = elem_meta.set_element('flatFiles', 'addml')
-        elem_meta = elem_meta.set_element('structureTypes', 'addml')
-        elem_meta = elem_meta.set_element('flatFileTypes', 'addml')
-        elem_meta = elem_meta.set_element('flatFileType', 'addml')
-        elem_meta = elem_meta.set_element('delimFileFormat', 'addml')
-        elem_meta.set_element('fieldSeparatingChar', 'addml')
-        elem_meta.set_element('recordSeparator', 'addml')
+        elem_meta = set_element(elem_meta, 'dataset', 'addml')
+        elem_meta = set_element(elem_meta, 'flatFiles', 'addml')
+        elem_meta = set_element(elem_meta, 'structureTypes', 'addml')
+        elem_meta = set_element(elem_meta, 'flatFileTypes', 'addml')
+        elem_meta = set_element(elem_meta, 'flatFileType', 'addml')
+        elem_meta = set_element(elem_meta, 'delimFileFormat', 'addml')
+        set_element(elem_meta, 'fieldSeparatingChar', 'addml')
+        set_element(elem_meta, 'recordSeparator', 'addml')
         extra = 2
 
     # Success
@@ -253,13 +255,13 @@ def test_fileformat_metadata(schematron_fx, fileformat, mdinfo):
     assert svrl.count(SVRL_FAILED) == 0
 
     # Remove link to metadata section, and have failure
-    elem_section.set_attribute('ID', 'mets', 'tech_nolink')
+    set_attribute(elem_section, 'ID', 'mets', 'tech_nolink')
     allversions = ['1.5.0', '1.6.0', '1.7.0', '1.7.1', '1.7.2', '1.7.3']
     for testversion in allversions:
         if testversion in ['1.7.0', '1.7.1', '1.7.2', '1.7.3']:
             fix_version_17(root)
         else:
-            root.set_attribute('CATALOG', 'fikdk', testversion)
+            set_attribute(root, 'CATALOG', 'fikdk', testversion)
         svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
         assert svrl.count(SVRL_FAILED) == 2 + extra
 
@@ -301,10 +303,10 @@ def test_nisoimg_vs_othermdtype(schematron_fx):
     (mets, root) = parse_xml_string(xml)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
-    elem_section = root.find_element('techMD[@ID="tech02"]', 'mets')
-    elem_handler = elem_section.find_element('mdWrap', 'mets')
-    elem_handler.set_attribute('MDTYPE', 'mets', 'OTHER')
-    elem_handler.set_attribute('OTHERMDTYPE', 'mets', 'MIX')
+    elem_section = find_element(root, 'techMD[@ID="tech02"]', 'mets')
+    elem_handler = find_element(elem_section, 'mdWrap', 'mets')
+    set_attribute(elem_handler, 'MDTYPE', 'mets', 'OTHER')
+    set_attribute(elem_handler, 'OTHERMDTYPE', 'mets', 'MIX')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -316,26 +318,26 @@ def test_dependent_attributes_filesec(schematron_fx):
     :schematron_fx: Schematron compile fixture
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element('file', 'mets')
+    elem_handler = find_element(root, 'file', 'mets')
 
     # Both attributes
-    elem_handler.set_attribute('CHECKSUM', 'mets', 'xxx')
-    elem_handler.set_attribute('CHECKSUMTYPE', 'mets', 'xxx')
+    set_attribute(elem_handler, 'CHECKSUM', 'mets', 'xxx')
+    set_attribute(elem_handler, 'CHECKSUMTYPE', 'mets', 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
     # Just the second attribute
-    elem_handler.del_attribute('CHECKSUM', 'mets')
+    del_attribute(elem_handler, 'CHECKSUM', 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
     # No attributes
-    elem_handler.del_attribute('CHECKSUMTYPE', 'mets')
+    del_attribute(elem_handler, 'CHECKSUMTYPE', 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
     # Just the first attribute
-    elem_handler.set_attribute('CHECKSUM', 'mets', 'xxx')
+    set_attribute(elem_handler, 'CHECKSUM', 'mets', 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -356,13 +358,13 @@ def test_value_items_filesec(schematron_fx, attribute, nspace):
         fix_version_17(root)
 
     # Use arbitrary value
-    elem_handler = root.find_element('FLocat', 'mets')
-    elem_handler.set_attribute(attribute, nspace, 'aaa')
+    elem_handler = find_element(root, 'FLocat', 'mets')
+    set_attribute(elem_handler, attribute, nspace, 'aaa')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
     # Use empty value
-    elem_handler.set_attribute(attribute, nspace, '')
+    set_attribute(elem_handler, attribute, nspace, '')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -381,7 +383,7 @@ def test_mandatory_items_filesec(schematron_fx, mandatory, nspace, context):
     :context: Element, where the attribute exists
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element(context, 'mets')
+    elem_handler = find_element(root, context, 'mets')
 
     # Missing ADMID gives more than one error
     extra = 0
@@ -389,7 +391,7 @@ def test_mandatory_items_filesec(schematron_fx, mandatory, nspace, context):
         extra = 1
 
     # Remove mandatory attribute
-    elem_handler.del_attribute(mandatory, nspace)
+    del_attribute(elem_handler, mandatory, nspace)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1 + extra
 
@@ -410,11 +412,11 @@ def test_disallowed_items_filesec(schematron_fx, disallowed, context):
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
 
     # Set disallowed attribute/element
-    elem_handler = root.find_element(context, 'mets')
+    elem_handler = find_element(root, context, 'mets')
     if disallowed[0] == '@':
-        elem_handler.set_attribute(disallowed[1:], 'mets', 'default')
+        set_attribute(elem_handler, disallowed[1:], 'mets', 'default')
     else:
-        elem_handler.set_element(disallowed, 'mets')
+        set_element(elem_handler, disallowed, 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -427,15 +429,15 @@ def test_arbitrary_attributes_filesec(schematron_fx, context):
        sections.
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element(context, 'mets')
+    elem_handler = find_element(root, context, 'mets')
     for spec in [None, '1.7.3']:
         if spec == '1.7.3':
             fix_version_17(root)
         for ns in ['fi', 'fikdk', 'dc']:
-            elem_handler.set_attribute('xxx', ns, 'xxx')
+            set_attribute(elem_handler, 'xxx', ns, 'xxx')
             svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
             assert svrl.count(SVRL_FAILED) == 1
-            elem_handler.del_attribute('xxx', ns)
+            del_attribute(elem_handler, 'xxx', ns)
 
 
 def test_native(schematron_fx):
@@ -453,7 +455,7 @@ def test_native(schematron_fx):
     assert svrl.count(SVRL_REPORT) == 1
 
     # Make required migration event to something else
-    elem_handler = root.find_element('eventType', 'premis')
+    elem_handler = find_element(root, 'eventType', 'premis')
     elem_handler.text = 'xxx'
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     elem_handler.text = 'migration'
@@ -462,15 +464,15 @@ def test_native(schematron_fx):
 
     # Make native as outcome and recommended format as source
     # The native file needs to be the source
-    elem_handler = root.find_element('eventType', 'premis')
+    elem_handler = find_element(root, 'eventType', 'premis')
     slink = 'linkingObjectIdentifier[{%(premis)s}linkingObjectRole="source"]'\
             + '/{%(premis)s}linkingObjectRole' % NAMESPACES
     olink = 'linkingObjectIdentifier[{%(premis)s}linkingObjectRole="outcome"]'\
             + '/{%(premis)s}linkingObjectRole' % NAMESPACES
-    elem_source = root.find_element(slink % NAMESPACES,
-                                    'premis')
-    elem_outcome = root.find_element(olink % NAMESPACES,
-                                     'premis')
+    elem_source = find_element(root, slink % NAMESPACES,
+                               'premis')
+    elem_outcome = find_element(root, olink % NAMESPACES,
+                                'premis')
     elem_source.text = 'outcome'
     elem_outcome.text = 'source'
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
@@ -480,9 +482,9 @@ def test_native(schematron_fx):
     assert svrl.count(SVRL_REPORT) == 0
 
     # Give error, if linking to migration event is destroyed
-    elem_handler = root.find_element(
-        'file[@ADMID="techmd-001 event-001 agent-001"]', 'mets')
-    elem_handler.set_attribute('ADMID', 'mets', 'techmd-001')
+    elem_handler = find_element(
+        root, 'file[@ADMID="techmd-001 event-001 agent-001"]', 'mets')
+    set_attribute(elem_handler, 'ADMID', 'mets', 'techmd-001')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
     assert svrl.count(SVRL_REPORT) == 0
@@ -496,23 +498,23 @@ def test_container_links(schematron_fx):
     (mets, root) = parse_xml_file('mets_video_container.xml')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
 
-    elem_container = root.find_element('techMD[@ID="tech-container"]', 'mets')
-    elem_handler = elem_container.find_element(
-        'relatedObjectIdentifierValue', 'premis')
+    elem_container = find_element(root, 'techMD[@ID="tech-container"]', 'mets')
+    elem_handler = find_element(
+        elem_container, 'relatedObjectIdentifierValue', 'premis')
     related_value = elem_handler.text
     elem_handler.text = 'xxx'
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
     elem_handler.text = related_value
 
-    techid_value = elem_container.get_attribute('ID', 'mets')
-    elem_container.set_attribute('ID', 'mets', 'xxx')
+    techid_value = get_attribute(elem_container, 'ID', 'mets')
+    set_attribute(elem_container, 'ID', 'mets', 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 4   # Container, two streams, and AMDID
-    elem_container.set_attribute('ID', 'mets', techid_value)
+    set_attribute(elem_container, 'ID', 'mets', techid_value)
 
-    elem_vstream = root.find_element('techMD[@ID="tech-videopremis"]', 'mets')
-    elem_vstream.set_attribute('ID', 'mets', 'xxx')
+    elem_vstream = find_element(root, 'techMD[@ID="tech-videopremis"]', 'mets')
+    set_attribute(elem_vstream, 'ID', 'mets', 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 3
 
@@ -524,9 +526,9 @@ def test_missing_links_filesec(schematron_fx):
     :schematron_fx: Schematron compile fixture
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element('fptr', 'mets')
-    refs = elem_handler.get_attribute('FILEID', 'mets').split()
-    elem_handler.set_attribute('FILEID', 'mets', '')
+    elem_handler = find_element(root, 'fptr', 'mets')
+    refs = get_attribute(elem_handler, 'FILEID', 'mets').split()
+    set_attribute(elem_handler, 'FILEID', 'mets', '')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == len(refs)
 
@@ -542,9 +544,9 @@ def test_missing_ids_filesec(schematron_fx, context):
     :context: Section to be removed.
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element(context, 'mets')
+    elem_handler = find_element(root, context, 'mets')
     # We actually just remove the id
-    elem_handler.set_attribute('ID', 'mets', '')
+    set_attribute(elem_handler, 'ID', 'mets', '')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     extra = 0
     if context in ['techMD']:
