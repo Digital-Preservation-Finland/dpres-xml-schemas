@@ -4,9 +4,10 @@ rules located in mets_mix.sch.
 .. seealso:: mets_mix.sch
 """
 
-import xml.etree.ElementTree as ET
+import lxml.etree as ET
 import pytest
-from tests.common import SVRL_FAILED, NAMESPACES, parse_xml_file
+from tests.common import (SVRL_FAILED, NAMESPACES, parse_xml_file,
+                          find_element, set_element)
 
 SCHFILE = 'mets_mix.sch'
 
@@ -15,7 +16,7 @@ def make_colorprofile(root):
     """Add color profile to MIX XML tree
     :root: XML tree root element
     """
-    elem_handler = root.find_element('PhotometricInterpretation', 'mix')
+    elem_handler = find_element(root, 'PhotometricInterpretation', 'mix')
     xml = '''<mix:ColorProfile xmlns:mix="%(mix)s">
                <mix:IccProfile><mix:iccProfileName/></mix:IccProfile>
              </mix:ColorProfile>''' % NAMESPACES
@@ -34,16 +35,16 @@ def make_colorsample(colorspace, sample, addsample, extrasample):
     # Prepare the MIX data for the colorspace and sample test
     (mix, root) = parse_xml_file('mix_valid_minimal.xml')
     make_colorprofile(root)
-    elem_handler = root.find_element('ImageColorEncoding', 'mix')
+    elem_handler = find_element(root, 'ImageColorEncoding', 'mix')
     xml = '''<mix:Colormap xmlns:mix="%(mix)s">
              <mix:colormapReference/></mix:Colormap>''' % NAMESPACES
     elem_handler.append(ET.XML(xml))
-    elem_handler = root.find_element('colorSpace', 'mix')
+    elem_handler = find_element(root, 'colorSpace', 'mix')
     elem_handler.text = colorspace
-    elem_handler = root.find_element('samplesPerPixel', 'mix')
+    elem_handler = find_element(root, 'samplesPerPixel', 'mix')
     elem_handler.text = str(sample + addsample)
-    elem_handler = root.find_element('ImageColorEncoding', 'mix')
-    elem_extra = elem_handler.find_element('extraSamples', 'mix')
+    elem_handler = find_element(root, 'ImageColorEncoding', 'mix')
+    elem_extra = find_element(elem_handler, 'extraSamples', 'mix')
     if elem_extra is not None:
         elem_handler.remove(elem_extra)
     if extrasample:
@@ -120,21 +121,21 @@ def test_mix_optional_element_rules(
     (mix, root) = parse_xml_file('mix_valid_minimal.xml')
     found = root
     for iter_elem in elementkey:
-        elem_handler = root.find_element(iter_elem, 'mix')
+        elem_handler = find_element(root, iter_elem, 'mix')
         if elem_handler is None:
-            found = found.set_element(iter_elem, 'mix')
+            found = set_element(found, iter_elem, 'mix')
         else:
             found = elem_handler
     elem_handler = found
     if condition is not None:
-        elem_condition = elem_handler.set_element(condition[0], 'mix')
+        elem_condition = set_element(elem_handler, condition[0], 'mix')
         if condition[1] is not None:
             elem_condition.text = condition[1]
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mix)
     assert svrl.count(SVRL_FAILED) == len(subelements) + newfired[0]
 
     for subelement in subelements:
-        elem_handler.set_element(subelement, 'mix')
+        set_element(elem_handler, subelement, 'mix')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mix)
     assert svrl.count(SVRL_FAILED) == newfired[1]
 
@@ -145,7 +146,7 @@ def test_icc_profile(schematron_fx):
     :schematron_fx: Schematron compile fixture
     """
     (mix, root) = parse_xml_file('mix_valid_minimal.xml')
-    elem_handler = root.find_element('colorSpace', 'mix')
+    elem_handler = find_element(root, 'colorSpace', 'mix')
 
     # ColorProfile missing
     for color in ['ICCLab', 'ICCBased']:
@@ -165,9 +166,9 @@ def test_palette_profile(schematron_fx):
     :schematron_fx: Schematron compile fixture
     """
     (mix, root) = parse_xml_file('mix_valid_minimal.xml')
-    elem_handler = root.find_element('colorSpace', 'mix')
+    elem_handler = find_element(root, 'colorSpace', 'mix')
     elem_handler.text = 'PaletteColor'
-    elem_handler = root.find_element('samplesPerPixel', 'mix')
+    elem_handler = find_element(root, 'samplesPerPixel', 'mix')
     elem_handler.text = '1'
 
     # Colormap missing
@@ -175,13 +176,13 @@ def test_palette_profile(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 1
 
     # Colormap exists, but it requires a reference
-    elem_handler = root.find_element('ImageColorEncoding', 'mix')
-    elem_handler = elem_handler.set_element('Colormap', 'mix')
+    elem_handler = find_element(root, 'ImageColorEncoding', 'mix')
+    elem_handler = set_element(elem_handler, 'Colormap', 'mix')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mix)
     assert svrl.count(SVRL_FAILED) == 1
 
     # Reference added
-    elem_handler.set_element('colormapReference', 'mix')
+    set_element(elem_handler, 'colormapReference', 'mix')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mix)
     assert svrl.count(SVRL_FAILED) == 0
 
