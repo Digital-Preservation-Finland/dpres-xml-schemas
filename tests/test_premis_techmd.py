@@ -5,8 +5,8 @@ rules located in mets_premis_techmd.sch.
 """
 
 import pytest
-from tests.common import SVRL_FAILED, NAMESPACES, \
-    parse_xml_string, add_containers
+from tests.common import (SVRL_FAILED, NAMESPACES, parse_xml_string,
+                          add_containers, find_element, set_element)
 
 SCHFILE = 'mets_premis_techmd.sch'
 
@@ -28,8 +28,8 @@ def test_identifier_value_object(schematron_fx, nonempty):
              </mets:techMD>''' % NAMESPACES
     (mets, root) = parse_xml_string(xml)
     (mets, root) = add_containers(root, 'mets:mets/mets:amdSec')
-    elem_handler = root.find_element('objectIdentifier', 'premis')
-    elem_handler = elem_handler.set_element(nonempty, 'premis')
+    elem_handler = find_element(root, 'objectIdentifier', 'premis')
+    elem_handler = set_element(elem_handler, nonempty, 'premis')
 
     # Empty identifier element fails
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
@@ -66,7 +66,7 @@ def test_checksums(schematron_fx, algorithm):
              </mets:techMD>''' % NAMESPACES
     (mets, root) = parse_xml_string(xml)
     (mets, root) = add_containers(root, 'mets:mets/mets:amdSec')
-    elem_handler = root.find_element('messageDigestAlgorithm', 'premis')
+    elem_handler = find_element(root, 'messageDigestAlgorithm', 'premis')
     elem_handler.text = algorithm
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     if algorithm == 'xxx':
@@ -163,9 +163,9 @@ def test_pronom_codes(schematron_fx, fileformat, pronom):
              </mets:techMD>''' % NAMESPACES
     (mets, root) = parse_xml_string(xml)
     (mets, root) = add_containers(root, 'mets:mets/mets:amdSec')
-    elem_handler = root.find_element('formatName', 'premis')
+    elem_handler = find_element(root, 'formatName', 'premis')
     elem_handler.text = fileformat
-    elem_handler = root.find_element('formatRegistryKey', 'premis')
+    elem_handler = find_element(root, 'formatRegistryKey', 'premis')
 
     # All acceptable PRONOM codes work
     for pronomcode in pronom:
@@ -203,7 +203,7 @@ def test_charset_parameter(schematron_fx, fileformat):
     charsets = ['ISO-8859-15', 'UTF-8', 'UTF-16', 'UTF-32', 'iso-8859-15',
                 'utf-8', 'utf-16', 'utf-32']
     (mets, root) = parse_xml_string(xml)
-    elem_handler = root.find_element('formatName', 'premis')
+    elem_handler = find_element(root, 'formatName', 'premis')
     elem_handler.text = fileformat
 
     # Error, since charset is missing
