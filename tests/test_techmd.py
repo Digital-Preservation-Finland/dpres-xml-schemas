@@ -4,8 +4,9 @@ in mets_techmd.sch.
 .. seealso:: mets_techmd.sch
 """
 import pytest
-from tests.common import SVRL_FAILED, parse_xml_file, \
-    fix_version_17
+from tests.common import (SVRL_FAILED, parse_xml_file, fix_version_17,
+                          find_element, set_element, del_element,
+                          set_attribute)
 
 SCHFILE = 'mets_techmd.sch'
 
@@ -44,27 +45,27 @@ def test_mdtype_items_techmd(schematron_fx, mdtype, othermdtype,
     :mdtypeversion: MDTYPEVERSION attribute value
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    elem_handler = root.find_element('techMD', 'mets')
-    elem_handler = elem_handler.find_element('mdWrap', 'mets')
-    elem_handler.set_attribute('MDTYPE', 'mets', mdtype)
+    elem_handler = find_element(root, 'techMD', 'mets')
+    elem_handler = find_element(elem_handler, 'mdWrap', 'mets')
+    set_attribute(elem_handler, 'MDTYPE', 'mets', mdtype)
     if othermdtype is not None:
-        elem_handler.set_attribute('OTHERMDTYPE', 'mets', othermdtype)
+        set_attribute(elem_handler, 'OTHERMDTYPE', 'mets', othermdtype)
 
     # Test that all MDTYPEVERSIONs work with all specifications
     for specversion in ['1.5.0', '1.6.0', '1.7.0', '1.7.1', '1.7.2', '1.7.3']:
         if specversion in ['1.7.0', '1.7.1', '1.7.2', '1.7.3']:
             fix_version_17(root)
         else:
-            root.set_attribute('CATALOG', 'fikdk', specversion)
-            root.set_attribute('SPECIFICATION', 'fikdk', specversion)
+            set_attribute(root, 'CATALOG', 'fikdk', specversion)
+            set_attribute(root, 'SPECIFICATION', 'fikdk', specversion)
         for version in mdtypeversion:
-            elem_handler.set_attribute('MDTYPEVERSION', 'mets', version)
+            set_attribute(elem_handler, 'MDTYPEVERSION', 'mets', version)
             svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
             assert svrl.count(SVRL_FAILED) == 0
 
     # Test unknown version
     fix_version_17(root)
-    elem_handler.set_attribute('MDTYPEVERSION', 'mets', 'xxx')
+    set_attribute(elem_handler, 'MDTYPEVERSION', 'mets', 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -77,8 +78,8 @@ def test_disallowed_items_techmd(schematron_fx):
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
 
     # Set disallowed attribute/element
-    elem_handler = root.find_element('techMD', 'mets')
-    elem_handler.set_element('mdRef', 'mets')
+    elem_handler = find_element(root, 'techMD', 'mets')
+    set_element(elem_handler, 'mdRef', 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -97,12 +98,12 @@ def test_stream(schematron_fx, container_format):
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
-    elem_handler = root.find_element('techMD[@ID="tech-container"]', 'mets')
-    elem_format = elem_handler.find_element('formatName', 'premis')
+    elem_handler = find_element(root, 'techMD[@ID="tech-container"]', 'mets')
+    elem_format = find_element(elem_handler, 'formatName', 'premis')
     elem_format.text = container_format
-    elem_handler = root.find_element('file', 'mets')
-    elem_handler.del_element('stream', 'mets')
-    elem_handler.del_element('stream', 'mets')
+    elem_handler = find_element(root, 'file', 'mets')
+    del_element(elem_handler, 'stream', 'mets')
+    del_element(elem_handler, 'stream', 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -120,10 +121,10 @@ def test_native_stream(schematron_fx):
     """
     (mets, root) = parse_xml_file("mets_video_container.xml")
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    elem_handler = root.find_element("file", "mets")
-    elem_handler.set_attribute(
-        "USE", "mets", "fi-dpres-no-file-format-validation")
-    elem_handler.del_element("stream", "mets")
-    elem_handler.del_element("stream", "mets")
+    elem_handler = find_element(root, "file", "mets")
+    set_attribute(elem_handler, "USE", "mets",
+                  "fi-dpres-no-file-format-validation")
+    del_element(elem_handler, "stream", "mets")
+    del_element(elem_handler, "stream", "mets")
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
