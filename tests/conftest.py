@@ -81,7 +81,7 @@ def schematron_fx(request):
         else:
             step = subprocess.check_output(
                 ['xsltproc', os.path.join(ISO_DIRECTORY, isofile), infile])
-        with open(os.path.join(outfile), 'w') as stepfile:
+        with open(os.path.join(outfile), 'wb') as stepfile:
             stepfile.write(step)
 
     tmp_directory = tempfile.mkdtemp()
