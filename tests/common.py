@@ -80,134 +80,132 @@ def add_containers(root, container_path):
     return (new_tree, new_root)
 
 
-def set_element(parent, element, namespace):
+def set_element(element, elem_name, namespace):
     """Adds a new element as subelement of given element.
 
-    :parent: Element to which the new element is added.
-    :element: Element name to add.
+    :element: Element to which the new element is added.
+    :elem_name: Element name to add.
     :namespace: Namespace key, in which the element belongs to.
     :returns: The added element
     """
     if namespace is not None:
-        elem_tag = ('{%s}'+element) % NAMESPACES[namespace]
-        elem = ET.SubElement(parent, elem_tag)
+        elem_tag = ('{%s}'+elem_name) % NAMESPACES[namespace]
+        elem = ET.SubElement(element, elem_tag)
     else:
-        elem = ET.SubElement(parent, element)
+        elem = ET.SubElement(element, elem_name)
     return elem
 
 
-def del_element(parent, element, namespace):
+def del_element(element, elem_name, namespace):
     """Removes subelement from given element.
 
-    :parent: Element from which the subelement is removed.
-    :element: Name of the element to remove.
+    :element: Element from which the subelement is removed.
+    :elem_name: Name of the element to remove.
     :namespace: Namespace key, in which the element belongs to.
     """
     if namespace is None:
-        elem = parent.find('./'+element)
+        elem = element.find('./'+elem_name)
     else:
-        elem_tag = ('{%s}'+element) % NAMESPACES[namespace]
-        elem = parent.find('./'+elem_tag)
+        elem_tag = ('{%s}'+elem_name) % NAMESPACES[namespace]
+        elem = element.find('./'+elem_tag)
     if elem is not None:
-        parent.remove(elem)
+        element.remove(elem)
 
 
-def find_all_elements(parent, element, namespace):
+def find_all_elements(element, elem_name, namespace):
     """Finds all elements with certain tag name under given element.
 
-    :parent: Element to search under.
-    :element: Element tag name to find.
+    :element: Element to search under.
+    :elem_name: Element tag name to find.
     :namespace: Namespace key, in which the element belongs to.
     :returns: The found elements as list.
     """
-    elem_tag = element
+    elem_tag = elem_name
     if namespace is None:
-        elemlist = parent.findall('.//'+element)
+        elemlist = element.findall('.//'+elem_name)
     else:
-        elem_tag = ('{%s}'+element) % NAMESPACES[namespace]
-        elemlist = parent.findall('.//'+elem_tag)
-    if elemlist is None and parent.tag == elem_tag:
-        return parent
+        elem_tag = ('{%s}'+elem_name) % NAMESPACES[namespace]
+        elemlist = element.findall('.//'+elem_tag)
+    if elemlist is None and element.tag == elem_tag:
+        return element
     return elemlist
 
 
-def find_element(parent, element, namespace):
+def find_element(element, elem_name, namespace):
     """Finds the first element with certain tag name under given element.
 
-    :parent: Element to search under.
-    :element: Element name tag to find.
+    :element: Element to search under.
+    :elem_name: Element name tag to find.
     :namespace: Namespace key, in which the element belongs to.
     :returns: The found element.
     """
-    elem = None
-    element = element
     if namespace is None:
-        elem = parent.find('.//'+element)
-        if elem is None and parent.tag == element:
-            return parent
+        elem = element.find('.//'+elem_name)
+        if elem is None and element.tag == elem_name:
+            return element
     else:
-        elem_tag = ('{%s}'+element) % NAMESPACES[namespace]
-        elem = parent.find('.//'+elem_tag)
-        if elem is None and parent.tag == elem_tag:
-            return parent
+        elem_tag = ('{%s}'+elem_name) % NAMESPACES[namespace]
+        elem = element.find('.//'+elem_tag)
+        if elem is None and element.tag == elem_tag:
+            return element
     return elem
 
 
-def set_attribute(parent, attribute, namespace, value):
+def set_attribute(element, attribute, namespace, value):
     """Sets a new or resets an existing attribute to given element.
 
-    :parent: Element whose attribute is edited.
+    :element: Element whose attribute is edited.
     :attribute: Attribute key.
     :namespace: Namespace key, in which the attribute belongs to.
                 Overridden, if the attribute key contains namespace.
     :value: Value for the attribute.
     """
     if namespace is None:
-        parent.set(attribute, value)
-    elif '{%s}' % NAMESPACES[namespace] in parent.tag:
-        parent.set(attribute, value)
+        element.set(attribute, value)
+    elif '{%s}' % NAMESPACES[namespace] in element.tag:
+        element.set(attribute, value)
     elif attribute[0] == '{':
-        parent.set(attribute, value)
+        element.set(attribute, value)
     else:
-        parent.set(('{%s}'+attribute) % NAMESPACES[namespace], value)
+        element.set(('{%s}'+attribute) % NAMESPACES[namespace], value)
 
 
-def get_attribute(parent, attribute, namespace):
+def get_attribute(element, attribute, namespace):
     """Gets an attribute from given element.
 
-    :parent: Element whose attribute is gotten.
+    :element: Element whose attribute is gotten.
     :attribute: Attribute key.
     :namespace: Namespace key, in which the attribute belongs to.
                 Overridden, if the attribute key contains namespace.
     :returns: The found attribute.
     """
     if namespace is None:
-        return parent.get(attribute)
-    elif '{%s}' % NAMESPACES[namespace] in parent.tag:
-        return parent.get(attribute)
+        return element.get(attribute)
+    elif '{%s}' % NAMESPACES[namespace] in element.tag:
+        return element.get(attribute)
     elif attribute[0] == '{':
-        return parent.get(attribute)
+        return element.get(attribute)
     else:
-        return parent.get(
+        return element.get(
             ('{%s}'+attribute) % NAMESPACES[namespace])
 
 
-def del_attribute(parent, attribute, namespace):
+def del_attribute(element, attribute, namespace):
     """Deletes an attribute from given element.
 
-    :parent: Element whose attribute is deleted.
+    :element: Element whose attribute is deleted.
     :attribute: Attribute key.
     :namespace: Namespace key, in which the attribute belongs to.
                 Overridden, if the attribute key contains namespace.
     """
     if namespace is None:
-        del parent.attrib[attribute]
-    elif '{%s}' % NAMESPACES[namespace] in parent.tag:
-        del parent.attrib[attribute]
+        del element.attrib[attribute]
+    elif '{%s}' % NAMESPACES[namespace] in element.tag:
+        del element.attrib[attribute]
     elif attribute[0] == '{':
-        del parent.attrib[attribute]
+        del element.attrib[attribute]
     else:
-        del parent.attrib[
+        del element.attrib[
             ('{%s}'+attribute) % NAMESPACES[namespace]]
 
 
