@@ -1,6 +1,9 @@
 SHAREDIR=/usr/share/dpres-xml-schemas
 XMLCATALOGDIR=/etc/xml/dpres-xml-schemas
 
+PYTHON=python3
+
+
 all: info
 
 info:
@@ -27,6 +30,9 @@ install:
 	find "${XMLCATALOGDIR}" -type f -exec chmod 644 \{\} \;
 	chmod -R 755 "${SHAREDIR}"
 	find "${SHAREDIR}" -type f -exec chmod 644 \{\} \;
+
+test:
+	${PYTHON} -m pytest tests --junitprefix=dpres-xml-schemas --junitxml=junit.xml
 
 docs:
 	make -C doc html
