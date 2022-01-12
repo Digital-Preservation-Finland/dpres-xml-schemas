@@ -15,14 +15,15 @@ Release:        %{file_release_number}%{file_release_tag}.%{file_build_number}.g
 Summary:        XML schema catalogs and schematron rules
 Group:          System Environment/Library
 License:        LGPLv3+
-URL:            http://www.csc.fi
+URL:            https://www.digitalpreservation.fi
 Source0:        %{file_prefix}-v%{file_version}%{?file_release_tag}-%{file_build_number}-g%{file_commit_ref}.%{file_ext}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
-Requires: python xml-common iso-schematron-xslt1
-Requires: libxslt python-setuptools
-BuildRequires:  python-lxml python-six
+Requires: xml-common iso-schematron-xslt1
+Requires: libxslt
+BuildRequires: python python-lxml python-six
+BuildRequires: python3 python3-lxml python3-six
 
 Obsoletes: kdk-mets-private < 0.1-4
 Obsoletes: kdk-mets-schemas < 0.2-4
