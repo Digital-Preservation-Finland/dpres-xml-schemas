@@ -48,7 +48,7 @@ cp -r ingest_report/* "${SHAREDIR}/"
 chmod -R 755 "${SHAREDIR}"
 find "${SHAREDIR}" -type f -exec chmod 644 \{\} \;
 
-make install XMLCATALOGDIR=%{buildroot}%{_sysconfdir}/xml/%{name} SHAREDIR=%{buildroot}%{_datadir}/%{name}
+make install XMLCATALOGDIR=%{buildroot}%{_sysconfdir}/xml/dpres-xml-schemas SHAREDIR=%{buildroot}%{_datadir}/dpres-xml-schemas
 
 %post
 # Remove obsolete XML schema entry
