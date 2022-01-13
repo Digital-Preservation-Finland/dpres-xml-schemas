@@ -9,7 +9,7 @@
 %define file_build_number M4_FILE_BUILD_NUMBER
 %define file_commit_ref M4_FILE_COMMIT_REF
 
-Name:           dpres-xml-schemas
+Name:           python3-dpres-xml-schemas
 Version:        %{file_version}
 Release:        %{file_release_number}%{file_release_tag}.%{file_build_number}.git%{file_commit_ref}%{?dist}
 Summary:        XML schema catalogs and schematron rules
@@ -22,7 +22,7 @@ BuildArch:      noarch
 
 Requires: xml-common iso-schematron-xslt1
 Requires: libxslt
-BuildRequires: python python-lxml python-six
+BuildRequires: python3 python3-lxml python3-six
 
 Obsoletes: kdk-mets-private < 0.1-4
 Obsoletes: kdk-mets-schemas < 0.2-4
