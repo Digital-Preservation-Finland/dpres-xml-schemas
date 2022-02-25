@@ -1,6 +1,11 @@
 Release notes
 =============
 
+Version 0.32
+------------
+
+- Make tests compatible with Python3
+
 Version 0.31
 ------------
 
