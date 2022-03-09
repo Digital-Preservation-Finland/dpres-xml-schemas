@@ -2,7 +2,7 @@
 
 <!-- pass-filter: /mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/audiomd:AUDIOMD -->
 <!-- context-filter: audiomd:AUDIOMD|audiomd:fileData|audiomd:audioInfo|audiomd:compression -->
-<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.3">
+<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.4">
 	<sch:title>AudioMD metadata validation</sch:title>
 
 <!--

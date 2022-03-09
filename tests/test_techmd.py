@@ -52,8 +52,9 @@ def test_mdtype_items_techmd(schematron_fx, mdtype, othermdtype,
         set_attribute(elem_handler, 'OTHERMDTYPE', 'mets', othermdtype)
 
     # Test that all MDTYPEVERSIONs work with all specifications
-    for specversion in ['1.5.0', '1.6.0', '1.7.0', '1.7.1', '1.7.2', '1.7.3']:
-        if specversion in ['1.7.0', '1.7.1', '1.7.2', '1.7.3']:
+    for specversion in ['1.5.0', '1.6.0', '1.7.0', '1.7.1', '1.7.2', '1.7.3',
+                        '1.7.4']:
+        if specversion in ['1.7.0', '1.7.1', '1.7.2', '1.7.3', '1.7.4']:
             fix_version_17(root)
         else:
             set_attribute(root, 'CATALOG', 'fikdk', specversion)

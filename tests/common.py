@@ -210,7 +210,7 @@ def del_attribute(element, attribute, namespace):
 
 
 def fix_version_17(root):
-    """Local namespaces need to be changed for catalog version 1.7.3 to make
+    """Local namespaces need to be changed for catalog version 1.7.4 to make
     the tree valid. This is used in various tests.
 
     :root: METS root element
@@ -238,7 +238,7 @@ def fix_version_17(root):
     set_attribute(
         root, 'PROFILE', 'mets',
         'http://digitalpreservation.fi/mets-profiles/cultural-heritage')
-    set_attribute(root, 'CATALOG', 'fi', '1.7.3')
-    set_attribute(root, 'SPECIFICATION', 'fi', '1.7.3')
+    set_attribute(root, 'CATALOG', 'fi', '1.7.4')
+    set_attribute(root, 'SPECIFICATION', 'fi', '1.7.4')
     set_attribute(root, 'CONTRACTID', 'fi',
                   'urn:uuid:c5a193b3-bb63-4348-bd25-6c20bb72264b')

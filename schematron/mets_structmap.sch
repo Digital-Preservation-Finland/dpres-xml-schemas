@@ -2,7 +2,7 @@
 
 <!-- pass-filter: /mets:mets/mets:structMap -->
 <!-- context-filter: mets:structMap|mets:div|mets:fptr|mets:mptr|mets:par|mets:seq|mets:area -->
-<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.3">
+<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.4">
 	<sch:title>METS structMap validation</sch:title>
 
 <!--
