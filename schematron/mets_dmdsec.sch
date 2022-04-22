@@ -175,14 +175,6 @@ Validates METS dmdSec.
         </sch:rule>
 	</sch:pattern>
 
-        <!-- Disallow supported EN15744 metadata. This is a temporary check.
-        EN15744 metadata schema does not exist, and therefore it's not clear how to support it. -->
-        <sch:pattern id="mets_EN15744" is-a="disallowed_unsupported_metadata_pattern">
-                <sch:param name="context_condition" value="true()"/>
-                <sch:param name="unsupported_mdname" value="string('EN15744')"/>
-                <sch:param name="specifications" value="string('')"/>
-        </sch:pattern>
-
         <!-- Known rights, technical, or provenance metadata can not be used inside wrong section -->
         <sch:pattern id="dmdsec_no_rights" is-a="disallowed_element_pattern">
                 <sch:param name="context_element" value="mets:dmdSec/mets:mdWrap/mets:xmlData"/>

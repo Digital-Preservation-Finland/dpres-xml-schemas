@@ -154,42 +154,6 @@ def test_disallowed_items_dmdsec(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 1
 
 
-def test_special_mdtype(schematron_fx):
-    """Standard portfolio's EN15744 metadata format does not have a schema.
-    Therefore it is currently disallowed. Test that disallowing works.
-
-    :schematron_fx: Schematron compile fixture
-    """
-    xml = '''<mets:mets fi:CATALOG="1.6.0" xmlns:mets="%(mets)s"
-             xmlns:dc="%(dc)s" xmlns:premis="%(premis)s" xmlns:fi="%(fikdk)s">
-               <mets:dmdSec ID="dmd-dc" fi:CREATED="2018-05-05">
-                 <mets:mdWrap MDTYPE='DC'><mets:xmlData>
-                 <dc:subject/></mets:xmlData></mets:mdWrap></mets:dmdSec>
-               <mets:dmdSec ID="dmd-en" fi:CREATED="2018-05-05">
-                 <mets:mdWrap MDTYPE='OTHER' OTHERMDTYPE='EN15744'>
-                 <mets:xmlData><xxx/></mets:xmlData></mets:mdWrap>
-               </mets:dmdSec><mets:amdSec>
-               <mets:techMD><mets:mdWrap MDTYPE='PREMIS:OBJECT'>
-                 <mets:xmlData><premis:object/></mets:xmlData></mets:mdWrap>
-               </mets:techMD><mets:digiprovMD>
-                 <mets:mdWrap MDTYPE='PREMIS:EVENT'><mets:xmlData>
-                 <premis:event/></mets:xmlData></mets:mdWrap></mets:digiprovMD>
-             </mets:amdSec>
-             <mets:structMap><mets:div DMDID="dmd-dc dmd-en"/>
-             </mets:structMap></mets:mets>''' % NAMESPACES
-    (mets, root) = parse_xml_string(xml)
-
-    # EN15744 is not allowed
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 1
-
-    # Everything works, if something else is given
-    elem_handler = find_element(root, 'mdWrap[@MDTYPE="OTHER"]', 'mets')
-    set_attribute(elem_handler, 'OTHERMDTYPE', 'mets', 'xxx')
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 0
-
-
 def test_arbitrary_attributes_dmdsec(schematron_fx):
     """Test that arbitrary attributes are forbidden in METS anyAttribute
        sections.

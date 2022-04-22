@@ -132,7 +132,7 @@ Validates METS mdWrap.
         <!-- Notify the existence of unsupported metadata -->
         <sch:pattern id="mets_allowedmd_unsupported" is-a="allowed_unsupported_metadata_pattern">
                 <sch:param name="context_condition" value="true()"/>
-                <sch:param name="required_condition" value="@OTHERMDTYPE!='AudioMD' and @OTHERMDTYPE!='VideoMD' and @OTHERMDTYPE!='EN15744' and @OTHERMDTYPE!='EAD3' and @OTHERMDTYPE!='ADDML' and @OTHERMDTYPE!='DATACITE' and @OTHERMDTYPE!='EBUCORE'"/>
+                <sch:param name="required_condition" value="@OTHERMDTYPE!='AudioMD' and @OTHERMDTYPE!='VideoMD' and @OTHERMDTYPE!='EAD3' and @OTHERMDTYPE!='ADDML' and @OTHERMDTYPE!='DATACITE' and @OTHERMDTYPE!='EBUCORE'"/>
                 <sch:param name="specifications" value="string('not: 1.5.0; 1.6.0; 1.6.1; 1.7.0; 1.7.1; 1.7.2')"/>
         </sch:pattern>
 
@@ -176,7 +176,7 @@ Validates METS mdWrap.
         <!-- Notify the existence of unsupported metadata with old specifications -->
         <sch:pattern id="mets_allowedmd_unsupported_pre173" is-a="allowed_unsupported_metadata_pattern">
                 <sch:param name="context_condition" value="true()"/>
-                <sch:param name="required_condition" value="@OTHERMDTYPE!='AudioMD' and @OTHERMDTYPE!='VideoMD' and @OTHERMDTYPE!='EN15744' and @OTHERMDTYPE!='EAD3' and @OTHERMDTYPE!='ADDML' and @OTHERMDTYPE!='DATACITE'"/>
+                <sch:param name="required_condition" value="@OTHERMDTYPE!='AudioMD' and @OTHERMDTYPE!='VideoMD' and @OTHERMDTYPE!='EAD3' and @OTHERMDTYPE!='ADDML' and @OTHERMDTYPE!='DATACITE'"/>
                 <sch:param name="specifications" value="string('1.7.0; 1.7.1; 1.7.2')"/>
         </sch:pattern>
 
@@ -216,7 +216,7 @@ Validates METS mdWrap.
         </sch:pattern>
         <sch:pattern id="mets_allowedmd_unsupported_pre170" is-a="allowed_unsupported_metadata_pattern">
                 <sch:param name="context_condition" value="true()"/>
-                <sch:param name="required_condition" value="@OTHERMDTYPE!='AudioMD' and @OTHERMDTYPE!='VideoMD' and @OTHERMDTYPE!='EN15744' and @OTHERMDTYPE!='EAD3' and @OTHERMDTYPE!='ADDML'"/>
+                <sch:param name="required_condition" value="@OTHERMDTYPE!='AudioMD' and @OTHERMDTYPE!='VideoMD' and @OTHERMDTYPE!='EAD3' and @OTHERMDTYPE!='ADDML'"/>
                 <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1')"/>
         </sch:pattern>
 
