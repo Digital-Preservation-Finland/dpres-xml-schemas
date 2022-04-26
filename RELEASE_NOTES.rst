@@ -1,6 +1,13 @@
 Release notes
 =============
 
+Version 0.33
+------------
+
+- Fix schema and schematron files to support specifications 1.7.4.
+- Add support for DataCite 4.4.
+- Remove Schematron rules related to EN15744
+
 Version 0.32
 ------------
 
