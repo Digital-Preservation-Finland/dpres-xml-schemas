@@ -159,6 +159,10 @@ def test_mix_with_tiff_dpx(schematron_fx):
 @pytest.mark.parametrize("fileformat, mdinfo", [
     ('audio/x-aiff', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd']),
     ('audio/x-wav', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd']),
+    ('audio/L8', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd']),
+    ('audio/L16', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd']),
+    ('audio/L20', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd']),
+    ('audio/L24', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd']),
     ('audio/flac', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd']),
     ('audio/mp4', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd']),
     ('audio/mpeg', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd']),
@@ -169,6 +173,7 @@ def test_mix_with_tiff_dpx(schematron_fx):
     ('video/mpeg', ['OTHER', 'VideoMD', 'VIDEOMD', 'videomd']),
     ('video/x-ms-wmv', ['OTHER', 'VideoMD', 'VIDEOMD', 'videomd']),
     ('image/x-dpx', ['NISOIMG', None, 'mix', 'mix']),
+    ('image/x-adobe-dng', ['NISOIMG', None, 'mix', 'mix']),
     ('image/tiff', ['NISOIMG', None, 'mix', 'mix']),
     ('image/jpeg', ['NISOIMG', None, 'mix', 'mix']),
     ('image/jp2', ['NISOIMG', None, 'mix', 'mix']),
@@ -265,6 +270,18 @@ def test_fileformat_metadata(schematron_fx, fileformat, mdinfo):
             set_attribute(root, 'CATALOG', 'fikdk', testversion)
         svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
         assert svrl.count(SVRL_FAILED) == 2 + extra
+
+
+def test_file_format_native_stream(schematron_fx):
+    """Test that a DPS supported container containing a supported stream and
+    a bit-level 'native' stream does not need to have VideoMD nor AudioMD
+
+    :schematron_fx: Schematron compile fixture
+    """
+    (mets, root) = parse_xml_file("mets_native_video_stream.xml")
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 0
+    assert svrl.count(SVRL_REPORT) == 1
 
 
 def test_nisoimg_vs_othermdtype(schematron_fx):

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    This is an example test file where a video container (including a native video stream
+    and a supported audio stream formats) is migrated to a supported file format.
+-->
+<mets:mets OBJID="migration-test-123"
+           PROFILE="http://digitalpreservation.fi/mets-profiles/cultural-heritage"
+           fi:CATALOG="1.7.4"
+           xmlns:mets="http://www.loc.gov/METS/"
+           xmlns:fi="http://digitalpreservation.fi/schemas/mets/fi-extensions"
+           xmlns:premis="info:lc/xmlns/premis-v2"
+           xmlns:vmd="http://www.loc.gov/videoMD/"
+           xmlns:amd="http://www.loc.gov/audioMD/"
+           xmlns:dc="http://purl.org/dc/elements/1.1/"
+           xmlns:xlink="http://www.w3.org/1999/xlink" 
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.loc.gov/METS/ 
+                               http://digitalpreservation.fi/schemas/mets/mets.xsd">
+
+  <mets:metsHdr CREATEDATE="2022-03-31T15:41:12">
+    <mets:agent ROLE="CREATOR" TYPE="ORGANIZATION">
+      <mets:name>CSC - Tieteen tietotekniikan keskus Oy</mets:name>
+    </mets:agent>
+  </mets:metsHdr>
+  
+  <mets:dmdSec ID="dmd-dc" CREATED="2022-03-31T15:40:00">
+    <mets:mdWrap MDTYPE="DC" MDTYPEVERSION="1.1">
+      <mets:xmlData>
+        <dc:identifier>urn:nbn:fi-fd2022-0000126</dc:identifier>
+        <dc:title>Video kukkasesta</dc:title>
+        <dc:creator>Kalervo Kuvaaja</dc:creator>
+        <dc:date>2022-01-15</dc:date>
+        <dc:type>Video</dc:type>
+      </mets:xmlData>
+    </mets:mdWrap>
+  </mets:dmdSec>
+  
+  <mets:amdSec>
+    <mets:techMD ID="tech-container" CREATED="2022-03-15T12:13:14">
+      <mets:mdWrap MDTYPE="PREMIS:OBJECT" MDTYPEVERSION="2.2">
+        <mets:xmlData> 
+          <premis:object xsi:type="premis:file">
+            <premis:objectIdentifier>
+              <premis:objectIdentifierType>local</premis:objectIdentifierType>
+              <premis:objectIdentifierValue>premisid-container</premis:objectIdentifierValue>
+            </premis:objectIdentifier>
+            <premis:objectCharacteristics>
+              <premis:compositionLevel>1</premis:compositionLevel>
+              <premis:fixity>
+                <premis:messageDigestAlgorithm>MD5</premis:messageDigestAlgorithm>
+                <premis:messageDigest>aa4bddaacf5ed1ca92b30826af257a1b</premis:messageDigest>
+              </premis:fixity>
+              <premis:format>
+                <premis:formatDesignation>
+                  <premis:formatName>video/avi</premis:formatName>
+                </premis:formatDesignation>
+              </premis:format>
+              <premis:creatingApplication>
+                <premis:dateCreatedByApplication>2022-02-15T15:43:03</premis:dateCreatedByApplication>
+              </premis:creatingApplication>
+            </premis:objectCharacteristics>
+            <premis:relationship>
+              <premis:relationshipType>structural</premis:relationshipType>
+              <premis:relationshipSubType>includes</premis:relationshipSubType>
+              <premis:relatedObjectIdentification>
+                <premis:relatedObjectIdentifierType>local</premis:relatedObjectIdentifierType>
+                <premis:relatedObjectIdentifierValue>premisid-video</premis:relatedObjectIdentifierValue>
+              </premis:relatedObjectIdentification>
+              <premis:relatedObjectIdentification>
+                <premis:relatedObjectIdentifierType>local</premis:relatedObjectIdentifierType>
+                <premis:relatedObjectIdentifierValue>premisid-audio</premis:relatedObjectIdentifierValue>
+              </premis:relatedObjectIdentification>
+            </premis:relationship>
+          </premis:object>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:techMD>
+    
+    <mets:techMD ID="tech-video" CREATED="2022-03-15T12:13:14">
+      <mets:mdWrap MDTYPE="PREMIS:OBJECT" MDTYPEVERSION="2.2">
+        <mets:xmlData> 
+          <premis:object xsi:type="premis:bitstream">
+            <premis:objectIdentifier>
+              <premis:objectIdentifierType>local</premis:objectIdentifierType>
+              <premis:objectIdentifierValue>premisid-video</premis:objectIdentifierValue>
+            </premis:objectIdentifier>
+            <premis:objectCharacteristics>
+              <premis:compositionLevel>0</premis:compositionLevel>
+              <premis:format>
+                <premis:formatDesignation>
+                  <premis:formatName>native-format</premis:formatName>
+                </premis:formatDesignation>
+              </premis:format>
+            </premis:objectCharacteristics>
+          </premis:object>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:techMD>
+    
+    <mets:techMD ID="tech-audio" CREATED="2022-03-15T12:13:14">
+      <mets:mdWrap MDTYPE="PREMIS:OBJECT" MDTYPEVERSION="2.2">
+        <mets:xmlData> 
+          <premis:object xsi:type="premis:bitstream">
+            <premis:objectIdentifier>
+              <premis:objectIdentifierType>UUID</premis:objectIdentifierType>
+              <premis:objectIdentifierValue>premisid-audio</premis:objectIdentifierValue>
+            </premis:objectIdentifier>
+            <premis:objectCharacteristics>
+              <premis:compositionLevel>0</premis:compositionLevel>
+              <premis:format>
+                <premis:formatDesignation>
+                  <premis:formatName>audio/mpeg</premis:formatName>
+                  <premis:formatVersion>2</premis:formatVersion>
+                </premis:formatDesignation>
+              </premis:format>
+            </premis:objectCharacteristics>
+          </premis:object>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:techMD>
+
+    <mets:techMD ID="tech-migrated" fi:CREATED="2022-04-12">
+      <mets:mdWrap MDTYPE="PREMIS:OBJECT" MDTYPEVERSION="2.3">
+        <mets:xmlData>
+          <premis:object xsi:type="premis:file">
+            <premis:objectIdentifier>
+              <premis:objectIdentifierType>local</premis:objectIdentifierType>
+              <premis:objectIdentifierValue>premisid-migrated</premis:objectIdentifierValue>
+            </premis:objectIdentifier>
+            <premis:objectCharacteristics>
+              <premis:compositionLevel>0</premis:compositionLevel>
+              <premis:fixity>
+                <premis:messageDigestAlgorithm>MD5</premis:messageDigestAlgorithm>
+                <premis:messageDigest>7fc2103950f2bb374c277ed4eb43bdc6</premis:messageDigest>
+             </premis:fixity>
+              <premis:format>
+                <premis:formatDesignation>
+                  <premis:formatName>application/pdf</premis:formatName>
+                  <premis:formatVersion>A-2b</premis:formatVersion>
+                </premis:formatDesignation>
+              </premis:format>
+              <premis:creatingApplication>
+                <premis:dateCreatedByApplication>2022-03-16T14:00:00</premis:dateCreatedByApplication>
+              </premis:creatingApplication>
+            </premis:objectCharacteristics>
+          </premis:object>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:techMD>
+
+    <mets:digiprovMD ID="event-migration" fi:CREATED="2022-04-12">
+      <mets:mdWrap MDTYPE="PREMIS:EVENT" MDTYPEVERSION="2.3">
+        <mets:xmlData>
+          <premis:event>
+            <premis:eventIdentifier>
+              <premis:eventIdentifierType>local</premis:eventIdentifierType>
+              <premis:eventIdentifierValue>premisid-event-migration</premis:eventIdentifierValue>
+            </premis:eventIdentifier>
+            <premis:eventType>migration</premis:eventType>
+            <premis:eventDateTime>2022-03-16</premis:eventDateTime>
+            <premis:eventOutcomeInformation>
+              <premis:eventOutcome>success</premis:eventOutcome>
+            </premis:eventOutcomeInformation>
+            <premis:linkingAgentIdentifier>
+              <premis:linkingAgentIdentifierType>local</premis:linkingAgentIdentifierType>
+              <premis:linkingAgentIdentifierValue>premisid-agent-migration</premis:linkingAgentIdentifierValue>
+            </premis:linkingAgentIdentifier>                     
+            <premis:linkingObjectIdentifier>
+              <premis:linkingObjectIdentifierType>local</premis:linkingObjectIdentifierType>
+              <premis:linkingObjectIdentifierValue>premisid-container</premis:linkingObjectIdentifierValue>
+              <premis:linkingObjectRole>source</premis:linkingObjectRole>              
+            </premis:linkingObjectIdentifier>
+            <premis:linkingObjectIdentifier>
+              <premis:linkingObjectIdentifierType>local</premis:linkingObjectIdentifierType>
+              <premis:linkingObjectIdentifierValue>premisid-migrated</premis:linkingObjectIdentifierValue>
+              <premis:linkingObjectRole>outcome</premis:linkingObjectRole>              
+            </premis:linkingObjectIdentifier>
+          </premis:event>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:digiprovMD>
+    <mets:digiprovMD ID="agent-migration" fi:CREATED="2022-04-12">
+      <mets:mdWrap MDTYPE="PREMIS:AGENT" MDTYPEVERSION="2.3">
+        <mets:xmlData>
+          <premis:agent>
+            <premis:agentIdentifier>
+              <premis:agentIdentifierType>local</premis:agentIdentifierType>
+              <premis:agentIdentifierValue>premisid-agent-migration</premis:agentIdentifierValue>
+            </premis:agentIdentifier>
+            <premis:agentName>CSC's Whatever Converter</premis:agentName>
+            <premis:agentType>software</premis:agentType>
+          </premis:agent>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:digiprovMD>
+
+  </mets:amdSec>
+
+  <mets:fileSec>
+    <mets:fileGrp>
+      <mets:file ADMID="tech-container event-migration agent-migration" ID="file-container"
+        USE="fi-dpres-no-file-format-validation">
+        <mets:FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file://movie.avi" />
+        <mets:stream ADMID="tech-video" />
+        <mets:stream ADMID="tech-audio" />
+      </mets:file>
+      <mets:file ADMID="tech-migrated event-migration agent-migration" ID="fileid-migrated">
+        <mets:FLocat LOCTYPE="URL" xlink:href="file://./file.pdf" xlink:type="simple"/>
+      </mets:file>
+    </mets:fileGrp>
+  </mets:fileSec>
+
+  <mets:structMap>
+    <mets:div TYPE="physical" DMDID="dmd-dc">
+      <mets:fptr FILEID="file-container" />
+      <mets:fptr FILEID="fileid-migrated"/> 
+    </mets:div>
+  </mets:structMap>
+
+</mets:mets>
+
