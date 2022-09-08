@@ -280,7 +280,6 @@ def test_file_format_native_stream(schematron_fx):
     """
     (mets, root) = parse_xml_file("mets_native_video_stream.xml")
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    print(svrl)
     assert svrl.count(SVRL_FAILED) == 0
     assert svrl.count(SVRL_REPORT) == 1
 
@@ -488,10 +487,8 @@ def test_native(schematron_fx):
             + '/{%(premis)s}linkingObjectRole' % NAMESPACES
     olink = 'linkingObjectIdentifier[{%(premis)s}linkingObjectRole="outcome"]'\
             + '/{%(premis)s}linkingObjectRole' % NAMESPACES
-    elem_source = find_element(root, slink % NAMESPACES,
-                               'premis')
-    elem_outcome = find_element(root, olink % NAMESPACES,
-                                'premis')
+    elem_source = find_element(root, slink % NAMESPACES, 'premis')
+    elem_outcome = find_element(root, olink % NAMESPACES, 'premis')
     elem_source.text = 'outcome'
     elem_outcome.text = 'source'
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
@@ -538,10 +535,8 @@ def test_conversion(schematron_fx):
             + '/{%(premis)s}linkingObjectRole' % NAMESPACES
     olink = 'linkingObjectIdentifier[{%(premis)s}linkingObjectRole="source"]'\
             + '/{%(premis)s}linkingObjectRole' % NAMESPACES
-    elem_source = find_element(root, slink % NAMESPACES,
-                               'premis')
-    elem_outcome = find_element(root, olink % NAMESPACES,
-                                'premis')
+    elem_source = find_element(root, slink % NAMESPACES, 'premis')
+    elem_outcome = find_element(root, olink % NAMESPACES, 'premis')
     elem_source.text = 'source'
     elem_outcome.text = 'outcome'
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
@@ -569,6 +564,23 @@ def test_conversion(schematron_fx):
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
     assert svrl.count(SVRL_REPORT) == 0
+
+
+def test_identification(schematron_fx):
+    """Test file format identification.
+
+    This is a bit-level file format without corresponding
+    recommended/acceptable format.
+    """
+    (mets, root) = parse_xml_file('mets_valid_native.xml')
+    elem_handler = find_element(
+        root, 'file[@ADMID="techmd-001 event-001 agent-001"]', 'mets')
+    set_attribute(elem_handler, 'ADMID', 'mets', 'techmd-001')
+    set_attribute(elem_handler, 'USE', 'mets',
+                  'fi-dpres-file-format-identification')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 0
+    assert svrl.count(SVRL_REPORT) == 1
 
 
 def test_container_links(schematron_fx):

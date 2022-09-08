@@ -399,33 +399,61 @@ Validates METS fileSec.
         <!--
             Bit-level file format check (no file format validation)
 
-            This checks that there exists one of the following:
-            - Migration/normalization event where current bit-level file is described as a source file but not as outcome.
-              Still, there must be some link with an outcome role in the event.
-            - Conversion event where current bit-level file is described as outcome but not as a source file
-              Still, there must be some link with a source role in the event.
+            Check that there exists one of the following for a file with
+            USE attribute value 'fi-dpres-no-file-format-validation':
+            - Migration/normalization event where current bit-level file is
+              described as a source file but not as outcome. There must be
+              some link with an outcome role in the event.
+            - Conversion event where current bit-level file is described as
+              outcome but not as a source file. There must be some link with
+              a source role in the event.
 
-            Variables:
-            - $techmd: techMD sections
-            - $digiprov_migration: digiprovMD elements of succeeded migration/normalization events
-            - $digiprov_conversion: digiprovMD elements of succeeded conversion events
-            - $admid: IDs of administrative metadata sections in ADMID attribute in current bit-level file element
-            - $bitlevel_techmd_id: ID attributes of the techMD sections which include PREMIS object or bitstream, and are referred from $admid
-            - $bitlevel_object_id: PREMIS Object identifiers of the $bitlevel_techmd_id sections referred from $admid
-            - $event_source_link: Migration/normalization event elements where current bit-level file is described as source file and there exists outcome
-            - $event_not_source_link: Conversion event elements where bit-level file is not described as source file
-            - $event_outcome_link: Conversion event elements where bit-level file is described as outcome file and there exists source
-            - $event_not_outcome_link: Migration/normalization event elements where bit-level file is not described as outcome file
-            - $event_links_bitlevel_ok: Union of the following:
-                  * Migration/normalization events where current bit-level file is described as source and not as outcome
-                  * Conversion events where current bit-level file is described as outcome and not as source
+            Variables used in the pattern:
+            - $techmd:
+                techMD sections
+            - $digiprov_migration:
+                digiprovMD elements of succeeded migration/normalization
+                events
+            - $digiprov_conversion:
+                digiprovMD elements of succeeded conversion events
+            - $admid:
+                ADMID attribute in current bit-level file element
+            - $bitlevel_techmd_id:
+                ID attributes of the techMD sections which include PREMIS
+                object or bitstream, and are referred from $admid
+            - $bitlevel_object_id:
+                PREMIS Object identifiers of the $bitlevel_techmd_id sections
+                referred from $admid
+            - $event_source_link:
+                Migration/normalization event elements where current bit-level
+                file is described as source file and there exists outcome
+            - $event_not_outcome_link:
+                Migration/normalization event elements where bit-level file is
+                not described as outcome file
+            - $event_outcome_link:
+                Conversion event elements where bit-level file is described as
+                outcome file and there exists source
+            - $event_not_source_link:
+                Conversion event elements where bit-level file is not
+                described as source file
+            - $event_links_bitlevel_ok:
+                Union of the following:
+                  * Migration/normalization events where current bit-level
+                    file is described as source and not as outcome, and some
+                    outcome exists.
+                  * Conversion events where current bit-level file is
+                    described as outcome and not as source, and some source
+                    exists
 
             Validation:
-            - Assert: Such migration, normalization or conversion event exists which ID is in ADMID references of the current file element.
-                      Give error about missing event.
-            - Assert: Such migration, normalization or conversion event exists which has correct linkings, see $event_links_bitlevel_ok.
+            - Assert: Such migration, normalization or conversion event exists
+                      which ID is in ADMID references of the current file
+                      element. Give error about missing event.
+            - Assert: Such migration, normalization or conversion event exists
+                      which has correct linkings, see $event_links_bitlevel_ok
                       Give error about ambiguous links.
-            - Report: If conditions in the previous assertions are ok, report about skipping validation.
+            - Report: If conditions in the previous assertions are ok, report
+                      about skipping validation.
         -->
         <sch:pattern id="required_features_no_validation">
                 <sch:rule context="mets:fileGrp/mets:file[(normalize-space(@USE)='fi-dpres-no-file-format-validation')]">
@@ -451,7 +479,9 @@ Validates METS fileSec.
                 </sch:rule>
         </sch:pattern>
 
-        <!-- Bit-level file check (file format identification). Just report about skipping validation. -->
+        <!-- Bit-level file check (file format identification).
+             Bit-level file format without any migration, normalization or conversion event.
+             Just report about skipping validation. -->
         <sch:pattern id="required_features_identification">
                 <sch:rule context="mets:fileGrp/mets:file[normalize-space(@USE)='fi-dpres-file-format-identification']">
                         <sch:report test="true()">
