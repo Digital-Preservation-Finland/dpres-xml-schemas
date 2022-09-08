@@ -93,6 +93,7 @@ Validates METS fileSec.
         <sch:let name="jp2_mixsfcids" value="$mix_mdids[../mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics]"/>
         <sch:let name="tiff_mixids" value="$mix_mdids[../mets:mdWrap/mets:xmlData/mix:mix/mix:BasicDigitalObjectInformation/mix:byteOrder]"/>
         <sch:let name="digiprovmd_migration" value="exsl:node-set(/mets:mets/mets:amdSec/mets:digiprovMD[(normalize-space(./mets:mdWrap/mets:xmlData/premis:event/premis:eventType)='migration' or normalize-space(./mets:mdWrap/mets:xmlData/premis:event/premis:eventType)='normalization') and normalize-space(./mets:mdWrap/mets:xmlData/premis:event/premis:eventOutcomeInformation/premis:eventOutcome)='success'])"/>
+        <sch:let name="digiprovmd_conversion" value="exsl:node-set(/mets:mets/mets:amdSec/mets:digiprovMD[(normalize-space(./mets:mdWrap/mets:xmlData/premis:event/premis:eventType)='conversion') and normalize-space(./mets:mdWrap/mets:xmlData/premis:event/premis:eventOutcomeInformation/premis:eventOutcome)='success'])"/>
 
         <!-- METS internal linking, cross-check part 1: From link to target -->
         <sch:let name="admids_targets" value="/mets:mets/mets:amdSec/*/@ID"/>
@@ -395,29 +396,62 @@ Validates METS fileSec.
                 </sch:rule>
         </sch:pattern>
 
-        <!-- Bit-level file check (no validation) -->
+        <!--
+            Bit-level file format check (no file format validation)
+
+            This checks that there exists one of the following:
+            - Migration/normalization event where current bit-level file is described as a source file but not as outcome.
+              Still, there must be some link with an outcome role in the event.
+            - Conversion event where current bit-level file is described as outcome but not as a source file
+              Still, there must be some link with a source role in the event.
+
+            Variables:
+            - $techmd: techMD sections
+            - $digiprov_migration: digiprovMD elements of succeeded migration/normalization events
+            - $digiprov_conversion: digiprovMD elements of succeeded conversion events
+            - $admid: IDs of administrative metadata sections in ADMID attribute in current bit-level file element
+            - $bitlevel_techmd_id: ID attributes of the techMD sections which include PREMIS object or bitstream, and are referred from $admid
+            - $bitlevel_object_id: PREMIS Object identifiers of the $bitlevel_techmd_id sections referred from $admid
+            - $event_source_link: Migration/normalization event elements where current bit-level file is described as source file and there exists outcome
+            - $event_not_source_link: Conversion event elements where bit-level file is not described as source file
+            - $event_outcome_link: Conversion event elements where bit-level file is described as outcome file and there exists source
+            - $event_not_outcome_link: Migration/normalization event elements where bit-level file is not described as outcome file
+            - $event_links_bitlevel_ok: Union of the following:
+                  * Migration/normalization events where current bit-level file is described as source and not as outcome
+                  * Conversion events where current bit-level file is described as outcome and not as source
+
+            Validation:
+            - Assert: Such migration, normalization or conversion event exists which ID is in ADMID references of the current file element.
+                      Give error about missing event.
+            - Assert: Such migration, normalization or conversion event exists which has correct linkings, see $event_links_bitlevel_ok.
+                      Give error about ambiguous links.
+            - Report: If conditions in the previous assertions are ok, report about skipping validation.
+        -->
         <sch:pattern id="required_features_no_validation">
                 <sch:rule context="mets:fileGrp/mets:file[(normalize-space(@USE)='fi-dpres-no-file-format-validation')]">
                         <sch:let name="admid" value="normalize-space(@ADMID)"/>
-                        <sch:let name="bitlevel_techmd_id" value="normalize-space($techmd/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' ')) and ../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName])"/>
+                        <sch:let name="bitlevel_techmd_id" value="normalize-space($techmd/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' ')) and (normalize-space(../mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:file' or normalize-space(../mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:bitstream')])"/>
                         <sch:let name="bitlevel_object_id" value="normalize-space($techmd[normalize-space(@ID) = $bitlevel_techmd_id]/mets:mdWrap/mets:xmlData/premis:object/premis:objectIdentifier/premis:objectIdentifierValue)"/>
-                        <sch:let name="event_source_link" value="exsl:node-set($digiprovmd_migration/mets:mdWrap/mets:xmlData/premis:event/premis:linkingObjectIdentifier[normalize-space(./premis:linkingObjectRole)='source' and normalize-space(./premis:linkingObjectIdentifierValue)=$bitlevel_object_id]/..)"/>
-                        <sch:let name="event_outcome_link" value="exsl:node-set($digiprovmd_migration/mets:mdWrap/mets:xmlData/premis:event/premis:linkingObjectIdentifier[normalize-space(./premis:linkingObjectRole)='outcome' and not(normalize-space(./premis:linkingObjectIdentifierValue)=$bitlevel_object_id)]/..)"/>
-                        <sch:let name="event_links_bitlevel_ok" value="sets:intersection($event_source_link, $event_outcome_link) | sets:intersection($event_outcome_link, $event_source_link)"/>
 
-                        <sch:assert test="(count($digiprovmd_migration) &gt; 0 and count($digiprovmd_migration/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' '))]) &gt; 0)">
-                                Value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' found for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'. Succeeded PREMIS event for migration/normalization is required.
+                        <sch:let name="event_source_link" value="exsl:node-set($digiprovmd_migration/mets:mdWrap/mets:xmlData/premis:event/premis:linkingObjectIdentifier[normalize-space(./premis:linkingObjectRole)='source' and normalize-space(./premis:linkingObjectIdentifierValue)=$bitlevel_object_id and (normalize-space(following-sibling::premis:linkingObjectIdentifier/premis:linkingObjectRole)='outcome' or normalize-space(preceding-sibling::premis:linkingObjectIdentifier/premis:linkingObjectRole)='outcome')]/..)"/>
+                        <sch:let name="event_not_source_link" value="exsl:node-set($digiprovmd_conversion/mets:mdWrap/mets:xmlData/premis:event/premis:linkingObjectIdentifier[normalize-space(./premis:linkingObjectRole)='source' and not(normalize-space(./premis:linkingObjectIdentifierValue)=$bitlevel_object_id)]/..)"/>
+                        <sch:let name="event_outcome_link" value="exsl:node-set($digiprovmd_conversion/mets:mdWrap/mets:xmlData/premis:event/premis:linkingObjectIdentifier[normalize-space(./premis:linkingObjectRole)='outcome' and normalize-space(./premis:linkingObjectIdentifierValue)=$bitlevel_object_id and (normalize-space(following-sibling::premis:linkingObjectIdentifier/premis:linkingObjectRole)='source' or normalize-space(preceding-sibling::premis:linkingObjectIdentifier/premis:linkingObjectRole)='source')]/..)"/>
+                        <sch:let name="event_not_outcome_link" value="exsl:node-set($digiprovmd_migration/mets:mdWrap/mets:xmlData/premis:event/premis:linkingObjectIdentifier[normalize-space(./premis:linkingObjectRole)='outcome' and not(normalize-space(./premis:linkingObjectIdentifierValue)=$bitlevel_object_id)]/..)"/>
+                        <sch:let name="event_links_bitlevel_ok" value="sets:intersection($event_source_link, $event_not_outcome_link) | sets:intersection($event_outcome_link, $event_not_source_link)"/>
+
+                        <sch:assert test="(count($digiprovmd_migration) &gt; 0 and count($digiprovmd_migration/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' '))]) &gt; 0) or (count($digiprovmd_conversion) &gt; 0 and count($digiprovmd_conversion/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' '))]) &gt; 0)">
+                                Value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' found for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'. Succeeded PREMIS event for migration, normalization or conversion is required.
                         </sch:assert>
-                        <sch:assert test="(count($digiprovmd_migration) = 0 or count($event_links_bitlevel_ok) &gt; 0)">
-                                Value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' found for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'. PREMIS event for migration/normalization contains ambiguous links to object identifiers.
+                        <sch:assert test="(count($digiprovmd_migration) = 0 and count($digiprovmd_conversion) = 0) or count($event_links_bitlevel_ok) &gt; 0">
+                                Value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' found for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'. PREMIS event for migration, normalization or conversion contains ambiguous links to object identifiers.
                         </sch:assert>
-                        <sch:report test="(count($digiprovmd_migration) &gt; 0 and count($digiprovmd_migration/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' '))]) &gt; 0 and count($event_links_bitlevel_ok) &gt; 0)">
+                        <sch:report test="(count($digiprovmd_migration) &gt; 0 and count($digiprovmd_migration/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' '))]) &gt; 0 and count($event_links_bitlevel_ok) &gt; 0) or (count($digiprovmd_conversion) &gt; 0 and count($digiprovmd_conversion/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' '))]) &gt; 0 and count($event_links_bitlevel_ok) &gt; 0)">
                                 INFO: Value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' found for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'. No file format validation is executed for this file.
                         </sch:report>
                 </sch:rule>
         </sch:pattern>
 
-        <!-- Bit-level file check (identification) -->
+        <!-- Bit-level file check (file format identification). Just report about skipping validation. -->
         <sch:pattern id="required_features_identification">
                 <sch:rule context="mets:fileGrp/mets:file[normalize-space(@USE)='fi-dpres-file-format-identification']">
                         <sch:report test="true()">

@@ -280,6 +280,7 @@ def test_file_format_native_stream(schematron_fx):
     """
     (mets, root) = parse_xml_file("mets_native_video_stream.xml")
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    print(svrl)
     assert svrl.count(SVRL_FAILED) == 0
     assert svrl.count(SVRL_REPORT) == 1
 
@@ -499,7 +500,69 @@ def test_native(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 1
     assert svrl.count(SVRL_REPORT) == 0
 
+    # Missing outcome
+    elem_outcome.text = 'foo'
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    elem_outcome.text = 'outcome'
+    assert svrl.count(SVRL_FAILED) == 1
+    assert svrl.count(SVRL_REPORT) == 0
+
     # Give error, if linking to migration event is destroyed
+    elem_handler = find_element(
+        root, 'file[@ADMID="techmd-001 event-001 agent-001"]', 'mets')
+    set_attribute(elem_handler, 'ADMID', 'mets', 'techmd-001')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 1
+    assert svrl.count(SVRL_REPORT) == 0
+
+
+def test_conversion(schematron_fx):
+    """Test conversion to bit-level file case. This requires a conversion
+    event from a recommended/acceptable file format to a bit-level format.
+
+    The METS describing the native file case is opened, and the source and
+    outcome are swaped for a working case.
+    """
+    (mets, root) = parse_xml_file('mets_valid_native.xml')
+
+    # Make bit-level as source and recommended format as outcome
+    # The bit-level file needs to be the outcome
+    elem_handler = find_element(root, 'eventType', 'premis')
+    elem_handler.text = 'conversion'
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 1
+    assert svrl.count(SVRL_REPORT) == 0
+
+    # Working case
+    slink = 'linkingObjectIdentifier[{%(premis)s}linkingObjectRole="outcome"]'\
+            + '/{%(premis)s}linkingObjectRole' % NAMESPACES
+    olink = 'linkingObjectIdentifier[{%(premis)s}linkingObjectRole="source"]'\
+            + '/{%(premis)s}linkingObjectRole' % NAMESPACES
+    elem_source = find_element(root, slink % NAMESPACES,
+                               'premis')
+    elem_outcome = find_element(root, olink % NAMESPACES,
+                                'premis')
+    elem_source.text = 'source'
+    elem_outcome.text = 'outcome'
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 0
+    assert svrl.count(SVRL_REPORT) == 1
+
+    # Make required conversion event to something else
+    elem_handler.text = 'xxx'
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    elem_handler.text = 'conversion'
+    assert svrl.count(SVRL_FAILED) == 1
+    assert svrl.count(SVRL_REPORT) == 0
+
+    # Missing source
+    elem_source.text = 'foo'
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    elem_source.text = 'source'
+    assert svrl.count(SVRL_FAILED) == 1
+    assert svrl.count(SVRL_REPORT) == 0
+
+    # Give error, if linking to conversion event is destroyed
     elem_handler = find_element(
         root, 'file[@ADMID="techmd-001 event-001 agent-001"]', 'mets')
     set_attribute(elem_handler, 'ADMID', 'mets', 'techmd-001')
