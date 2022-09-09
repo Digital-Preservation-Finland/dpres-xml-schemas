@@ -272,9 +272,9 @@ def test_fileformat_metadata(schematron_fx, fileformat, mdinfo):
         assert svrl.count(SVRL_FAILED) == 2 + extra
 
 
-def test_file_format_native_stream(schematron_fx):
+def test_file_format_bitlevel_stream(schematron_fx):
     """Test that a DPS supported container containing a supported stream and
-    a bit-level 'native' stream does not need to have VideoMD nor AudioMD
+    a bit-level stream does not need to have VideoMD nor AudioMD.
 
     :schematron_fx: Schematron compile fixture
     """
@@ -458,10 +458,10 @@ def test_arbitrary_attributes_filesec(schematron_fx, context):
             del_attribute(elem_handler, 'xxx', ns)
 
 
-def test_native(schematron_fx):
-    """Test the native file case. Native file requires a migration event to
+def test_bitlevel_migration(schematron_fx):
+    """Test the bitlevel file case where file requires a migration event to
     a recommended/acceptable file format. Here we test various cases related to
-    native files.
+    this kind of file.
 
     :schematron_fx: Schematron compile fixture
     """
@@ -480,8 +480,8 @@ def test_native(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 1
     assert svrl.count(SVRL_REPORT) == 0
 
-    # Make native as outcome and recommended format as source
-    # The native file needs to be the source
+    # Make bitlevel file as outcome and recommended format as source
+    # The bitlevel file needs to be the source
     elem_handler = find_element(root, 'eventType', 'premis')
     slink = 'linkingObjectIdentifier[{%(premis)s}linkingObjectRole="source"]'\
             + '/{%(premis)s}linkingObjectRole' % NAMESPACES
@@ -513,12 +513,13 @@ def test_native(schematron_fx):
     assert svrl.count(SVRL_REPORT) == 0
 
 
-def test_conversion(schematron_fx):
+def test_bitlevel_conversion(schematron_fx):
     """Test conversion to bit-level file case. This requires a conversion
     event from a recommended/acceptable file format to a bit-level format.
 
-    The METS describing the native file case is opened, and the source and
-    outcome are swaped for a working case.
+    The METS describing the migration case from a bit-level file is used.
+    The migration is changed to conversion, and source and outcome are
+    swapped for a working case.
     """
     (mets, root) = parse_xml_file('mets_valid_native.xml')
 
@@ -566,7 +567,7 @@ def test_conversion(schematron_fx):
     assert svrl.count(SVRL_REPORT) == 0
 
 
-def test_identification(schematron_fx):
+def test_bitlevel_identification(schematron_fx):
     """Test file format identification.
 
     This is a bit-level file format without corresponding
