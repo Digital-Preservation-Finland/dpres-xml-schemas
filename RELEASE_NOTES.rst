@@ -1,6 +1,17 @@
 Release notes
 =============
 
+Version 0.34
+------------
+
+- MIME types requiring AudioMD or MIX metadata is updated.
+- Metadata specifications for bit-level preservation is updated to meet all
+  three use cases listed in the specifications. Previously, only one of these
+  cases were supported.
+- Take care that file format specific metadata (e.g. AudioMD or MIX) is not
+  required for the streams where the container file is marked for bit-level
+  preservation.
+
 Version 0.33
 ------------
 
