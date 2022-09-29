@@ -3,20 +3,20 @@
 <!-- pass-filter: /mets:mets/mets:amdSec/mets:rightsMD -->
 <!-- context-filter: mets:rightsMD|mets:mdWrap|mets:xmlData -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.4">
-	<sch:title>METS rightsMD validation</sch:title>
+        <sch:title>METS rightsMD validation</sch:title>
 
 <!--
 Validates METS rightsMD.
 -->
-	
-	<sch:ns prefix="mets" uri="http://www.loc.gov/METS/"/>
-	<sch:ns prefix="fikdk" uri="http://www.kdk.fi/standards/mets/kdk-extensions"/>
-	<sch:ns prefix="fi" uri="http://digitalpreservation.fi/schemas/mets/fi-extensions"/>
-	<sch:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
-	<sch:ns prefix="exsl" uri="http://exslt.org/common"/>
-	<sch:ns prefix="sets" uri="http://exslt.org/sets"/>
-	<sch:ns prefix="str" uri="http://exslt.org/strings"/>
-	<sch:ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
+
+        <sch:ns prefix="mets" uri="http://www.loc.gov/METS/"/>
+        <sch:ns prefix="fikdk" uri="http://www.kdk.fi/standards/mets/kdk-extensions"/>
+        <sch:ns prefix="fi" uri="http://digitalpreservation.fi/schemas/mets/fi-extensions"/>
+        <sch:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
+        <sch:ns prefix="exsl" uri="http://exslt.org/common"/>
+        <sch:ns prefix="sets" uri="http://exslt.org/sets"/>
+        <sch:ns prefix="str" uri="http://exslt.org/strings"/>
+        <sch:ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
         <sch:ns prefix="xml" uri="https://www.w3.org/XML/1998/namespace"/>
         <sch:ns prefix="premis" uri="info:lc/xmlns/premis-v2"/>
         <sch:ns prefix="mix" uri="http://www.loc.gov/mix/v20"/>
@@ -41,39 +41,39 @@ Validates METS rightsMD.
         <sch:ns prefix="datacite" uri="http://datacite.org/schema/kernel-4"/>
         <sch:ns prefix="ebucore" uri="urn:ebu:metadata-schema:ebucore"/>
 
-	<sch:include href="./abstracts/disallowed_element_pattern.incl"/>
-	<sch:include href="./abstracts/required_element_pattern.incl"/>
-	<sch:include href="./abstracts/required_values_attribute_pattern.incl"/>
+        <sch:include href="./abstracts/disallowed_element_pattern.incl"/>
+        <sch:include href="./abstracts/required_element_pattern.incl"/>
+        <sch:include href="./abstracts/required_values_attribute_pattern.incl"/>
         <sch:include href="./abstracts/deprecated_element_pattern.incl"/>
 
-	<sch:pattern id="mets_rightsMD_mdWrap" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:rightsMD"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="required_element" value="mets:mdWrap"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_rightsMD_mdRef" is-a="disallowed_element_pattern">
-		<sch:param name="context_element" value="mets:rightsMD"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_element" value="mets:mdRef"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_rightsMD_MDTYPE" is-a="required_values_attribute_pattern">
-		<sch:param name="context_element" value="mets:rightsMD/mets:mdWrap"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="context_attribute" value="@MDTYPE"/>
-		<sch:param name="valid_values" value="string('PREMIS:RIGHTS; OTHER')"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
+        <sch:pattern id="mets_rightsMD_mdWrap" is-a="required_element_pattern">
+                <sch:param name="context_element" value="mets:rightsMD"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="required_element" value="mets:mdWrap"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_rightsMD_mdRef" is-a="disallowed_element_pattern">
+                <sch:param name="context_element" value="mets:rightsMD"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_element" value="mets:mdRef"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_rightsMD_MDTYPE" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:rightsMD/mets:mdWrap"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="context_attribute" value="@MDTYPE"/>
+                <sch:param name="valid_values" value="string('PREMIS:RIGHTS; OTHER')"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
 
-	<!-- Attribute MDTYPE version values -->
-	<sch:pattern id="mets_rightsMD_MDTYPEVERSION_values_RIGHTS" is-a="required_values_attribute_pattern">
-		<sch:param name="context_element" value="mets:rightsMD/mets:mdWrap"/>
-		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:RIGHTS'"/>
-		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
-		<sch:param name="valid_values" value="string('2.2; 2.3')"/>
+        <!-- Attribute MDTYPE version values -->
+        <sch:pattern id="mets_rightsMD_MDTYPEVERSION_values_RIGHTS" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:rightsMD/mets:mdWrap"/>
+                <sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:RIGHTS'"/>
+                <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
+                <sch:param name="valid_values" value="string('2.2; 2.3')"/>
                 <sch:param name="specifications" value="string('not: 1.5.0')"/>
-	</sch:pattern>
+        </sch:pattern>
 
         <!-- Known descriptive, technical, or provenance metadata can not be used inside wrong section -->
         <sch:pattern id="rights_no_tech" is-a="disallowed_element_pattern">
@@ -95,9 +95,9 @@ Validates METS rightsMD.
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
 
-	<!-- COMPATIBILITY WITH DEPRECATED VERSIONS -->
+        <!-- COMPATIBILITY WITH DEPRECATED VERSIONS -->
 
-	<!-- PREMIS 2.1 in specification 1.5.0 -->
+        <!-- PREMIS 2.1 in specification 1.5.0 -->
         <sch:pattern id="mets15_rightsMD_MDTYPEVERSION_values_RIGHTS" is-a="required_values_attribute_pattern">
                 <sch:param name="context_element" value="mets:rightsMD/mets:mdWrap"/>
                 <sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:RIGHTS'"/>

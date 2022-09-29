@@ -3,20 +3,20 @@
 <!-- pass-filter: /mets:mets/mets:amdSec/mets:digiprovMD -->
 <!-- context-filter: mets:digiprovMD|mets:mdWrap|mets:mdRef|mets:xmlData -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.4">
-	<sch:title>METS digiprovMD validation</sch:title>
+        <sch:title>METS digiprovMD validation</sch:title>
 
 <!--
 Validates METS digiprovMD.
 -->
-	
-	<sch:ns prefix="mets" uri="http://www.loc.gov/METS/"/>
-	<sch:ns prefix="fikdk" uri="http://www.kdk.fi/standards/mets/kdk-extensions"/>
-	<sch:ns prefix="fi" uri="http://digitalpreservation.fi/schemas/mets/fi-extensions"/>
-	<sch:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
-	<sch:ns prefix="exsl" uri="http://exslt.org/common"/>
-	<sch:ns prefix="sets" uri="http://exslt.org/sets"/>
-	<sch:ns prefix="str" uri="http://exslt.org/strings"/>
-	<sch:ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
+
+        <sch:ns prefix="mets" uri="http://www.loc.gov/METS/"/>
+        <sch:ns prefix="fikdk" uri="http://www.kdk.fi/standards/mets/kdk-extensions"/>
+        <sch:ns prefix="fi" uri="http://digitalpreservation.fi/schemas/mets/fi-extensions"/>
+        <sch:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
+        <sch:ns prefix="exsl" uri="http://exslt.org/common"/>
+        <sch:ns prefix="sets" uri="http://exslt.org/sets"/>
+        <sch:ns prefix="str" uri="http://exslt.org/strings"/>
+        <sch:ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
         <sch:ns prefix="xml" uri="https://www.w3.org/XML/1998/namespace"/>
         <sch:ns prefix="premis" uri="info:lc/xmlns/premis-v2"/>
         <sch:ns prefix="mix" uri="http://www.loc.gov/mix/v20"/>
@@ -41,99 +41,99 @@ Validates METS digiprovMD.
         <sch:ns prefix="datacite" uri="http://datacite.org/schema/kernel-4"/>
         <sch:ns prefix="ebucore" uri="urn:ebu:metadata-schema:ebucore"/>
 
-	<sch:include href="./abstracts/required_attribute_pattern.incl"/>
-	<sch:include href="./abstracts/required_element_or_element_pattern.incl"/>
-	<sch:include href="./abstracts/required_values_attribute_pattern.incl"/>
+        <sch:include href="./abstracts/required_attribute_pattern.incl"/>
+        <sch:include href="./abstracts/required_element_or_element_pattern.incl"/>
+        <sch:include href="./abstracts/required_values_attribute_pattern.incl"/>
         <sch:include href="./abstracts/disallowed_element_pattern.incl"/>
         <sch:include href="./abstracts/required_metadata_pattern.incl"/>
 
-	<!-- mdWrap and mdRef elements -->
-	<sch:pattern id="mets_digiprovMD_mdWrap_mdRef" is-a="required_element_or_element_pattern">
-		<sch:param name="context_element" value="mets:digiprovMD"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="required_element1" value="mets:mdWrap"/>
-		<sch:param name="required_element2" value="mets:mdRef"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
+        <!-- mdWrap and mdRef elements -->
+        <sch:pattern id="mets_digiprovMD_mdWrap_mdRef" is-a="required_element_or_element_pattern">
+                <sch:param name="context_element" value="mets:digiprovMD"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="required_element1" value="mets:mdWrap"/>
+                <sch:param name="required_element2" value="mets:mdRef"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
 
-	<!-- digiprovMD MDTYPE -->
-	<sch:pattern id="mets_digiprovMD_MDTYPE" is-a="required_values_attribute_pattern">
-		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="context_attribute" value="@MDTYPE"/>
-		<sch:param name="valid_values" value="string('PREMIS:OBJECT; PREMIS:EVENT; PREMIS:AGENT; OTHER')"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
+        <!-- digiprovMD MDTYPE -->
+        <sch:pattern id="mets_digiprovMD_MDTYPE" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="context_attribute" value="@MDTYPE"/>
+                <sch:param name="valid_values" value="string('PREMIS:OBJECT; PREMIS:EVENT; PREMIS:AGENT; OTHER')"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
 
-	<!-- Attribute MDTYPE version values -->
-	<sch:pattern id="mets_digiprovMD_MDTYPEVERSION_values_OBJECT" is-a="required_values_attribute_pattern">
-		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
-		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:OBJECT'"/>
-		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
-		<sch:param name="valid_values" value="string('2.2; 2.3')"/>
-		<sch:param name="specifications" value="string('not: 1.5.0')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_digiprovMD_MDTYPEVERSION_values_EVENT" is-a="required_values_attribute_pattern">
-		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
-		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:EVENT'"/>
-		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
-		<sch:param name="valid_values" value="string('2.2; 2.3')"/>
-		<sch:param name="specifications" value="string('not: 1.5.0')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_digiprovMD_MDTYPEVERSION_values_AGENT" is-a="required_values_attribute_pattern">
-		<sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
-		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:AGENT'"/>
-		<sch:param name="context_attribute" value="@MDTYPEVERSION"/>
-		<sch:param name="valid_values" value="string('2.2; 2.3')"/>
-		<sch:param name="specifications" value="string('not: 1.5.0')"/>
-	</sch:pattern>
+        <!-- Attribute MDTYPE version values -->
+        <sch:pattern id="mets_digiprovMD_MDTYPEVERSION_values_OBJECT" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
+                <sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:OBJECT'"/>
+                <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
+                <sch:param name="valid_values" value="string('2.2; 2.3')"/>
+                <sch:param name="specifications" value="string('not: 1.5.0')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_digiprovMD_MDTYPEVERSION_values_EVENT" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
+                <sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:EVENT'"/>
+                <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
+                <sch:param name="valid_values" value="string('2.2; 2.3')"/>
+                <sch:param name="specifications" value="string('not: 1.5.0')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_digiprovMD_MDTYPEVERSION_values_AGENT" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
+                <sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:AGENT'"/>
+                <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
+                <sch:param name="valid_values" value="string('2.2; 2.3')"/>
+                <sch:param name="specifications" value="string('not: 1.5.0')"/>
+        </sch:pattern>
 
-	<!-- mdRef attributes -->
-	<sch:pattern id="mets_mdRef_OTHERMDTYPE" is-a="required_attribute_pattern">
-		<sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="required_attribute" value="@OTHERMDTYPE"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_mdRef_OTHERLOCTYPE" is-a="required_attribute_pattern">
-		<sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="required_attribute" value="@OTHERLOCTYPE"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_mdRef_href" is-a="required_attribute_pattern">
-		<sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="required_attribute" value="@xlink:href"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_mdRef_type" is-a="required_attribute_pattern">
-		<sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="required_attribute" value="@xlink:type"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_mdRef_CHECKSUM" is-a="required_attribute_pattern">
-		<sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
-		<sch:param name="context_condition" value="@CHECKSUMTYPE"/>
-		<sch:param name="required_attribute" value="@CHECKSUM"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_mdRef_CHECKSUMTYPE" is-a="required_attribute_pattern">
-		<sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
-		<sch:param name="context_condition" value="@CHECKSUM"/>
-		<sch:param name="required_attribute" value="@CHECKSUMTYPE"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
+        <!-- mdRef attributes -->
+        <sch:pattern id="mets_mdRef_OTHERMDTYPE" is-a="required_attribute_pattern">
+                <sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="required_attribute" value="@OTHERMDTYPE"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_mdRef_OTHERLOCTYPE" is-a="required_attribute_pattern">
+                <sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="required_attribute" value="@OTHERLOCTYPE"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_mdRef_href" is-a="required_attribute_pattern">
+                <sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="required_attribute" value="@xlink:href"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_mdRef_type" is-a="required_attribute_pattern">
+                <sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="required_attribute" value="@xlink:type"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_mdRef_CHECKSUM" is-a="required_attribute_pattern">
+                <sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
+                <sch:param name="context_condition" value="@CHECKSUMTYPE"/>
+                <sch:param name="required_attribute" value="@CHECKSUM"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_mdRef_CHECKSUMTYPE" is-a="required_attribute_pattern">
+                <sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
+                <sch:param name="context_condition" value="@CHECKSUM"/>
+                <sch:param name="required_attribute" value="@CHECKSUMTYPE"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
 
-	<!-- mdRef attribute values -->
-	<sch:pattern id="mets_mdRef_MDTYPE_values" is-a="required_values_attribute_pattern">
-		<sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="context_attribute" value="@MDTYPE"/>
-		<sch:param name="valid_values" value="string('OTHER')"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
+        <!-- mdRef attribute values -->
+        <sch:pattern id="mets_mdRef_MDTYPE_values" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="context_attribute" value="@MDTYPE"/>
+                <sch:param name="valid_values" value="string('OTHER')"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
         <sch:pattern id="mets_mdRef_OTHERMDTYPE_values" is-a="required_values_attribute_pattern">
                 <sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
                 <sch:param name="context_condition" value="substring(normalize-space(/mets:mets/@PROFILE),0,44)='http://digitalpreservation.fi/mets-profiles'"/>
@@ -141,27 +141,27 @@ Validates METS digiprovMD.
                 <sch:param name="valid_values" value="string('FiPreservationPlan')"/>
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
-	<sch:pattern id="mets_mdRef_LOCTYPE_values" is-a="required_values_attribute_pattern">
-		<sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="context_attribute" value="@LOCTYPE"/>
-		<sch:param name="valid_values" value="string('OTHER')"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_mdRef_OTHERLOCTYPE_values" is-a="required_values_attribute_pattern">
-		<sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="context_attribute" value="@OTHERLOCTYPE"/>
-		<sch:param name="valid_values" value="string('PreservationPlanID')"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_mdRef_type_values" is-a="required_values_attribute_pattern">
-		<sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="context_attribute" value="@xlink:type"/>
-		<sch:param name="valid_values" value="string('simple')"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
+        <sch:pattern id="mets_mdRef_LOCTYPE_values" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="context_attribute" value="@LOCTYPE"/>
+                <sch:param name="valid_values" value="string('OTHER')"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_mdRef_OTHERLOCTYPE_values" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="context_attribute" value="@OTHERLOCTYPE"/>
+                <sch:param name="valid_values" value="string('PreservationPlanID')"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_mdRef_type_values" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="context_attribute" value="@xlink:type"/>
+                <sch:param name="valid_values" value="string('simple')"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
 
         <!-- Known descriptive, rights, or technical metadata can not be used inside wrong section -->
         <sch:pattern id="digiprovmd_no_rights" is-a="disallowed_element_pattern">
@@ -190,9 +190,9 @@ Validates METS digiprovMD.
         </sch:pattern>
 
 
-	<!-- COMPATIBILITY WITH DEPRECATED VERSIONS -->
+        <!-- COMPATIBILITY WITH DEPRECATED VERSIONS -->
 
-	<!-- PREMIS 2.1 in specification 1.5.0 -->
+        <!-- PREMIS 2.1 in specification 1.5.0 -->
         <sch:pattern id="mets15_digiprovMD_MDTYPEVERSION_values_OBJECT" is-a="required_values_attribute_pattern">
                 <sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap"/>
                 <sch:param name="context_condition" value="normalize-space(@MDTYPE)='PREMIS:OBJECT'"/>
@@ -215,7 +215,7 @@ Validates METS digiprovMD.
                 <sch:param name="specifications" value="string('1.5.0')"/>
         </sch:pattern>
 
-	<!-- KDKPreservationPlan in old specifications -->
+        <!-- KDKPreservationPlan in old specifications -->
         <sch:pattern id="mets_mdRef_OTHERMDTYPE_values_pre170" is-a="required_values_attribute_pattern">
                 <sch:param name="context_element" value="mets:digiprovMD/mets:mdRef"/>
                 <sch:param name="context_condition" value="/mets:mets/@PROFILE='http://www.kdk.fi/kdk-mets-profile'"/>

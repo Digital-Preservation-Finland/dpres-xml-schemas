@@ -3,20 +3,20 @@
 <!-- pass-filter: /mets:mets/mets:dmdSec/mets:mdWrap|/mets:mets/mets:amdSec/mets:*/mets:mdWrap -->
 <!-- context-filter: mets:mdWrap -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.4">
-	<sch:title>METS mdWrap validation</sch:title>
+        <sch:title>METS mdWrap validation</sch:title>
 
 <!--
 Validates METS mdWrap.
 -->
-	
-	<sch:ns prefix="mets" uri="http://www.loc.gov/METS/"/>
-	<sch:ns prefix="fikdk" uri="http://www.kdk.fi/standards/mets/kdk-extensions"/>
-	<sch:ns prefix="fi" uri="http://digitalpreservation.fi/schemas/mets/fi-extensions"/>
-	<sch:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
-	<sch:ns prefix="exsl" uri="http://exslt.org/common"/>
-	<sch:ns prefix="sets" uri="http://exslt.org/sets"/>
-	<sch:ns prefix="str" uri="http://exslt.org/strings"/>
-	<sch:ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
+
+        <sch:ns prefix="mets" uri="http://www.loc.gov/METS/"/>
+        <sch:ns prefix="fikdk" uri="http://www.kdk.fi/standards/mets/kdk-extensions"/>
+        <sch:ns prefix="fi" uri="http://digitalpreservation.fi/schemas/mets/fi-extensions"/>
+        <sch:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
+        <sch:ns prefix="exsl" uri="http://exslt.org/common"/>
+        <sch:ns prefix="sets" uri="http://exslt.org/sets"/>
+        <sch:ns prefix="str" uri="http://exslt.org/strings"/>
+        <sch:ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
         <sch:ns prefix="xml" uri="https://www.w3.org/XML/1998/namespace"/>
         <sch:ns prefix="premis" uri="info:lc/xmlns/premis-v2"/>
         <sch:ns prefix="mix" uri="http://www.loc.gov/mix/v20"/>
@@ -41,56 +41,56 @@ Validates METS mdWrap.
         <sch:ns prefix="datacite" uri="http://datacite.org/schema/kernel-4"/>
         <sch:ns prefix="ebucore" uri="urn:ebu:metadata-schema:ebucore"/>
 
-	<sch:include href="./abstracts/disallowed_attribute_pattern.incl"/>
-	<sch:include href="./abstracts/disallowed_element_pattern.incl"/>
-	<sch:include href="./abstracts/required_attribute_pattern.incl"/>
-	<sch:include href="./abstracts/required_element_pattern.incl"/>
+        <sch:include href="./abstracts/disallowed_attribute_pattern.incl"/>
+        <sch:include href="./abstracts/disallowed_element_pattern.incl"/>
+        <sch:include href="./abstracts/required_attribute_pattern.incl"/>
+        <sch:include href="./abstracts/required_element_pattern.incl"/>
         <sch:include href="./abstracts/allowed_unsupported_metadata_pattern.incl"/>
         <sch:include href="./abstracts/required_metadata_match_pattern.incl"/>
 
-	<!-- mdWrap elements and attributes -->
-	<sch:pattern id="mets_mdWrap_xmlData" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:mdWrap"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="required_element" value="mets:xmlData"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_mdWrap_binData" is-a="disallowed_element_pattern">
-		<sch:param name="context_element" value="mets:mdWrap"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_element" value="mets:binData"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_OTHERMDTYPE" is-a="required_attribute_pattern">
-		<sch:param name="context_element" value="mets:mdWrap"/>
-		<sch:param name="context_condition" value="normalize-space(@MDTYPE)='OTHER'"/>
-		<sch:param name="required_attribute" value="@OTHERMDTYPE"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_no_OTHERMDTYPE" is-a="disallowed_attribute_pattern">
-		<sch:param name="context_element" value="mets:mdWrap"/>
-		<sch:param name="context_condition" value="normalize-space(@MDTYPE)!='OTHER'"/>
-		<sch:param name="disallowed_attribute" value="@OTHERMDTYPE"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_mdWrap_CHECKSUM" is-a="required_attribute_pattern">
-		<sch:param name="context_element" value="mets:mdWrap"/>
-		<sch:param name="context_condition" value="@CHECKSUMTYPE"/>
-		<sch:param name="required_attribute" value="@CHECKSUM"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_mdWrap_CHECKSUMTYPE" is-a="required_attribute_pattern">
-		<sch:param name="context_element" value="mets:mdWrap"/>
-		<sch:param name="context_condition" value="@CHECKSUM"/>
-		<sch:param name="required_attribute" value="@CHECKSUMTYPE"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-   	<sch:pattern id="mets_MDTYPEVERSION" is-a="required_attribute_pattern">
-		<sch:param name="context_element" value="mets:mdWrap"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="required_attribute" value="@MDTYPEVERSION"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
+        <!-- mdWrap elements and attributes -->
+        <sch:pattern id="mets_mdWrap_xmlData" is-a="required_element_pattern">
+                <sch:param name="context_element" value="mets:mdWrap"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="required_element" value="mets:xmlData"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_mdWrap_binData" is-a="disallowed_element_pattern">
+                <sch:param name="context_element" value="mets:mdWrap"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_element" value="mets:binData"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_OTHERMDTYPE" is-a="required_attribute_pattern">
+                <sch:param name="context_element" value="mets:mdWrap"/>
+                <sch:param name="context_condition" value="normalize-space(@MDTYPE)='OTHER'"/>
+                <sch:param name="required_attribute" value="@OTHERMDTYPE"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_no_OTHERMDTYPE" is-a="disallowed_attribute_pattern">
+                <sch:param name="context_element" value="mets:mdWrap"/>
+                <sch:param name="context_condition" value="normalize-space(@MDTYPE)!='OTHER'"/>
+                <sch:param name="disallowed_attribute" value="@OTHERMDTYPE"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_mdWrap_CHECKSUM" is-a="required_attribute_pattern">
+                <sch:param name="context_element" value="mets:mdWrap"/>
+                <sch:param name="context_condition" value="@CHECKSUMTYPE"/>
+                <sch:param name="required_attribute" value="@CHECKSUM"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_mdWrap_CHECKSUMTYPE" is-a="required_attribute_pattern">
+                <sch:param name="context_element" value="mets:mdWrap"/>
+                <sch:param name="context_condition" value="@CHECKSUM"/>
+                <sch:param name="required_attribute" value="@CHECKSUMTYPE"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+           <sch:pattern id="mets_MDTYPEVERSION" is-a="required_attribute_pattern">
+                <sch:param name="context_element" value="mets:mdWrap"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="required_attribute" value="@MDTYPEVERSION"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
 
         <!-- Check metadata content in mdWrap -->
         <sch:pattern id="mets_mdtype_content" is-a="required_metadata_match_pattern">

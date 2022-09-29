@@ -1,81 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-	<!--
-	Check the parameters in PREMIS element formatName.
-	charset_mimes - File format (mime types) that require charset parameter
-	charset - Allowed character encodings with semicolon+space delimiter
-	context_condition - Rule launched only, if this condition is true.
-	specifications - Catalog/specification versions for which the rule is launched.
-		List the affected versions with semicolon+space delimiter.
-		If begins with "not:", rule is launched with other but given versions.
-		If empty, launch rule by default.
-	-->
-	<sch:pattern id="required_parameters_premis_formatname_pattern" abstract="true" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:mets="http://www.loc.gov/METS/" xmlns:fi="http://digitalpreservation.fi/schemas/mets/fi-extensions" xmlns:fikdk="http://www.kdk.fi/standards/mets/kdk-extensions" xmlns:exsl="http://exslt.org/common" xmlns:sets="http://exslt.org/sets" xmlns:str="http://exslt.org/strings">
-		<sch:rule context="mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName[count(str:split(.,';'))>2 and ($context_condition)]">
-			<sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
-			<sch:let name="section_context" value="ancestor-or-self::*[self::mets:dmdSec or self::mets:techMD or self::mets:rightsMD or self::mets:sourceMD or self::mets:digiprovMD]"/>
-			<sch:let name="section_string" value="concat('(ID of the metadata section ', name($section_context), ' is ', $section_context/@ID, ')')"/>
-			<sch:let name="formattoken_param" value="str:split(., ';')"/>
-			<sch:let name="formatparam1" value="str:split(normalize-space($formattoken_param[2]), '=')"/>
-			<sch:let name="formatparam2" value="str:split(normalize-space($formattoken_param[3]), '=')"/>
-			<sch:assert test="(count($formattoken_param) &lt; 4) or not(normalize-space($specifications)=''
-			or ((normalize-space(substring($specifications,1,4))='not:') and (not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ', $given_specification, '; ')))))
-			or ((normalize-space(substring($specifications,1,4))!='not:') and (contains(concat('; ',normalize-space($specifications),'; '), concat('; ', $given_specification,'; ')))))">
-		   		Element 'premis:formatName' has too many parameters. <sch:value-of select="substring($section_string,1,number($section_context)*string-length($section_string))"/>
-			</sch:assert>
-			<sch:assert test="((normalize-space($formatparam1[1])='charset' and normalize-space($formatparam2[1])='alt-format')
-			or (normalize-space($formatparam1[1])='alt-format' and normalize-space($formatparam2[1])='charset')) or not(normalize-space($specifications)=''
-			or ((normalize-space(substring($specifications,1,4))='not:') and (not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ', $given_specification, '; ')))))
-			or ((normalize-space(substring($specifications,1,4))!='not:') and (contains(concat('; ',normalize-space($specifications),'; '), concat('; ', $given_specification,'; ')))))">
-		   		Element 'premis:formatName' requires only parameters 'charset' and 'alt-format'. <sch:value-of select="substring($section_string,1,number($section_context)*string-length($section_string))"/>
-			</sch:assert>
-			<sch:assert test="(normalize-space($formatparam1[1])!='charset' or
-			(normalize-space($formatparam1[1])='charset' and contains(concat(' ', $charset, ' '), concat(' ', normalize-space($formatparam1[2]), ' ')))) or not(normalize-space($specifications)=''
-			or ((normalize-space(substring($specifications,1,4))='not:') and (not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ', $given_specification, '; ')))))
-			or ((normalize-space(substring($specifications,1,4))!='not:') and (contains(concat('; ',normalize-space($specifications),'; '), concat('; ', $given_specification,'; ')))))">
-		   		Value '<sch:value-of select="$formatparam1[2]"/>' in parameter 'charset' is not allowed in element 'premis:formatName'. <sch:value-of select="substring($section_string,1,number($section_context)*string-length($section_string))"/>
-			</sch:assert>
-			<sch:assert test="(normalize-space($formatparam2[1])!='charset' or
-			(normalize-space($formatparam2[1])='charset' and contains(concat(' ', $charset, ' '), concat(' ', normalize-space($formatparam2[2]), ' ')))) or not(normalize-space($specifications)=''
-			or ((normalize-space(substring($specifications,1,4))='not:') and (not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ', $given_specification, '; ')))))
-			or ((normalize-space(substring($specifications,1,4))!='not:') and (contains(concat('; ',normalize-space($specifications),'; '), concat('; ', $given_specification,'; ')))))">
-		   		Value '<sch:value-of select="$formatparam2[2]"/>' in parameter 'charset' is not allowed in element 'premis:formatName'. <sch:value-of select="substring($section_string,1,number($section_context)*string-length($section_string))"/>
-			</sch:assert>
-		</sch:rule>
+        <!--
+        Check the parameters in PREMIS element formatName.
+        charset_mimes - File format (mime types) that require charset parameter
+        charset - Allowed character encodings with semicolon+space delimiter
+        context_condition - Rule launched only, if this condition is true.
+        specifications - Catalog/specification versions for which the rule is launched.
+                List the affected versions with semicolon+space delimiter.
+                If begins with "not:", rule is launched with other but given versions.
+                If empty, launch rule by default.
+        -->
+        <sch:pattern id="required_parameters_premis_formatname_pattern" abstract="true" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:mets="http://www.loc.gov/METS/" xmlns:fi="http://digitalpreservation.fi/schemas/mets/fi-extensions" xmlns:fikdk="http://www.kdk.fi/standards/mets/kdk-extensions" xmlns:exsl="http://exslt.org/common" xmlns:sets="http://exslt.org/sets" xmlns:str="http://exslt.org/strings">
+                <sch:rule context="mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName[count(str:split(.,';'))>2 and ($context_condition)]">
+                        <sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
+                        <sch:let name="section_context" value="ancestor-or-self::*[self::mets:dmdSec or self::mets:techMD or self::mets:rightsMD or self::mets:sourceMD or self::mets:digiprovMD]"/>
+                        <sch:let name="section_string" value="concat('(ID of the metadata section ', name($section_context), ' is ', $section_context/@ID, ')')"/>
+                        <sch:let name="formattoken_param" value="str:split(., ';')"/>
+                        <sch:let name="formatparam1" value="str:split(normalize-space($formattoken_param[2]), '=')"/>
+                        <sch:let name="formatparam2" value="str:split(normalize-space($formattoken_param[3]), '=')"/>
+                        <sch:assert test="(count($formattoken_param) &lt; 4) or not(normalize-space($specifications)=''
+                        or ((normalize-space(substring($specifications,1,4))='not:') and (not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ', $given_specification, '; ')))))
+                        or ((normalize-space(substring($specifications,1,4))!='not:') and (contains(concat('; ',normalize-space($specifications),'; '), concat('; ', $given_specification,'; ')))))">
+                                   Element 'premis:formatName' has too many parameters. <sch:value-of select="substring($section_string,1,number($section_context)*string-length($section_string))"/>
+                        </sch:assert>
+                        <sch:assert test="((normalize-space($formatparam1[1])='charset' and normalize-space($formatparam2[1])='alt-format')
+                        or (normalize-space($formatparam1[1])='alt-format' and normalize-space($formatparam2[1])='charset')) or not(normalize-space($specifications)=''
+                        or ((normalize-space(substring($specifications,1,4))='not:') and (not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ', $given_specification, '; ')))))
+                        or ((normalize-space(substring($specifications,1,4))!='not:') and (contains(concat('; ',normalize-space($specifications),'; '), concat('; ', $given_specification,'; ')))))">
+                                   Element 'premis:formatName' requires only parameters 'charset' and 'alt-format'. <sch:value-of select="substring($section_string,1,number($section_context)*string-length($section_string))"/>
+                        </sch:assert>
+                        <sch:assert test="(normalize-space($formatparam1[1])!='charset' or
+                        (normalize-space($formatparam1[1])='charset' and contains(concat(' ', $charset, ' '), concat(' ', normalize-space($formatparam1[2]), ' ')))) or not(normalize-space($specifications)=''
+                        or ((normalize-space(substring($specifications,1,4))='not:') and (not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ', $given_specification, '; ')))))
+                        or ((normalize-space(substring($specifications,1,4))!='not:') and (contains(concat('; ',normalize-space($specifications),'; '), concat('; ', $given_specification,'; ')))))">
+                                   Value '<sch:value-of select="$formatparam1[2]"/>' in parameter 'charset' is not allowed in element 'premis:formatName'. <sch:value-of select="substring($section_string,1,number($section_context)*string-length($section_string))"/>
+                        </sch:assert>
+                        <sch:assert test="(normalize-space($formatparam2[1])!='charset' or
+                        (normalize-space($formatparam2[1])='charset' and contains(concat(' ', $charset, ' '), concat(' ', normalize-space($formatparam2[2]), ' ')))) or not(normalize-space($specifications)=''
+                        or ((normalize-space(substring($specifications,1,4))='not:') and (not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ', $given_specification, '; ')))))
+                        or ((normalize-space(substring($specifications,1,4))!='not:') and (contains(concat('; ',normalize-space($specifications),'; '), concat('; ', $given_specification,'; ')))))">
+                                   Value '<sch:value-of select="$formatparam2[2]"/>' in parameter 'charset' is not allowed in element 'premis:formatName'. <sch:value-of select="substring($section_string,1,number($section_context)*string-length($section_string))"/>
+                        </sch:assert>
+                </sch:rule>
 
-		<sch:rule context="mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName[count(str:split(.,';'))=2 and ($context_condition)]">
-			<sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
-			<sch:let name="section_context" value="ancestor-or-self::*[self::mets:dmdSec or self::mets:techMD or self::mets:rightsMD or self::mets:sourceMD or self::mets:digiprovMD]"/>
-			<sch:let name="section_string" value="concat('(ID of the metadata section ', name($section_context), ' is ', $section_context/@ID, ')')"/>
-			<sch:let name="formattoken_param" value="str:split(., ';')"/>
-			<sch:let name="formatparam" value="str:split(normalize-space($formattoken_param[2]), '=')"/>
-			<sch:assert test="(normalize-space($formatparam[1])='charset' or normalize-space($formatparam[1])='alt-format') or not(normalize-space($specifications)=''
-			or ((normalize-space(substring($specifications,1,4))='not:') and (not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ', $given_specification, '; ')))))
-			or ((normalize-space(substring($specifications,1,4))!='not:') and (contains(concat('; ',normalize-space($specifications),'; '), concat('; ', $given_specification,'; ')))))">
-		   		Element 'premis:formatName' requires only parameters 'charset' and 'alt-format'. <sch:value-of select="substring($section_string,1,number($section_context)*string-length($section_string))"/>
-			</sch:assert>
-			<sch:assert test="(normalize-space($formatparam[1])!='charset' or
-			(normalize-space($formatparam[1])='charset' and contains(concat(' ', $charset, ' '), concat(' ', normalize-space($formatparam[2]), ' ')))) or not(normalize-space($specifications)=''
-			or ((normalize-space(substring($specifications,1,4))='not:') and (not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ', $given_specification, '; ')))))
-			or ((normalize-space(substring($specifications,1,4))!='not:') and (contains(concat('; ',normalize-space($specifications),'; '), concat('; ', $given_specification,'; ')))))">
-		   		Value '<sch:value-of select="$formatparam[2]"/>' in parameter 'charset' is not allowed in element 'premis:formatName'. <sch:value-of select="substring($section_string,1,number($section_context)*string-length($section_string))"/>
-			</sch:assert>
-			<sch:assert test="(not(contains(concat(' ', $charset_mimes, ' '),concat(' ', normalize-space($formattoken_param[1]), ' ')))
-			or (contains(concat(' ', $charset_mimes, ' '),concat(' ', normalize-space($formattoken_param[1]), ' ')) and normalize-space($formatparam[1])='charset')) or not(normalize-space($specifications)=''
-			or ((normalize-space(substring($specifications,1,4))='not:') and (not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ', $given_specification, '; ')))))
-			or ((normalize-space(substring($specifications,1,4))!='not:') and (contains(concat('; ',normalize-space($specifications),'; '), concat('; ', $given_specification,'; ')))))">
-		   		Element 'premis:formatName' requires parameter 'charset' with format '<sch:value-of select="$formattoken_param[1]"/>'. <sch:value-of select="substring($section_string,1,number($section_context)*string-length($section_string))"/>
-			</sch:assert>
-		</sch:rule>
+                <sch:rule context="mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName[count(str:split(.,';'))=2 and ($context_condition)]">
+                        <sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
+                        <sch:let name="section_context" value="ancestor-or-self::*[self::mets:dmdSec or self::mets:techMD or self::mets:rightsMD or self::mets:sourceMD or self::mets:digiprovMD]"/>
+                        <sch:let name="section_string" value="concat('(ID of the metadata section ', name($section_context), ' is ', $section_context/@ID, ')')"/>
+                        <sch:let name="formattoken_param" value="str:split(., ';')"/>
+                        <sch:let name="formatparam" value="str:split(normalize-space($formattoken_param[2]), '=')"/>
+                        <sch:assert test="(normalize-space($formatparam[1])='charset' or normalize-space($formatparam[1])='alt-format') or not(normalize-space($specifications)=''
+                        or ((normalize-space(substring($specifications,1,4))='not:') and (not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ', $given_specification, '; ')))))
+                        or ((normalize-space(substring($specifications,1,4))!='not:') and (contains(concat('; ',normalize-space($specifications),'; '), concat('; ', $given_specification,'; ')))))">
+                                   Element 'premis:formatName' requires only parameters 'charset' and 'alt-format'. <sch:value-of select="substring($section_string,1,number($section_context)*string-length($section_string))"/>
+                        </sch:assert>
+                        <sch:assert test="(normalize-space($formatparam[1])!='charset' or
+                        (normalize-space($formatparam[1])='charset' and contains(concat(' ', $charset, ' '), concat(' ', normalize-space($formatparam[2]), ' ')))) or not(normalize-space($specifications)=''
+                        or ((normalize-space(substring($specifications,1,4))='not:') and (not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ', $given_specification, '; ')))))
+                        or ((normalize-space(substring($specifications,1,4))!='not:') and (contains(concat('; ',normalize-space($specifications),'; '), concat('; ', $given_specification,'; ')))))">
+                                   Value '<sch:value-of select="$formatparam[2]"/>' in parameter 'charset' is not allowed in element 'premis:formatName'. <sch:value-of select="substring($section_string,1,number($section_context)*string-length($section_string))"/>
+                        </sch:assert>
+                        <sch:assert test="(not(contains(concat(' ', $charset_mimes, ' '),concat(' ', normalize-space($formattoken_param[1]), ' ')))
+                        or (contains(concat(' ', $charset_mimes, ' '),concat(' ', normalize-space($formattoken_param[1]), ' ')) and normalize-space($formatparam[1])='charset')) or not(normalize-space($specifications)=''
+                        or ((normalize-space(substring($specifications,1,4))='not:') and (not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ', $given_specification, '; ')))))
+                        or ((normalize-space(substring($specifications,1,4))!='not:') and (contains(concat('; ',normalize-space($specifications),'; '), concat('; ', $given_specification,'; ')))))">
+                                   Element 'premis:formatName' requires parameter 'charset' with format '<sch:value-of select="$formattoken_param[1]"/>'. <sch:value-of select="substring($section_string,1,number($section_context)*string-length($section_string))"/>
+                        </sch:assert>
+                </sch:rule>
 
-		<sch:rule context="mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName[count(str:split(.,';'))=1 and ($context_condition)]">
-			<sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
-			<sch:let name="section_context" value="ancestor-or-self::*[self::mets:dmdSec or self::mets:techMD or self::mets:rightsMD or self::mets:sourceMD or self::mets:digiprovMD]"/>
-			<sch:let name="section_string" value="concat('(ID of the metadata section ', name($section_context), ' is ', $section_context/@ID, ')')"/>
-			<sch:assert test="(not(contains(concat(' ', $charset_mimes, ' '),concat(' ', normalize-space(.), ' ')))) or not(normalize-space($specifications)=''
-			or ((normalize-space(substring($specifications,1,4))='not:') and (not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ', $given_specification, '; ')))))
-			or ((normalize-space(substring($specifications,1,4))!='not:') and (contains(concat('; ',normalize-space($specifications),'; '), concat('; ', $given_specification,'; ')))))">
-				Element 'premis:formatName' requires parameter 'charset' with format '<sch:value-of select="."/>'. <sch:value-of select="substring($section_string,1,number($section_context)*string-length($section_string))"/>
-			</sch:assert>
-		</sch:rule>
-	</sch:pattern>
+                <sch:rule context="mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName[count(str:split(.,';'))=1 and ($context_condition)]">
+                        <sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
+                        <sch:let name="section_context" value="ancestor-or-self::*[self::mets:dmdSec or self::mets:techMD or self::mets:rightsMD or self::mets:sourceMD or self::mets:digiprovMD]"/>
+                        <sch:let name="section_string" value="concat('(ID of the metadata section ', name($section_context), ' is ', $section_context/@ID, ')')"/>
+                        <sch:assert test="(not(contains(concat(' ', $charset_mimes, ' '),concat(' ', normalize-space(.), ' ')))) or not(normalize-space($specifications)=''
+                        or ((normalize-space(substring($specifications,1,4))='not:') and (not(contains(concat('; ',normalize-space(substring-after($specifications,':')),'; '), concat('; ', $given_specification, '; ')))))
+                        or ((normalize-space(substring($specifications,1,4))!='not:') and (contains(concat('; ',normalize-space($specifications),'; '), concat('; ', $given_specification,'; ')))))">
+                                Element 'premis:formatName' requires parameter 'charset' with format '<sch:value-of select="."/>'. <sch:value-of select="substring($section_string,1,number($section_context)*string-length($section_string))"/>
+                        </sch:assert>
+                </sch:rule>
+        </sch:pattern>

@@ -3,20 +3,20 @@
 <!-- pass-filter: /mets:mets/mets:fileSec -->
 <!-- context-filter: mets:fileSec|mets:fileGrp|mets:file|mets:FLocat|mets:stream -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.4">
-	<sch:title>METS fileSec validation</sch:title>
+        <sch:title>METS fileSec validation</sch:title>
 
 <!--
 Validates METS fileSec.
 -->
 
-	<sch:ns prefix="mets" uri="http://www.loc.gov/METS/"/>
-	<sch:ns prefix="fikdk" uri="http://www.kdk.fi/standards/mets/kdk-extensions"/>
-	<sch:ns prefix="fi" uri="http://digitalpreservation.fi/schemas/mets/fi-extensions"/>
-	<sch:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
-	<sch:ns prefix="exsl" uri="http://exslt.org/common"/>
-	<sch:ns prefix="sets" uri="http://exslt.org/sets"/>
-	<sch:ns prefix="str" uri="http://exslt.org/strings"/>
-	<sch:ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
+        <sch:ns prefix="mets" uri="http://www.loc.gov/METS/"/>
+        <sch:ns prefix="fikdk" uri="http://www.kdk.fi/standards/mets/kdk-extensions"/>
+        <sch:ns prefix="fi" uri="http://digitalpreservation.fi/schemas/mets/fi-extensions"/>
+        <sch:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
+        <sch:ns prefix="exsl" uri="http://exslt.org/common"/>
+        <sch:ns prefix="sets" uri="http://exslt.org/sets"/>
+        <sch:ns prefix="str" uri="http://exslt.org/strings"/>
+        <sch:ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
         <sch:ns prefix="xml" uri="https://www.w3.org/XML/1998/namespace"/>
         <sch:ns prefix="mix" uri="http://www.loc.gov/mix/v20"/>
         <sch:ns prefix="addml" uri="http://www.arkivverket.no/standarder/addml"/>
@@ -25,14 +25,14 @@ Validates METS fileSec.
         <sch:ns prefix="premis" uri="info:lc/xmlns/premis-v2"/>
 
         <sch:include href="./abstracts/allowed_attribute_list_pattern.incl"/>
-	<sch:include href="./abstracts/disallowed_attribute_pattern.incl"/>
-	<sch:include href="./abstracts/disallowed_element_pattern.incl"/>
-	<sch:include href="./abstracts/required_attribute_pattern.incl"/>
-	<sch:include href="./abstracts/required_element_pattern.incl"/>
-	<sch:include href="./abstracts/required_max_elements_pattern.incl"/>
-	<sch:include href="./abstracts/required_values_attribute_pattern.incl"/>
+        <sch:include href="./abstracts/disallowed_attribute_pattern.incl"/>
+        <sch:include href="./abstracts/disallowed_element_pattern.incl"/>
+        <sch:include href="./abstracts/required_attribute_pattern.incl"/>
+        <sch:include href="./abstracts/required_element_pattern.incl"/>
+        <sch:include href="./abstracts/required_max_elements_pattern.incl"/>
+        <sch:include href="./abstracts/required_values_attribute_pattern.incl"/>
 
-	<!-- File formats of metadata types -->
+        <!-- File formats of metadata types -->
         <sch:let name="addml_types" value="string('text/csv')"/>
         <sch:let name="audiomd_types" value="string('audio/x-aiff audio/x-wav audio/flac audio/mp4 audio/L8 audio/L16 audio/L20 audio/L24 audio/mpeg audio/x-ms-wma')"/>
         <sch:let name="mix_types" value="string('image/x-adobe-dng image/tiff image/jpeg image/jp2 image/png image/gif image/x-dpx')"/>
@@ -49,7 +49,7 @@ Validates METS fileSec.
         <sch:let name="mix_mdids" value="$techmd[normalize-space(./mets:mdWrap/@MDTYPE)='NISOIMG' and ./mets:mdWrap/mets:xmlData/mix:*]/@ID"/>
         <sch:let name="videomd_mdids" value="$techmd[normalize-space(./mets:mdWrap/@OTHERMDTYPE)='VideoMD' and ./mets:mdWrap/mets:xmlData/videomd:*]/@ID"/>
 
-	<!-- PREMIS object ids of different file format types -->
+        <!-- PREMIS object ids of different file format types -->
         <sch:let name="addml_fileid" value="$premis_file_id[contains(concat(' ', $addml_types, ' '), concat(' ', normalize-space(../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName), ' '))]"/>
         <sch:let name="audiomd_fileid" value="$premis_file_id[contains(concat(' ', $audiomd_types, ' '), concat(' ', normalize-space(../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName), ' '))]"/>
         <sch:let name="audiomd_fileid_stream" value="$premis_stream_id[contains(concat(' ', $audiomd_types, ' '), concat(' ', normalize-space(../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName), ' '))]"/>
@@ -57,13 +57,13 @@ Validates METS fileSec.
         <sch:let name="videomd_fileid" value="$premis_file_id[contains(concat(' ', $videomd_types, ' '), concat(' ', normalize-space(../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName), ' '))]"/>
         <sch:let name="videomd_fileid_stream" value="$premis_stream_id[contains(concat(' ', $videomd_types, ' '), concat(' ', normalize-space(../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName), ' '))]"/>
 
-	<!-- Section ids of different requirements -->
+        <!-- Section ids of different requirements -->
         <sch:let name="csv_fileid" value="$addml_fileid[../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName='text/csv']"/>
         <sch:let name="jp2_fileid" value="$mix_fileid[../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName='image/jp2']"/>
         <sch:let name="not_jp2_fileid" value="$premis_file_id[../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName!='image/jp2']"/>
         <sch:let name="tiff_fileid" value="$mix_fileid[../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName='image/tiff' or ../mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName='image/x-dpx']"/>
 
-	<!-- ID count -->
+        <!-- ID count -->
         <sch:let name="addml_countfiles" value="count($addml_fileid)"/>
         <sch:let name="addml_countmd" value="count($addml_mdids)"/>
         <sch:let name="audiomd_countfiles" value="count($audiomd_fileid)"/>
@@ -86,7 +86,7 @@ Validates METS fileSec.
         <sch:let name="videomd_countfiles_stream" value="count($videomd_fileid_stream)"/>
         <sch:let name="videomd_countmd" value="count($videomd_mdids)"/>
 
-	<!-- Required special elements -->
+        <!-- Required special elements -->
         <sch:let name="csv_addmlfscids" value="$addml_mdids[../mets:mdWrap/mets:xmlData/addml:addml/addml:dataset/addml:flatFiles/addml:structureTypes/addml:flatFileTypes/addml:flatFileType/addml:delimFileFormat/addml:fieldSeparatingChar]"/>
         <sch:let name="csv_addmlrsids" value="$addml_mdids[../mets:mdWrap/mets:xmlData/addml:addml/addml:dataset/addml:flatFiles/addml:structureTypes/addml:flatFileTypes/addml:flatFileType/addml:delimFileFormat/addml:recordSeparator]"/>
         <sch:let name="jp2_mixjp2ids" value="$mix_mdids[../mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics/mix:JPEG2000]"/>
@@ -99,11 +99,11 @@ Validates METS fileSec.
         <sch:let name="admids_targets" value="/mets:mets/mets:amdSec/*/@ID"/>
         <sch:let name="admids_target_count" value="count($admids_targets)"/>
 
-	<!-- METS internal linking, cross-check part 2: From target to link -->
-	<sch:let name="fileidfptrlinks" value="/mets:mets/mets:structMap//mets:fptr"/>
-	<sch:let name="fileidarealinks" value="/mets:mets/mets:structMap//mets:area"/>
+        <!-- METS internal linking, cross-check part 2: From target to link -->
+        <sch:let name="fileidfptrlinks" value="/mets:mets/mets:structMap//mets:fptr"/>
+        <sch:let name="fileidarealinks" value="/mets:mets/mets:structMap//mets:area"/>
 
-	<!-- Allow only given attributes -->
+        <!-- Allow only given attributes -->
         <sch:pattern id="mets_fileSec_attribute_list" is-a="allowed_attribute_list_pattern">
                 <sch:param name="context_element" value="mets:fileSec"/>
                 <sch:param name="context_condition" value="true()"/>
@@ -123,96 +123,96 @@ Validates METS fileSec.
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
 
-	<!-- Elements and attributes inside fileSec -->
-	<sch:pattern id="mets_fileGrp_file" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:fileGrp"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="required_element" value="mets:file"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_file_ADMID" is-a="required_attribute_pattern">
-		<sch:param name="context_element" value="mets:fileGrp/mets:file"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="required_attribute" value="@ADMID"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_file_CHECKSUM" is-a="required_attribute_pattern">
-		<sch:param name="context_element" value="mets:fileGrp/mets:file"/>
-		<sch:param name="context_condition" value="@CHECKSUMTYPE"/>
-		<sch:param name="required_attribute" value="@CHECKSUM"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_file_CHECKSUMTYPE" is-a="required_attribute_pattern">
-		<sch:param name="context_element" value="mets:fileGrp/mets:file"/>
-		<sch:param name="context_condition" value="@CHECKSUM"/>
-		<sch:param name="required_attribute" value="@CHECKSUMTYPE"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_file_FLocat" is-a="required_element_pattern">
-		<sch:param name="context_element" value="mets:fileGrp/mets:file"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="required_element" value="mets:FLocat"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_file_FLocat_max" is-a="required_max_elements_pattern">
-		<sch:param name="context_element" value="mets:fileGrp/mets:file"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="required_element" value="mets:FLocat"/>
-		<sch:param name="num" value="1"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_file_FContent" is-a="disallowed_element_pattern">
-		<sch:param name="context_element" value="mets:fileGrp/mets:file"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_element" value="mets:FContent"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_file_file" is-a="disallowed_element_pattern">
-		<sch:param name="context_element" value="mets:fileGrp/mets:file"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_element" value="mets:file"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_file_transformFile" is-a="disallowed_element_pattern">
-		<sch:param name="context_element" value="mets:fileGrp/mets:file"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_element" value="mets:transformFile"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
+        <!-- Elements and attributes inside fileSec -->
+        <sch:pattern id="mets_fileGrp_file" is-a="required_element_pattern">
+                <sch:param name="context_element" value="mets:fileGrp"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="required_element" value="mets:file"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_file_ADMID" is-a="required_attribute_pattern">
+                <sch:param name="context_element" value="mets:fileGrp/mets:file"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="required_attribute" value="@ADMID"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_file_CHECKSUM" is-a="required_attribute_pattern">
+                <sch:param name="context_element" value="mets:fileGrp/mets:file"/>
+                <sch:param name="context_condition" value="@CHECKSUMTYPE"/>
+                <sch:param name="required_attribute" value="@CHECKSUM"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_file_CHECKSUMTYPE" is-a="required_attribute_pattern">
+                <sch:param name="context_element" value="mets:fileGrp/mets:file"/>
+                <sch:param name="context_condition" value="@CHECKSUM"/>
+                <sch:param name="required_attribute" value="@CHECKSUMTYPE"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_file_FLocat" is-a="required_element_pattern">
+                <sch:param name="context_element" value="mets:fileGrp/mets:file"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="required_element" value="mets:FLocat"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_file_FLocat_max" is-a="required_max_elements_pattern">
+                <sch:param name="context_element" value="mets:fileGrp/mets:file"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="required_element" value="mets:FLocat"/>
+                <sch:param name="num" value="1"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_file_FContent" is-a="disallowed_element_pattern">
+                <sch:param name="context_element" value="mets:fileGrp/mets:file"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_element" value="mets:FContent"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_file_file" is-a="disallowed_element_pattern">
+                <sch:param name="context_element" value="mets:fileGrp/mets:file"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_element" value="mets:file"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_file_transformFile" is-a="disallowed_element_pattern">
+                <sch:param name="context_element" value="mets:fileGrp/mets:file"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_element" value="mets:transformFile"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
 
-	<!-- FLocat attributes -->
-	<sch:pattern id="mets_FLocat_href" is-a="required_attribute_pattern">
-		<sch:param name="context_element" value="mets:FLocat"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="required_attribute" value="@xlink:href"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_FLocat_type" is-a="required_attribute_pattern">
-		<sch:param name="context_element" value="mets:FLocat"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="required_attribute" value="@xlink:type"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_FLocat_OTHERLOCTYPE" is-a="disallowed_attribute_pattern">
-		<sch:param name="context_element" value="mets:FLocat"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="disallowed_attribute" value="@OTHERLOCTYPE"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_FLocat_LOCTYPE" is-a="required_values_attribute_pattern">
-		<sch:param name="context_element" value="mets:FLocat"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="context_attribute" value="@LOCTYPE"/>
-		<sch:param name="valid_values" value="string('URL')"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
-	<sch:pattern id="mets_FLocat_type_values" is-a="required_values_attribute_pattern">
-		<sch:param name="context_element" value="mets:FLocat"/>
-		<sch:param name="context_condition" value="true()"/>
-		<sch:param name="context_attribute" value="@xlink:type"/>
-		<sch:param name="valid_values" value="string('simple')"/>
-		<sch:param name="specifications" value="string('')"/>
-	</sch:pattern>
+        <!-- FLocat attributes -->
+        <sch:pattern id="mets_FLocat_href" is-a="required_attribute_pattern">
+                <sch:param name="context_element" value="mets:FLocat"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="required_attribute" value="@xlink:href"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_FLocat_type" is-a="required_attribute_pattern">
+                <sch:param name="context_element" value="mets:FLocat"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="required_attribute" value="@xlink:type"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_FLocat_OTHERLOCTYPE" is-a="disallowed_attribute_pattern">
+                <sch:param name="context_element" value="mets:FLocat"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_attribute" value="@OTHERLOCTYPE"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_FLocat_LOCTYPE" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:FLocat"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="context_attribute" value="@LOCTYPE"/>
+                <sch:param name="valid_values" value="string('URL')"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_FLocat_type_values" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:FLocat"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="context_attribute" value="@xlink:type"/>
+                <sch:param name="valid_values" value="string('simple')"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
 
         <!-- METS internal linking, cross-check part 1: From link to target -->
         <sch:pattern id="link_file_admid">
@@ -230,20 +230,20 @@ Validates METS fileSec.
                 </sch:rule>
         </sch:pattern>
 
-	<!-- METS internal linking, cross-check part 2: From target to link -->
-	<sch:pattern id="id_references_file">
+        <!-- METS internal linking, cross-check part 2: From target to link -->
+        <sch:pattern id="id_references_file">
         <sch:rule context="mets:fileGrp/mets:file">
-			<sch:let name="id" value="normalize-space(@ID)"/>
-			<sch:assert test="count($fileidfptrlinks[contains(concat(' ', normalize-space(@FILEID), ' '), concat(' ', $id, ' '))]) &gt; 0
-			or count($fileidarealinks[contains(concat(' ', normalize-space(@FILEID), ' '), concat(' ', $id, ' '))]) &gt; 0">
-				Section containing value '<sch:value-of select="@ID"/>' in attribute '<sch:value-of select="name(@ID)"/>' in element '<sch:value-of select="name(.)"/>' requires a reference from attribute '@FILEID'.
-			</sch:assert>
+                        <sch:let name="id" value="normalize-space(@ID)"/>
+                        <sch:assert test="count($fileidfptrlinks[contains(concat(' ', normalize-space(@FILEID), ' '), concat(' ', $id, ' '))]) &gt; 0
+                        or count($fileidarealinks[contains(concat(' ', normalize-space(@FILEID), ' '), concat(' ', $id, ' '))]) &gt; 0">
+                                Section containing value '<sch:value-of select="@ID"/>' in attribute '<sch:value-of select="name(@ID)"/>' in element '<sch:value-of select="name(.)"/>' requires a reference from attribute '@FILEID'.
+                        </sch:assert>
         </sch:rule>
-	</sch:pattern>
+        </sch:pattern>
 
         <!-- Require PREMIS:OBJECTs for files -->
         <sch:pattern id="premis_file_requirement">
-        	<sch:rule context="mets:fileGrp/mets:file">
+                <sch:rule context="mets:fileGrp/mets:file">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
                         <sch:let name="countfilescomb_premis" value="count(sets:distinct(exsl:node-set($premis_file_id) | str:tokenize($admids, ' ')))"/>
@@ -251,7 +251,7 @@ Validates METS fileSec.
                                 Linking between PREMIS:OBJECT metadata and file '<sch:value-of select="./mets:FLocat/@xlink:href"/>' is required.
                         </sch:assert>
                 </sch:rule>
-    	</sch:pattern>
+            </sch:pattern>
         <sch:pattern id="premis_stream_requirement">
         <sch:rule context="mets:stream">
                         <sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
@@ -259,14 +259,14 @@ Validates METS fileSec.
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
                         <sch:let name="countfilescomb_premis_stream" value="count(sets:distinct(exsl:node-set($premis_stream_id) | str:tokenize($admids, ' ')))"/>
                         <sch:assert test="(($premis_stream_count+$countadm) &gt; $countfilescomb_premis_stream)
-			or contains(' 1.5.0 ', concat(' ', $given_specification,' '))">
+                        or contains(' 1.5.0 ', concat(' ', $given_specification,' '))">
                                 Linking between PREMIS:OBJECT metadata and stream in file '<sch:value-of select="../mets:FLocat/@xlink:href"/>' is required.
                         </sch:assert>
                 </sch:rule>
-    	</sch:pattern>
+            </sch:pattern>
 
         <!-- File format specific technical metadata requirements -->
-	<sch:pattern id="audiomd_requirement_stream">
+        <sch:pattern id="audiomd_requirement_stream">
                 <sch:rule context="mets:stream[normalize-space(../@USE)!='fi-dpres-no-file-format-validation' and normalize-space(../@USE)!='fi-dpres-file-format-identification']">
                         <sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
@@ -355,7 +355,7 @@ Validates METS fileSec.
 
         <!-- JPEG2000 specific check -->
         <sch:pattern id="jpeg2000_requirements">
-        	<sch:rule context="mets:fileGrp/mets:file">
+                <sch:rule context="mets:fileGrp/mets:file">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
                         <sch:let name="countfilescomb_jpeg2000" value="count(sets:distinct(exsl:node-set($jp2_fileid) | str:tokenize($admids, ' ')))"/>
@@ -372,7 +372,7 @@ Validates METS fileSec.
 
         <!-- Not JPEG2000 file - specific check -->
         <sch:pattern id="jpeg2000_disallowed">
-        	<sch:rule context="mets:fileGrp/mets:file">
+                <sch:rule context="mets:fileGrp/mets:file">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
                         <sch:let name="countfilescomb_jpeg2000_not" value="count(sets:distinct(exsl:node-set($not_jp2_fileid) | str:tokenize($admids, ' ')))"/>
@@ -504,9 +504,9 @@ Validates METS fileSec.
         </sch:pattern>
 
 
-	<!-- COMPATIBILITY WITH DEPRECATED VERSIONS -->
+        <!-- COMPATIBILITY WITH DEPRECATED VERSIONS -->
 
-	<!-- Disallow streams in secifications older than 1.6.0 -->
+        <!-- Disallow streams in secifications older than 1.6.0 -->
         <sch:pattern id="mets_file_stream" is-a="disallowed_element_pattern">
                 <sch:param name="context_element" value="mets:fileGrp/mets:file"/>
                 <sch:param name="context_condition" value="true()"/>
