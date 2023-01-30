@@ -1,6 +1,11 @@
 Release notes
 =============
 
+Version 0.35
+------------
+
+- Add support for ALTO 4.2 and 4.3.
+
 Version 0.34
 ------------
 
