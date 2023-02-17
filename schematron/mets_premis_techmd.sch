@@ -2,7 +2,7 @@
 
 <!-- pass-filter: /mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:* -->
 <!-- context-filter: premis:* -->
-<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.4">
+<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.5">
         <sch:title>PREMIS metadata validation</sch:title>
 
 <!--
@@ -33,6 +33,7 @@ Validates PREMIS metadata
                 'application/xhtml+xml; ',
                 'text/xml; ',
                 'text/html; ',
+                'model/step; ',
                 'application/vnd.oasis.opendocument.text; ',
                 'application/vnd.oasis.opendocument.spreadsheet; ',
                 'application/vnd.oasis.opendocument.presentation; ',
@@ -59,6 +60,7 @@ Validates PREMIS metadata
                 'image/png; ',
                 'application/warc; ',
                 'application/gml+xml; ',
+                'application/geopackage+sqlite3; ',
                 'application/vnd.google-earth.kml+xml; ',
                 'application/x-siard; ',
                 'application/x-spss-por; ',
@@ -97,6 +99,7 @@ Validates PREMIS metadata
                 | exsl:node-set('fmt/102 fmt/103 fmt/471')
                 | exsl:node-set('fmt/101')
                 | exsl:node-set('fmt/100 fmt/471')
+                | exsl:node-set('fmt/700')
                 | exsl:node-set('fmt/136 fmt/290 fmt/291')
                 | exsl:node-set('fmt/137 fmt/294 fmt/295')
                 | exsl:node-set('fmt/138 fmt/292 fmt/293')
@@ -116,15 +119,16 @@ Validates PREMIS metadata
                 | exsl:node-set('')
                 | exsl:node-set('x-fmt/392')
                 | exsl:node-set('fmt/199')
-                | exsl:node-set('fmt/353 fmt/438 fmt/730 fmt/155')
+                | exsl:node-set('fmt/353 fmt/438 fmt/730 fmt/155 fmt/152 fmt/437')
                 | exsl:node-set('fmt/42 fmt/43 fmt/44 x-fmt/398 x-fmt/390 x-fmt/391 fmt/645')
                 | exsl:node-set('x-fmt/392')
                 | exsl:node-set('fmt/92')
                 | exsl:node-set('fmt/13')
                 | exsl:node-set('fmt/1355')
                 | exsl:node-set('fmt/1047')
-                | exsl:node-set('fmt/224')
-                | exsl:node-set('fmt/995 fmt/1196')
+                | exsl:node-set('fmt/1700')
+                | exsl:node-set('fmt/244')
+                | exsl:node-set('fmt/1777')
                 | exsl:node-set('fmt/997')
                 | exsl:node-set('fmt/806 fmt/828')
                 | exsl:node-set('fmt/807 fmt/286 fmt/287')

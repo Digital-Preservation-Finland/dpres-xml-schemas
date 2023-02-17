@@ -2,7 +2,7 @@
 
 <!-- pass-filter: /mets:mets/mets:fileSec -->
 <!-- context-filter: mets:fileSec|mets:fileGrp|mets:file|mets:FLocat|mets:stream -->
-<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.4">
+<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.5">
         <sch:title>METS fileSec validation</sch:title>
 
 <!--

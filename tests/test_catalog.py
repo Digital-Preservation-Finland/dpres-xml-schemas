@@ -25,8 +25,8 @@ def test_catalog_mets_complete(catalog_fx):
     (returncode, _, _) = catalog_fx(xmltree=mets)
     assert returncode == 0
 
-    set_attribute(root, 'CATALOG', 'fikdk', '1.7.4')
-    set_attribute(root, 'SPECIFICATION', 'fikdk', '1.7.4')
+    set_attribute(root, 'CATALOG', 'fikdk', '1.7.5')
+    set_attribute(root, 'SPECIFICATION', 'fikdk', '1.7.5')
     (returncode, _, _) = catalog_fx(xmltree=mets)
     assert returncode == 3
 
@@ -65,6 +65,7 @@ def test_contractid_format(catalog_fx):
     ('ead', 'ead', 'dmdSec'),
     ('ead', 'ead3', 'dmdSec'),
     ('eac-cpf', 'eac', 'dmdSec'),
+    ('eac', 'eac2', 'dmdSec'),
     ('vra', 'vra', 'dmdSec'),
     ('lido', 'lido', 'dmdSec'),
     ('DDIInstance', 'ddilc33', 'dmdSec'),

@@ -2,7 +2,7 @@
 
 <!-- pass-filter: /mets:mets/mets:metsHdr -->
 <!-- context-filter: mets:metsHdr|mets:agent -->
-<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.4">
+<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.5">
         <sch:title>METS metsHdr validation</sch:title>
 
 <!--

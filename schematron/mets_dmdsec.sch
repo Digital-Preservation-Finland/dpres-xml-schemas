@@ -2,7 +2,7 @@
 
 <!-- pass-filter: /mets:mets/mets:dmdSec -->
 <!-- context-filter: mets:dmdSec|mets:mdWrap|mets:xmlData -->
-<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.4">
+<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.5">
         <sch:title>METS dmdSec validation</sch:title>
 
 <!--
@@ -112,8 +112,8 @@ Validates METS dmdSec.
                 <sch:param name="context_element" value="mets:dmdSec/mets:mdWrap"/>
                 <sch:param name="context_condition" value="normalize-space(@MDTYPE)='EAC-CPF'"/>
                 <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
-                <sch:param name="valid_values" value="string('2010_revised')"/>
-                <sch:param name="specifications" value="string('')"/>
+                <sch:param name="valid_values" value="string('2010_revised; 2.0')"/>
+                <sch:param name="specifications" value="string('not: 1.5.0; 1.6.0; 1.6.1; 1.7.0; 1.7.1; 1.7.2; 1.7.3; 1.7.4')"/>
         </sch:pattern>
         <sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_LIDO" is-a="required_values_attribute_pattern">
                 <sch:param name="context_element" value="mets:dmdSec/mets:mdWrap"/>
@@ -228,6 +228,13 @@ Validates METS dmdSec.
         </sch:pattern>
 
         <!-- Metadata types and versions in old specifications -->
+        <sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_EAC_pre175" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:dmdSec/mets:mdWrap"/>
+                <sch:param name="context_condition" value="normalize-space(@MDTYPE)='EAC-CPF'"/>
+                <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
+                <sch:param name="valid_values" value="string('2010_revised')"/>
+                <sch:param name="specifications" value="string('1.5.0; 1.6.0; 1.6.1; 1.7.0; 1.7.1; 1.7.2; 1.7.3; 1.7.4')"/>
+        </sch:pattern>
         <sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_DC_pre172" is-a="required_values_attribute_pattern">
                 <sch:param name="context_element" value="mets:dmdSec/mets:mdWrap"/>
                 <sch:param name="context_condition" value="normalize-space(@MDTYPE)='DC'"/>

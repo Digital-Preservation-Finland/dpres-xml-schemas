@@ -80,7 +80,7 @@ def test_mandatory_sections_root(schematron_fx):
 
 
 @pytest.mark.parametrize("specification, failed", [
-    ('1.5.0', 2), ('1.6.0', 1), ('1.7.4', 0)
+    ('1.5.0', 2), ('1.6.0', 1), ('1.7.5', 0)
 ])
 def test_new_mets_attributes_root(schematron_fx, specification, failed):
     """Test that CONTENTID, and CONTRACTID are
@@ -91,7 +91,7 @@ def test_new_mets_attributes_root(schematron_fx, specification, failed):
     :failed: Number of failures
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    if specification == '1.7.4':
+    if specification == '1.7.5':
         fix_version_17(root)
         svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
         assert svrl.count(SVRL_FAILED) == failed
@@ -157,7 +157,7 @@ def test_identifiers_unique(schematron_fx):
 
 @pytest.mark.parametrize("nspaces, attributes, version", [
     (['fikdk', 'fikdk'], ['CATALOG', 'SPECIFICATION'], "1.6.0"),
-    (['fi', 'fi'], ['CATALOG', 'SPECIFICATION'], "1.7.4"),
+    (['fi', 'fi'], ['CATALOG', 'SPECIFICATION'], "1.7.5"),
 ])
 def test_dependent_attributes_root(schematron_fx, nspaces, attributes,
                                    version):
@@ -308,8 +308,8 @@ def test_arbitrary_attributes_root(schematron_fx):
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
     elem_handler = find_element(root, 'mets', 'mets')
-    for spec in [None, '1.7.4']:
-        if spec == '1.7.4':
+    for spec in [None, '1.7.5']:
+        if spec == '1.7.5':
             fix_version_17(root)
         for ns in ['fi', 'fikdk', 'dc']:
             set_attribute(elem_handler, 'xxx', ns, 'xxx')

@@ -38,8 +38,8 @@ def test_mdtype_items_rightsmd(schematron_fx):
 
     # Test that all MDTYPEVERSIONs work with all specifications
     for specversion in ['1.5.0', '1.6.0', '1.7.0', '1.7.1', '1.7.2', '1.7.3',
-                        '1.7.4']:
-        if specversion in ['1.7.0', '1.7.1', '1.7.3', '1.7.4']:
+                        '1.7.4', '1.7.5']:
+        if specversion in ['1.7.0', '1.7.1', '1.7.3', '1.7.4', '1.7.5']:
             fix_version_17(root)
         else:
             set_attribute(root, 'CATALOG', 'fikdk', specversion)
@@ -68,37 +68,3 @@ def test_disallowed_items_rightsmd(schematron_fx):
     set_element(elem_handler, 'mdRef', 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
-
-
-def test_rightsstatement_warning(schematron_fx):
-    """There was an accidential error in specification 1.5.0 where
-    rightsStatement was accepted as root element in PREMIS:RIGHTS. The correct
-    element is 'rights'. Test that 'rights' works in all versions, and
-    'rightsStatement' gives a warning with specification 1.5.0 and error
-    in all other versions.
-
-    :schematron_fx: Schematron compile fixture
-    """
-    xml = '''<mets:mets fi:CATALOG="1.5.0" xmlns:mets="%(mets)s"
-             xmlns:dc="%(dc)s" xmlns:premis="%(premis)s" xmlns:fi="%(fikdk)s">
-               <mets:dmdSec><mets:mdWrap MDTYPE="DC" MDTYPEVERSION="1.1">
-                 <mets:xmlData><dc:subject/></mets:xmlData></mets:mdWrap>
-               </mets:dmdSec><mets:amdSec>
-                 <mets:techMD>
-                   <mets:mdWrap MDTYPE='PREMIS:OBJECT' MDTYPEVERSION="2.3">
-                   <mets:xmlData><premis:object/></mets:xmlData>
-                 </mets:mdWrap></mets:techMD>
-                 <mets:rightsMD>
-                   <mets:mdWrap MDTYPE="PREMIS:RIGHTS" MDTYPEVERSION="2.3">
-                   <mets:xmlData><premis:rightsStatement/>
-                 </mets:xmlData></mets:mdWrap></mets:rightsMD>
-                 <mets:digiprovMD>
-                   <mets:mdWrap MDTYPE='PREMIS:EVENT' MDTYPEVERSION="2.3">
-                   <mets:xmlData><premis:event/></mets:xmlData></mets:mdWrap>
-             </mets:digiprovMD></mets:amdSec></mets:mets>''' % NAMESPACES
-    (mets, _) = parse_xml_string(xml)
-
-    # rightsStatement gives a warning with specification 1.5.0
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 0
-    assert svrl.count(SVRL_REPORT) == 1

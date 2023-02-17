@@ -33,7 +33,7 @@ def test_valid_complete_mdwrap(schematron_fx):
     ('dmdSec', 'MODS', None, ['3.7', '3.6', '3.5', '3.4', '3.3', '3.2',
                               '3.1', '3.0']),
     ('dmdSec', 'EAD', None, ['2002']),
-    ('dmdSec', 'EAC-CPF', None, ['2010_revised']),
+    ('dmdSec', 'EAC-CPF', None, ['2010_revised', '2.0']),
     ('dmdSec', 'LIDO', None, ['1.0']),
     ('dmdSec', 'VRA', None, ['4.0']),
     ('dmdSec', 'DDI', None, ['3.3', '3.2', '3.1', '2.5.1', '2.5', '2.1']),
@@ -167,7 +167,8 @@ def test_mandatory_items(schematron_fx):
     ('dmdSec', ['LIDO', None, '1.0', 'lido', 'lido']),
     ('dmdSec', ['VRA', None, '4.0', 'vra', 'vra']),
     ('dmdSec', ['MODS', None, '3.7', 'mods', 'mods']),
-    ('dmdSec', ['EAC-CPF', None, '2010', 'eac-cpf', 'eac']),
+    ('dmdSec', ['EAC-CPF', None, '2010_revised', 'eac-cpf', 'eac']),
+    ('dmdSec', ['EAC-CPF', None, '2.0', 'eac', 'eac2']),
     ('dmdSec', ['DDI', None, '3.2', 'instance', 'ddilc32']),
     ('dmdSec', ['DDI', None, '3.1', 'instance', 'ddilc31']),
     ('dmdSec', ['DDI', None, '2.5', 'instance', 'ddicb25']),
@@ -195,7 +196,7 @@ def test_mdtype_namespace(schematron_fx, section, mdinfo):
              xmlns:premis="%(premis)s" xmlns:fi="%(fikdk)s" xmlns:dc="%(dc)s"
              xmlns:marc21="%(marc21)s" xmlns:ead="%(ead)s"
              xmlns:ead3="%(ead3)s" xmlns:lido="%(lido)s" xmlns:vra="%(vra)s"
-              xmlns:mods="%(mods)s" xmlns:eac="%(eac)s"
+              xmlns:mods="%(mods)s" xmlns:eac="%(eac)s" xmlns:eac2="%(eac2)s"
               xmlns:ddilc32="%(ddilc32)s" xmlns:ddilc31="%(ddilc31)s"
               xmlns:ddicb25="%(ddicb25)s" xmlns:ddicb21="%(ddicb21)s"
               xmlns:mix="%(mix)s"
@@ -281,9 +282,8 @@ def test_mdtype_namespace(schematron_fx, section, mdinfo):
 def test_rightsstatement_failure(schematron_fx):
     """There was an accidential error in specification 1.5.0 where
     rightsStatement was accepted as root element in PREMIS:RIGHTS. The correct
-    element is 'rights'. Test that 'rights' works in all versions, and
-    'rightsStatement' gives a warning with specification 1.5.0 and error
-    in all other versions.
+    element is 'rights'. Test that 'rights' works and 'rightsStatement' gives
+    an error in all versions.
 
     :schematron_fx: Schematron compile fixture
     """
@@ -311,10 +311,10 @@ def test_rightsstatement_failure(schematron_fx):
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
-    # rightsStatement works with specification 1.5.0
+    # rightsStatement fails also with specification 1.5.0
     set_attribute(root, 'CATALOG', 'fikdk', '1.5.0')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 0
+    assert svrl.count(SVRL_FAILED) == 1
 
     # rights works with specification 1.6.0
     set_attribute(root, 'CATALOG', 'fikdk', '1.6.0')

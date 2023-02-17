@@ -19,6 +19,7 @@ xmlns:dcmitype="http://purl.org/dc/dcmitype/"
 xmlns:ead="urn:isbn:1-931666-22-9"
 xmlns:ead3="http://ead3.archivists.org/schema/"
 xmlns:eac="urn:isbn:1-931666-33-4"
+xmlns:eac2="https://archivists.org/ns/eac/v2"
 xmlns:vra="http://www.vraweb.org/vracore4.htm"
 xmlns:lido="http://www.lido-schema.org"
 xmlns:ddilc33="ddi:instance:3_3"
@@ -49,6 +50,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xsd:import namespace="urn:isbn:1-931666-22-9" schemaLocation="http://www.loc.gov/ead/ead.xsd"/>
 	<xsd:import namespace="http://ead3.archivists.org/schema/" schemaLocation="http://www.loc.gov/ead/ead3.xsd"/>
 	<xsd:import namespace="urn:isbn:1-931666-33-4" schemaLocation="http://eac.staatsbibliothek-berlin.de/schema/cpf.xsd"/>
+	<xsd:import namespace="https://archivists.org/ns/eac/v2" schemaLocation="https://eac.staatsbibliothek-berlin.de/schema/v2/eac.xsd"/>
 	<xsd:import namespace="http://www.vraweb.org/vracore4.htm" schemaLocation="http://www.loc.gov/standards/vracore/vra-strict.xsd"/>
 	<xsd:import namespace="http://www.lido-schema.org" schemaLocation="http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd"/>
 	<xsd:import namespace="ddi:instance:3_3" schemaLocation="http://www.ddialliance.org/Specification/DDI-Lifecycle/3.3/XMLSchema/instance.xsd"/>

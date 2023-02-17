@@ -2,7 +2,7 @@
 
 <!-- pass-filter: /mets:mets/mets:amdSec/mets:digiprovMD -->
 <!-- context-filter: mets:digiprovMD|mets:mdWrap|mets:mdRef|mets:xmlData -->
-<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.4">
+<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.5">
         <sch:title>METS digiprovMD validation</sch:title>
 
 <!--
@@ -31,6 +31,7 @@ Validates METS digiprovMD.
         <sch:ns prefix="ead" uri="urn:isbn:1-931666-22-9"/>
         <sch:ns prefix="ead3" uri="http://ead3.archivists.org/schema/"/>
         <sch:ns prefix="eac" uri="urn:isbn:1-931666-33-4"/>
+        <sch:ns prefix="eac2" uri="https://archivists.org/ns/eac/v2"/>
         <sch:ns prefix="vra" uri="http://www.vraweb.org/vracore4.htm"/>
         <sch:ns prefix="lido" uri="http://www.lido-schema.org"/>
         <sch:ns prefix="ddilc33" uri="ddi:instance:3_3"/>
@@ -185,7 +186,7 @@ Validates METS digiprovMD.
         <sch:pattern id="digiprovmd_no_descriptive" is-a="disallowed_element_pattern">
                 <sch:param name="context_element" value="mets:digiprovMD/mets:mdWrap/mets:xmlData"/>
                 <sch:param name="context_condition" value="true()"/>
-                <sch:param name="disallowed_element" value="ebucore:* or datacite:* or lido:* or ead:* or ead3:* or vra:* or mods:* or marc21:* or dc:* or dcterms:* or dcmitype:* or ddilc33:* or ddilc32:* or ddilc31:* or ddicb25:* or ddicb21:*"/>
+                <sch:param name="disallowed_element" value="eac:* or eac2:* or ebucore:* or datacite:* or lido:* or ead:* or ead3:* or vra:* or mods:* or marc21:* or dc:* or dcterms:* or dcmitype:* or ddilc33:* or ddilc32:* or ddilc31:* or ddicb25:* or ddicb21:*"/>
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
 

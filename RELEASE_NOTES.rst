@@ -1,6 +1,14 @@
 Release notes
 =============
 
+Version 0.36
+------------
+
+- Update schema and schematron files to support specifications 1.7.5.
+- Add support for EAC-CPF 2.0.
+- Update pronom codes of supported file formats.
+- Simplify handling of some issues related to previous specification versions.
+
 Version 0.35
 ------------
 
