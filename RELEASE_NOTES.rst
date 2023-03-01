@@ -5,9 +5,20 @@ Version 0.36
 ------------
 
 - Update schema and schematron files to support specifications 1.7.5.
-- Add support for EAC-CPF 2.0.
-- Update pronom codes of supported file formats.
-- Simplify handling of some issues related to previous specification versions.
+- Add support for EAC-CPF 2.0 metadata format and fix minor bugs related to
+  EAC-CPF checks (disallowing to use EAC format e.g. as provenance metadata).
+- Update pronom codes of supported file formats. The codes were updated for
+  the following formats: IFC, DNG, GEOPACKAGE, KML, SIARD
+- The rules for checking that MDTYPE and the contained namespace match were
+  previously coded differently for different specification versions. This is
+  now simplified and done in the same way regardless of the specification
+  version. The supported values for MDTYPE and MDTYPEVERSION have still been
+  kept as specification dependent.
+- There was a bug in catalog version 1.5.0 with handling rightsStatement
+  element in PREMIS metadata. This bug was kept only for that version to keep
+  backwards compatibility. Since it is against the official PREMIS
+  specification and (according to our knowledge) not used by anyone, the
+  exceptional handling for catalog version 1.5.0. is now removed.
 
 Version 0.35
 ------------
