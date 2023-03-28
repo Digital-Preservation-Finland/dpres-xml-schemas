@@ -1,6 +1,11 @@
 Release notes
 =============
 
+Version 0.37
+------------
+
+- Fix DNG MIME type.
+
 Version 0.36
 ------------
 
