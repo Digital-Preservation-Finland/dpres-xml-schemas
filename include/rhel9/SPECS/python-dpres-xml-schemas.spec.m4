@@ -7,11 +7,11 @@
 %define file_build_number M4_FILE_BUILD_NUMBER
 %define file_commit_ref M4_FILE_COMMIT_REF
 
-Name:       
+Name:       dpres-xml-schemas 
 Version:    %{file_version}
 Release:    %{file_release_number}%{file_release_tag}.%{file_build_number}.git%{file_commit_ref}%{?dist}
-Summary:    
-Group:
+Summary:    XML schema catalogs and schematron rules
+Group:      System Environment/Library
 
 License:    LGPLv3+
 URL:        https://www.digitalpreservation.fi/
@@ -19,19 +19,18 @@ Source0:    %{file_prefix}-v%{file_version}%{?file_release_tag}-%{file_build_num
 
 BuildArch:  noarch
 
-BuildRequires:
-
+BuildRequires: %{py3_dist setuptools}
 
 %global _description %{expand:
-python3-... tools
+XML schema catalogs and schematron rules.
 }
 
 %description %_description
 
-%package -n python3-...
+%package -n dpres-xml-schemas
 Summary:    %{summary}
-Requires:
-%description -n python3-... %_description
+Requires:   %{py3_dist xml_helpers}
+%description -n dpres-xml-schemas %_description
 
 %prep
 %autosetup -n %{file_prefix}-v%{file_version}%{?file_release_tag}-%{file_build_number}-g%{file_commit_ref}
