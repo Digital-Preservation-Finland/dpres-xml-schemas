@@ -27,10 +27,10 @@ XML schema catalogs and schematron rules.
 
 %description %_description
 
-%package -n dpres-xml-schemas
+%package -n python3-dpres-xml-schemas
 Summary:    %{summary}
 Requires:   %{py3_dist xml_helpers}
-%description -n dpres-xml-schemas %_description
+%description -n python3-dpres-xml-schemas %_description
 
 %prep
 %autosetup -n %{file_prefix}-v%{file_version}%{?file_release_tag}-%{file_build_number}-g%{file_commit_ref}
@@ -42,7 +42,7 @@ Requires:   %{py3_dist xml_helpers}
 %pyproject_install
 %pyproject_save_files
 
-%files -n python3-... -f %{pyproject_files}
+%files -n python3-dpres-xml-schemas -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
 
