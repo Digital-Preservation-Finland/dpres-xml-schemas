@@ -3,7 +3,6 @@
 variables:
   CI_SKIP_COVERAGE: "yes"
   CI_SKIP_STATIC_ANALYSIS: "yes"
-  CI_INSTALL_SPEC_REQUIRES_MATCH: "(?!python3)"
   CI_EL9: "yes"
 
 include:
