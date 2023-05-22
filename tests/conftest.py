@@ -53,6 +53,8 @@ def schematron_fx(request):
             ps = subprocess.Popen(
                 [
                     'xsltproc',
+                    '--maxdepth',
+                    '20000',
                     os.path.join(CACHE_DIRECTORY, schematronfile+'.xsl'),
                     xmlfile
                 ],
@@ -61,6 +63,8 @@ def schematron_fx(request):
             svrl = subprocess.check_output(
                 [
                     'xsltproc',
+                    '--maxdepth',
+                    '20000',
                     os.path.join(ISO_DIRECTORY, 'trim_optimized_result.xsl'),
                     '-'
                 ],
@@ -70,6 +74,8 @@ def schematron_fx(request):
             svrl = subprocess.check_output(
                 [
                     'xsltproc',
+                    '--maxdepth',
+                    '20000',
                     os.path.join(CACHE_DIRECTORY, schematronfile+'_full.xsl'),
                     xmlfile
                 ]
@@ -88,6 +94,8 @@ def schematron_fx(request):
             step = subprocess.check_output(
                 [
                     'xsltproc',
+                    '--maxdepth',
+                    '20000',
                     '--stringparam',
                     'outputfilter',
                     'only_messages',
@@ -99,6 +107,8 @@ def schematron_fx(request):
             step = subprocess.check_output(
                 [
                     'xsltproc',
+                    '--maxdepth',
+                    '20000',
                     os.path.join(ISO_DIRECTORY, isofile),
                     infile
                 ]
