@@ -22,6 +22,9 @@ install:
 	rm -rf "${XMLCATALOGDIR}"/.git*
 
 	# Common data files
+	mkdir -p "${SHAREDIR}/preservation_schemas"
+	cp -r ingest_report/* "${SHAREDIR}/preservation_schemas"
+
 	mkdir -p "${SHAREDIR}/schematron"
 	cp -r --preserve=timestamp schematron/* "${SHAREDIR}/schematron"
 	rm -rf "${SHAREDIR}"/.git*

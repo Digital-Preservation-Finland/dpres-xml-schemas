@@ -41,16 +41,6 @@ XML schema catalogs and schematron rules.
 
 
 %install
-SHAREDIR=%{buildroot}/%{_datadir}/dpres-xml-schemas/preservation_schemas
-# Common data files
-[ -d "${SHAREDIR}" ] || mkdir -p "${SHAREDIR}"
-
-mkdir -p "${SHAREDIR}"
-cp -r ingest_report/* "${SHAREDIR}/"
-
-chmod -R 755 "${SHAREDIR}"
-find "${SHAREDIR}" -type f -exec chmod 644 \{\} \;
-
 make install XMLCATALOGDIR=%{buildroot}%{_sysconfdir}/xml/%{name} SHAREDIR=%{buildroot}%{_datadir}/%{name}
 
 
