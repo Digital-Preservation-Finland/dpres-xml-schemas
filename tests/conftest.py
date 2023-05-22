@@ -50,20 +50,30 @@ def schematron_fx(request):
         xmlfile = os.path.join(tmp_directory, 'xmltree_schematron.xml')
         xmltree.write(xmlfile)
         if params:
-            ps = subprocess.Popen(['xsltproc',
-                                   os.path.join(CACHE_DIRECTORY,
-                                                schematronfile+'.xsl'),
-                                   xmlfile], stdout=subprocess.PIPE)
-            svrl = subprocess.check_output(['xsltproc',
-                                            os.path.join(
-                                                ISO_DIRECTORY,
-                                                'trim_optimized_result.xsl'),
-                                            '-'], stdin=ps.stdout)
+            ps = subprocess.Popen(
+                [
+                    'xsltproc',
+                    os.path.join(CACHE_DIRECTORY, schematronfile+'.xsl'),
+                    xmlfile
+                ],
+                stdout=subprocess.PIPE
+            )
+            svrl = subprocess.check_output(
+                [
+                    'xsltproc',
+                    os.path.join(ISO_DIRECTORY, 'trim_optimized_result.xsl'),
+                    '-'
+                ],
+                stdin=ps.stdout
+            )
         else:
             svrl = subprocess.check_output(
-                ['xsltproc', os.path.join(CACHE_DIRECTORY,
-                                          schematronfile+'_full.xsl'),
-                 xmlfile])
+                [
+                    'xsltproc',
+                    os.path.join(CACHE_DIRECTORY, schematronfile+'_full.xsl'),
+                    xmlfile
+                ]
+            )
         os.remove(os.path.join(tmp_directory, 'xmltree_schematron.xml'))
         return svrl
 
@@ -76,11 +86,23 @@ def schematron_fx(request):
         """
         if params:
             step = subprocess.check_output(
-                ['xsltproc', '--stringparam', 'outputfilter', 'only_messages',
-                 os.path.join(ISO_DIRECTORY, isofile), infile])
+                [
+                    'xsltproc',
+                    '--stringparam',
+                    'outputfilter',
+                    'only_messages',
+                    os.path.join(ISO_DIRECTORY, isofile),
+                    infile
+                ]
+            )
         else:
             step = subprocess.check_output(
-                ['xsltproc', os.path.join(ISO_DIRECTORY, isofile), infile])
+                [
+                    'xsltproc',
+                    os.path.join(ISO_DIRECTORY, isofile),
+                    infile
+                ]
+            )
         with open(os.path.join(outfile), 'wb') as stepfile:
             stepfile.write(step)
 
@@ -183,13 +205,25 @@ def catalog_fx(request):
         xmlfile = os.path.join(tmp_directory, 'xmltree_catalog.xml')
         xmltree.write(xmlfile)
         proc = subprocess.Popen(
-            ['xmllint', '--huge', '--nonet', '--noout',
-             '--catalogs', '--nowarning', '--schema',
-             os.path.join(SCHEMA_DIRECTORY, 'mets', 'mets.xsd'),
-             xmlfile],
-            env={'SGML_CATALOG_FILES':
-                 os.path.join(CATALOG_DIRECTORY, 'catalog_main.xml')},
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
+            [
+                'xmllint',
+                '--huge',
+                '--nonet',
+                '--noout',
+                '--catalogs',
+                '--nowarning',
+                '--schema',
+                os.path.join(SCHEMA_DIRECTORY, 'mets', 'mets.xsd'),
+                xmlfile
+            ],
+            env={
+                'SGML_CATALOG_FILES': os.path.join(CATALOG_DIRECTORY,
+                                                   'catalog_main.xml')
+            },
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            shell=False
+        )
         (stdout, stderr) = proc.communicate()
         returncode = proc.returncode
 
