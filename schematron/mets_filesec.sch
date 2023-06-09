@@ -80,8 +80,6 @@ Validates METS fileSec.
         <sch:let name="not_jp2_countfiles" value="count($not_jp2_fileid)"/>
         <sch:let name="premis_file_count" value="count($premis_file_id)"/>
         <sch:let name="premis_stream_count" value="count($premis_stream_id)"/>
-        <sch:let name="tiff_countfiles" value="count($tiff_fileid)"/>
-        <sch:let name="tiff_countmix" value="count($tiff_mixids)"/>
         <sch:let name="videomd_countfiles" value="count($videomd_fileid)"/>
         <sch:let name="videomd_countfiles_stream" value="count($videomd_fileid_stream)"/>
         <sch:let name="videomd_countmd" value="count($videomd_mdids)"/>
@@ -92,6 +90,8 @@ Validates METS fileSec.
         <sch:let name="jp2_mixjp2ids" value="$mix_mdids[../mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics/mix:JPEG2000]"/>
         <sch:let name="jp2_mixsfcids" value="$mix_mdids[../mets:mdWrap/mets:xmlData/mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics]"/>
         <sch:let name="tiff_mixids" value="$mix_mdids[../mets:mdWrap/mets:xmlData/mix:mix/mix:BasicDigitalObjectInformation/mix:byteOrder]"/>
+        <sch:let name="tiff_countfiles" value="count($tiff_fileid)"/>
+        <sch:let name="tiff_countmix" value="count($tiff_mixids)"/>
         <sch:let name="digiprovmd_migration" value="exsl:node-set(/mets:mets/mets:amdSec/mets:digiprovMD[(normalize-space(./mets:mdWrap/mets:xmlData/premis:event/premis:eventType)='migration' or normalize-space(./mets:mdWrap/mets:xmlData/premis:event/premis:eventType)='normalization') and normalize-space(./mets:mdWrap/mets:xmlData/premis:event/premis:eventOutcomeInformation/premis:eventOutcome)='success'])"/>
         <sch:let name="digiprovmd_conversion" value="exsl:node-set(/mets:mets/mets:amdSec/mets:digiprovMD[(normalize-space(./mets:mdWrap/mets:xmlData/premis:event/premis:eventType)='conversion') and normalize-space(./mets:mdWrap/mets:xmlData/premis:event/premis:eventOutcomeInformation/premis:eventOutcome)='success'])"/>
 
@@ -256,9 +256,11 @@ Validates METS fileSec.
         <sch:rule context="mets:stream">
                         <sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
+                        <sch:let name="file_admids" value="normalize-space(../@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
                         <sch:let name="countfilescomb_premis_stream" value="count(sets:distinct(exsl:node-set($premis_stream_id) | str:tokenize($admids, ' ')))"/>
-                        <sch:assert test="(($premis_stream_count+$countadm) &gt; $countfilescomb_premis_stream)
+                        <sch:let name="countfilescomb_mix" value="count(sets:distinct(exsl:node-set($mix_fileid) | str:tokenize($file_admids, ' ')))"/>
+                        <sch:assert test="$countfilescomb_mix = 1 or ($premis_stream_count+$countadm) &gt; $countfilescomb_premis_stream
                         or contains(' 1.5.0 ', concat(' ', $given_specification,' '))">
                                 Linking between PREMIS:OBJECT metadata and stream in file '<sch:value-of select="../mets:FLocat/@xlink:href"/>' is required.
                         </sch:assert>
@@ -289,6 +291,21 @@ Validates METS fileSec.
                         <sch:assert test="(($videomd_countfiles_stream+$countadm)=$countfilescomb_video_stream) or not(($videomd_countmd+$countadm)=$countmdcomb_video_stream)
                         or contains(' 1.5.0 ', concat(' ', $given_specification,' '))">
                                 Linking between VideoMD metadata and stream in file '<sch:value-of select="../mets:FLocat/@xlink:href"/>' is required.
+                        </sch:assert>
+                </sch:rule>
+        </sch:pattern>
+        <sch:pattern id="mix_requirement_stream">
+                <sch:rule context="mets:stream[normalize-space(../@USE)!='fi-dpres-no-file-format-validation' and normalize-space(../@USE)!='fi-dpres-file-format-identification']">
+                        <sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
+                        <sch:let name="admids" value="normalize-space(@ADMID)"/>
+                        <sch:let name="file_admids" value="normalize-space(../@ADMID)"/>
+                        <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
+                        <sch:let name="file_countadm" value="count(sets:distinct(str:tokenize($file_admids, ' ')))"/>
+                        <sch:let name="countfilescomb_mix" value="count(sets:distinct(exsl:node-set($mix_fileid) | str:tokenize($file_admids, ' ')))"/>
+                        <sch:let name="countmdcomb_mix_stream" value="count(sets:distinct(exsl:node-set($mix_mdids) | str:tokenize($admids, ' ')))"/>
+                        <sch:assert test="(($mix_countfiles+$file_countadm)=$countfilescomb_mix) or not(($mix_countmd+$countadm)=$countmdcomb_mix_stream)
+                        or contains(' 1.5.0 ', concat(' ', $given_specification,' '))">
+                                Linking between NISOIMG (MIX) metadata and stream in file '<sch:value-of select="../mets:FLocat/@xlink:href"/>' is required.
                         </sch:assert>
                 </sch:rule>
         </sch:pattern>
@@ -326,7 +343,7 @@ Validates METS fileSec.
                 </sch:rule>
         </sch:pattern>
         <sch:pattern id="mix_requirement">
-                <sch:rule context="mets:fileGrp/mets:file">
+                <sch:rule context="mets:fileGrp/mets:file[not(mets:stream)]">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
                         <sch:let name="countfilescomb_mix" value="count(sets:distinct(exsl:node-set($mix_fileid) | str:tokenize($admids, ' ')))"/>
@@ -336,7 +353,6 @@ Validates METS fileSec.
                         </sch:assert>
                 </sch:rule>
         </sch:pattern>
-
         <sch:pattern id="csv_addml_requirements">
                 <sch:rule context="mets:fileGrp/mets:file">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
@@ -385,13 +401,27 @@ Validates METS fileSec.
 
         <!-- TIFF and DPX specific check -->
         <sch:pattern id="tiff_byteorder">
-                <sch:rule context="mets:fileGrp/mets:file">
+                <sch:rule context="mets:fileGrp/mets:file[not(mets:stream)]">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
                         <sch:let name="countfilescomb_byteorder" value="count(sets:distinct(exsl:node-set($tiff_fileid) | str:tokenize($admids, ' ')))"/>
                         <sch:let name="countmixcomb" value="count(sets:distinct(exsl:node-set($tiff_mixids) | str:tokenize($admids, ' ')))"/>
                         <sch:assert test="(($tiff_countfiles+$countadm)=$countfilescomb_byteorder) or not(($tiff_countmix+$countadm)=$countmixcomb)">
                                 Element 'byteOrder' is required in NISOIMG (MIX) metadata for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'.
+                        </sch:assert>
+                </sch:rule>
+        </sch:pattern>
+
+        <sch:pattern id="tiff_byteorder_stream">
+                <sch:rule context="mets:stream">
+                        <sch:let name="admids" value="normalize-space(@ADMID)"/>
+                        <sch:let name="file_admids" value="normalize-space(../@ADMID)"/>
+                        <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
+                        <sch:let name="file_countadm" value="count(sets:distinct(str:tokenize($file_admids, ' ')))"/>
+                        <sch:let name="countfilescomb_byteorder" value="count(sets:distinct(exsl:node-set($tiff_fileid) | str:tokenize($file_admids, ' ')))"/>
+                        <sch:let name="countmixcomb" value="count(sets:distinct(exsl:node-set($tiff_mixids) | str:tokenize($admids, ' ')))"/>
+                        <sch:assert test="(($tiff_countfiles+$file_countadm)=$countfilescomb_byteorder) or not(($tiff_countmix+$countadm)=$countmixcomb)">
+                                Element 'byteOrder' is required in NISOIMG (MIX) stream metadata for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'.
                         </sch:assert>
                 </sch:rule>
         </sch:pattern>
@@ -497,7 +527,8 @@ Validates METS fileSec.
                         <sch:let name="container_admid" value="normalize-space(../@ADMID)"/>
                         <sch:let name="container_techmd" value="$techmd[contains(concat(' ', $container_admid, ' '), concat(' ', normalize-space(@ID), ' ')) and normalize-space(./mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:file' and ./mets:mdWrap/mets:xmlData/premis:object/premis:relationship/premis:relatedObjectIdentification/premis:relatedObjectIdentifierValue]"/>
                         <sch:let name="stream_techmd" value="$techmd[contains(concat(' ', $stream_admid, ' '), concat(' ', normalize-space(@ID), ' ')) and normalize-space(./mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:bitstream']"/>
-                        <sch:assert test="($container_techmd/mets:mdWrap/mets:xmlData/premis:object/premis:relationship/premis:relatedObjectIdentification/premis:relatedObjectIdentifierValue = $stream_techmd/mets:mdWrap/mets:xmlData/premis:object/premis:objectIdentifier/premis:objectIdentifierValue) or contains(' 1.5.0 ', concat(' ', $given_specification,' '))">
+                        <sch:let name="countfilescomb_mix" value="count(sets:distinct(exsl:node-set($mix_fileid) | str:tokenize($container_admid, ' ')))"/>
+                        <sch:assert test="$countfilescomb_mix = 1 or ($container_techmd/mets:mdWrap/mets:xmlData/premis:object/premis:relationship/premis:relatedObjectIdentification/premis:relatedObjectIdentifierValue = $stream_techmd/mets:mdWrap/mets:xmlData/premis:object/premis:objectIdentifier/premis:objectIdentifierValue) or contains(' 1.5.0 ', concat(' ', $given_specification,' '))">
                                 Container or stream mismatch between METS fileSec and PREMIS linkings for file '<sch:value-of select="../mets:FLocat/@xlink:href"/>'.
                         </sch:assert>
                 </sch:rule>
