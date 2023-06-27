@@ -257,10 +257,11 @@ Validates METS fileSec.
                         <sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="file_admids" value="normalize-space(../@ADMID)"/>
+                        <sch:let name="file_countadm" value="count(sets:distinct(str:tokenize($file_admids, ' ')))"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
                         <sch:let name="countfilescomb_premis_stream" value="count(sets:distinct(exsl:node-set($premis_stream_id) | str:tokenize($admids, ' ')))"/>
                         <sch:let name="countfilescomb_mix" value="count(sets:distinct(exsl:node-set($mix_fileid) | str:tokenize($file_admids, ' ')))"/>
-                        <sch:assert test="$countfilescomb_mix = 1 or ($premis_stream_count+$countadm) &gt; $countfilescomb_premis_stream
+                        <sch:assert test="(($mix_countfiles+$file_countadm) &gt; $countfilescomb_mix) or ($premis_stream_count+$countadm) &gt; $countfilescomb_premis_stream
                         or contains(' 1.5.0 ', concat(' ', $given_specification,' '))">
                                 Linking between PREMIS:OBJECT metadata and stream in file '<sch:value-of select="../mets:FLocat/@xlink:href"/>' is required.
                         </sch:assert>
@@ -525,10 +526,11 @@ Validates METS fileSec.
                         <sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
                         <sch:let name="stream_admid" value="normalize-space(@ADMID)"/>
                         <sch:let name="container_admid" value="normalize-space(../@ADMID)"/>
+                        <sch:let name="container_countadm" value="count(sets:distinct(str:tokenize($container_admid, ' ')))"/>
                         <sch:let name="container_techmd" value="$techmd[contains(concat(' ', $container_admid, ' '), concat(' ', normalize-space(@ID), ' ')) and normalize-space(./mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:file' and ./mets:mdWrap/mets:xmlData/premis:object/premis:relationship/premis:relatedObjectIdentification/premis:relatedObjectIdentifierValue]"/>
                         <sch:let name="stream_techmd" value="$techmd[contains(concat(' ', $stream_admid, ' '), concat(' ', normalize-space(@ID), ' ')) and normalize-space(./mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:bitstream']"/>
                         <sch:let name="countfilescomb_mix" value="count(sets:distinct(exsl:node-set($mix_fileid) | str:tokenize($container_admid, ' ')))"/>
-                        <sch:assert test="$countfilescomb_mix = 1 or ($container_techmd/mets:mdWrap/mets:xmlData/premis:object/premis:relationship/premis:relatedObjectIdentification/premis:relatedObjectIdentifierValue = $stream_techmd/mets:mdWrap/mets:xmlData/premis:object/premis:objectIdentifier/premis:objectIdentifierValue) or contains(' 1.5.0 ', concat(' ', $given_specification,' '))">
+                        <sch:assert test="(($mix_countfiles+$container_countadm) &gt; $countfilescomb_mix) or ($container_techmd/mets:mdWrap/mets:xmlData/premis:object/premis:relationship/premis:relatedObjectIdentification/premis:relatedObjectIdentifierValue = $stream_techmd/mets:mdWrap/mets:xmlData/premis:object/premis:objectIdentifier/premis:objectIdentifierValue) or contains(' 1.5.0 ', concat(' ', $given_specification,' '))">
                                 Container or stream mismatch between METS fileSec and PREMIS linkings for file '<sch:value-of select="../mets:FLocat/@xlink:href"/>'.
                         </sch:assert>
                 </sch:rule>

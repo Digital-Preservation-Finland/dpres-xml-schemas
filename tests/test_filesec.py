@@ -591,6 +591,7 @@ def test_container_links(schematron_fx):
     """
     (mets, root) = parse_xml_file('mets_video_container.xml')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 0
 
     elem_container = find_element(root, 'techMD[@ID="tech-container"]', 'mets')
     elem_handler = find_element(
@@ -611,6 +612,34 @@ def test_container_links(schematron_fx):
     set_attribute(elem_vstream, 'ID', 'mets', 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 3
+
+
+def test_multi_image_links(schematron_fx):
+    """Test multi-image case.
+
+    :schematron_fx: Schematron compile fixture
+    """
+    (mets, root) = parse_xml_file('mets_multi_image_file.xml')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 0
+
+    elem_premis = find_element(root, 'techMD[@ID="image-premis"]', 'mets')
+    techid_value = get_attribute(elem_premis, 'ID', 'mets')
+    set_attribute(elem_premis, 'ID', 'mets', 'xxx')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 16
+    set_attribute(elem_premis, 'ID', 'mets', "image-premis")
+
+    elem_stream = find_element(root, 'techMD[@ID="image-mix"]', 'mets')
+    set_attribute(elem_stream, 'ID', 'mets', 'xxx')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 18
+    set_attribute(elem_stream, 'ID', 'mets', 'image-mix')
+
+    elem_stream = find_element(root, 'stream', 'mets')
+    set_attribute(elem_stream, 'ADMID', 'mets', '')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 2
 
 
 def test_missing_links_filesec(schematron_fx):

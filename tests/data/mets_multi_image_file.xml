@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<mets:mets xmlns:mets="http://www.loc.gov/METS/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:premis="info:lc/xmlns/premis-v2" xmlns:fi="http://digitalpreservation.fi/schemas/mets/fi-extensions" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mix="http://www.loc.gov/mix/v20" PROFILE="http://digitalpreservation.fi/mets-profiles/cultural-heritage" OBJID="5397014b-5231-462e-b77d-457fa85876dd" xsi:schemaLocation="http://www.loc.gov/METS/ http://digitalpreservation.fi/schemas/mets/mets.xsd" fi:CATALOG="1.7.5" fi:SPECIFICATION="1.7.5" fi:CONTENTID="5397014b-5231-462e-b77d-457fa85876dd" fi:CONTRACTID="urn:uuid:e48a7051-2247-4d4d-ae90-44c8ee94daca"><mets:metsHdr CREATEDATE="2023-06-22T11:52:48+00:00" RECORDSTATUS="submission"><mets:agent ROLE="CREATOR" TYPE="ORGANIZATION"><mets:name>CSC</mets:name></mets:agent></mets:metsHdr><mets:dmdSec ID="_32b82f42-c3dc-442e-8db0-0b9bfc6a5c0d" CREATED="2023-06-22T11:52:07.296062+00:00">
+    <mets:mdWrap MDTYPE="DC" MDTYPEVERSION="2008">
+      <mets:xmlData><dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">
+		Some title
+	</dc:title>
+	<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">
+		Description about something
+	</dc:description>
+	<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">
+		CSC
+	</dc:publisher>
+	<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">
+		id-1234
+	</dc:identifier>
+
+</mets:xmlData>
+    </mets:mdWrap>
+  </mets:dmdSec>
+<mets:amdSec>
+    <mets:techMD ID="image-premis" CREATED="2023-06-22T11:50:18.746987+00:00">
+      <mets:mdWrap MDTYPE="PREMIS:OBJECT" MDTYPEVERSION="2.3">
+        <mets:xmlData>
+          <premis:object xsi:type="premis:file">
+            <premis:objectIdentifier>
+              <premis:objectIdentifierType>UUID</premis:objectIdentifierType>
+              <premis:objectIdentifierValue>ad7ada35-fa14-4c25-8b28-fcd9625a73a0</premis:objectIdentifierValue>
+            </premis:objectIdentifier>
+            <premis:objectCharacteristics>
+              <premis:compositionLevel>0</premis:compositionLevel>
+              <premis:fixity>
+                <premis:messageDigestAlgorithm>MD5</premis:messageDigestAlgorithm>
+                <premis:messageDigest>75fa39871e7be72498b2e540b2d598ba</premis:messageDigest>
+              </premis:fixity>
+              <premis:format>
+                <premis:formatDesignation>
+                  <premis:formatName>image/tiff</premis:formatName>
+                  <premis:formatVersion>6.0</premis:formatVersion>
+                </premis:formatDesignation>
+              </premis:format>
+              <premis:creatingApplication>
+                <premis:dateCreatedByApplication>2023-06-14T16:10:10.082591</premis:dateCreatedByApplication>
+              </premis:creatingApplication>
+            </premis:objectCharacteristics>
+          </premis:object>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:techMD>
+  <mets:techMD ID="image-mix" CREATED="2023-06-22T11:51:02.013305+00:00">
+      <mets:mdWrap MDTYPE="NISOIMG" MDTYPEVERSION="2.0">
+        <mets:xmlData>
+          <mix:mix xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
+            <mix:BasicDigitalObjectInformation>
+              <mix:byteOrder>little endian</mix:byteOrder>
+              <mix:Compression>
+                <mix:compressionScheme>no</mix:compressionScheme>
+              </mix:Compression>
+            </mix:BasicDigitalObjectInformation>
+            <mix:BasicImageInformation>
+              <mix:BasicImageCharacteristics>
+                <mix:imageWidth>2</mix:imageWidth>
+                <mix:imageHeight>2</mix:imageHeight>
+                <mix:PhotometricInterpretation>
+                  <mix:colorSpace>rgb</mix:colorSpace>
+                  <mix:ColorProfile>
+                    <mix:IccProfile>
+                      <mix:iccProfileName>(:unav)</mix:iccProfileName>
+                    </mix:IccProfile>
+                  </mix:ColorProfile>
+                </mix:PhotometricInterpretation>
+              </mix:BasicImageCharacteristics>
+            </mix:BasicImageInformation>
+            <mix:ImageAssessmentMetadata>
+              <mix:ImageColorEncoding>
+                <mix:BitsPerSample>
+                  <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                  <mix:bitsPerSampleUnit>integer</mix:bitsPerSampleUnit>
+                </mix:BitsPerSample>
+                <mix:samplesPerPixel>3</mix:samplesPerPixel>
+              </mix:ImageColorEncoding>
+            </mix:ImageAssessmentMetadata>
+          </mix:mix>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:techMD>
+  <mets:techMD ID="image-mix2" CREATED="2023-06-22T11:51:02.013994+00:00">
+      <mets:mdWrap MDTYPE="NISOIMG" MDTYPEVERSION="2.0">
+        <mets:xmlData>
+          <mix:mix xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
+            <mix:BasicDigitalObjectInformation>
+              <mix:byteOrder>little endian</mix:byteOrder>
+              <mix:Compression>
+                <mix:compressionScheme>no</mix:compressionScheme>
+              </mix:Compression>
+            </mix:BasicDigitalObjectInformation>
+            <mix:BasicImageInformation>
+              <mix:BasicImageCharacteristics>
+                <mix:imageWidth>640</mix:imageWidth>
+                <mix:imageHeight>400</mix:imageHeight>
+                <mix:PhotometricInterpretation>
+                  <mix:colorSpace>rgb</mix:colorSpace>
+                  <mix:ColorProfile>
+                    <mix:IccProfile>
+                      <mix:iccProfileName>(:unav)</mix:iccProfileName>
+                    </mix:IccProfile>
+                  </mix:ColorProfile>
+                </mix:PhotometricInterpretation>
+              </mix:BasicImageCharacteristics>
+            </mix:BasicImageInformation>
+            <mix:ImageAssessmentMetadata>
+              <mix:ImageColorEncoding>
+                <mix:BitsPerSample>
+                  <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                  <mix:bitsPerSampleUnit>integer</mix:bitsPerSampleUnit>
+                </mix:BitsPerSample>
+                <mix:samplesPerPixel>3</mix:samplesPerPixel>
+              </mix:ImageColorEncoding>
+            </mix:ImageAssessmentMetadata>
+          </mix:mix>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:techMD>
+  </mets:amdSec>
+<mets:fileSec>
+    <mets:fileGrp>
+      <mets:file ID="_6070219f-e2a9-49f0-b9f3-3f96f0f46d99" ADMID="image-premis">
+        <mets:FLocat LOCTYPE="URL" xlink:href="multiple_images.tif" xlink:type="simple"/>
+        <mets:stream ADMID="image-mix"/>
+        <mets:stream ADMID="image-mix"/>
+        <mets:stream ADMID="image-mix"/>
+        <mets:stream ADMID="image-mix2"/>
+        <mets:stream ADMID="image-mix"/>
+        <mets:stream ADMID="image-mix"/>
+        <mets:stream ADMID="image-mix"/>
+      </mets:file>
+    </mets:fileGrp>
+  </mets:fileSec>
+<mets:structMap>
+    <mets:div TYPE="physical" DMDID="_32b82f42-c3dc-442e-8db0-0b9bfc6a5c0d">
+      <mets:fptr FILEID="_6070219f-e2a9-49f0-b9f3-3f96f0f46d99"/>
+    </mets:div>
+  </mets:structMap>
+</mets:mets>
