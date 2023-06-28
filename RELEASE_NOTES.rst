@@ -1,6 +1,12 @@
 Release notes
 =============
 
+Version 0.38
+------------
+
+- Add support for multi-image files.
+- Add RHEL9 support.
+
 Version 0.37
 ------------
 
