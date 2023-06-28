@@ -615,7 +615,13 @@ def test_container_links(schematron_fx):
 
 
 def test_multi_image_links(schematron_fx):
-    """Test multi-image case.
+    """Test linkings of multi-image case. The following cases are tested:
+    - Valid linkings of a multi-image file.
+    - PREMIS section ID changed, causing an orphan section and broken link
+      to ADMID.
+    - MIX section ID changed, causing an orphan section and broken link
+      to ADMID.
+    - Link in stream@ADMID to MIX section is missing.
 
     :schematron_fx: Schematron compile fixture
     """
@@ -624,7 +630,6 @@ def test_multi_image_links(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 0
 
     elem_premis = find_element(root, 'techMD[@ID="image-premis"]', 'mets')
-    techid_value = get_attribute(elem_premis, 'ID', 'mets')
     set_attribute(elem_premis, 'ID', 'mets', 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 16
