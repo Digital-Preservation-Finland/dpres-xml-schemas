@@ -23,7 +23,7 @@ BuildArch:      noarch
 Requires: python3 xml-common iso-schematron-xslt1
 Requires: libxslt
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-lxml python3-six
+BuildRequires:  python3-lxml
 
 Obsoletes: kdk-mets-private < 0.1-4
 Obsoletes: kdk-mets-schemas < 0.2-4

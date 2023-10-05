@@ -25,7 +25,6 @@ Requires:       libxslt
 BuildRequires:  make
 BuildRequires:  python3
 BuildRequires:  %{py3_dist lxml}
-BuildRequires:  %{py3_dist six}
 
 
 %description

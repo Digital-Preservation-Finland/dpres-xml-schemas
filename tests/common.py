@@ -2,7 +2,6 @@
 """
 
 import os
-import six
 import lxml.etree as ET
 
 
@@ -223,7 +222,7 @@ def fix_version_17(root):
                   'sourceMD': ['CREATED', 'PID', 'PIDTYPE'],
                   'digiprovMD': ['CREATED', 'PID', 'PIDTYPE'],
                   'structMap': ['PID', 'PIDTYPE']}
-    for elem, attributes in six.iteritems(fikdk_dict):
+    for elem, attributes in dict.items(fikdk_dict):
         element_list = find_all_elements(root, elem, 'mets')
         if elem == 'mets':
             element_list = [root]

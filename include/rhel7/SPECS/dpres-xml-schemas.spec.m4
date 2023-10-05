@@ -21,8 +21,8 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
 Requires:       xml-common iso-schematron-xslt1 libxslt
-BuildRequires:  python python-lxml python-six
-BuildRequires:  python3 python3-lxml python3-six
+BuildRequires:  python python-lxml
+BuildRequires:  python3 python3-lxml
 
 Obsoletes: kdk-mets-private < 0.1-4
 Obsoletes: kdk-mets-schemas < 0.2-4
