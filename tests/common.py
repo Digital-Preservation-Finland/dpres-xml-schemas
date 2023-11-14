@@ -222,7 +222,7 @@ def fix_version_17(root):
                   'sourceMD': ['CREATED', 'PID', 'PIDTYPE'],
                   'digiprovMD': ['CREATED', 'PID', 'PIDTYPE'],
                   'structMap': ['PID', 'PIDTYPE']}
-    for elem, attributes in iter(dict.items(fikdk_dict)):
+    for elem, attributes in fikdk_dict.items():
         element_list = find_all_elements(root, elem, 'mets')
         if elem == 'mets':
             element_list = [root]
