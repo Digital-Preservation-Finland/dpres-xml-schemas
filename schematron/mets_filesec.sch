@@ -322,7 +322,7 @@ Validates METS fileSec.
                 </sch:rule>
         </sch:pattern>
         <sch:pattern id="audiomd_requirement">
-                <sch:rule context="mets:fileGrp/mets:file">
+                <sch:rule context="mets:fileGrp/mets:file[not(mets:stream)]">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
                         <sch:let name="countfilescomb_audiomd" value="count(sets:distinct(exsl:node-set($audiomd_fileid) | str:tokenize($admids, ' ')))"/>

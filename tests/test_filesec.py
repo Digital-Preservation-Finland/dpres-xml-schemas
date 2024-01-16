@@ -614,6 +614,16 @@ def test_container_links(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 3
 
 
+def test_audio_container(schematron_fx):
+    """Test the happy path for the audio container and stream case.
+
+    :schematron_fx: Schematron compile fixture
+    """
+    (mets, _) = parse_xml_file('mets_audio_container.xml')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 0
+
+
 def test_multi_image_links(schematron_fx):
     """Test linkings of multi-image case. The following cases are tested:
     - Valid linkings of a multi-image file.

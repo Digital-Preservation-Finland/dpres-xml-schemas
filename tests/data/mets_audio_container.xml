@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mets:mets OBJID="test-123"
+           PROFILE="http://www.kdk.fi/kdk-mets-profile"
+           fi:CATALOG="1.6.0"
+           xmlns:mets="http://www.loc.gov/METS/"
+           xmlns:fi="http://www.kdk.fi/standards/mets/kdk-extensions"
+           xmlns:premis="info:lc/xmlns/premis-v2"
+           xmlns:vmd="http://www.loc.gov/videoMD/"
+           xmlns:amd="http://www.loc.gov/audioMD/"
+           xmlns:dc="http://purl.org/dc/elements/1.1/"
+           xmlns:xlink="http://www.w3.org/1999/xlink" 
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.loc.gov/METS/ 
+                               http://www.kdk.fi/standards/mets/mets.xsd">
+
+  <mets:metsHdr CREATEDATE="2011-03-31T15:41:12">
+    <mets:agent ROLE="CREATOR" TYPE="ORGANIZATION">
+      <mets:name>CSC - Tieteen tietotekniikan keskus Oy</mets:name>
+    </mets:agent>
+  </mets:metsHdr>
+  
+  <mets:dmdSec ID="dmd-dc" CREATED="2011-03-31T15:40:00">
+    <mets:mdWrap MDTYPE="DC" MDTYPEVERSION="1.1">
+      <mets:xmlData>
+        <dc:identifier>urn:nbn:fi-fd2011-0000126</dc:identifier>
+        <dc:title>Video kukkasesta</dc:title>
+        <dc:creator>Kalervo Kuvaaja</dc:creator>
+        <dc:date>2011-01-15</dc:date>
+        <dc:type>Video</dc:type>
+      </mets:xmlData>
+    </mets:mdWrap>
+  </mets:dmdSec>
+  
+  <mets:amdSec>
+    <mets:techMD ID="tech-container" CREATED="2011-03-15T12:13:14">
+      <mets:mdWrap MDTYPE="PREMIS:OBJECT" MDTYPEVERSION="2.2">
+        <mets:xmlData> 
+          <premis:object xsi:type="premis:file">
+            <premis:objectIdentifier>
+              <premis:objectIdentifierType>UUID</premis:objectIdentifierType>
+              <premis:objectIdentifierValue>686224db-1ee6-4a5c-b03f-4e0633a71bef</premis:objectIdentifierValue>
+            </premis:objectIdentifier>
+            <premis:objectCharacteristics>
+              <premis:compositionLevel>1</premis:compositionLevel>
+              <premis:fixity>
+                <premis:messageDigestAlgorithm>MD5</premis:messageDigestAlgorithm>
+                <premis:messageDigest>aa4bddaacf5ed1ca92b30826af257a1b</premis:messageDigest>
+              </premis:fixity>
+              <premis:format>
+                <premis:formatDesignation>
+                  <premis:formatName>audio/mp4</premis:formatName>
+                </premis:formatDesignation>
+              </premis:format>
+              <premis:creatingApplication>
+                <premis:dateCreatedByApplication>2011-02-15T15:43:03</premis:dateCreatedByApplication>
+              </premis:creatingApplication>
+            </premis:objectCharacteristics>
+			<premis:relationship>
+				<premis:relationshipType>structural</premis:relationshipType>
+				<premis:relationshipSubType>includes</premis:relationshipSubType>
+				<premis:relatedObjectIdentification>
+					<premis:relatedObjectIdentifierType>UUID</premis:relatedObjectIdentifierType>
+					<premis:relatedObjectIdentifierValue>164780d4-bd77-487f-8619-dfb45ce91084</premis:relatedObjectIdentifierValue>
+				</premis:relatedObjectIdentification>
+			</premis:relationship>
+          </premis:object>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:techMD>
+    
+    <mets:techMD ID="tech-audiopremis" CREATED="2011-03-15T12:13:14">
+      <mets:mdWrap MDTYPE="PREMIS:OBJECT" MDTYPEVERSION="2.2">
+        <mets:xmlData> 
+          <premis:object xsi:type="premis:bitstream">
+            <premis:objectIdentifier>
+              <premis:objectIdentifierType>UUID</premis:objectIdentifierType>
+              <premis:objectIdentifierValue>164780d4-bd77-487f-8619-dfb45ce91084</premis:objectIdentifierValue>
+            </premis:objectIdentifier>
+            <premis:objectCharacteristics>
+              <premis:compositionLevel>0</premis:compositionLevel>
+              <premis:format>
+                <premis:formatDesignation>
+                  <premis:formatName>audio/mp4</premis:formatName>
+                </premis:formatDesignation>
+              </premis:format>
+            </premis:objectCharacteristics>
+          </premis:object>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:techMD>
+    
+    <mets:techMD ID="tech-audiomd" CREATED="2011-03-15T12:13:14">
+      <mets:mdWrap MDTYPE="OTHER" OTHERMDTYPE="AudioMD" MDTYPEVERSION="2.0">
+        <mets:xmlData> 
+			<amd:AUDIOMD ANALOGDIGITALFLAG="FileDigital">
+				<amd:fileData>
+					<amd:audioDataEncoding>AAC</amd:audioDataEncoding>
+					<amd:bitsPerSample>8</amd:bitsPerSample>
+					<amd:compression>
+						<amd:codecCreatorApp>SoundForge</amd:codecCreatorApp>
+						<amd:codecCreatorAppVersion>10</amd:codecCreatorAppVersion>
+						<amd:codecName>AAC</amd:codecName>
+						<amd:codecQuality>lossy</amd:codecQuality>
+					</amd:compression> 
+					<amd:dataRate>256</amd:dataRate>
+					<amd:dataRateMode>Fixed</amd:dataRateMode>
+					<amd:samplingFrequency>44100</amd:samplingFrequency>
+				</amd:fileData>
+				<amd:audioInfo>
+					<amd:duration>00:08:37.9942</amd:duration>
+					<amd:numChannels>1</amd:numChannels>
+				</amd:audioInfo>
+			</amd:AUDIOMD>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:techMD>
+
+    <mets:digiprovMD ID="dp-event" CREATED="2011-03-15T12:13:14">
+      <mets:mdWrap MDTYPE="PREMIS:EVENT" MDTYPEVERSION="2.2">
+        <mets:xmlData>
+          <premis:event>
+            <premis:eventIdentifier>
+              <premis:eventIdentifierType>uuid</premis:eventIdentifierType>
+              <premis:eventIdentifierValue>
+                1c002c38-837d-437f-8af2-de8c8864b5b1
+              </premis:eventIdentifierValue>
+            </premis:eventIdentifier>
+            <premis:eventType>creation</premis:eventType>
+            <premis:eventDateTime>2011-03-15T11:12:13</premis:eventDateTime>
+            <premis:eventOutcomeInformation>
+              <premis:eventOutcome>success</premis:eventOutcome>
+            </premis:eventOutcomeInformation>
+            <premis:linkingAgentIdentifier>
+              <premis:linkingAgentIdentifierType>
+                local
+              </premis:linkingAgentIdentifierType>
+              <premis:linkingAgentIdentifierValue>
+                sf-1
+              </premis:linkingAgentIdentifierValue>
+            </premis:linkingAgentIdentifier>
+          </premis:event>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:digiprovMD>
+
+    <mets:digiprovMD ID="dp-agent" CREATED="2011-03-15T12:13:14">
+      <mets:mdWrap MDTYPE="PREMIS:AGENT" MDTYPEVERSION="2.2">
+        <mets:xmlData>
+          <premis:agent>
+            <premis:agentIdentifier>
+              <premis:agentIdentifierType>local</premis:agentIdentifierType>
+              <premis:agentIdentifierValue>sf-1</premis:agentIdentifierValue>
+            </premis:agentIdentifier>
+            <premis:agentName>SoundForge v. 10</premis:agentName>
+            <premis:agentType>software</premis:agentType>
+          </premis:agent>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:digiprovMD> 
+  </mets:amdSec>
+
+  <mets:fileSec>
+    <mets:fileGrp>
+      <mets:file ADMID="tech-container dp-event dp-agent" ID="file-container">
+	    <mets:FLocat LOCTYPE="URL" xlink:type="simple" xlink:href="file://audio.m4a" />
+	    <mets:stream ADMID="tech-audiopremis tech-audiomd" />
+      </mets:file>
+    </mets:fileGrp>
+  </mets:fileSec>
+
+  <mets:structMap>
+    <mets:div TYPE="physical" DMDID="dmd-dc">
+      <mets:fptr FILEID="file-container" />
+    </mets:div>
+  </mets:structMap>
+
+</mets:mets>
