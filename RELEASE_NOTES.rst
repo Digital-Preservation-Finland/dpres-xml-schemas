@@ -1,6 +1,13 @@
 Release notes
 =============
 
+Version 0.39
+------------
+
+- Add support for Apple M4A AAC files (do not require AudioMD for audio/mp4
+  containers).
+- Code cleanups.
+
 Version 0.38
 ------------
 
