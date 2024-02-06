@@ -164,7 +164,7 @@ def test_mix_with_tiff_dpx(schematron_fx):
     ('audio/L20', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd']),
     ('audio/L24', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd']),
     ('audio/flac', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd']),
-    ('audio/mp4', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd']),
+    ('audio/aac', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd']),
     ('audio/mpeg', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd']),
     ('audio/x-ms-wma', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd']),
     ('video/jpeg2000', ['OTHER', 'VideoMD', 'VIDEOMD', 'videomd']),
