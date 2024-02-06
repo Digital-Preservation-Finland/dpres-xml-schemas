@@ -49,7 +49,6 @@ Validates PREMIS metadata
                 'audio/L20; ',
                 'audio/L24; ',
                 'audio/mp4; ',
-                'audio/aac; ',
                 'image/x-dpx; ',
                 'video/x-ffv; ',
                 'video/jpeg2000; ',
@@ -89,7 +88,8 @@ Validates PREMIS metadata
                 'video/quicktime; ',
                 'video/x-ms-asf; ',
                 'video/MP1S; ',
-                'video/MP2P')"/>
+                'video/MP2P; ',
+                'audio/aac')"/>
 
         <!--
         Supported PRONOM registry key versions, grouped by file format, keys in a group divided with a space character.
