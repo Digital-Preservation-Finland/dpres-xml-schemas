@@ -34,7 +34,7 @@ Validates METS fileSec.
 
         <!-- File formats of metadata types -->
         <sch:let name="addml_types" value="string('text/csv')"/>
-        <sch:let name="audiomd_types" value="string('audio/x-aiff audio/x-wav audio/flac audio/mp4 audio/L8 audio/L16 audio/L20 audio/L24 audio/mpeg audio/x-ms-wma')"/>
+        <sch:let name="audiomd_types" value="string('audio/x-aiff audio/x-wav audio/flac audio/aac audio/L8 audio/L16 audio/L20 audio/L24 audio/mpeg audio/x-ms-wma')"/>
         <sch:let name="mix_types" value="string('image/x-adobe-dng image/tiff image/jpeg image/jp2 image/png image/gif image/x-dpx')"/>
         <sch:let name="videomd_types" value="string('video/jpeg2000 video/mp4 video/dv video/mpeg video/x-ms-wmv video/x-ffv')"/>
 

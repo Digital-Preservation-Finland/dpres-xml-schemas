@@ -49,6 +49,7 @@ Validates PREMIS metadata
                 'audio/L20; ',
                 'audio/L24; ',
                 'audio/mp4; ',
+                'audio/aac; ',
                 'image/x-dpx; ',
                 'video/x-ffv; ',
                 'video/jpeg2000; ',
