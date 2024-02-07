@@ -56,7 +56,7 @@ def test_streams_catalogs(schematron_fx, specification, failed):
     assert svrl.count(SVRL_FAILED) == 0
 
     elem_handler = find_element(root, 'formatName', 'premis')
-    elem_handler.text = 'video/mp4'
+    elem_handler.text = 'video/h264'
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
@@ -168,7 +168,7 @@ def test_mix_with_tiff_dpx(schematron_fx):
     ('audio/mpeg', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd']),
     ('audio/x-ms-wma', ['OTHER', 'AudioMD', 'AUDIOMD', 'audiomd']),
     ('video/jpeg2000', ['OTHER', 'VideoMD', 'VIDEOMD', 'videomd']),
-    ('video/mp4', ['OTHER', 'VideoMD', 'VIDEOMD', 'videomd']),
+    ('video/h264', ['OTHER', 'VideoMD', 'VIDEOMD', 'videomd']),
     ('video/dv', ['OTHER', 'VideoMD', 'VIDEOMD', 'videomd']),
     ('video/mpeg', ['OTHER', 'VideoMD', 'VIDEOMD', 'videomd']),
     ('video/x-ms-wmv', ['OTHER', 'VideoMD', 'VIDEOMD', 'videomd']),
