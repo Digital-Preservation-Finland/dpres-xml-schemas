@@ -48,6 +48,7 @@ Validates PREMIS metadata
                 'audio/L8; ',
                 'audio/L20; ',
                 'audio/L24; ',
+                'audio/aac; ',
                 'audio/mp4; ',
                 'image/x-dpx; ',
                 'video/x-ffv; ',
@@ -88,8 +89,7 @@ Validates PREMIS metadata
                 'video/quicktime; ',
                 'video/x-ms-asf; ',
                 'video/MP1S; ',
-                'video/MP2P; ',
-                'audio/aac')"/>
+                'video/MP2P')"/>
 
         <!--
         Supported PRONOM registry key versions, grouped by file format, keys in a group divided with a space character.
@@ -116,6 +116,7 @@ Validates PREMIS metadata
                 | exsl:node-set('')
                 | exsl:node-set('')
                 | exsl:node-set('')
+                | exsl:node-set('fmt/199')
                 | exsl:node-set('fmt/199')
                 | exsl:node-set('fmt/541')
                 | exsl:node-set('')
