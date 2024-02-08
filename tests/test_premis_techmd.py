@@ -108,6 +108,7 @@ def test_checksums(schematron_fx, algorithm):
     ('video/x-ffv', ['']),
     ('video/jpeg2000', ['x-fmt/392']),
     ('video/mp4', ['fmt/199']),
+    ('video/h264', ['fmt/199']),
     ('image/tiff', ['fmt/353', 'fmt/155']),
     ('image/x-adobe-dng', ['fmt/438', 'fmt/730', 'fmt/152', 'fmt/437']),
     ('image/jpeg', ['fmt/42', 'fmt/43', 'fmt/44', 'x-fmt/398', 'x-fmt/390',
