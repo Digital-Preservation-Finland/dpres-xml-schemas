@@ -88,7 +88,8 @@ def test_disallowed_items_techmd(schematron_fx):
 
 @pytest.mark.parametrize("container_format", [
     ('video/x-ms-asf'), ('video/avi'), ('video/MP1S'), ('video/MP2P'),
-    ('video/MP2T'), ('application/mxf'), ('video/mj2'), ('video/quicktime')
+    ('video/MP2T'), ('application/mxf'), ('video/mj2'), ('video/quicktime'),
+    ('video/mp4')
 ])
 def test_stream(schematron_fx, container_format):
     """Test the container and stream case.
@@ -108,11 +109,6 @@ def test_stream(schematron_fx, container_format):
     del_element(elem_handler, 'stream', 'mets')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
-
-    # video/mp4 is not necessary a container
-    elem_format.text = 'video/mp4'
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    assert svrl.count(SVRL_FAILED) == 0
 
 
 def test_native_stream(schematron_fx):

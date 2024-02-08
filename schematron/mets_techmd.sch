@@ -140,7 +140,7 @@ Validates METS techMD.
                         <sch:let name="tech_id" value="normalize-space(@ID)"/>
                         <sch:let name="premis_format" value="normalize-space(./mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName)"/>
                         <sch:let name="container_file" value="ancestor-or-self::mets:mets/mets:fileSec/mets:fileGrp/mets:file[contains(concat(' ', @ADMID, ' '), concat(' ', $tech_id, ' '))]"/>
-                        <sch:assert test="$container_file/mets:stream or not(contains(concat(' ', $container_formats, ' '), concat(' ', $premis_format, ' '))) or $premis_format='video/mp4' or $container_file/@USE=normalize-space('fi-dpres-no-file-format-validation')">
+                        <sch:assert test="$container_file/mets:stream or not(contains(concat(' ', $container_formats, ' '), concat(' ', $premis_format, ' '))) or $container_file/@USE=normalize-space('fi-dpres-no-file-format-validation')">
                                 Streams missing for container file '<sch:value-of select="$container_file/mets:FLocat/@xlink:href"/>'.
                         </sch:assert>
                 </sch:rule>
