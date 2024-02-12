@@ -54,6 +54,7 @@ Validates PREMIS metadata
                 'video/x-ffv; ',
                 'video/jpeg2000; ',
                 'video/h264; ',
+                'video/h265; ',
                 'video/mp4; ',
                 'image/tiff; ',
                 'image/x-adobe-dng; ',
@@ -123,6 +124,7 @@ Validates PREMIS metadata
                 | exsl:node-set('')
                 | exsl:node-set('x-fmt/392')
                 | exsl:node-set('fmt/199')
+                | exsl:node-set('')
                 | exsl:node-set('fmt/199')
                 | exsl:node-set('fmt/353 fmt/155')
                 | exsl:node-set('fmt/152 fmt/437 fmt/438 fmt/730')
