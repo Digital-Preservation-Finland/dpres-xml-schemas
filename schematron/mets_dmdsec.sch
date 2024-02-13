@@ -98,7 +98,7 @@ Validates METS dmdSec.
                 <sch:param name="context_element" value="mets:dmdSec/mets:mdWrap"/>
                 <sch:param name="context_condition" value="normalize-space(@MDTYPE)='MODS'"/>
                 <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
-                <sch:param name="valid_values" value="string('3.0; 3.1; 3.2; 3.3; 3.4; 3.5; 3.6; 3.7')"/>
+                <sch:param name="valid_values" value="string('3.0; 3.1; 3.2; 3.3; 3.4; 3.5; 3.6; 3.7; 3.8')"/>
                 <sch:param name="specifications" value="string('not: 1.5.0; 1.6.0; 1.6.1; 1.7.0')"/>
         </sch:pattern>
         <sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_EAD" is-a="required_values_attribute_pattern">
@@ -119,7 +119,7 @@ Validates METS dmdSec.
                 <sch:param name="context_element" value="mets:dmdSec/mets:mdWrap"/>
                 <sch:param name="context_condition" value="normalize-space(@MDTYPE)='LIDO'"/>
                 <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
-                <sch:param name="valid_values" value="string('1.0')"/>
+                <sch:param name="valid_values" value="string('1.0; 1.1')"/>
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
         <sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_VRA" is-a="required_values_attribute_pattern">
