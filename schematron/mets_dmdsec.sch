@@ -228,6 +228,13 @@ Validates METS dmdSec.
         </sch:pattern>
 
         <!-- Metadata types and versions in old specifications -->
+        <sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_MODS_pre176" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:dmdSec/mets:mdWrap"/>
+                <sch:param name="context_condition" value="normalize-space(@MDTYPE)='MODS'"/>
+                <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
+                <sch:param name="valid_values" value="string('3.0; 3.1; 3.2; 3.3; 3.4; 3.5; 3.6; 3.7')"/>
+                <sch:param name="specifications" value="string('1.7.1; 1.7.2; 1.7.3; 1.7.4; 1.7.5')"/>
+        </sch:pattern>
         <sch:pattern id="mets_dmdSec_MDTYPEVERSION_values_EAC_pre175" is-a="required_values_attribute_pattern">
                 <sch:param name="context_element" value="mets:dmdSec/mets:mdWrap"/>
                 <sch:param name="context_condition" value="normalize-space(@MDTYPE)='EAC-CPF'"/>
