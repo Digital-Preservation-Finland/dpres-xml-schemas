@@ -86,6 +86,7 @@
 	<rewriteURI uriStartString="http://www.loc.gov/standards/mods/v3/mods-3-5.xsd" rewritePrefix="mods/3.5/mods-3-5.xsd"/>
 	<rewriteURI uriStartString="http://www.loc.gov/standards/mods/v3/mods-3-6.xsd" rewritePrefix="mods/3.6/mods-3-6.xsd"/>
 	<rewriteURI uriStartString="http://www.loc.gov/standards/mods/v3/mods-3-7.xsd" rewritePrefix="mods/3.7/mods-3-7.xsd"/>
+	<rewriteURI uriStartString="http://www.loc.gov/standards/mods/v3/mods-3-8.xsd" rewritePrefix="mods/3.8/mods-3-8.xsd"/>
 
 	<!-- MADS -->
 	<rewriteURI uriStartString="http://www.loc.gov/standards/mads/mads-1-0.xsd" rewritePrefix="mads/1.0/mads-1-0.xsd"/>
@@ -125,6 +126,7 @@
 	<rewriteURI uriStartString="http://www.loc.gov/ead/ead.xsd" rewritePrefix="ead/2002/ead.xsd"/>
 	<rewriteURI uriStartString="http://www.loc.gov/ead/ead3.xsd" rewritePrefix="ead3/1.1.1/ead3.xsd"/>
 	<rewriteURI uriStartString="http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd" rewritePrefix="lido/1.0/lido-v1.0.xsd"/>
+	<rewriteURI uriStartString="http://www.lido-schema.org/schema/v1.1/lido-v1.1.xsd" rewritePrefix="lido/1.1/lido-v1.1.xsd"/>
 	<rewriteURI uriStartString="http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd" rewritePrefix="marc/1.2/MARC21slim.xsd"/>
 	<rewriteURI uriStartString="http://www.loc.gov/standards/vracore/" rewritePrefix="vra/4.0/"/>
 	<rewriteURI uriStartString="http://www.loc.gov/standards/textMD/textMD.xsd" rewritePrefix="textmd/2.2/textmd.xsd"/>
