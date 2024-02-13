@@ -30,11 +30,11 @@ def test_valid_complete_mdwrap(schematron_fx):
 @pytest.mark.parametrize("context, mdtype, othermdtype, mdtypeversion", [
     ('dmdSec', 'MARC', None, ['marcxml=1.2;marc=marc21']),
     ('dmdSec', 'DC', None, ['1.1', '2008']),
-    ('dmdSec', 'MODS', None, ['3.7', '3.6', '3.5', '3.4', '3.3', '3.2',
+    ('dmdSec', 'MODS', None, ['3.8', '3.7', '3.6', '3.5', '3.4', '3.3', '3.2',
                               '3.1', '3.0']),
     ('dmdSec', 'EAD', None, ['2002']),
     ('dmdSec', 'EAC-CPF', None, ['2010_revised', '2.0']),
-    ('dmdSec', 'LIDO', None, ['1.0']),
+    ('dmdSec', 'LIDO', None, ['1.0', '1.1']),
     ('dmdSec', 'VRA', None, ['4.0']),
     ('dmdSec', 'DDI', None, ['3.3', '3.2', '3.1', '2.5.1', '2.5', '2.1']),
     ('dmdSec', 'OTHER', 'EAD3', ['1.1.1', '1.1.0', '1.0.0']),
