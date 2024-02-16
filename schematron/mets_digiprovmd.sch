@@ -2,7 +2,7 @@
 
 <!-- pass-filter: /mets:mets/mets:amdSec/mets:digiprovMD -->
 <!-- context-filter: mets:digiprovMD|mets:mdWrap|mets:mdRef|mets:xmlData -->
-<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.5">
+<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.6">
         <sch:title>METS digiprovMD validation</sch:title>
 
 <!--
