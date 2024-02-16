@@ -38,8 +38,9 @@ def test_mdtype_items_rightsmd(schematron_fx):
 
     # Test that all MDTYPEVERSIONs work with all specifications
     for specversion in ['1.5.0', '1.6.0', '1.7.0', '1.7.1', '1.7.2', '1.7.3',
-                        '1.7.4', '1.7.5']:
-        if specversion in ['1.7.0', '1.7.1', '1.7.3', '1.7.4', '1.7.5']:
+                        '1.7.4', '1.7.5', '1.7.6']:
+        if specversion in ['1.7.0', '1.7.1', '1.7.3', '1.7.4', '1.7.5',
+                           '1.7.6']:
             fix_version_17(root)
         else:
             set_attribute(root, 'CATALOG', 'fikdk', specversion)
