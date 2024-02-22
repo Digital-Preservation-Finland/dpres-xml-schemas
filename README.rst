@@ -12,10 +12,26 @@ The same catalog can be used also with older specifications, starting from versi
 
 For further information about specifications, see: http://digitalpreservation.fi/
 
-Installation
+Requirements
 ------------
 
-This software is tested with Centos 7.x / RHEL 7.x releases.
+The software is tested with Python 3.9 on AlmaLinux 9 release.
+
+Installation using RPM packages (preferred)
+-------------------------------------------
+
+Installation on Linux distributions is done by using the RPM Package Manager.
+See how to `configure the PAS-jakelu RPM repositories`_ to setup necessary software sources.
+
+.. _configure the PAS-jakelu RPM repositories: https://www.digitalpreservation.fi/user_guide/installation_of_tools 
+
+After the repository has been added, the package can be installed by running the following command::
+
+    sudo dnf install dpres-xml-schemas
+
+
+Installation for development purposes
+-------------------------------------
 
 Installation and usage requires additional software:
 
