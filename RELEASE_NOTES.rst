@@ -1,6 +1,17 @@
 Release notes
 =============
 
+Version 0.41
+------------
+
+- Update specifications to version 1.7.6.
+- Add new schema versions for LIDO v1.1 and MODS v3.8.
+- Add support for video/h265 (HEVC) files.
+- Update the following mimetypes:
+
+   - AAC files from audio/mp4 to audio/aac
+   - AVC files from video/mp4 to video/h264.
+
 Version 0.40
 ------------
 
