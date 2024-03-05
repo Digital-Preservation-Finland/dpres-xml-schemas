@@ -38,6 +38,7 @@ def prepare_xml(context_element, version):
     ('abstract', ['@altFormat', '@contentType'], '3.5'),
     ('abstract', ['@lang', '@{%(xml)s}lang' % NAMESPACES, '@script',
                   '@transliteration'], '3.4'),
+    ('accessCondition', ['@authority', '@authorityURI', '@valueURI'], '3.8'),
     ('accessCondition', ['@altFormat', '@contentType'], '3.5'),
     ('accessCondition', ['@lang', '@{%(xml)s}lang' % NAMESPACES, '@script',
                          '@transliteration'], '3.4'),
@@ -50,6 +51,7 @@ def prepare_xml(context_element, version):
     ('copyInformation', ['itemIdentifier'], '3.6'),
     ('date', ['@calendar'], '3.7'),
     ('dateOther', ['@type'], '3.1'),
+    ('extension', ['@type'], '3.8'),
     ('extension', ['@displayLabel'], '3.4'),
     ('form', ['@type'], '3.1'),
     ('frequency', ['@authority'], '3.3'),
@@ -78,6 +80,7 @@ def prepare_xml(context_element, version):
     ('nonSort', ['@{%(xml)s}space' % NAMESPACES], '3.6'),
     ('note', ['@typeURI'], '3.5'),
     ('note', ['@ID'], '3.2'),
+    ('originInfo', ['agent', 'displayDate', '@eventTypeURI'], '3.8'),
     ('originInfo', ['@eventType'], '3.5'),
     ('originInfo', ['@displayLabel', '@lang', '@{%(xml)s}lang' % NAMESPACES,
                     '@script', '@transliteration'], '3.4'),
@@ -100,6 +103,7 @@ def prepare_xml(context_element, version):
     ('publisher', ['@authority', '@authorityURI', '@valueURI'], '3.7'),
     ('recordContentSource', ['@lang', '@{%(xml)s}lang' % NAMESPACES,
                              '@script', '@transliteration'], '3.4'),
+    ('recordInfo', ['@usage'], '3.8'),
     ('recordInfo', ['recordInfoNote'], '3.6'),
     ('recordInfo', ['@displayLabel', '@lang', '@{%(xml)s}lang' % NAMESPACES,
                     '@script', '@transliteration'], '3.4'),
@@ -119,11 +123,14 @@ def prepare_xml(context_element, version):
                         '@script', '@transliteration'], '3.4'),
     ('temporal', ['@calendar'], '3.7'),
     ('temporal', ['@authority'], '3.4'),
+    ('titleInfo',
+     ['@otherTypeAuth', '@otherTypeAuthURI', '@otherTypeURI'], '3.8'),
     ('titleInfo', ['@otherType', '@altFormat', '@contentType'], '3.5'),
     ('titleInfo', ['@usage', '@lang', '@{%(xml)s}lang' % NAMESPACES,
                    '@script', '@transliteration'], '3.4'),
     ('typeOfResource', ['@usage', '@displayLabel'], '3.4'),
     ('url', ['@note', '@access', '@usage'], '3.2'),
+    ('xxx', ['@IDREF'], '3.8'),
     ('xxx', ['@shareable', '@altRepGroup', '@authorityURI', '@valueURI',
              '@supplied'], '3.4')
 ])
@@ -164,25 +171,29 @@ def test_disallowed_field(
 
 
 @pytest.mark.parametrize(
-    "context_element, context_attribute, disallowed_value, version", [
-        ('issuance', None, 'single unit', '3.4'),
-        ('issuance', None, 'multipart monograph', '3.4'),
-        ('issuance', None, 'serial', '3.4'),
-        ('issuance', None, 'integrating resource', '3.4'),
-        ('digitalOrigin', None, 'digitized microfilm', '3.2'),
-        ('digitalOrigin', None, 'digitized other analog', '3.2'),
-        ('languageTerm', 'authority', 'rfc5646', '3.5'),
-        ('name', 'type', 'family', '3.4'),
-        ('relatedItem', 'type', 'references', '3.4'),
-        ('relatedItem', 'type', 'reviewOf', '3.4'),
-        ('url', 'usage', 'primary', '3.4'),
-        ('languageTerm', 'authority', 'rfc4646', '3.3'),
-        ('xxx', 'encoding', 'temper', '3.4'),
-        ('xxx', 'encoding', 'edtf', '3.4')
+    ("context_element",
+     "context_attribute",
+     "disallowed_value",
+     "version",
+     "test_arbitrary"), [
+        ('issuance', None, 'single unit', '3.4', True),
+        ('issuance', None, 'multipart monograph', '3.4', True),
+        ('issuance', None, 'serial', '3.4', True),
+        ('issuance', None, 'integrating resource', '3.4', True),
+        ('digitalOrigin', None, 'digitized microfilm', '3.2', True),
+        ('digitalOrigin', None, 'digitized other analog', '3.2', True),
+        ('languageTerm', 'authority', 'rfc5646', '3.5', False),
+        ('name', 'type', 'family', '3.4', True),
+        ('relatedItem', 'type', 'references', '3.4', True),
+        ('relatedItem', 'type', 'reviewOf', '3.4', True),
+        ('url', 'usage', 'primary', '3.4', True),
+        ('languageTerm', 'authority', 'rfc4646', '3.3', False),
+        ('xxx', 'encoding', 'temper', '3.4', True),
+        ('xxx', 'encoding', 'edtf', '3.4', True)
     ])
 def test_disallowed_value(
         schematron_fx, context_element, context_attribute, disallowed_value,
-        version):
+        version, test_arbitrary):
     """Various values have been added to newer MODS versions' controlled
     vocabularies. Test the checks that disallow the use of new value in an old
     MODS version.
@@ -213,12 +224,15 @@ def test_disallowed_value(
 
     # Arbitrary value should not give error
     # These are handled in the MODS schema
-    if context_attribute is not None:
-        set_attribute(elem_context, context_attribute, 'mods', 'default')
-    else:
-        elem_context.text = 'default'
-    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
-    assert svrl.count(SVRL_FAILED) == 0
+    # Exceptions are some values who are opened up in later versions and
+    # whose validness are handled by schematron checks
+    if test_arbitrary:
+        if context_attribute is not None:
+            set_attribute(elem_context, context_attribute, 'mods', 'default')
+        else:
+            elem_context.text = 'default'
+        svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
+        assert svrl.count(SVRL_FAILED) == 0
 
 
 @pytest.mark.parametrize("container, context, disallowed_attribute, version", [
@@ -230,6 +244,9 @@ def test_disallowed_value(
     ('hierarchicalGeographic', 'xxx', 'authority', '3.6'),
     ('hierarchicalGeographic', 'xxx', 'authorityURI', '3.6'),
     ('hierarchicalGeographic', 'xxx', 'valueURI', '3.6'),
+    ('name', 'affiliation', 'authority', '3.8'),
+    ('name', 'affiliation', 'authorityURI', '3.8'),
+    ('name', 'affiliation', 'valueURI', '3.8'),
     ('originInfo', 'dateIssued', 'calendar', '3.7'),
     ('originInfo', 'dateCreated', 'calendar', '3.7'),
     ('originInfo', 'dateCaptured', 'calendar', '3.7'),
@@ -242,10 +259,11 @@ def test_disallowed_value(
 ])
 def test_disallowed_hierarch_attrib(
         schematron_fx, container, context, disallowed_attribute, version):
-    """Various attributes have been added to newer MODS versions. Test the
-    checks that disallow the use of new element/attribute in an old MODS
-    version. Here the context element require container, since MODS has other
-    irrelevant context elements with the same name outside the container.
+    """Various attributes have been added to newer MODS versions. Test
+    the checks that disallow the use of new attribute in an old MODS
+    version. Here the context element require container, since MODS has
+    other irrelevant context elements with the same name outside the
+    container.
 
     :schematron_fx: Schematron compile fixture
     :container: Element, where the context exists
@@ -256,6 +274,43 @@ def test_disallowed_hierarch_attrib(
     (mods, elem_context, elem_version) = prepare_xml(container, version)
     elem_context = set_element(elem_context, context, 'mods')
     set_attribute(elem_context, disallowed_attribute, 'mods', 'default')
+
+    # Success with given version
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
+    assert svrl.count(SVRL_FAILED) == 0
+
+    # Error with earlier versions
+    set_attribute(elem_version, 'MDTYPEVERSION', 'mets',
+                  '%.1f' % (float(version)-0.1))
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
+    assert svrl.count(SVRL_FAILED) == 1
+
+    # Success again, if attribute removed
+    elem_context.clear()
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
+    assert svrl.count(SVRL_FAILED) == 0
+
+
+@pytest.mark.parametrize("container, context, disallowed_element, version", [
+    ('originInfo', 'place', 'cartographics', '3.8'),
+    ('originInfo', 'place', 'placeIdentifier', '3.8'),
+])
+def test_disallowed_hierarch_elem(
+        schematron_fx, container, context, disallowed_element, version):
+    """Various elements have been added to newer MODS versions. Test the
+    checks that disallow the use of new element in an old MODS
+    version. Here the context element require container, since MODS has other
+    irrelevant context elements with the same name outside the container.
+
+    :schematron_fx: Schematron compile fixture
+    :container: Element, where the context exists
+    :context: Context element, which may contain new attribute.
+    :disallowed_element: The new element
+    :version: Earliest MODS version where the attribute applies
+    """
+    (mods, elem_context, elem_version) = prepare_xml(container, version)
+    elem_context = set_element(elem_context, context, 'mods')
+    set_element(elem_context, disallowed_element, 'mods')
 
     # Success with given version
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
@@ -456,5 +511,40 @@ def test_version(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 0
 
     set_attribute(elem_context, 'version', 'mods', '3.6')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
+    assert svrl.count(SVRL_FAILED) == 1
+
+
+@pytest.mark.parametrize(
+    "context_element, context_attribute, allowed_value, version", [
+        ('languageTerm', 'authority', 'free value', '3.8'),
+        ('geographicCode', 'authority', 'free value', '3.8'),
+        ('placeTerm', 'authority', 'free value', '3.8'),
+    ])
+def test_previously_required_values(
+        schematron_fx, context_element, context_attribute, allowed_value,
+        version):
+    """Various values that previously have used controlled vocabularies
+    have the restrictions on the values removed, allowing any values in
+    newer versions of the MODS standard.
+
+    :schematron_fx: Schematron compile fixture
+    :context_element: Context element, where the test is done.
+    :context_attribute: Context attribute that has the value to be tested.
+                        If None, the value should be located in the elment.
+    :allowed_value: Value to be tested
+    :version: Earliest MODS version where the value applies
+    """
+    (mods, elem_context, elem_version) = prepare_xml(context_element, version)
+    set_attribute(elem_context, context_attribute, 'mods',
+                  allowed_value)
+
+    # The value is allowed in the current MODS version
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
+    assert svrl.count(SVRL_FAILED) == 0
+
+    # Disallowed in the previous MODS version
+    set_attribute(elem_version, 'MDTYPEVERSION', 'mets',
+                  '%.1f' % (float(version)-0.1))
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mods)
     assert svrl.count(SVRL_FAILED) == 1
