@@ -25,6 +25,7 @@ Validates version differences from MODS metadata.
         <sch:include href="./abstracts/required_subelements_smaller_version_pattern.incl"/>
         <sch:include href="./abstracts/disallowed_value_attribute_smaller_version_pattern.incl"/>
         <sch:include href="./abstracts/disallowed_value_element_smaller_version_pattern.incl"/>
+        <sch:include href="./abstracts/required_values_attribute_pattern.incl"/>
         <sch:include href="./abstracts/required_values_element_pattern.incl"/>
 
         <!--- Version check -->
@@ -37,6 +38,173 @@ Validates version differences from MODS metadata.
         </sch:pattern>
 
 
+        <!-- Version specific check until smaller than 3.8 -->
+        <sch:pattern id="mods38_languageTerm_authority_values" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mods:languageTerm"/>
+                <sch:param name="context_condition" value="ancestor::mets:mdWrap/@MDTYPE='MODS' and number(ancestor::mets:mdWrap/@MDTYPEVERSION) &lt; 3.8"/>
+                <sch:param name="context_attribute" value="@authority"/>
+                <sch:param name="valid_values" value="string('rfc3066; iso639-2b; iso639-3; rfc4646; rfc5646')"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mods38_geographicCode_authority_values" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mods:geographicCode"/>
+                <sch:param name="context_condition" value="ancestor::mets:mdWrap/@MDTYPE='MODS' and number(ancestor::mets:mdWrap/@MDTYPEVERSION) &lt; 3.8"/>
+                <sch:param name="context_attribute" value="@authority"/>
+                <sch:param name="valid_values" value="string('marcgac; marccountry; iso3166')"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mods38_placeTerm_authority_values" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mods:placeTerm"/>
+                <sch:param name="context_condition" value="ancestor::mets:mdWrap/@MDTYPE='MODS' and number(ancestor::mets:mdWrap/@MDTYPEVERSION) &lt; 3.8"/>
+                <sch:param name="context_attribute" value="@authority"/>
+                <sch:param name="valid_values" value="string('marcgac; marccountry; iso3166')"/>
+                <sch:param name="specifications" value="string('')"/>
+        </sch:pattern>
+        <sch:pattern id="mods38_titleInfo_otherTypeAuth" is-a="disallowed_attribute_smaller_version_pattern">
+                <sch:param name="context_element" value="mods:titleInfo"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_attribute" value="@otherTypeAuth"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.8')"/>
+        </sch:pattern>
+        <sch:pattern id="mods38_titleInfo_otherTypeAuthURI" is-a="disallowed_attribute_smaller_version_pattern">
+                <sch:param name="context_element" value="mods:titleInfo"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_attribute" value="@otherTypeAuthURI"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.8')"/>
+        </sch:pattern>
+        <sch:pattern id="mods38_titleInfo_otherTypeURI" is-a="disallowed_attribute_smaller_version_pattern">
+                <sch:param name="context_element" value="mods:titleInfo"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_attribute" value="@otherTypeURI"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.8')"/>
+        </sch:pattern>
+        <sch:pattern id="mods38_originInfo_agent" is-a="disallowed_element_smaller_version_pattern">
+                <sch:param name="context_element" value="mods:originInfo"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_element" value="mods:agent"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.8')"/>
+        </sch:pattern>
+        <sch:pattern id="mods38_accessCondition_authority" is-a="disallowed_attribute_smaller_version_pattern">
+                <sch:param name="context_element" value="mods:accessCondition"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_attribute" value="@authority"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.8')"/>
+        </sch:pattern>
+        <sch:pattern id="mods38_accessCondition_authorityURI" is-a="disallowed_attribute_smaller_version_pattern">
+                <sch:param name="context_element" value="mods:accessCondition"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_attribute" value="@authorityURI"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.8')"/>
+        </sch:pattern>
+        <sch:pattern id="mods38_accessCondition_valueURI" is-a="disallowed_attribute_smaller_version_pattern">
+                <sch:param name="context_element" value="mods:accessCondition"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_attribute" value="@valueURI"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.8')"/>
+        </sch:pattern>
+        <sch:pattern id="mods38_name_affiliation_authority" is-a="disallowed_attribute_smaller_version_pattern">
+                <sch:param name="context_element" value="mods:name/mods:affiliation"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_attribute" value="@authority"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.8')"/>
+        </sch:pattern>
+        <sch:pattern id="mods38_name_affiliation_authorityURI" is-a="disallowed_attribute_smaller_version_pattern">
+                <sch:param name="context_element" value="mods:name/mods:affiliation"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_attribute" value="@authorityURI"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.8')"/>
+        </sch:pattern>
+        <sch:pattern id="mods38_name_affiliation_valueURI" is-a="disallowed_attribute_smaller_version_pattern">
+                <sch:param name="context_element" value="mods:name/mods:affiliation"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_attribute" value="@valueURI"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.8')"/>
+        </sch:pattern>
+        <sch:pattern id="mods38_recordInfo_usage" is-a="disallowed_attribute_smaller_version_pattern">
+                <sch:param name="context_element" value="mods:recordInfo"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_attribute" value="@usage"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.8')"/>
+        </sch:pattern>
+        <sch:pattern id="mods38_IDREF" is-a="disallowed_attribute_smaller_version_pattern">
+                <sch:param name="context_element" value="mods:mods//*"/>
+                <sch:param name="context_condition" value="@IDREF"/>
+                <sch:param name="disallowed_attribute" value="@IDREF"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.8')"/>
+        </sch:pattern>
+        <sch:pattern id="mods38_originInfo_place_placeIdentifier" is-a="disallowed_element_smaller_version_pattern">
+		<sch:param name="context_element" value="mods:originInfo/mods:place"/>
+		<sch:param name="context_condition" value="true()"/>
+		<sch:param name="disallowed_element" value="mods:placeIdentifier"/>
+		<sch:param name="mdattribute" value="@MDTYPE"/>
+		<sch:param name="mdtype_name" value="string('MODS')"/>
+		<sch:param name="mdtype_version" value="string('3.8')"/>
+	</sch:pattern>
+        <sch:pattern id="mods38_originInfo_place_cartographics" is-a="disallowed_element_smaller_version_pattern">
+                <sch:param name="context_element" value="mods:originInfo/mods:place"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_element" value="mods:cartographics"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.8')"/>
+        </sch:pattern>
+        <sch:pattern id="mods38_subject_hierarchicalGeographic_state_stateType" is-a="disallowed_attribute_smaller_version_pattern">
+                <sch:param name="context_element" value="mods:subject/mods:hierarchicalGeographic/mods:state"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_attribute" value="@stateType"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.8')"/>
+        </sch:pattern>
+        <sch:pattern id="mods38_originInfo_displayDate" is-a="disallowed_element_smaller_version_pattern">
+                <sch:param name="context_element" value="mods:originInfo"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_element" value="mods:displayDate"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.8')"/>
+        </sch:pattern>
+        <sch:pattern id="mods38_originInfo_eventTypeURI" is-a="disallowed_attribute_smaller_version_pattern">
+		<sch:param name="context_element" value="mods:originInfo"/>
+		<sch:param name="context_condition" value="true()"/>
+		<sch:param name="disallowed_attribute" value="@eventTypeURI"/>
+		<sch:param name="mdattribute" value="@MDTYPE"/>
+		<sch:param name="mdtype_name" value="string('MODS')"/>
+		<sch:param name="mdtype_version" value="string('3.8')"/>
+	</sch:pattern>
+        <sch:pattern id="mods38_extension_type" is-a="disallowed_attribute_smaller_version_pattern">
+                <sch:param name="context_element" value="mods:extension"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_attribute" value="@type"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.8')"/>
+        </sch:pattern>
+        
         <!-- Version specific check until smaller than 3.7 -->
         <sch:pattern id="mods37_name_alternativeName" is-a="disallowed_element_smaller_version_pattern">
                 <sch:param name="context_element" value="mods:mods/mods:name"/>
