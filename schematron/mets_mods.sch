@@ -156,6 +156,14 @@ Validates version differences from MODS metadata.
                 <sch:param name="mdtype_name" value="string('MODS')"/>
                 <sch:param name="mdtype_version" value="string('3.8')"/>
         </sch:pattern>
+        <sch:pattern id="mods38_toplevel_ID" is-a="disallowed_attribute_smaller_version_pattern">
+            <sch:param name="context_element" value="mods:mods/*[self::mods:abstract or self::mods:accessCondition or self::mods:classification or self::mods:extension or self::mods:genre or self::mods:identifier or self::mods:language or self::mods:location or self::mods:originInfo or self::mods:physicalDescription or self::mods:targetAudience or self::mods:typeOfResource]"/>
+                <sch:param name="context_condition" value="true()"/>
+                <sch:param name="disallowed_attribute" value="@ID"/>
+                <sch:param name="mdattribute" value="@MDTYPE"/>
+                <sch:param name="mdtype_name" value="string('MODS')"/>
+                <sch:param name="mdtype_version" value="string('3.8')"/>
+        </sch:pattern>
         <sch:pattern id="mods38_originInfo_place_placeIdentifier" is-a="disallowed_element_smaller_version_pattern">
 		<sch:param name="context_element" value="mods:originInfo/mods:place"/>
 		<sch:param name="context_condition" value="true()"/>
