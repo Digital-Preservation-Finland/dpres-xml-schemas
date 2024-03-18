@@ -1,6 +1,11 @@
 Release notes
 =============
 
+Unreleased
+----------
+
+- Add schematron checks for MODS versions older than 3.8
+
 Version 0.42
 ------------
 
