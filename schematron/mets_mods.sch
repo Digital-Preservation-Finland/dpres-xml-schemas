@@ -41,21 +41,21 @@ Validates version differences from MODS metadata.
         <!-- Version specific check until smaller than 3.8 -->
         <sch:pattern id="mods38_languageTerm_authority_values" is-a="required_values_attribute_pattern">
                 <sch:param name="context_element" value="mods:languageTerm"/>
-                <sch:param name="context_condition" value="ancestor::mets:mdWrap/@MDTYPE='MODS' and number(ancestor::mets:mdWrap/@MDTYPEVERSION) &lt; 3.8"/>
+                <sch:param name="context_condition" value="normalize-space(ancestor::mets:mdWrap/@MDTYPE)='MODS' and number(normalize-space(ancestor::mets:mdWrap/@MDTYPEVERSION)) &lt; 3.8"/>
                 <sch:param name="context_attribute" value="@authority"/>
                 <sch:param name="valid_values" value="string('rfc3066; iso639-2b; iso639-3; rfc4646; rfc5646')"/>
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
         <sch:pattern id="mods38_geographicCode_authority_values" is-a="required_values_attribute_pattern">
                 <sch:param name="context_element" value="mods:geographicCode"/>
-                <sch:param name="context_condition" value="ancestor::mets:mdWrap/@MDTYPE='MODS' and number(ancestor::mets:mdWrap/@MDTYPEVERSION) &lt; 3.8"/>
+                <sch:param name="context_condition" value="normalize-space(ancestor::mets:mdWrap/@MDTYPE)='MODS' and number(normalize-space(ancestor::mets:mdWrap/@MDTYPEVERSION)) &lt; 3.8"/>
                 <sch:param name="context_attribute" value="@authority"/>
                 <sch:param name="valid_values" value="string('marcgac; marccountry; iso3166')"/>
                 <sch:param name="specifications" value="string('')"/>
         </sch:pattern>
         <sch:pattern id="mods38_placeTerm_authority_values" is-a="required_values_attribute_pattern">
                 <sch:param name="context_element" value="mods:placeTerm"/>
-                <sch:param name="context_condition" value="ancestor::mets:mdWrap/@MDTYPE='MODS' and number(ancestor::mets:mdWrap/@MDTYPEVERSION) &lt; 3.8"/>
+                <sch:param name="context_condition" value="normalize-space(ancestor::mets:mdWrap/@MDTYPE)='MODS' and number(normalize-space(ancestor::mets:mdWrap/@MDTYPEVERSION)) &lt; 3.8"/>
                 <sch:param name="context_attribute" value="@authority"/>
                 <sch:param name="valid_values" value="string('marcgac; marccountry; iso3166')"/>
                 <sch:param name="specifications" value="string('')"/>
