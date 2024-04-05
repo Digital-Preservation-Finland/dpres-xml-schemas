@@ -1,15 +1,15 @@
 Release notes
 =============
 
-Unreleased
-----------
+Version 0.43
+------------
 
 - Add schematron checks for MODS versions older than 3.8
 
 Version 0.42
 ------------
 
-Installation instructions for AlmaLinux 9 using RPM packages
+- Installation instructions for AlmaLinux 9 using RPM packages
 
 Version 0.41
 ------------
