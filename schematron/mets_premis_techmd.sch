@@ -83,7 +83,7 @@ Validates PREMIS metadata
                 'video/jpeg2000; ',
                 'video/mj2; ',
                 'video/MP1S; ',
-                'video/MP2P',
+                'video/MP2P; ',
                 'video/MP2T; ',
                 'video/mp4; ',
                 'video/mpeg; ',
