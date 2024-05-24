@@ -1,6 +1,11 @@
 Release notes
 =============
 
+Unreleased
+----------
+
+- Sort mimetypes alphabetically
+
 Version 0.43
 ------------
 
