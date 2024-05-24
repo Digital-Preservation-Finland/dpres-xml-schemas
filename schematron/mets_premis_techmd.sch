@@ -28,140 +28,140 @@ Validates PREMIS metadata
 
         <!-- Supported MIME types -->
         <sch:let name="supported_mime_types" value="concat(
-                'text/csv; ',
                 'application/epub+zip; ',
-                'application/xhtml+xml; ',
-                'text/xml; ',
-                'text/html; ',
-                'model/step; ',
-                'application/vnd.oasis.opendocument.text; ',
-                'application/vnd.oasis.opendocument.spreadsheet; ',
-                'application/vnd.oasis.opendocument.presentation; ',
-                'application/vnd.oasis.opendocument.graphics; ',
-                'application/vnd.oasis.opendocument.formula; ',
-                'application/pdf; ',
-                'text/plain; ',
-                'audio/x-aiff; ',
-                'audio/x-wav; ',
-                'audio/flac; ',
-                'audio/L16; ',
-                'audio/L8; ',
-                'audio/L20; ',
-                'audio/L24; ',
-                'audio/aac; ',
-                'audio/mp4; ',
-                'image/x-dpx; ',
-                'video/x-ffv; ',
-                'video/jpeg2000; ',
-                'video/h264; ',
-                'video/h265; ',
-                'video/mp4; ',
-                'image/tiff; ',
-                'image/x-adobe-dng; ',
-                'image/jpeg; ',
-                'image/jp2; ',
-                'image/svg+xml; ',
-                'image/png; ',
-                'application/warc; ',
-                'application/gml+xml; ',
                 'application/geopackage+sqlite3; ',
+                'application/gml+xml; ',
+                'application/matlab; ',
+                'application/msword; ',
+                'application/mxf; ',
+                'application/pdf; ',
+                'application/postscript; ',
                 'application/vnd.google-earth.kml+xml; ',
+                'application/vnd.ms-excel; ',
+                'application/vnd.ms-powerpoint; ',
+                'application/vnd.oasis.opendocument.formula; ',
+                'application/vnd.oasis.opendocument.graphics; ',
+                'application/vnd.oasis.opendocument.presentation; ',
+                'application/vnd.oasis.opendocument.spreadsheet; ',
+                'application/vnd.oasis.opendocument.text; ',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation; ',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; ',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document; ',
+                'application/warc; ',
+                'application/x-hdf5; ',
                 'application/x-siard; ',
                 'application/x-spss-por; ',
-                'application/matlab; ',
-                'application/x-hdf5; ',
-                'application/msword; ',
-                'application/vnd.openxmlformats-officedocument.wordprocessingml.document; ',
-                'application/vnd.ms-excel; ',
-                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; ',
-                'application/vnd.ms-powerpoint; ',
-                'application/vnd.openxmlformats-officedocument.presentationml.presentation; ',
+                'application/xhtml+xml; ',
+                'audio/aac; ',
+                'audio/flac; ',
+                'audio/L16; ',
+                'audio/L20; ',
+                'audio/L24; ',
+                'audio/L8; ',
+                'audio/mp4; ',
                 'audio/mpeg; ',
+                'audio/x-aiff; ',
                 'audio/x-ms-wma; ',
-                'video/dv; ',
-                'video/mpeg; ',
-                'video/x-ms-wmv; ',
-                'application/postscript; ',
+                'audio/x-wav; ',
                 'image/gif; ',
+                'image/jp2; ',
+                'image/jpeg; ',
+                'image/png; ',
+                'image/svg+xml; ',
+                'image/tiff; ',
+                'image/x-adobe-dng; ',
+                'image/x-dpx; ',
+                'model/step; ',
+                'text/csv; ',
+                'text/html; ',
+                'text/plain; ',
+                'text/xml; ',
                 'video/avi; ',
-                'video/x-matroska; ',
-                'video/MP2T; ',
-                'application/mxf; ',
+                'video/dv; ',
+                'video/h264; ',
+                'video/h265; ',
+                'video/jpeg2000; ',
                 'video/mj2; ',
-                'video/quicktime; ',
-                'video/x-ms-asf; ',
                 'video/MP1S; ',
-                'video/MP2P')"/>
+                'video/MP2P',
+                'video/MP2T; ',
+                'video/mp4; ',
+                'video/mpeg; ',
+                'video/quicktime; ',
+                'video/x-ffv; ',
+                'video/x-matroska; ',
+                'video/x-ms-asf; ',
+                'video/x-ms-wmv; ')"/>
 
         <!--
         Supported PRONOM registry key versions, grouped by file format, keys in a group divided with a space character.
         The number and ordering of the groups must be same as formats in MIME type list.
         -->
         <sch:let name="supported_pronom_codes" value="
-                exsl:node-set('x-fmt/18')
-                | exsl:node-set('fmt/483')
-                | exsl:node-set('fmt/102 fmt/103 fmt/471')
-                | exsl:node-set('fmt/101')
-                | exsl:node-set('fmt/100 fmt/471')
-                | exsl:node-set('fmt/700')
-                | exsl:node-set('fmt/136 fmt/290 fmt/291')
-                | exsl:node-set('fmt/137 fmt/294 fmt/295')
-                | exsl:node-set('fmt/138 fmt/292 fmt/293')
-                | exsl:node-set('fmt/139 fmt/296 fmt/297')
+                exsl:node-set('fmt/483')
+                | exsl:node-set('fmt/1700')
+                | exsl:node-set('fmt/1047')
+                | exsl:node-set('fmt/806 fmt/828')
+                | exsl:node-set('fmt/40')
                 | exsl:node-set('')
                 | exsl:node-set('fmt/95 fmt/354 fmt/476 fmt/477 fmt/478 fmt/479 fmt/480 fmt/481 fmt/16 fmt/17 fmt/18 fmt/19 fmt/20 fmt/276')
-                | exsl:node-set('x-fmt/111')
-                | exsl:node-set('x-fmt/135 x-fmt/136')
-                | exsl:node-set('fmt/527 fmt/141')
+                | exsl:node-set('fmt/124')
+                | exsl:node-set('fmt/244')
+                | exsl:node-set('fmt/61 fmt/62')
+                | exsl:node-set('fmt/126')
+                | exsl:node-set('')
+                | exsl:node-set('fmt/139 fmt/296 fmt/297')
+                | exsl:node-set('fmt/138 fmt/292 fmt/293')
+                | exsl:node-set('fmt/137 fmt/294 fmt/295')
+                | exsl:node-set('fmt/136 fmt/290 fmt/291')
+                | exsl:node-set('fmt/215')
+                | exsl:node-set('fmt/214')
+                | exsl:node-set('fmt/412')
+                | exsl:node-set('fmt/1281 fmt/1355')
+                | exsl:node-set('fmt/807 fmt/286 fmt/287')
+                | exsl:node-set('fmt/1777')
+                | exsl:node-set('fmt/997')
+                | exsl:node-set('fmt/102 fmt/103 fmt/471')
+                | exsl:node-set('fmt/199')
                 | exsl:node-set('fmt/279')
                 | exsl:node-set('')
                 | exsl:node-set('')
                 | exsl:node-set('')
                 | exsl:node-set('')
                 | exsl:node-set('fmt/199')
-                | exsl:node-set('fmt/199')
-                | exsl:node-set('fmt/541')
-                | exsl:node-set('')
+                | exsl:node-set('fmt/134')
+                | exsl:node-set('x-fmt/135 x-fmt/136')
+                | exsl:node-set('fmt/132')
+                | exsl:node-set('fmt/527 fmt/141')
+                | exsl:node-set('fmt/3 fmt/4')
                 | exsl:node-set('x-fmt/392')
-                | exsl:node-set('fmt/199')
-                | exsl:node-set('')
-                | exsl:node-set('fmt/199')
+                | exsl:node-set('fmt/42 fmt/43 fmt/44 x-fmt/398 x-fmt/390 x-fmt/391 fmt/645 fmt/1507')
+                | exsl:node-set('fmt/13')
+                | exsl:node-set('fmt/92')
                 | exsl:node-set('fmt/353 fmt/155')
                 | exsl:node-set('fmt/152 fmt/437 fmt/438 fmt/730 fmt/1841')
-                | exsl:node-set('fmt/42 fmt/43 fmt/44 x-fmt/398 x-fmt/390 x-fmt/391 fmt/645 fmt/1507')
-                | exsl:node-set('x-fmt/392')
-                | exsl:node-set('fmt/92')
-                | exsl:node-set('fmt/13')
-                | exsl:node-set('fmt/1281 fmt/1355')
-                | exsl:node-set('fmt/1047')
-                | exsl:node-set('fmt/1700')
-                | exsl:node-set('fmt/244')
-                | exsl:node-set('fmt/1777')
-                | exsl:node-set('fmt/997')
-                | exsl:node-set('fmt/806 fmt/828')
-                | exsl:node-set('fmt/807 fmt/286 fmt/287')
-                | exsl:node-set('fmt/40')
-                | exsl:node-set('fmt/412')
-                | exsl:node-set('fmt/61 fmt/62')
-                | exsl:node-set('fmt/214')
-                | exsl:node-set('fmt/126')
-                | exsl:node-set('fmt/215')
-                | exsl:node-set('fmt/134')
-                | exsl:node-set('fmt/132')
-                | exsl:node-set('x-fmt/152')
-                | exsl:node-set('fmt/649 fmt/640')
-                | exsl:node-set('fmt/133')
-                | exsl:node-set('fmt/124')
-                | exsl:node-set('fmt/3 fmt/4')
+                | exsl:node-set('fmt/541')
+                | exsl:node-set('fmt/700')
+                | exsl:node-set('x-fmt/18')
+                | exsl:node-set('fmt/100 fmt/471')
+                | exsl:node-set('x-fmt/111')
+                | exsl:node-set('fmt/101')
                 | exsl:node-set('fmt/5')
-                | exsl:node-set('fmt/569')
-                | exsl:node-set('fmt/585')
+                | exsl:node-set('x-fmt/152')
+                | exsl:node-set('fmt/199')
                 | exsl:node-set('')
+                | exsl:node-set('x-fmt/392')
                 | exsl:node-set('fmt/337')
-                | exsl:node-set('x-fmt/384')
-                | exsl:node-set('fmt/131')
                 | exsl:node-set('x-fmt/385')
-                | exsl:node-set('x-fmt/386')"/>
+                | exsl:node-set('x-fmt/386')
+                | exsl:node-set('fmt/585')
+                | exsl:node-set('fmt/199')
+                | exsl:node-set('fmt/649 fmt/640')
+                | exsl:node-set('x-fmt/384')
+                | exsl:node-set('')
+                | exsl:node-set('fmt/569')
+                | exsl:node-set('fmt/131')
+                | exsl:node-set('fmt/133')"/>
 
         <!-- Supported checksum types divided with a space+semicolon characters -->
         <sch:let name="supported_checksum_algorithms" value="string('MD5; SHA-1; SHA-224; SHA-256; SHA-384; SHA-512; md5; sha-1; sha-224; sha-256; sha-384; sha-512')"/>
