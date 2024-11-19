@@ -85,6 +85,10 @@ Paths related to schema catalog are described in relation to base path ./schema_
   | License: See ./gml/License
   | http://www.opengeospatial.org/
   | (c) 2001,2005,2010 Open Geospatial Consortium.
+./gpx
+  | License: N/A
+  | https://www.topografix.com/
+  | Copyright N/A
 ./lido
   | Creative Commons ttribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
   | http://creativecommons.org/licenses/by-sa/3.0/

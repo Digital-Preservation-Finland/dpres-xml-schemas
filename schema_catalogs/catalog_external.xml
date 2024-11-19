@@ -120,7 +120,7 @@
 	<rewriteURI uriStartString="http://www.loc.gov/standards/premis/v2/premis.xsd" rewritePrefix="premis/2.3/premis-v2-3.xsd"/>
 	<rewriteURI uriStartString="http://www.loc.gov/standards/premis/premis.xsd" rewritePrefix="premis/2.3/premis-v2-3.xsd"/>
 
-	<!-- EAC, EAD, LIDO, MARC21, VRA Core, METSRights, OpenGis GML, Sahke2, Datacite -->
+	<!-- EAC, EAD, LIDO, MARC21, VRA Core, METSRights, OpenGis GML, Sahke2, Datacite, GPX -->
 	<rewriteURI uriStartString="http://eac.staatsbibliothek-berlin.de/schema/cpf.xsd" rewritePrefix="eac/2010/cpf.xsd"/>
 	<rewriteURI uriStartString="https://eac.staatsbibliothek-berlin.de/schema/v2/eac.xsd" rewritePrefix="eac/2.0/eac.xsd"/>
 	<rewriteURI uriStartString="http://www.loc.gov/ead/ead.xsd" rewritePrefix="ead/2002/ead.xsd"/>
@@ -140,4 +140,5 @@
 	<rewriteURI uriStartString="https://schema.datacite.org/meta/kernel-4.3/metadata.xsd" rewritePrefix="datacite/4.3/metadata.xsd"/>
 	<rewriteURI uriStartString="https://schema.datacite.org/meta/kernel-4.2/metadata.xsd" rewritePrefix="datacite/4.2/metadata.xsd"/>
 	<rewriteURI uriStartString="https://schema.datacite.org/meta/kernel-4.1/metadata.xsd" rewritePrefix="datacite/4.1/metadata.xsd"/>
+	<rewriteURI uriStartString="http://www.topografix.com/GPX/1/1/gpx.xsd" rewritePrefix="gpx/1.1/gpx.xsd"/>
 </catalog>

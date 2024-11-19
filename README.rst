@@ -157,6 +157,9 @@ Paths are described in relation to base path ./schema_catalogs/schemas_external/
 ./ebucore
   EBUCore schema files
 
+./gpx
+  GPS Exchange Format schema files
+
 ./lido
   LIDO schema files
 

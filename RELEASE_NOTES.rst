@@ -1,6 +1,11 @@
 Release notes
 =============
 
+Unreleased
+----------
+
+- Add GPX schema to external catalog
+
 Version 0.44
 ------------
 
