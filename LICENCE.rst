@@ -89,12 +89,18 @@ Paths related to schema catalog are described in relation to base path ./schema_
   | License: N/A
   | https://www.topografix.com/
   | Copyright N/A
-./lido
-  | Creative Commons ttribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
+./lido/1.0
+  | Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
   | http://creativecommons.org/licenses/by-sa/3.0/
   | http://www.lido-schema.org
   | Copyright 2009-2010 ICOM-CIDOC for the
   | Data Harvesting and Interchange Working Group.
+./lido/1.1
+  | Creative Commons Attribution 4.0 International (CC BY 4.0)
+  | https://creativecommons.org/licenses/by/4.0/
+  | http://www.lido-schema.org
+  | Copyright 2009-2021 ICOM-CIDOC for the
+  | LIDO Working Group.
 ./mads
   | License N/A
   | http://www.loc.gov/standards/mads/
