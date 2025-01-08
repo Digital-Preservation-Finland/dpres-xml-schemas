@@ -1,8 +1,8 @@
 Release notes
 =============
 
-Unreleased
-----------
+Version 0.45
+------------
 
 - Add GPX schema to external catalog
 - Update LIDO 1.1 licence
