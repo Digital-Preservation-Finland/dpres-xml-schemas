@@ -1,6 +1,11 @@
 Release notes
 =============
 
+Unreleased
+----------
+
+- Update specifications to version 1.7.7.
+
 Version 0.45
 ------------
 

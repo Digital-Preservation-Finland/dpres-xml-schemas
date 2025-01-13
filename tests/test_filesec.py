@@ -30,7 +30,7 @@ def test_valid_complete_filesec(schematron_fx):
 
 
 @pytest.mark.parametrize("specification, failed", [
-    ('1.5.0', 1), ('1.6.0', 0), ('1.7.6', 0)
+    ('1.5.0', 1), ('1.6.0', 0), ('1.7.7', 0)
 ])
 def test_streams_catalogs(schematron_fx, specification, failed):
     """Test that streams are disallowed in old catalog versions.
@@ -40,7 +40,7 @@ def test_streams_catalogs(schematron_fx, specification, failed):
     :failed: Number of failures
     """
     (mets, root) = parse_xml_file('mets_video_container.xml')
-    if specification == '1.7.6':
+    if specification == '1.7.7':
         fix_version_17(root)
     else:
         set_attribute(root, 'CATALOG', 'fikdk', specification)
@@ -262,10 +262,10 @@ def test_fileformat_metadata(schematron_fx, fileformat, mdinfo):
     # Remove link to metadata section, and have failure
     set_attribute(elem_section, 'ID', 'mets', 'tech_nolink')
     allversions = ['1.5.0', '1.6.0', '1.7.0', '1.7.1', '1.7.2', '1.7.3',
-                   '1.7.5', '1.7.6']
+                   '1.7.5', '1.7.6', '1.7.7']
     for testversion in allversions:
         if testversion in ['1.7.0', '1.7.1', '1.7.2', '1.7.3', '1.7.5',
-                           '1.7.6']:
+                           '1.7.6', '1.7.7']:
             fix_version_17(root)
         else:
             set_attribute(root, 'CATALOG', 'fikdk', testversion)
@@ -449,8 +449,8 @@ def test_arbitrary_attributes_filesec(schematron_fx, context):
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
     elem_handler = find_element(root, context, 'mets')
-    for spec in [None, '1.7.6']:
-        if spec == '1.7.6':
+    for spec in [None, '1.7.7']:
+        if spec == '1.7.7':
             fix_version_17(root)
         for ns in ['fi', 'fikdk', 'dc']:
             set_attribute(elem_handler, 'xxx', ns, 'xxx')
