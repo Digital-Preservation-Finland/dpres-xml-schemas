@@ -5,6 +5,7 @@ Unreleased
 ----------
 
 - Update specifications to version 1.7.7.
+- Add new PRONOM codes.
 
 Version 0.45
 ------------
