@@ -136,6 +136,7 @@
 	<rewriteURI uriStartString="http://schemas.opengis.net/gml/3.1.1/base/feature.xsd" rewritePrefix="opengis.gml/3.1.1/base/feature.xsd"/>
 	<rewriteURI uriStartString="http://www.arkisto.fi/skeemat/Sahke2_2011_12.xsd" rewritePrefix="sahke2/2011.12/Sahke2_2011_12.xsd"/>
 	<rewriteURI uriStartString="http://www.arkisto.fi/skeemat/Sahke2_2019_03.xsd" rewritePrefix="sahke2/2019.03/Sahke2_2019_03.xsd"/>
+	<rewriteURI uriStartString="https://schema.datacite.org/meta/kernel-4.5/metadata.xsd" rewritePrefix="datacite/4.5/metadata.xsd"/>
 	<rewriteURI uriStartString="https://schema.datacite.org/meta/kernel-4.4/metadata.xsd" rewritePrefix="datacite/4.4/metadata.xsd"/>
 	<rewriteURI uriStartString="https://schema.datacite.org/meta/kernel-4.3/metadata.xsd" rewritePrefix="datacite/4.3/metadata.xsd"/>
 	<rewriteURI uriStartString="https://schema.datacite.org/meta/kernel-4.2/metadata.xsd" rewritePrefix="datacite/4.2/metadata.xsd"/>
