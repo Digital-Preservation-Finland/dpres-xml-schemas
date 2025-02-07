@@ -154,8 +154,8 @@ Validates METS dmdSec.
                 <sch:param name="context_element" value="mets:dmdSec/mets:mdWrap"/>
                 <sch:param name="context_condition" value="normalize-space(@MDTYPE)='OTHER' and normalize-space(@OTHERMDTYPE)='DATACITE'"/>
                 <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
-                <sch:param name="valid_values" value="string('4.4; 4.3; 4.2; 4.1')"/>
-                <sch:param name="specifications" value="string('not: 1.5.0; 1.6.0; 1.6.1; 1.7.0; 1.7.1; 1.7.2; 1.7.3')"/>
+                <sch:param name="valid_values" value="string('4.5; 4.4; 4.3; 4.2; 4.1')"/>
+                <sch:param name="specifications" value="string('not: 1.5.0; 1.6.0; 1.6.1; 1.7.0; 1.7.1; 1.7.2; 1.7.3; 1.7.4; 1.7.5; 1.7.6')"/>
         </sch:pattern>
         <sch:pattern id="mets_techMD_MDTYPEVERSION_values_EBUCORE" is-a="required_values_attribute_pattern">
                 <sch:param name="context_element" value="mets:dmdSec/mets:mdWrap"/>
@@ -305,6 +305,13 @@ Validates METS dmdSec.
                 <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
                 <sch:param name="valid_values" value="string('4.3; 4.2; 4.1')"/>
                 <sch:param name="specifications" value="string('1.7.2; 1.7.3')"/>
+        </sch:pattern>
+        <sch:pattern id="mets_techMD_MDTYPEVERSION_values_DATACITE_pre177" is-a="required_values_attribute_pattern">
+                <sch:param name="context_element" value="mets:dmdSec/mets:mdWrap"/>
+                <sch:param name="context_condition" value="normalize-space(@MDTYPE)='OTHER' and normalize-space(@OTHERMDTYPE)='DATACITE'"/>
+                <sch:param name="context_attribute" value="@MDTYPEVERSION"/>
+                <sch:param name="valid_values" value="string('4.4; 4.3; 4.2; 4.1')"/>
+                <sch:param name="specifications" value="string('1.7.4; 1.7.5; 1.7.6')"/>
         </sch:pattern>
 
 </sch:schema>
