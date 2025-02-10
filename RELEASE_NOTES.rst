@@ -6,6 +6,7 @@ Unreleased
 
 - Update specifications to version 1.7.7.
 - Add new PRONOM codes.
+- Add support for Datacite 4.5 schema
 
 Version 0.45
 ------------
