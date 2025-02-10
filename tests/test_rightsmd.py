@@ -3,8 +3,7 @@ in mets_rightsmd.sch.
 
 .. seealso:: mets_rightsmd.sch
 """
-from tests.common import (SVRL_FAILED, SVRL_REPORT, parse_xml_file,
-                          parse_xml_string, NAMESPACES, fix_version_17,
+from tests.common import (SVRL_FAILED, parse_xml_file, fix_version_17,
                           find_element, set_element, set_attribute)
 
 SCHFILE = 'mets_rightsmd.sch'
@@ -41,7 +40,7 @@ def test_mdtype_items_rightsmd(schematron_fx):
                         '1.7.4', '1.7.5', '1.7.6', '1.7.7']:
         if specversion in ['1.7.0', '1.7.1', '1.7.3', '1.7.4', '1.7.5',
                            '1.7.6', '1.7.7']:
-            fix_version_17(root)
+            fix_version_17(root, version=specversion)
         else:
             set_attribute(root, 'CATALOG', 'fikdk', specversion)
             set_attribute(root, 'SPECIFICATION', 'fikdk', specversion)

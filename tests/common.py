@@ -209,12 +209,15 @@ def del_attribute(element, attribute, namespace):
             ('{%s}'+attribute) % NAMESPACES[namespace]]
 
 
-def fix_version_17(root):
+def fix_version_17(root, version=None):
     """Local namespaces need to be changed for catalog version 1.7.7 to make
     the tree valid. This is used in various tests.
 
     :root: METS root element
     """
+    if not version:
+        version = '1.7.7'
+
     fikdk_dict = {'mets': ['CATALOG', 'SPECIFICATION', 'CONTENTID'],
                   'dmdSec': ['CREATED', 'PID', 'PIDTYPE'],
                   'techMD': ['CREATED', 'PID', 'PIDTYPE'],
@@ -238,7 +241,7 @@ def fix_version_17(root):
     set_attribute(
         root, 'PROFILE', 'mets',
         'http://digitalpreservation.fi/mets-profiles/cultural-heritage')
-    set_attribute(root, 'CATALOG', 'fi', '1.7.7')
-    set_attribute(root, 'SPECIFICATION', 'fi', '1.7.7')
+    set_attribute(root, 'CATALOG', 'fi', version)
+    set_attribute(root, 'SPECIFICATION', 'fi', version)
     set_attribute(root, 'CONTRACTID', 'fi',
                   'urn:uuid:c5a193b3-bb63-4348-bd25-6c20bb72264b')

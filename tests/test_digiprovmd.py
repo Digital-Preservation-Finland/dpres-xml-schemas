@@ -85,7 +85,7 @@ def test_mdtype_items_digiprovmd(schematron_fx, mdtype, othermdtype,
                         '1.7.4', '1.7.5', '1.7.6', '1.7.7']:
         if specversion in ['1.7.0', '1.7.1', '1.7.2', '1.7.3', '1.7.4',
                            '1.7.5', '1.7.6', '1.7.7']:
-            fix_version_17(root)
+            fix_version_17(root, version=specversion)
         else:
             set_attribute(root, 'CATALOG', 'fikdk', specversion)
             set_attribute(root, 'SPECIFICATION', 'fikdk', specversion)

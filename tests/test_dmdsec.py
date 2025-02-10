@@ -107,8 +107,10 @@ def test_dependent_attributes_dmdsec(schematron_fx, nspaces, attributes,
      ['1.7.3', '1.7.4', '1.7.5', '1.7.6', '1.7.7']),
     ('OTHER', 'EAD3', ['1.1.0', '1.0.0'], ['1.7.1', '1.7.2']),
     ('OTHER', 'EAD3', ['1.0.0'], ['1.5.0', '1.6.0', '1.6.1', '1.7.0']),
-    ('OTHER', 'DATACITE', ['4.4', '4.3', '4.2', '4.1'], ['1.7.4', '1.7.5',
-                                                         '1.7.6', '1.7.7']),
+    ('OTHER', 'DATACITE',
+     ['4.5', '4.4', '4.3', '4.2', '4.1'], ['1.7.7']),
+    ('OTHER', 'DATACITE',
+     ['4.4', '4.3', '4.2', '4.1'], ['1.7.4', '1.7.5', '1.7.6']),
     ('OTHER', 'DATACITE', ['4.3', '4.2', '4.1'], ['1.7.2', '1.7.3']),
     ('OTHER', 'DATACITE', ['4.1'],
      ['1.5.0', '1.6.0', '1.6.1', '1.7.0', '1.7.1']),
@@ -136,7 +138,7 @@ def test_mdtype_items_dmdsec(schematron_fx, mdtype, othermdtype,
     for sversion in specversion:
         if sversion in ['1.7.0', '1.7.1', '1.7.2', '1.7.3', '1.7.4', '1.7.5',
                         '1.7.6', '1.7.7']:
-            fix_version_17(root)
+            fix_version_17(root, version=sversion)
         else:
             set_attribute(root, 'CATALOG', 'fikdk', sversion)
             set_attribute(root, 'SPECIFICATION', 'fikdk', sversion)

@@ -266,7 +266,7 @@ def test_fileformat_metadata(schematron_fx, fileformat, mdinfo):
     for testversion in allversions:
         if testversion in ['1.7.0', '1.7.1', '1.7.2', '1.7.3', '1.7.5',
                            '1.7.6', '1.7.7']:
-            fix_version_17(root)
+            fix_version_17(root, version=testversion)
         else:
             set_attribute(root, 'CATALOG', 'fikdk', testversion)
         svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
