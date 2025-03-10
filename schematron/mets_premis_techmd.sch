@@ -69,6 +69,7 @@ Validates PREMIS metadata
                 'image/png; ',
                 'image/svg+xml; ',
                 'image/tiff; ',
+                'image/webp; ',
                 'image/x-adobe-dng; ',
                 'image/x-dpx; ',
                 'model/step; ',
@@ -139,6 +140,7 @@ Validates PREMIS metadata
                 | exsl:node-set('fmt/13')
                 | exsl:node-set('fmt/92')
                 | exsl:node-set('fmt/353 fmt/155')
+                | exsl:node-set('fmt/556 fmt/567 fmt/568)
                 | exsl:node-set('fmt/152 fmt/437 fmt/438 fmt/730 fmt/1841')
                 | exsl:node-set('fmt/541')
                 | exsl:node-set('fmt/700')
