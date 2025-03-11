@@ -4,6 +4,8 @@ Release notes
 Unreleased
 ----------
 
+- Map Datacite v4 namespace to version 4.3 schema in METS XML schema import
+
 0.46
 ----
 
