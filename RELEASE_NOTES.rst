@@ -1,13 +1,13 @@
 Release notes
 =============
 
-Unreleased
-----------
+Version 0.47
+------------
 
-- Map Datacite v4 namespace to version 4.3 schema in METS XML schema import
+- Map DataCite v4 namespace to version 4.3 schema in METS XML schema import
 
-0.46
-----
+Version 0.46
+------------
 
 - Update specifications to version 1.7.7.
 - Add new PRONOM codes.
