@@ -1,6 +1,11 @@
 Release notes
 =============
 
+Version 0.48
+------------
+
+- Add support for WebP files
+
 Version 0.47
 ------------
 
