@@ -459,14 +459,18 @@ def test_arbitrary_attributes_filesec(schematron_fx, context):
             del_attribute(elem_handler, 'xxx', ns)
 
 
-def test_bitlevel_migration(schematron_fx):
+@pytest.mark.parametrize('mets_file',[
+    'mets_valid_native.xml',
+    'mets_valid_native_ignore_error.xml',
+])
+def test_bitlevel_migration(schematron_fx, mets_file):
     """Test the bitlevel file case where file requires a migration event to
     a recommended/acceptable file format. Here we test various cases related to
     this kind of file.
 
     :schematron_fx: Schematron compile fixture
     """
-    (mets, root) = parse_xml_file('mets_valid_native.xml')
+    (mets, root) = parse_xml_file(mets_file)
 
     # Working case
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
