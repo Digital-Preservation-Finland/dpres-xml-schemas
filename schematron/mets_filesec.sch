@@ -270,7 +270,7 @@ Validates METS fileSec.
 
         <!-- File format specific technical metadata requirements -->
         <sch:pattern id="audiomd_requirement_stream">
-                <sch:rule context="mets:stream[normalize-space(../@USE)!='fi-dpres-no-file-format-validation' and normalize-space(../@USE)!='fi-dpres-file-format-identification']">
+                <sch:rule context="mets:stream[normalize-space(../@USE)!='fi-dpres-no-file-format-validation' and normalize-space(../@USE)!='fi-dpres-file-format-identification' and normalize-space(../@USE)!='fi-dpres-ignore-validation-errors']">
                         <sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
@@ -283,7 +283,7 @@ Validates METS fileSec.
                 </sch:rule>
         </sch:pattern>
         <sch:pattern id="videomd_requirement_stream">
-                <sch:rule context="mets:stream[normalize-space(../@USE)!='fi-dpres-no-file-format-validation' and normalize-space(../@USE)!='fi-dpres-file-format-identification']">
+                <sch:rule context="mets:stream[normalize-space(../@USE)!='fi-dpres-no-file-format-validation' and normalize-space(../@USE)!='fi-dpres-file-format-identification' and normalize-space(../@USE)!='fi-dpres-ignore-validation-errors']">
                         <sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
@@ -296,7 +296,7 @@ Validates METS fileSec.
                 </sch:rule>
         </sch:pattern>
         <sch:pattern id="mix_requirement_stream">
-                <sch:rule context="mets:stream[normalize-space(../@USE)!='fi-dpres-no-file-format-validation' and normalize-space(../@USE)!='fi-dpres-file-format-identification']">
+                <sch:rule context="mets:stream[normalize-space(../@USE)!='fi-dpres-no-file-format-validation' and normalize-space(../@USE)!='fi-dpres-file-format-identification' and normalize-space(../@USE)!='fi-dpres-ignore-validation-errors']">
                         <sch:let name="given_specification" value="substring-before(concat(normalize-space(concat(normalize-space(/mets:mets/@fi:CATALOG), ' ', normalize-space(/mets:mets/@fikdk:CATALOG), ' ', normalize-space(/mets:mets/@fi:SPECIFICATION), ' ', normalize-space(/mets:mets/@fikdk:SPECIFICATION))), ' '), ' ')"/>
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="file_admids" value="normalize-space(../@ADMID)"/>
@@ -311,7 +311,7 @@ Validates METS fileSec.
                 </sch:rule>
         </sch:pattern>
         <sch:pattern id="addml_requirement">
-                <sch:rule context="mets:fileGrp/mets:file">
+                <sch:rule context="mets:fileGrp/mets:file[not(@USE='fi-dpres-ignore-validation-errors')]">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
                         <sch:let name="countfilescomb_addml" value="count(sets:distinct(exsl:node-set($addml_fileid) | str:tokenize($admids, ' ')))"/>
@@ -322,7 +322,7 @@ Validates METS fileSec.
                 </sch:rule>
         </sch:pattern>
         <sch:pattern id="audiomd_requirement">
-                <sch:rule context="mets:fileGrp/mets:file[not(mets:stream)]">
+                <sch:rule context="mets:fileGrp/mets:file[not(mets:stream) and not(@USE='fi-dpres-ignore-validation-errors')]">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
                         <sch:let name="countfilescomb_audiomd" value="count(sets:distinct(exsl:node-set($audiomd_fileid) | str:tokenize($admids, ' ')))"/>
@@ -333,7 +333,7 @@ Validates METS fileSec.
                 </sch:rule>
         </sch:pattern>
         <sch:pattern id="videomd_requirement">
-                <sch:rule context="mets:fileGrp/mets:file[not(mets:stream)]">
+                <sch:rule context="mets:fileGrp/mets:file[not(mets:stream) and not(@USE='fi-dpres-ignore-validation-errors')]">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
                         <sch:let name="countfilescomb_videomd" value="count(sets:distinct(exsl:node-set($videomd_fileid) | str:tokenize($admids, ' ')))"/>
@@ -344,7 +344,7 @@ Validates METS fileSec.
                 </sch:rule>
         </sch:pattern>
         <sch:pattern id="mix_requirement">
-                <sch:rule context="mets:fileGrp/mets:file[not(mets:stream)]">
+                <sch:rule context="mets:fileGrp/mets:file[not(mets:stream) and not(@USE='fi-dpres-ignore-validation-errors')]">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
                         <sch:let name="countfilescomb_mix" value="count(sets:distinct(exsl:node-set($mix_fileid) | str:tokenize($admids, ' ')))"/>
@@ -355,7 +355,7 @@ Validates METS fileSec.
                 </sch:rule>
         </sch:pattern>
         <sch:pattern id="csv_addml_requirements">
-                <sch:rule context="mets:fileGrp/mets:file">
+                <sch:rule context="mets:fileGrp/mets:file[not(@USE='fi-dpres-ignore-validation-errors')]">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
                         <sch:let name="countfilescomb_csv" value="count(sets:distinct(exsl:node-set($csv_fileid) | str:tokenize($admids, ' ')))"/>
@@ -372,7 +372,7 @@ Validates METS fileSec.
 
         <!-- JPEG2000 specific check -->
         <sch:pattern id="jpeg2000_requirements">
-                <sch:rule context="mets:fileGrp/mets:file">
+                <sch:rule context="mets:fileGrp/mets:file[not(@USE='fi-dpres-ignore-validation-errors')]">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
                         <sch:let name="countfilescomb_jpeg2000" value="count(sets:distinct(exsl:node-set($jp2_fileid) | str:tokenize($admids, ' ')))"/>
@@ -389,7 +389,7 @@ Validates METS fileSec.
 
         <!-- Not JPEG2000 file - specific check -->
         <sch:pattern id="jpeg2000_disallowed">
-                <sch:rule context="mets:fileGrp/mets:file">
+                <sch:rule context="mets:fileGrp/mets:file[not(@USE='fi-dpres-ignore-validation-errors')]">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
                         <sch:let name="countfilescomb_jpeg2000_not" value="count(sets:distinct(exsl:node-set($not_jp2_fileid) | str:tokenize($admids, ' ')))"/>
@@ -402,7 +402,7 @@ Validates METS fileSec.
 
         <!-- TIFF and DPX specific check -->
         <sch:pattern id="tiff_byteorder">
-                <sch:rule context="mets:fileGrp/mets:file[not(mets:stream)]">
+                <sch:rule context="mets:fileGrp/mets:file[not(mets:stream) and not(@USE='fi-dpres-ignore-validation-errors')]">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
                         <sch:let name="countfilescomb_byteorder" value="count(sets:distinct(exsl:node-set($tiff_fileid) | str:tokenize($admids, ' ')))"/>
@@ -414,7 +414,7 @@ Validates METS fileSec.
         </sch:pattern>
 
         <sch:pattern id="tiff_byteorder_stream">
-                <sch:rule context="mets:stream">
+                <sch:rule context="mets:stream[normalize-space(../@USE)!='fi-dpres-ignore-validation-errors']">
                         <sch:let name="admids" value="normalize-space(@ADMID)"/>
                         <sch:let name="file_admids" value="normalize-space(../@ADMID)"/>
                         <sch:let name="countadm" value="count(sets:distinct(str:tokenize($admids, ' ')))"/>
@@ -516,6 +516,30 @@ Validates METS fileSec.
         <sch:pattern id="no_validation_bitlevel_identification">
                 <sch:rule context="mets:fileGrp/mets:file[normalize-space(@USE)='fi-dpres-file-format-identification']">
                         <sch:report test="true()">
+                                INFO: Value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' found for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'. No file format validation is executed for this file.
+                        </sch:report>
+                </sch:rule>
+        </sch:pattern>
+
+        <sch:pattern id="ignore_validation_error_broken_bitlevel_identification">
+                <sch:rule context="mets:fileGrp/mets:file[(normalize-space(@USE)='fi-dpres-ignore-validation-errors')]">
+                        <sch:let name="admid" value="normalize-space(@ADMID)"/>
+                        <sch:let name="bitlevel_techmd_id" value="normalize-space($techmd/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' ')) and (normalize-space(../mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:file' or normalize-space(../mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:bitstream')])"/>
+                        <sch:let name="bitlevel_object_id" value="normalize-space($techmd[normalize-space(@ID) = $bitlevel_techmd_id]/mets:mdWrap/mets:xmlData/premis:object/premis:objectIdentifier/premis:objectIdentifierValue)"/>
+
+                        <sch:let name="migration_events_bitlevel_as_source" value="exsl:node-set($digiprovmd_migration/mets:mdWrap/mets:xmlData/premis:event/premis:linkingObjectIdentifier[normalize-space(./premis:linkingObjectRole)='source' and normalize-space(./premis:linkingObjectIdentifierValue)=$bitlevel_object_id and (normalize-space(following-sibling::premis:linkingObjectIdentifier/premis:linkingObjectRole)='outcome' or normalize-space(preceding-sibling::premis:linkingObjectIdentifier/premis:linkingObjectRole)='outcome')]/..)"/>
+                        <sch:let name="migration_events_bitlevel_not_as_outcome" value="exsl:node-set($digiprovmd_migration/mets:mdWrap/mets:xmlData/premis:event/premis:linkingObjectIdentifier[normalize-space(./premis:linkingObjectRole)='outcome' and not(normalize-space(./premis:linkingObjectIdentifierValue)=$bitlevel_object_id)]/..)"/>
+                        <sch:let name="conversion_events_broken_not_as_outcome" value="exsl:node-set($digiprovmd_conversion/mets:mdWrap/mets:xmlData/premis:event/premis:linkingObjectIdentifier[normalize-space(./premis:linkingObjectRole)='outcome' and normalize-space(./premis:linkingObjectIdentifierValue)=$bitlevel_object_id and (normalize-space(following-sibling::premis:linkingObjectIdentifier/premis:linkingObjectRole)='source' or normalize-space(preceding-sibling::premis:linkingObjectIdentifier/premis:linkingObjectRole)='source')]/..)"/>
+                        <sch:let name="conversion_events_broken_as_source" value="exsl:node-set($digiprovmd_conversion/mets:mdWrap/mets:xmlData/premis:event/premis:linkingObjectIdentifier[normalize-space(./premis:linkingObjectRole)='source' and not(normalize-space(./premis:linkingObjectIdentifierValue)=$bitlevel_object_id)]/..)"/>
+                        <sch:let name="events_with_ok_links" value="sets:intersection($migration_events_bitlevel_as_source, $migration_events_bitlevel_not_as_outcome) | sets:intersection($conversion_events_broken_not_as_outcome, $conversion_events_broken_as_source)"/>
+
+                        <sch:assert test="(count($digiprovmd_migration) &gt; 0 and count($digiprovmd_migration/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' '))]) &gt; 0) or (count($digiprovmd_conversion) &gt; 0 and count($digiprovmd_conversion/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' '))]) &gt; 0)">
+                                Value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' found for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'. Succeeded PREMIS event for migration, normalization or conversion is required.
+                        </sch:assert>
+                        <sch:assert test="(count($digiprovmd_migration) = 0 and count($digiprovmd_conversion) = 0) or count($events_with_ok_links) &gt; 0">
+                                Value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' found for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'. PREMIS event for migration, normalization or conversion contains ambiguous links to object identifiers.
+                        </sch:assert>
+                        <sch:report test="((count($digiprovmd_migration) &gt; 0 and count($digiprovmd_migration/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' '))]) &gt; 0) or (count($digiprovmd_conversion) &gt; 0 and count($digiprovmd_conversion/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' '))]) &gt; 0)) and count($events_with_ok_links) &gt; 0">
                                 INFO: Value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' found for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'. No file format validation is executed for this file.
                         </sch:report>
                 </sch:rule>
