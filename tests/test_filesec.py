@@ -589,6 +589,20 @@ def test_bitlevel_identification(schematron_fx):
     assert svrl.count(SVRL_REPORT) == 1
 
 
+def test_bitlevel_failure(schematron_fx):
+    """Test the case where bit level file storage is missing required
+    event.
+
+    :schematron_fx: Schematron compile fixture
+    """
+    (mets, root) = parse_xml_file('mets_invalid_missing_event.xml')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    # Two failed assertions has to take place:
+    # 1. Source file missing an event
+    # 2. Outcome file missing an event
+    assert svrl.count(SVRL_FAILED) == 2
+
+
 def test_container_links(schematron_fx):
     """Test the container and stream case.
 
