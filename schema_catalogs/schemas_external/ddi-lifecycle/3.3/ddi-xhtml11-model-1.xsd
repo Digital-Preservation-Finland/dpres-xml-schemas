@@ -87,40 +87,6 @@ This file is part of DDI 3.3 XML Schema. 2020-04-15
 			<xs:documentation>Extended Global Common Attributes</xs:documentation>
 		</xs:annotation>
 	</xs:attributeGroup>
-	<!--
-  <xs:group name="HeadOpts.mix">
-    <xs:choice>
-      <xs:element ref="script"/>
-      <xs:element ref="style"/>
-      <xs:element ref="meta"/>
-      <xs:element ref="link"/>
-      <xs:element ref="object"/>
-    </xs:choice>
-  </xs:group>
--->
-	<!--
-   ins and del are used to denote editing changes
-  -->
-	<!--
-  <xs:group name="Edit.class">
-    <xs:choice>
-      <xs:element ref="ins"/>
-      <xs:element ref="del"/>
-    </xs:choice>
-  </xs:group>
--->
-	<!--
-   script and noscript are used to contain scripts
-   and alternative content
-  -->
-	<!--
-  <xs:group name="Script.class">
-    <xs:choice>
-      <xs:element ref="script"/>
-      <xs:element ref="noscript"/>
-    </xs:choice>
-  </xs:group>
--->
 	<xs:group name="Misc.extra">
 		<xs:choice/>
 	</xs:group>
@@ -131,8 +97,6 @@ This file is part of DDI 3.3 XML Schema. 2020-04-15
   -->
 	<xs:group name="Misc.class">
 		<xs:choice>
-			<!--      <xs:group ref="Edit.class"/>
-      <xs:group ref="Script.class"/> -->
 			<xs:group ref="Misc.extra"/>
 		</xs:choice>
 	</xs:group>
@@ -184,39 +148,6 @@ This file is part of DDI 3.3 XML Schema. 2020-04-15
 			<xs:element ref="a"/>
 		</xs:sequence>
 	</xs:group>
-	<!--
-  <xs:group name="InlSpecial.class">
-    <xs:choice>
-      <xs:element ref="img"/>
-      <xs:element ref="map"/>
-      <xs:element ref="object"/>
-    </xs:choice>
-  </xs:group>
-
-  <xs:group name="InlForm.class">
-    <xs:choice>
-      <xs:element ref="input"/>
-      <xs:element ref="select"/>
-      <xs:element ref="textarea"/>
-      <xs:element ref="label"/>
-      <xs:element ref="button"/>
-    </xs:choice>
-  </xs:group>
-
-  <xs:group name="Inline.extra">
-    <xs:choice/>
-  </xs:group>
-
-  <xs:group name="Ruby.class">
-    <xs:sequence>
-      <xs:element ref="ruby"/>
-    </xs:sequence>
-  </xs:group>
--->
-	<!--
-   Inline.class includes all inline elements,
-   used as a component in mixes
-  -->
 
 	<xs:group name="Inline.class">
 		<xs:choice>
@@ -225,10 +156,6 @@ This file is part of DDI 3.3 XML Schema. 2020-04-15
 			<xs:group ref="InlPres.class"/>
 			<xs:group ref="I18n.class"/>
 			<xs:group ref="Anchor.class"/>
-			<!--      <xs:group ref="InlSpecial.class"/>
-      <xs:group ref="InlForm.class"/>
-      <xs:group ref="Ruby.class"/>
-      <xs:group ref="Inline.extra"/> -->
 		</xs:choice>
 	</xs:group>
 
@@ -243,9 +170,6 @@ This file is part of DDI 3.3 XML Schema. 2020-04-15
 			<xs:group ref="InlPres.class"/>
 			<xs:group ref="I18n.class"/>
 			<xs:group ref="Anchor.class"/>
-			<!--      <xs:group ref="InlSpecial.class"/> -->
-			<!--      <xs:group ref="InlForm.class"/> -->
-			<!--      <xs:group ref="Inline.extra"/> -->
 		</xs:choice>
 	</xs:group>
 
@@ -263,9 +187,6 @@ This file is part of DDI 3.3 XML Schema. 2020-04-15
 			<xs:element ref="b"/>
 			<xs:group ref="I18n.class"/>
 			<xs:group ref="Anchor.class"/>
-			<!--      <xs:element ref="script"/>
-      <xs:element ref="map"/>
-      <xs:group ref="Inline.extra"/> -->
 		</xs:choice>
 	</xs:group>
 
@@ -279,10 +200,6 @@ This file is part of DDI 3.3 XML Schema. 2020-04-15
 			<xs:group ref="InlPhras.class"/>
 			<xs:group ref="InlPres.class"/>
 			<xs:group ref="I18n.class"/>
-			<!--      <xs:group ref="InlSpecial.class"/>
-      <xs:group ref="InlForm.class"/>
-      <xs:group ref="Ruby.class"/>
-      <xs:group ref="Inline.extra"/> -->
 		</xs:choice>
 	</xs:group>
 
@@ -305,19 +222,6 @@ This file is part of DDI 3.3 XML Schema. 2020-04-15
 			<xs:group ref="Misc.class"/>
 		</xs:choice>
 	</xs:group>
-
-	<!--
-   InlNoRuby.mix includes all of inline.mix elements
-   except ruby
-  -->
-	<!--
-  <xs:group name="InlNoRuby.mix">
-    <xs:choice>
-      <xs:group ref="InlNoRuby.class"/>
-      <xs:group ref="Misc.class"/>
-    </xs:choice>
-  </xs:group>
--->
 
 	<!--
     In the HTML 4 DTD, heading and list elements were included
@@ -349,19 +253,6 @@ This file is part of DDI 3.3 XML Schema. 2020-04-15
 			<xs:element ref="table"/>
 		</xs:choice>
 	</xs:group>
-	<!--
-  <xs:group name="Form.class">
-    <xs:choice>
-      <xs:element ref="form"/>
-    </xs:choice>
-  </xs:group>
-
-  <xs:group name="Fieldset.class">
-    <xs:choice>
-      <xs:element ref="fieldset"/>
-    </xs:choice>
-  </xs:group>
--->
 	<xs:group name="BlkStruct.class">
 		<xs:choice>
 			<xs:element ref="p"/>
@@ -386,8 +277,6 @@ This file is part of DDI 3.3 XML Schema. 2020-04-15
 	<xs:group name="BlkSpecial.class">
 		<xs:choice>
 			<xs:group ref="Table.class"/>
-			<!--      <xs:group ref="Form.class"/>
-      <xs:group ref="Fieldset.class"/> -->
 		</xs:choice>
 	</xs:group>
 

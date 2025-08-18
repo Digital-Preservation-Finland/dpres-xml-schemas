@@ -15,7 +15,7 @@
 		<documentation>GML base schema for GML 3
 			Components to support the GML encoding model.
 			The abstract Schematron rules can be used by any schema that includes gmlBase.
-			
+
 			GML is an OGC Standard.
 			Copyright (c) 2001,2005,2010 Open Geospatial Consortium.
 			To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
@@ -47,8 +47,8 @@
 	<!-- =========================================================== -->
 	<group name="StandardObjectProperties">
 		<annotation>
-			<documentation>This content model group makes it easier to construct types that 
-      derive from AbstractGMLType and its descendents "by restriction".  
+			<documentation>This content model group makes it easier to construct types that
+      derive from AbstractGMLType and its descendents "by restriction".
       A reference to the group saves having to enumerate the standard object properties.</documentation>
 		</annotation>
 		<sequence>
@@ -64,8 +64,8 @@
 	<!-- =========================================================== -->
 	<complexType name="AbstractGMLType" abstract="true">
 		<annotation>
-			<documentation>All complexContent GML elements are directly or indirectly derived from this abstract supertype 
-	to establish a hierarchy of GML types that may be distinguished from other XML types by their ancestry. 
+			<documentation>All complexContent GML elements are directly or indirectly derived from this abstract supertype
+	to establish a hierarchy of GML types that may be distinguished from other XML types by their ancestry.
 	Elements in this hierarchy may have an ID and are thus referenceable.</documentation>
 		</annotation>
 		<sequence>
@@ -85,15 +85,15 @@
 		<annotation>
 			<documentation>A non-abstract generic collection type that can be used as a document element for a collection of any GML types - Geometries, Topologies, Features ...
 
-FeatureCollections may only contain Features.  GeometryCollections may only contain Geometrys.  Bags are less constrained  they must contain objects that are substitutable for gml:_Object.  This may mix several levels, including Features, Definitions, Dictionaries, Geometries etc.  
+FeatureCollections may only contain Features.  GeometryCollections may only contain Geometrys.  Bags are less constrained  they must contain objects that are substitutable for gml:_Object.  This may mix several levels, including Features, Definitions, Dictionaries, Geometries etc.
 
-The content model would ideally be 
+The content model would ideally be
    member 0..*
    members 0..1
    member 0..*
-for maximum flexibility in building a collection from both homogeneous and distinct components: 
+for maximum flexibility in building a collection from both homogeneous and distinct components:
 included "member" elements each contain a single Object
-an included "members" element contains a set of Objects 
+an included "members" element contains a set of Objects
 
 However, this is non-deterministic, thus prohibited by XSD.</documentation>
 		</annotation>
@@ -184,15 +184,15 @@ However, this is non-deterministic, thus prohibited by XSD.</documentation>
 	<!-- =========================================================== -->
 	<complexType name="AssociationType">
 		<annotation>
-			<documentation>A pattern or base for derived types used to specify complex types corresponding to an  unspecified UML association - either composition or aggregation.  Restricts the cardinality of Objects contained in the association to a maximum of one.  An instance of this type can contain an element representing an Object, or serve as a pointer to a remote Object.  
+			<documentation>A pattern or base for derived types used to specify complex types corresponding to an  unspecified UML association - either composition or aggregation.  Restricts the cardinality of Objects contained in the association to a maximum of one.  An instance of this type can contain an element representing an Object, or serve as a pointer to a remote Object.
 
-Descendents of this type can be restricted in an application schema to 
+Descendents of this type can be restricted in an application schema to
 * allow only specified classes as valid participants in the aggregation
-* allow only association by reference (i.e. empty the content model) or by value (i.e. remove the xlinks).    
+* allow only association by reference (i.e. empty the content model) or by value (i.e. remove the xlinks).
 
-When used for association by reference, the value of the gml:remoteSchema attribute can be used to locate a schema fragment that constrains the target instance.   
+When used for association by reference, the value of the gml:remoteSchema attribute can be used to locate a schema fragment that constrains the target instance.
 
-In many cases it is desirable to impose the constraint prohibiting the occurence of both reference and value in the same instance, as that would be ambiguous.  This is accomplished by adding a directive in the annotation element of the element declaration.  This directive can be in the form of normative prose, or can use a Schematron pattern to automatically constrain co-occurrence - see the declaration for _strictAssociation below.   
+In many cases it is desirable to impose the constraint prohibiting the occurence of both reference and value in the same instance, as that would be ambiguous.  This is accomplished by adding a directive in the annotation element of the element declaration.  This directive can be in the form of normative prose, or can use a Schematron pattern to automatically constrain co-occurrence - see the declaration for _strictAssociation below.
 
 If co-occurence is not prohibited, then both a link and content may be present.  If this occurs in an instance, then the rule for interpretation is that the instance found by traversing the href provides the normative value of the property, and should be used when possible.  The value(s) included as content may be used if the remote instance cannot be resolved.  This may be considered to be a "cached" version of the value(s).</documentation>
 		</annotation>
@@ -219,7 +219,7 @@ If co-occurence is not prohibited, then both a link and content may be present. 
 		<annotation>
 			<documentation>A base for derived types used to specify complex types containing an array of objects, by unspecified UML association - either composition or aggregation.  An instance of this type contains elements representing Objects.
 
-Ideally this type would be derived by extension of AssociationType.  
+Ideally this type would be derived by extension of AssociationType.
 However, this leads to a non-deterministic content model, since both the base and the extension have minOccurs="0", and is thus prohibited in XML Schema.</documentation>
 		</annotation>
 		<sequence>
@@ -240,14 +240,13 @@ However, this leads to a non-deterministic content model, since both the base an
 		</annotation>
 		<sequence minOccurs="0">
 			<any processContents="lax"/>
-			<!-- <element ref="gml:_MetaData"/> -->
 		</sequence>
 		<attributeGroup ref="gml:AssociationAttributeGroup"/>
 		<attribute name="about" type="anyURI" use="optional"/>
 	</complexType>
 	<!-- =========================================================== -->
 	<!-- ==========================================================
-	global attribute, attribute group and element declarations 
+	global attribute, attribute group and element declarations
 	============================================================  -->
 	<attribute name="id" type="ID">
 		<annotation>

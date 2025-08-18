@@ -94,7 +94,6 @@
 				<sequence>
 					<element ref="gml:directedEdge" minOccurs="0" maxOccurs="unbounded"/>
 					<element ref="gml:pointProperty" minOccurs="0"/>
-					<!-- <element name="geometry" type="gml:PointPropertyType" minOccurs="0"/> -->
 				</sequence>
 			</extension>
 		</complexContent>
