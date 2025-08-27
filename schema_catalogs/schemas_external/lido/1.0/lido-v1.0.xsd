@@ -1,63 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:doc="http://www.mda.org.uk/spectrumXML/Documentation" xmlns:lido="http://www.lido-schema.org" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="http://www.lido-schema.org" elementFormDefault="qualified" attributeFormDefault="qualified">
 	<!-- xmlns:gml="http://www.opengis.net/gml"-->
-   <!--
-
+   <!--  
+   
 	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 		xx LIDO - Lightweight Information Describing Objects
 		xx - XML Schema for Contributing Content to Cultural Heritage Repositories -
 		xx Version 1.0
 		xx
 		xx ICOM-CIDOC Working Group Data Harvesting and Interchange
-		xx
+		xx 
 		xx ARTstor, Collections Trust, Deutscher Museumsbund - Fachgruppe Dokumentation,
 		xx Deutsches Dokumentationszentrum für Kunstgeschichte - Bildarchiv Foto Marburg,
 		xx digiCULT-Verbund eG, Institut für Museumsforschung (SMB-PK), J. Paul Getty Trust,
 		xx Zuse-Institut Berlin.
-		xx
+		xx 
 		xx LIDO v1.0
-		xx
-		xx Copyright 2009-2010 ICOM-CIDOC for the Data Harvesting and Interchange Working Group.
-		xx
+		xx 
+		xx Copyright 2009-2010 ICOM-CIDOC for the Data Harvesting and Interchange Working Group. 
+		xx 
 		xx LIDO current version: 2010-11-08: http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd
 		xx LIDO specification document: 2010-11-08: http://www.lido-schema.org/schema/v1.0/lido-v1.0-specification.pdf
 		xx
-		xx Prepared for CIDOC Working Group Data Harvesting and Interchange, CDWA Lite/museumdat Working Group,
-		xx Collections Trust and Deutscher Museumsbund - Fachgruppe Dokumentation by:
-		xx Erin Coburn - The Metropolitan Museum of Art,
-		xx Richard Light,
-		xx Gordon McKenna - Collections Trust,
-		xx Regine Stein - Deutsches Dokumentationszentrum für Kunstgeschichte Bildarchiv Foto Marburg,
+		xx Prepared for CIDOC Working Group Data Harvesting and Interchange, CDWA Lite/museumdat Working Group, 
+		xx Collections Trust and Deutscher Museumsbund - Fachgruppe Dokumentation by: 
+		xx Erin Coburn - The Metropolitan Museum of Art, 
+		xx Richard Light, 
+		xx Gordon McKenna - Collections Trust, 
+		xx Regine Stein - Deutsches Dokumentationszentrum für Kunstgeschichte Bildarchiv Foto Marburg, 
 		xx Axel Vitzthum - digiCULT-Verbund eG
 		xx
-		xx 2010-11-08: version 1.0. This schema version provides a common, single schema for contributing content to cultural
+		xx 2010-11-08: version 1.0. This schema version provides a common, single schema for contributing content to cultural 
 		xx heritage repositories. It meets the requirements articulated by CDWA Lite, museumdat and SPECTRUM.
 		xx
-		xx It is a substantial redesign and enhancement of the CDWA Lite and museumdat schemas based on
-		xx recommendations of the CDWA Lite/museumdat Working Group, community feedback and further CIDOC-CRM
+		xx It is a substantial redesign and enhancement of the CDWA Lite and museumdat schemas based on 
+		xx recommendations of the CDWA Lite/museumdat Working Group, community feedback and further CIDOC-CRM 
 		xx analysis. It includes additional concepts to meet SPECTRUM requirements.
 		xx
-		xx The schema supersedes both the CDWA Lite v1.1 schema and the museumdat v1.0 schema and serves as the
+		xx The schema supersedes both the CDWA Lite v1.1 schema and the museumdat v1.0 schema and serves as the 
 		xx harvesting schema for contributing museum information for resource discovery.
 		xx
 		xx For most recent information on LIDO please refer to: http://www.lido-schema.org
-		xx
+		xx 
 		xx LIDO name and logo courtesy Rob Lancefield.
-		xx
-		xx LIDO XML schemas that are made available on the LIDO Web site (see http://www.lidoschema.org) are licensed
-		xx under a Creative Commons Attribution-ShareAlike 3.0License. You must include the following notice in the software
+		xx 
+		xx LIDO XML schemas that are made available on the LIDO Web site (see http://www.lidoschema.org) are licensed 
+		xx under a Creative Commons Attribution-ShareAlike 3.0License. You must include the following notice in the software 
 		xx and its documentation:
-		xx
-		xx "Portions of this software may use a LIDO XML schema
-		xx Copyright (c) 2009-2010 ICOM-CIDOC for the Data Harvesting and Interchange Working Group.
+		xx 
+		xx "Portions of this software may use a LIDO XML schema 
+		xx Copyright (c) 2009-2010 ICOM-CIDOC for the Data Harvesting and Interchange Working Group. 
 		xx These are licensed under the Creative Commons 3.0 Attribution-ShareAlike license."
-		xx
-		xx Whenever possible you should include links to LIDO (http://www.lido-schema.org) and to the license
+		xx 
+		xx Whenever possible you should include links to LIDO (http://www.lido-schema.org) and to the license 
 		xx (http://creativecommons.org/licenses/by-sa/3.0/) as indicated in the notice above.
 		xx
 	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 -->
 	<xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>
+	<!-- <xsd:import namespace="http://www.opengis.net/gml" schemaLocation="../gml/feature.xsd"/>-->
 	<xsd:complexType name="actorComplexType">
 		<xsd:annotation>
 			<xsd:documentation>Definition: Contains identifying and indexing actor information.</xsd:documentation>
@@ -652,6 +653,11 @@
 			<xsd:documentation>Definition: Specifies the GML instantiation for georeferences.</xsd:documentation>
 			<xsd:documentation>Notes: For documentation on GML refer to http://www.opengis.net/gml/. </xsd:documentation>
 		</xsd:annotation>
+		<!-- <xsd:sequence>
+			<xsd:element ref="gml:Point" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element ref="gml:LineString" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element ref="gml:Polygon" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>-->
 	</xsd:complexType>
 	<xsd:complexType name="identifierComplexType">
 		<xsd:annotation>

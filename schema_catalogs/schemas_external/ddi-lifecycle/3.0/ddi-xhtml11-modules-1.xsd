@@ -116,6 +116,39 @@ with DDI 3.0 XML Schema. If not, see <http://www.gnu.org/licenses/>.
         source="http://www.w3.org/TR/2001/REC-xhtml-modularization-20010410/abstract_modules.html#s_hypertextmodule"/>
     </xs:annotation>
   </xs:include>
+
+<!--
+  <xs:redefine schemaLocation="XHTML/xhtml-hypertext-1.xsd">
+    <xs:annotation>
+      <xs:documentation>
+         Hypertext module
+
+         Elements defined here:
+          * a
+      </xs:documentation>
+      <xs:documentation
+        source="http://www.w3.org/TR/2001/REC-xhtml-modularization-20010410/abstract_modules.html#s_hypertextmodule"/>
+    </xs:annotation>
+    <xs:attributeGroup name="a.attlist">
+       <xs:attributeGroup ref="a.attlist" />
+       <xs:attributeGroup ref="a.csim.attlist">
+          <xs:annotation>
+            <xs:documentation>
+              Redefinition by Client Side Image Map Module
+            </xs:documentation>
+          </xs:annotation>
+       </xs:attributeGroup>
+       <xs:attributeGroup ref="a.events.attlist">
+          <xs:annotation>
+            <xs:documentation>
+              Redefinition by XHTML Event Attribute Module
+            </xs:documentation>
+          </xs:annotation>
+       </xs:attributeGroup>
+    </xs:attributeGroup>
+  </xs:redefine>
+-->
+
   <xs:include schemaLocation="XHTML/xhtml-list-1.xsd">
     <xs:annotation>
       <xs:documentation>
@@ -128,6 +161,20 @@ with DDI 3.0 XML Schema. If not, see <http://www.gnu.org/licenses/>.
         source="http://www.w3.org/TR/2001/REC-xhtml-modularization-20010410/abstract_modules.html#s_listmodule"/>
     </xs:annotation>
   </xs:include>
+<!--
+ <xs:include schemaLocation="xhtml-edit-1.xsd">
+    <xs:annotation>
+      <xs:documentation>
+        Edit module
+
+        Elements defined here:
+          * ins, del
+      </xs:documentation>
+      <xs:documentation
+         source="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_editmodule"/>
+    </xs:annotation>
+  </xs:include>
+-->
   <xs:include schemaLocation="XHTML/xhtml-bdo-1.xsd">
     <xs:annotation>
       <xs:documentation>
@@ -153,6 +200,72 @@ with DDI 3.0 XML Schema. If not, see <http://www.gnu.org/licenses/>.
          source="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_presentationmodule"/>
     </xs:annotation>
   </xs:include>
+<!--
+  <xs:include schemaLocation="XHTML/xhtml-link-1.xsd">
+    <xs:annotation>
+      <xs:documentation>
+        Link module
+
+        Elements defined here:
+          * link
+      </xs:documentation>
+      <xs:documentation
+         source="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_linkmodule"/>
+    </xs:annotation>
+  </xs:include>
+
+  <xs:include schemaLocation="xhtml-meta-1.xsd">
+    <xs:annotation>
+      <xs:documentation>
+        Meta module
+
+        Elements defined here:
+        * meta
+      </xs:documentation>
+      <xs:documentation
+         source="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_metamodule"/>
+    </xs:annotation>
+  </xs:include>
+
+  <xs:include schemaLocation="xhtml-base-1.xsd">
+    <xs:annotation>
+      <xs:documentation>
+        Base module
+
+        Elements defined here:
+          * base
+      </xs:documentation>
+      <xs:documentation
+         source="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_basemodule"/>
+    </xs:annotation>
+  </xs:include>
+
+  <xs:include schemaLocation="xhtml-script-1.xsd">
+    <xs:annotation>
+      <xs:documentation>
+        Scripting module
+
+        Elements defined here:
+          * script, noscript
+      </xs:documentation>
+      <xs:documentation
+         source="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_scriptmodule"/>
+    </xs:annotation>
+  </xs:include>
+
+  <xs:include schemaLocation="xhtml-style-1.xsd">
+    <xs:annotation>
+      <xs:documentation>
+        Style module
+
+        Elements defined here:
+          * style
+      </xs:documentation>
+      <xs:documentation
+         source="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_stylemodule"/>
+    </xs:annotation>
+  </xs:include>
+-->
   <xs:include schemaLocation="XHTML/xhtml-inlstyle-1.xsd">
     <xs:annotation>
       <xs:documentation>
@@ -165,6 +278,125 @@ with DDI 3.0 XML Schema. If not, see <http://www.gnu.org/licenses/>.
          source="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_styleattributemodule"/>
     </xs:annotation>
   </xs:include>
+<!--
+  <xs:redefine schemaLocation="xhtml-image-1.xsd">
+    <xs:annotation>
+      <xs:documentation>
+        Image module
+
+        Elements defined here:
+          * img
+      </xs:documentation>
+      <xs:documentation
+         source="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_imagemodule"/>
+    </xs:annotation>
+    <xs:attributeGroup name="img.attlist">
+       <xs:attributeGroup ref="img.attlist">
+           <xs:annotation>
+             <xs:documentation>
+                Original Image Attributes (in Image Module)
+             </xs:documentation>
+           </xs:annotation>
+       </xs:attributeGroup>
+       <xs:attributeGroup ref="img.csim.attlist">
+           <xs:annotation>
+             <xs:documentation>
+                Redefinition by Client Side Image Map Module
+             </xs:documentation>
+           </xs:annotation>
+       </xs:attributeGroup>
+       <xs:attributeGroup ref="img.ssimap.attlist">
+           <xs:annotation>
+             <xs:documentation>
+                Redefinition by Server Side Image Module
+             </xs:documentation>
+           </xs:annotation>
+       </xs:attributeGroup>
+    </xs:attributeGroup>
+  </xs:redefine>
+
+  <xs:redefine schemaLocation="XHTML/xhtml-csismap-1.xsd">
+    <xs:annotation>
+      <xs:documentation>
+        Client-side mage maps module
+
+        Elements defined here:
+          * area, map
+      </xs:documentation>
+      <xs:documentation
+         source="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_imapmodule"/>
+    </xs:annotation>
+    <xs:attributeGroup name="area.attlist">
+       <xs:attributeGroup ref="area.attlist">
+           <xs:annotation>
+             <xs:documentation>
+                Original Area Attributes (in CSI Module)
+             </xs:documentation>
+           </xs:annotation>
+       </xs:attributeGroup>
+       <xs:attributeGroup ref="area.events.attlist">
+           <xs:annotation>
+             <xs:documentation>
+                Redefinition by Events Attribute Module
+             </xs:documentation>
+           </xs:annotation>
+       </xs:attributeGroup>
+    </xs:attributeGroup>
+  </xs:redefine>
+
+  <xs:include schemaLocation="xhtml-ssismap-1.xsd">
+    <xs:annotation>
+      <xs:documentation>
+       Server-side image maps module
+
+        Attributes defined here:
+          * ismap on img
+      </xs:documentation>
+      <xs:documentation
+         source="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_servermapmodule"/>
+    </xs:annotation>
+ </xs:include>
+
+  <xs:redefine schemaLocation="xhtml-object-1.xsd">
+    <xs:annotation>
+      <xs:documentation>
+        Object module
+
+        Elements defined here:
+          * object
+      </xs:documentation>
+      <xs:documentation
+         source="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_objectmodule"/>
+    </xs:annotation>
+    <xs:attributeGroup name="object.attlist">
+       <xs:attributeGroup ref="object.attlist">
+           <xs:annotation>
+             <xs:documentation>
+                Original Object Attlist
+              </xs:documentation>
+           </xs:annotation>
+       </xs:attributeGroup>
+       <xs:attributeGroup ref="object.csim.attlist">
+           <xs:annotation>
+              <xs:documentation>
+                Redefinition by Client Image Map Module
+              </xs:documentation>
+           </xs:annotation>
+       </xs:attributeGroup>
+    </xs:attributeGroup>
+  </xs:redefine>
+
+  <xs:include schemaLocation="xhtml-param-1.xsd">
+    <xs:annotation>
+      <xs:documentation>
+        Param module
+
+        Elements defined here:
+          * param
+      </xs:documentation>
+    </xs:annotation>
+  </xs:include>
+-->
   <xs:include schemaLocation="XHTML/xhtml-table-1.xsd">
     <xs:annotation>
       <xs:documentation>
@@ -177,4 +409,173 @@ with DDI 3.0 XML Schema. If not, see <http://www.gnu.org/licenses/>.
          source="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_tablemodule"/>
     </xs:annotation>
   </xs:include>
+<!--
+  <xs:redefine schemaLocation="xhtml-form-1.xsd">
+    <xs:annotation>
+      <xs:documentation>
+        Forms module
+
+        Elements defined here:
+          * form, label, input, select, optgroup, option,
+          * textarea, fieldset, legend, button
+      </xs:documentation>
+      <xs:documentation
+         source="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_extformsmodule"/>
+    </xs:annotation>
+    <xs:attributeGroup name="form.attlist">
+       <xs:annotation>
+          <xs:documentation>
+            Changes to XHTML Form Attlist
+          </xs:documentation>
+       </xs:annotation>
+       <xs:attributeGroup ref="form.attlist">
+           <xs:annotation>
+             <xs:documentation>
+                Original Form Attributes (declared in Forms Module)
+             </xs:documentation>
+           </xs:annotation>
+       </xs:attributeGroup>
+       <xs:attributeGroup ref="form.events.attlist">
+           <xs:annotation>
+             <xs:documentation>
+                XHTML Events Module - Attribute additions
+             </xs:documentation>
+           </xs:annotation>
+       </xs:attributeGroup>
+    </xs:attributeGroup>
+
+    <xs:attributeGroup name="input.attlist">
+       <xs:annotation>
+          <xs:documentation>
+            Changes to XHTML Form Input Element
+          </xs:documentation>
+       </xs:annotation>
+       <xs:attributeGroup ref="input.attlist">
+           <xs:annotation>
+             <xs:documentation>
+                Original Input Attributes (in Forms Module)
+             </xs:documentation>
+           </xs:annotation>
+       </xs:attributeGroup>
+       <xs:attributeGroup ref="input.csim.attlist">
+           <xs:annotation>
+             <xs:documentation>
+                Redefinition by Client Side Image Map Module
+             </xs:documentation>
+           </xs:annotation>
+       </xs:attributeGroup>
+       <xs:attributeGroup ref="input.ssimap.attlist">
+           <xs:annotation>
+             <xs:documentation>
+                Redefinition by Server Side Image Map Module
+             </xs:documentation>
+           </xs:annotation>
+       </xs:attributeGroup>
+       <xs:attributeGroup ref="input.events.attlist">
+           <xs:annotation>
+             <xs:documentation>
+               Redefinition by Event Attribute Module
+             </xs:documentation>
+           </xs:annotation>
+       </xs:attributeGroup>
+    </xs:attributeGroup>
+
+
+    <xs:attributeGroup name="label.attlist">
+       <xs:attributeGroup ref="label.attlist">
+           <xs:annotation>
+             <xs:documentation>
+                Original Label Attributes (in Forms Module)
+             </xs:documentation>
+           </xs:annotation>
+       </xs:attributeGroup>
+       <xs:attributeGroup ref="label.events.attlist">
+           <xs:annotation>
+             <xs:documentation>
+               Redefinition by Event Attribute Module
+             </xs:documentation>
+           </xs:annotation>
+       </xs:attributeGroup>
+    </xs:attributeGroup>
+
+    <xs:attributeGroup name="select.attlist">
+       <xs:attributeGroup ref="select.attlist">
+           <xs:annotation>
+             <xs:documentation>
+                Original Select Attributes (in Forms Module)
+             </xs:documentation>
+           </xs:annotation>
+       </xs:attributeGroup>
+       <xs:attributeGroup ref="select.events.attlist">
+           <xs:annotation>
+             <xs:documentation>
+               Redefinition by Event Attribute Module
+             </xs:documentation>
+           </xs:annotation>
+       </xs:attributeGroup>
+    </xs:attributeGroup>
+
+    <xs:attributeGroup name="textarea.attlist">
+       <xs:attributeGroup ref="textarea.attlist">
+           <xs:annotation>
+             <xs:documentation>
+                Original TextArea Attributes (in Forms Module)
+             </xs:documentation>
+           </xs:annotation>
+       </xs:attributeGroup>
+       <xs:attributeGroup ref="textarea.events.attlist">
+           <xs:annotation>
+             <xs:documentation>
+               Redefinition by Event Attribute Module
+             </xs:documentation>
+           </xs:annotation>
+       </xs:attributeGroup>
+    </xs:attributeGroup>
+
+    <xs:attributeGroup name="button.attlist">
+       <xs:attributeGroup ref="button.attlist">
+           <xs:annotation>
+             <xs:documentation>
+                Original Button Attributes (in Forms Module)
+             </xs:documentation>
+           </xs:annotation>
+        </xs:attributeGroup>
+        <xs:attributeGroup ref="button.events.attlist">
+           <xs:annotation>
+             <xs:documentation>
+               Redefinition by Event Attribute Module
+             </xs:documentation>
+           </xs:annotation>
+       </xs:attributeGroup>
+    </xs:attributeGroup>
+  </xs:redefine>
+
+  <xs:include schemaLocation="xhtml-ruby-basic-1.xsd">
+    <xs:annotation>
+      <xs:documentation>
+        Ruby module
+
+        Elements defined here:
+          * ruby, rbc, rtc, rb, rt, rp
+
+        Note that either Ruby or Basic Ruby should be used but not both
+      </xs:documentation>
+      <xs:documentation
+         source="http://www.w3.org/TR/2001/REC-ruby-20010531/#simple-ruby1"/>
+    </xs:annotation>
+  </xs:include>
+
+  <xs:include schemaLocation="xhtml-events-1.xsd">
+    <xs:annotation>
+      <xs:documentation>
+        XHTML Events Modules
+
+        Attributes defined here:
+          XHTML Event Types
+      </xs:documentation>
+      <xs:documentation
+         source="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_intrinsiceventsmodule"/>
+    </xs:annotation>
+  </xs:include>
+-->
 </xs:schema>
