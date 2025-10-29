@@ -31,6 +31,7 @@ Validates PREMIS metadata
                 'application/epub+zip; ',
                 'application/geopackage+sqlite3; ',
                 'application/gml+xml; ',
+                'application/json; ',
                 'application/matlab; ',
                 'application/msword; ',
                 'application/mxf; ',
@@ -102,6 +103,7 @@ Validates PREMIS metadata
                 exsl:node-set('fmt/483')
                 | exsl:node-set('fmt/1700')
                 | exsl:node-set('fmt/1047')
+                | exsl:node-set('fmt/817')
                 | exsl:node-set('fmt/806 fmt/828')
                 | exsl:node-set('fmt/40')
                 | exsl:node-set('')
@@ -172,7 +174,7 @@ Validates PREMIS metadata
         <sch:let name="supported_charsets" value="string('ISO-8859-15 UTF-8 UTF-16 UTF-32 iso-8859-15 utf-8 utf-16 utf-32')"/>
 
         <!-- MIME types that require charset -->
-        <sch:let name="mimes_require_charset" value="string('application/xhtml+xml text/xml text/html text/csv text/plain application/gml+xml application/vnd.google-earth.kml+xml')"/>
+        <sch:let name="mimes_require_charset" value="string('application/xhtml+xml text/xml text/html text/csv text/plain application/json application/gml+xml application/vnd.google-earth.kml+xml')"/>
 
         <!-- PREMIS mandatory elements -->
         <sch:pattern id="premis_fixity" is-a="required_element_pattern">

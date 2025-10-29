@@ -80,6 +80,7 @@ def test_checksums(schematron_fx, algorithm):
     ('application/epub+zip', ['fmt/483']),
     ('application/xhtml+xml;charset=utf-8',
      ['fmt/102', 'fmt/103', 'fmt/471']),
+    ('application/json;charset=utf-8', ['fmt/817']),
     ('text/xml;charset=utf-8', ['fmt/101', 'fmt/1776']),
     ('text/html;charset=utf-8', ['fmt/100', 'fmt/471']),
     ('model/step', ['fmt/700']),
@@ -188,7 +189,7 @@ def test_pronom_codes(schematron_fx, fileformat, pronom):
 
 @pytest.mark.parametrize("fileformat", [
     ('text/csv'), ('application/xhtml+xml'), ('text/xml'), ('text/html'),
-    ('text/plain'), ('application/gml+xml'),
+    ('text/plain'), ('application/json'), ('application/gml+xml'),
     ('application/vnd.google-earth.kml+xml')
 ])
 def test_charset_parameter(schematron_fx, fileformat):
