@@ -2,7 +2,7 @@
 
 <!-- pass-filter: / -->
 <!-- context-filter: mets:mets -->
-<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.7.7">
+<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" schemaVersion="1.8.0">
         <sch:title>METS root validation</sch:title>
 
 <!--

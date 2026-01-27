@@ -66,6 +66,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 			<xsd:enumeration value="1.7.5"/>
 			<xsd:enumeration value="1.7.6"/>
 			<xsd:enumeration value="1.7.7"/>
+			<xsd:enumeration value="1.8.0"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 
@@ -80,6 +81,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 			<xsd:enumeration value="1.7.5"/>
 			<xsd:enumeration value="1.7.6"/>
 			<xsd:enumeration value="1.7.7"/>
+			<xsd:enumeration value="1.8.0"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	
