@@ -174,7 +174,7 @@ Validates PREMIS metadata
         <sch:let name="supported_charsets" value="string('ISO-8859-15 UTF-8 UTF-16 UTF-32 iso-8859-15 utf-8 utf-16 utf-32')"/>
 
         <!-- MIME types that require charset -->
-        <sch:let name="mimes_require_charset" value="string('application/xhtml+xml text/xml text/html text/csv text/plain application/json application/gml+xml application/vnd.google-earth.kml+xml')"/>
+        <sch:let name="mimes_require_charset" value="string('application/xhtml+xml text/xml text/html text/csv text/plain application/json application/gml+xml application/vnd.google-earth.kml+xml image/svg+xml')"/>
 
         <!-- PREMIS mandatory elements -->
         <sch:pattern id="premis_fixity" is-a="required_element_pattern">

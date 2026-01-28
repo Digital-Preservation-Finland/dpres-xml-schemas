@@ -117,7 +117,7 @@ def test_checksums(schematron_fx, algorithm):
     ('image/jpeg', ['fmt/42', 'fmt/43', 'fmt/44', 'x-fmt/398', 'x-fmt/390',
                     'x-fmt/391', 'fmt/645', 'fmt/1507']),
     ('image/jp2', ['x-fmt/392']),
-    ('image/svg+xml', ['fmt/92']),
+    ('image/svg+xml; charset=utf-8', ['fmt/92']),
     ('image/png', ['fmt/13']),
     ('application/warc', ['fmt/1281', 'fmt/1355']),
     ('application/gml+xml;charset=utf-8', ['fmt/1047']),
@@ -190,11 +190,11 @@ def test_pronom_codes(schematron_fx, fileformat, pronom):
 @pytest.mark.parametrize("fileformat", [
     ('text/csv'), ('application/xhtml+xml'), ('text/xml'), ('text/html'),
     ('text/plain'), ('application/json'), ('application/gml+xml'),
-    ('application/vnd.google-earth.kml+xml')
+    ('application/vnd.google-earth.kml+xml'), ('image/svg+xml')
 ])
 def test_charset_parameter(schematron_fx, fileformat):
     """Text file format require character set info in the formatName from
-    specification 1.5.0. Test all allowed character sets.
+    the file format specifications. Test all allowed character sets.
 
     :schematron_fx: Schematron compile fixture
     :fileformat: Text file format
