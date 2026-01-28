@@ -33,6 +33,7 @@ Validates PREMIS metadata
                 'application/gml+xml; ',
                 'application/json; ',
                 'application/matlab; ',
+                'application/mbox; ',
                 'application/msword; ',
                 'application/mxf; ',
                 'application/pdf; ',
@@ -73,6 +74,7 @@ Validates PREMIS metadata
                 'image/webp; ',
                 'image/x-adobe-dng; ',
                 'image/x-dpx; ',
+                'message/rfc822; ',
                 'model/step; ',
                 'text/csv; ',
                 'text/html; ',
@@ -105,6 +107,7 @@ Validates PREMIS metadata
                 | exsl:node-set('fmt/1047')
                 | exsl:node-set('fmt/817')
                 | exsl:node-set('fmt/806 fmt/828')
+                | exsl:node-set('fmt/720')
                 | exsl:node-set('fmt/40')
                 | exsl:node-set('')
                 | exsl:node-set('fmt/95 fmt/354 fmt/476 fmt/477 fmt/478 fmt/479 fmt/480 fmt/481 fmt/16 fmt/17 fmt/18 fmt/19 fmt/20 fmt/276')
@@ -113,10 +116,10 @@ Validates PREMIS metadata
                 | exsl:node-set('fmt/61 fmt/62')
                 | exsl:node-set('fmt/126')
                 | exsl:node-set('')
-                | exsl:node-set('fmt/139 fmt/296 fmt/297 fmt/1753')
-                | exsl:node-set('fmt/138 fmt/292 fmt/293 fmt/1754')
-                | exsl:node-set('fmt/137 fmt/294 fmt/295 fmt/1755')
-                | exsl:node-set('fmt/136 fmt/290 fmt/291 fmt/1756')
+                | exsl:node-set('fmt/139 fmt/296 fmt/297 fmt/1753 fmt/2048')
+                | exsl:node-set('fmt/138 fmt/292 fmt/293 fmt/1754 fmt/2046')
+                | exsl:node-set('fmt/137 fmt/294 fmt/295 fmt/1755 fmt/2045')
+                | exsl:node-set('fmt/136 fmt/290 fmt/291 fmt/1756 fmt/2044')
                 | exsl:node-set('fmt/215')
                 | exsl:node-set('fmt/214')
                 | exsl:node-set('fmt/412')
@@ -145,6 +148,7 @@ Validates PREMIS metadata
                 | exsl:node-set('fmt/556 fmt/567 fmt/568')
                 | exsl:node-set('fmt/152 fmt/437 fmt/438 fmt/730 fmt/1841')
                 | exsl:node-set('fmt/541')
+                | exsl:node-set('fmt/278')
                 | exsl:node-set('fmt/700')
                 | exsl:node-set('x-fmt/18')
                 | exsl:node-set('fmt/100 fmt/471')

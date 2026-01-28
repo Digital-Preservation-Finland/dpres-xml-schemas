@@ -85,13 +85,13 @@ def test_checksums(schematron_fx, algorithm):
     ('text/html;charset=utf-8', ['fmt/100', 'fmt/471']),
     ('model/step', ['fmt/700']),
     ('application/vnd.oasis.opendocument.text',
-     ['fmt/136', 'fmt/290', 'fmt/291', 'fmt/1756']),
+     ['fmt/136', 'fmt/290', 'fmt/291', 'fmt/1756', 'fmt/2044']),
     ('application/vnd.oasis.opendocument.spreadsheet',
-     ['fmt/137', 'fmt/294', 'fmt/295', 'fmt/1755']),
+     ['fmt/137', 'fmt/294', 'fmt/295', 'fmt/1755', 'fmt/2045']),
     ('application/vnd.oasis.opendocument.presentation',
-     ['fmt/138', 'fmt/292', 'fmt/293', 'fmt/1754']),
+     ['fmt/138', 'fmt/292', 'fmt/293', 'fmt/1754', 'fmt/2046']),
     ('application/vnd.oasis.opendocument.graphics',
-     ['fmt/139', 'fmt/296', 'fmt/297', 'fmt/1753']),
+     ['fmt/139', 'fmt/296', 'fmt/297', 'fmt/1753', 'fmt/2048']),
     ('application/vnd.oasis.opendocument.formula', ['']),
     ('application/pdf', ['fmt/95', 'fmt/354', 'fmt/476', 'fmt/477', 'fmt/478',
                          'fmt/479', 'fmt/480', 'fmt/481', 'fmt/16', 'fmt/17',
@@ -151,7 +151,9 @@ def test_checksums(schematron_fx, algorithm):
     ('video/quicktime', ['x-fmt/384']),
     ('video/x-ms-asf', ['fmt/131']),
     ('video/MP1S', ['x-fmt/385']),
-    ('video/MP2P', ['x-fmt/386'])
+    ('video/MP2P', ['x-fmt/386']),
+    ('message/rfc822', ['fmt/278']),
+    ('application/mbox', ['fmt/720'])
 ])
 def test_pronom_codes(schematron_fx, fileformat, pronom):
     """Test that checks for PRONOM code matching to MIME type is done.
