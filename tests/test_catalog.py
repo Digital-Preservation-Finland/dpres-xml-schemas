@@ -3,7 +3,7 @@
 
 import lxml.etree as ET
 import pytest
-from tests.common import (NAMESPACES, parse_xml_file, fix_version_17,
+from tests.common import (NAMESPACES, parse_xml_file, fix_fi_kdk_namespaces,
                           set_element, find_element, set_attribute)
 
 
@@ -25,13 +25,13 @@ def test_catalog_mets_complete(catalog_fx):
     (returncode, _, _) = catalog_fx(xmltree=mets)
     assert returncode == 0
 
-    set_attribute(root, 'CATALOG', 'fikdk', '1.7.7')
-    set_attribute(root, 'SPECIFICATION', 'fikdk', '1.7.7')
+    set_attribute(root, 'CATALOG', 'fikdk', '1.8.0')
+    set_attribute(root, 'SPECIFICATION', 'fikdk', '1.8.0')
     (returncode, _, _) = catalog_fx(xmltree=mets)
     assert returncode == 3
 
-    # Use new specification
-    fix_version_17(root)
+    # Use new catalog specification and fix old namespaces
+    fix_fi_kdk_namespaces(root)
     (returncode, _, _) = catalog_fx(xmltree=mets)
     assert returncode == 0
 
@@ -45,7 +45,7 @@ def test_contractid_format(catalog_fx):
     """Test that contractid allows only correctly formatted UUID
     """
     (mets, root) = prepare_xml_for_tests()
-    fix_version_17(root)
+    fix_fi_kdk_namespaces(root)
     (returncode, _, _) = catalog_fx(xmltree=mets)
     assert returncode == 0
 

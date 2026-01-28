@@ -5,7 +5,7 @@ in mets_dmdsec.sch.
 """
 import pytest
 from tests.common import (SVRL_FAILED, parse_xml_file,
-                          parse_xml_string, NAMESPACES, fix_version_17,
+                          fix_fi_kdk_namespaces,
                           find_element, set_element, set_attribute,
                           del_attribute, get_attribute)
 
@@ -22,8 +22,8 @@ def test_valid_complete_dmdsec(schematron_fx):
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
-    # Use new specification
-    fix_version_17(root)
+    # Use new catalog specification and fix old namespaces
+    fix_fi_kdk_namespaces(root)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
@@ -49,7 +49,7 @@ def test_dependent_attributes_dmdsec(schematron_fx, nspaces, attributes,
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
     elem_handler = find_element(root, 'dmdSec', 'mets')
     if nspaces[0] == 'fi':
-        fix_version_17(root)
+        fix_fi_kdk_namespaces(root)
 
     # Both attributes
     set_attribute(elem_handler, attributes[0], nspaces[0], 'xxx')
@@ -75,47 +75,48 @@ def test_dependent_attributes_dmdsec(schematron_fx, nspaces, attributes,
 
 @pytest.mark.parametrize("mdtype, othermdtype, mdtypeversion, specversion", [
     ('MARC', None, ['marcxml=1.2;marc=marc21'], ['1.7.3', '1.7.4', '1.7.5',
-                                                 '1.7.6', '1.7.7']),
+                                                 '1.7.6', '1.7.7', '1.8.0']),
     ('MARC', None, ['marcxml=1.2;marc=marc21', 'marcxml=1.2;marc=finmarc'],
      ['1.5.0', '1.6.0', '1.6.1', '1.7.0', '1.7.1', '1.7.2']),
     ('DC', None, ['1.1', '2008'], ['1.7.2', '1.7.3', '1.7.4', '1.7.5',
-                                   '1.7.6', '1.7.7']),
+                                   '1.7.6', '1.7.7', '1.8.0']),
     ('DC', None, ['1.1'], ['1.5.0', '1.6.0', '1.6.1', '1.7.0', '1.7.1']),
     ('MODS', None, ['3.8', '3.7', '3.6', '3.5', '3.4', '3.3', '3.2', '3.1',
-                    '3.0'], ['1.7.6', '1.7.7']),
+                    '3.0'], ['1.7.6', '1.7.7', '1.8.0']),
     ('MODS', None, ['3.7', '3.6', '3.5', '3.4', '3.3', '3.2', '3.1',
                     '3.0'], ['1.7.1', '1.7.2', '1.7.3', '1.7.4', '1.7.5']),
     ('MODS', None, ['3.6', '3.5', '3.4', '3.3', '3.2', '3.1',
                     '3.0'], ['1.5.0', '1.6.0', '1.6.1', '1.7.0']),
     ('EAD', None, ['2002'], ['1.5.0', '1.6.0', '1.6.1', '1.7.0', '1.7.1',
                              '1.7.2', '1.7.3', '1.7.4', '1.7.5', '1.7.6',
-                             '1.7.7']),
-    ('EAC-CPF', None, ['2.0', '2010_revised'], ['1.7.5', '1.7.6', '1.7.7']),
+                             '1.7.7', '1.8.0']),
+    ('EAC-CPF', None, ['2.0', '2010_revised'], ['1.7.5', '1.7.6', '1.7.7',
+                                                '1.8.0']),
     ('EAC-CPF', None, ['2010_revised'], ['1.5.0', '1.6.0', '1.6.1', '1.7.0',
                                          '1.7.1', '1.7.2', '1.7.3', '1.7.4']),
-    ('LIDO', None, ['1.1', '1.0'], ['1.7.6', '1.7.7']),
+    ('LIDO', None, ['1.1', '1.0'], ['1.7.6', '1.7.7', '1.8.0']),
     ('LIDO', None, ['1.0'], ['1.5.0', '1.6.0', '1.6.1', '1.7.0', '1.7.1',
                              '1.7.2', '1.7.3', '1.7.4', '1.7.5']),
     ('VRA', None, ['4.0'], ['1.5.0', '1.6.0', '1.6.1', '1.7.0', '1.7.1',
                             '1.7.2', '1.7.3', '1.7.4', '1.7.5', '1.7.6',
-                            '1.7.7']),
+                            '1.7.7', '1.8.0']),
     ('DDI', None, ['3.3', '3.2', '3.1', '2.5.1', '2.5', '2.1'],
-     ['1.7.3', '1.7.4', '1.7.5', '1.7.6', '1.7.7']),
+     ['1.7.3', '1.7.4', '1.7.5', '1.7.6', '1.7.7', '1.8.0']),
     ('DDI', None, ['3.2', '3.1', '2.5.1', '2.5', '2.1'],
      ['1.5.0', '1.6.0', '1.6.1', '1.7.0', '1.7.1', '1.7.2']),
     ('OTHER', 'EAD3', ['1.1.1', '1.1.0', '1.0.0'],
-     ['1.7.3', '1.7.4', '1.7.5', '1.7.6', '1.7.7']),
+     ['1.7.3', '1.7.4', '1.7.5', '1.7.6', '1.7.7', '1.8.0']),
     ('OTHER', 'EAD3', ['1.1.0', '1.0.0'], ['1.7.1', '1.7.2']),
     ('OTHER', 'EAD3', ['1.0.0'], ['1.5.0', '1.6.0', '1.6.1', '1.7.0']),
     ('OTHER', 'DATACITE',
-     ['4.5', '4.4', '4.3', '4.2', '4.1'], ['1.7.7']),
+     ['4.5', '4.4', '4.3', '4.2', '4.1'], ['1.7.7', '1.8.0']),
     ('OTHER', 'DATACITE',
      ['4.4', '4.3', '4.2', '4.1'], ['1.7.4', '1.7.5', '1.7.6']),
     ('OTHER', 'DATACITE', ['4.3', '4.2', '4.1'], ['1.7.2', '1.7.3']),
     ('OTHER', 'DATACITE', ['4.1'],
      ['1.5.0', '1.6.0', '1.6.1', '1.7.0', '1.7.1']),
     ('OTHER', 'EBUCORE', ['1.10'], ['1.7.3', '1.7.4', '1.7.5', '1.7.6',
-                                    '1.7.7'])
+                                    '1.7.7', '1.8.0'])
 ])
 def test_mdtype_items_dmdsec(schematron_fx, mdtype, othermdtype,
                              mdtypeversion, specversion):
@@ -137,8 +138,8 @@ def test_mdtype_items_dmdsec(schematron_fx, mdtype, othermdtype,
     # Test that all MDTYPEVERSIONs work with all specifications
     for sversion in specversion:
         if sversion in ['1.7.0', '1.7.1', '1.7.2', '1.7.3', '1.7.4', '1.7.5',
-                        '1.7.6', '1.7.7']:
-            fix_version_17(root, version=sversion)
+                        '1.7.6', '1.7.7', '1.8.0']:
+            fix_fi_kdk_namespaces(root, version=sversion)
         else:
             set_attribute(root, 'CATALOG', 'fikdk', sversion)
             set_attribute(root, 'SPECIFICATION', 'fikdk', sversion)
@@ -148,7 +149,7 @@ def test_mdtype_items_dmdsec(schematron_fx, mdtype, othermdtype,
             assert svrl.count(SVRL_FAILED) == 0
 
     # Test unknown version
-    fix_version_17(root)
+    fix_fi_kdk_namespaces(root)
     set_attribute(elem_handler, 'MDTYPEVERSION', 'mets', 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
@@ -174,9 +175,9 @@ def test_arbitrary_attributes_dmdsec(schematron_fx):
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
     elem_handler = find_element(root, 'dmdSec', 'mets')
-    for spec in [None, '1.7.7']:
-        if spec == '1.7.7':
-            fix_version_17(root)
+    for spec in [None, '1.8.0']:
+        if spec == '1.8.0':
+            fix_fi_kdk_namespaces(root)
         for ns in ['fi', 'fikdk', 'dc']:
             set_attribute(elem_handler, 'xxx', ns, 'xxx')
             svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)

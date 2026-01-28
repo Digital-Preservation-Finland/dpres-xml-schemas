@@ -181,13 +181,12 @@ def get_attribute(element, attribute, namespace):
     """
     if namespace is None:
         return element.get(attribute)
-    elif '{%s}' % NAMESPACES[namespace] in element.tag:
+    if '{%s}' % NAMESPACES[namespace] in element.tag:
         return element.get(attribute)
-    elif attribute[0] == '{':
+    if attribute[0] == '{':
         return element.get(attribute)
-    else:
-        return element.get(
-            ('{%s}'+attribute) % NAMESPACES[namespace])
+    return element.get(
+        ('{%s}'+attribute) % NAMESPACES[namespace])
 
 
 def del_attribute(element, attribute, namespace):
@@ -209,14 +208,15 @@ def del_attribute(element, attribute, namespace):
             ('{%s}'+attribute) % NAMESPACES[namespace]]
 
 
-def fix_version_17(root, version=None):
-    """Local namespaces need to be changed for catalog version 1.7.7 to make
-    the tree valid. This is used in various tests.
+def fix_fi_kdk_namespaces(root, version=None):
+    """Local namespaces need to be changed for catalog versions 1.7.0
+    onwards to make the tree valid. This is used in various tests.
 
     :root: METS root element
     """
+    # If not defined, use newest catalog version
     if not version:
-        version = '1.7.7'
+        version = '1.8.0'
 
     fikdk_dict = {'mets': ['CATALOG', 'SPECIFICATION', 'CONTENTID'],
                   'dmdSec': ['CREATED', 'PID', 'PIDTYPE'],

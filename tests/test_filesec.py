@@ -6,9 +6,10 @@ rules located in mets_filesec.sch.
 import lxml.etree as ET
 import pytest
 from tests.common import (SVRL_FAILED, SVRL_REPORT, NAMESPACES,
-                          parse_xml_string, parse_xml_file, fix_version_17,
-                          get_attribute, set_attribute, del_attribute,
-                          find_element, set_element, del_element)
+                          parse_xml_string, parse_xml_file,
+                          fix_fi_kdk_namespaces, get_attribute, set_attribute,
+                          del_attribute, find_element, set_element,
+                          del_element)
 
 SCHFILE = 'mets_filesec.sch'
 
@@ -23,14 +24,14 @@ def test_valid_complete_filesec(schematron_fx):
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
-    # Use new specification
-    fix_version_17(root)
+    # Use new catalog specification and fix old namespaces
+    fix_fi_kdk_namespaces(root)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
 
 @pytest.mark.parametrize("specification, failed", [
-    ('1.5.0', 1), ('1.6.0', 0), ('1.7.7', 0)
+    ('1.5.0', 1), ('1.6.0', 0), ('1.7.7', 0), ('1.8.0', 0)
 ])
 def test_streams_catalogs(schematron_fx, specification, failed):
     """Test that streams are disallowed in old catalog versions.
@@ -40,8 +41,8 @@ def test_streams_catalogs(schematron_fx, specification, failed):
     :failed: Number of failures
     """
     (mets, root) = parse_xml_file('mets_video_container.xml')
-    if specification == '1.7.7':
-        fix_version_17(root)
+    if specification in ['1.7.7', '1.8.0']:
+        fix_fi_kdk_namespaces(root)
     else:
         set_attribute(root, 'CATALOG', 'fikdk', specification)
         set_attribute(root, 'SPECIFICATION', 'fikdk', specification)
@@ -262,11 +263,11 @@ def test_fileformat_metadata(schematron_fx, fileformat, mdinfo):
     # Remove link to metadata section, and have failure
     set_attribute(elem_section, 'ID', 'mets', 'tech_nolink')
     allversions = ['1.5.0', '1.6.0', '1.7.0', '1.7.1', '1.7.2', '1.7.3',
-                   '1.7.5', '1.7.6', '1.7.7']
+                   '1.7.5', '1.7.6', '1.7.7', '1.8.0']
     for testversion in allversions:
         if testversion in ['1.7.0', '1.7.1', '1.7.2', '1.7.3', '1.7.5',
-                           '1.7.6', '1.7.7']:
-            fix_version_17(root, version=testversion)
+                           '1.7.6', '1.7.7', '1.8.0']:
+            fix_fi_kdk_namespaces(root, version=testversion)
         else:
             set_attribute(root, 'CATALOG', 'fikdk', testversion)
         svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
@@ -279,7 +280,7 @@ def test_file_format_bitlevel_stream(schematron_fx):
 
     :schematron_fx: Schematron compile fixture
     """
-    (mets, root) = parse_xml_file("mets_native_video_stream.xml")
+    (mets, _) = parse_xml_file("mets_native_video_stream.xml")
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
     assert svrl.count(SVRL_REPORT) == 1
@@ -374,7 +375,7 @@ def test_value_items_filesec(schematron_fx, attribute, nspace):
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
     if nspace == 'fi':
-        fix_version_17(root)
+        fix_fi_kdk_namespaces(root)
 
     # Use arbitrary value
     elem_handler = find_element(root, 'FLocat', 'mets')
@@ -449,9 +450,9 @@ def test_arbitrary_attributes_filesec(schematron_fx, context):
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
     elem_handler = find_element(root, context, 'mets')
-    for spec in [None, '1.7.7']:
-        if spec == '1.7.7':
-            fix_version_17(root)
+    for spec in [None, '1.8.0']:
+        if spec == '1.8.0':
+            fix_fi_kdk_namespaces(root)
         for ns in ['fi', 'fikdk', 'dc']:
             set_attribute(elem_handler, 'xxx', ns, 'xxx')
             svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
@@ -459,7 +460,7 @@ def test_arbitrary_attributes_filesec(schematron_fx, context):
             del_attribute(elem_handler, 'xxx', ns)
 
 
-@pytest.mark.parametrize('mets_file',[
+@pytest.mark.parametrize('mets_file', [
     'mets_valid_native.xml',
     'mets_valid_native_ignore_error.xml',
 ])
@@ -595,7 +596,7 @@ def test_bitlevel_failure(schematron_fx):
 
     :schematron_fx: Schematron compile fixture
     """
-    (mets, root) = parse_xml_file('mets_invalid_missing_event.xml')
+    (mets, _) = parse_xml_file('mets_invalid_missing_event.xml')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     # Two failed assertions has to take place:
     # 1. Source file missing an event

@@ -3,7 +3,7 @@ in mets_sourcemd.sch.
 
 .. seealso:: mets_sourcemd.sch
 """
-from tests.common import (SVRL_FAILED, parse_xml_file, fix_version_17,
+from tests.common import (SVRL_FAILED, parse_xml_file, fix_fi_kdk_namespaces,
                           find_element, set_element)
 
 SCHFILE = 'mets_sourcemd.sch'
@@ -19,8 +19,8 @@ def test_valid_complete_sourcemd(schematron_fx):
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
-    # Use new specification
-    fix_version_17(root)
+    # Use new catalog specification and fix old namespaces
+    fix_fi_kdk_namespaces(root)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 

@@ -4,7 +4,7 @@ in mets_metshdr.sch.
 .. seealso:: mets_metshdr.sch
 """
 import pytest
-from tests.common import (SVRL_FAILED, parse_xml_file, fix_version_17,
+from tests.common import (SVRL_FAILED, parse_xml_file, fix_fi_kdk_namespaces,
                           find_element, set_element, set_attribute,
                           del_attribute)
 
@@ -21,8 +21,8 @@ def test_valid_complete_metshdr(schematron_fx):
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
-    # Use new specification
-    fix_version_17(root)
+    # Use new catalog specification and fix old namespaces
+    fix_fi_kdk_namespaces(root)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
@@ -124,9 +124,9 @@ def test_arbitrary_attributes_metshdr(schematron_fx):
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
     elem_handler = find_element(root, 'metsHdr', 'mets')
-    for spec in [None, '1.7.7']:
-        if spec == '1.7.7':
-            fix_version_17(root)
+    for spec in [None, '1.8.0']:
+        if spec == '1.8.0':
+            fix_fi_kdk_namespaces(root)
         for ns in ['fi', 'fikdk', 'dc']:
             set_attribute(elem_handler, 'xxx', ns, 'xxx')
             svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
@@ -146,6 +146,6 @@ def test_mandatory_agents(schematron_fx):
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
 
-    fix_version_17(root)
+    fix_fi_kdk_namespaces(root)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0

@@ -5,10 +5,10 @@ rules located in mets_mdtype.sch.
 """
 
 import pytest
-from tests.common import (SVRL_FAILED, SVRL_REPORT, NAMESPACES,
-                          parse_xml_file, parse_xml_string, fix_version_17,
-                          find_element, find_all_elements, set_element,
-                          get_attribute, set_attribute, del_attribute)
+from tests.common import (NAMESPACES, SVRL_FAILED, SVRL_REPORT, del_attribute,
+                          find_all_elements, find_element,
+                          fix_fi_kdk_namespaces, get_attribute, parse_xml_file,
+                          parse_xml_string, set_attribute, set_element)
 
 SCHFILE = 'mets_root.sch'
 
@@ -24,8 +24,8 @@ def test_valid_complete_root(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 0
     assert svrl.count(SVRL_REPORT) == 1
 
-    # Use new specification
-    fix_version_17(root)
+    # Use new catalog specification and fix old namespaces
+    fix_fi_kdk_namespaces(root)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
     assert svrl.count(SVRL_REPORT) == 0
@@ -80,7 +80,7 @@ def test_mandatory_sections_root(schematron_fx):
 
 
 @pytest.mark.parametrize("specification, failed", [
-    ('1.5.0', 2), ('1.6.0', 1), ('1.7.7', 0)
+    ('1.5.0', 2), ('1.6.0', 1), ('1.7.7', 0), ('1.8.0', 0)
 ])
 def test_new_mets_attributes_root(schematron_fx, specification, failed):
     """Test that CONTENTID, and CONTRACTID are
@@ -91,8 +91,8 @@ def test_new_mets_attributes_root(schematron_fx, specification, failed):
     :failed: Number of failures
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    if specification == '1.7.7':
-        fix_version_17(root)
+    if specification in ['1.7.7', '1.8.0']:
+        fix_fi_kdk_namespaces(root)
         svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
         assert svrl.count(SVRL_FAILED) == failed
     else:
@@ -158,6 +158,7 @@ def test_identifiers_unique(schematron_fx):
 @pytest.mark.parametrize("nspaces, attributes, version", [
     (['fikdk', 'fikdk'], ['CATALOG', 'SPECIFICATION'], "1.6.0"),
     (['fi', 'fi'], ['CATALOG', 'SPECIFICATION'], "1.7.7"),
+    (['fi', 'fi'], ['CATALOG', 'SPECIFICATION'], "1.8.0"),
 ])
 def test_dependent_attributes_root(schematron_fx, nspaces, attributes,
                                    version):
@@ -173,7 +174,7 @@ def test_dependent_attributes_root(schematron_fx, nspaces, attributes,
     elem_handler = find_element(root, 'mets', 'mets')
     failed = 2
     if nspaces[0] == 'fi':
-        fix_version_17(root)
+        fix_fi_kdk_namespaces(root)
         failed = 1
 
     # Both attributes
@@ -215,7 +216,7 @@ def test_value_items_root(schematron_fx, attribute, nspace, fixed):
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
     if nspace == 'fi':
-        fix_version_17(root)
+        fix_fi_kdk_namespaces(root)
 
     # Use arbitrary value
     elem_handler = find_element(root, 'mets', 'mets')
@@ -246,7 +247,7 @@ def test_mandatory_items_root(schematron_fx, mandatory, nspace):
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
     if nspace == 'fi':
-        fix_version_17(root)
+        fix_fi_kdk_namespaces(root)
     elem_handler = find_element(root, 'mets', 'mets')
 
     # Remove mandatory attribute
@@ -296,7 +297,7 @@ def test_objid_unique(schematron_fx):
     assert svrl.count(SVRL_FAILED) == 1
 
     set_attribute(root, 'OBJID', 'mets', objid)
-    fix_version_17(root)
+    fix_fi_kdk_namespaces(root)
     set_attribute(root, 'CONTRACTID', 'fi', objid)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1
@@ -308,9 +309,9 @@ def test_arbitrary_attributes_root(schematron_fx):
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
     elem_handler = find_element(root, 'mets', 'mets')
-    for spec in [None, '1.7.7']:
-        if spec == '1.7.7':
-            fix_version_17(root)
+    for spec in [None, '1.8.0']:
+        if spec == '1.8.0':
+            fix_fi_kdk_namespaces(root)
         for ns in ['fi', 'fikdk', 'dc']:
             set_attribute(elem_handler, 'xxx', ns, 'xxx')
             svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)

@@ -4,7 +4,7 @@ in mets_techmd.sch.
 .. seealso:: mets_techmd.sch
 """
 import pytest
-from tests.common import (SVRL_FAILED, parse_xml_file, fix_version_17,
+from tests.common import (SVRL_FAILED, parse_xml_file, fix_fi_kdk_namespaces,
                           find_element, set_element, del_element,
                           set_attribute)
 
@@ -21,8 +21,8 @@ def test_valid_complete_techmd(schematron_fx):
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
-    # Use new specification
-    fix_version_17(root)
+    # Use new catalog specification and fix old namespaces
+    fix_fi_kdk_namespaces(root)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
@@ -53,10 +53,10 @@ def test_mdtype_items_techmd(schematron_fx, mdtype, othermdtype,
 
     # Test that all MDTYPEVERSIONs work with all specifications
     for specversion in ['1.5.0', '1.6.0', '1.7.0', '1.7.1', '1.7.2', '1.7.3',
-                        '1.7.4', '1.7.5', '1.7.6', '1.7.7']:
+                        '1.7.4', '1.7.5', '1.7.6', '1.7.7', '1.8.0']:
         if specversion in ['1.7.0', '1.7.1', '1.7.2', '1.7.3', '1.7.4',
-                           '1.7.5', '1.7.6', '1.7.7']:
-            fix_version_17(root, version=specversion)
+                           '1.7.5', '1.7.6', '1.7.7', '1.8.0']:
+            fix_fi_kdk_namespaces(root, version=specversion)
         else:
             set_attribute(root, 'CATALOG', 'fikdk', specversion)
             set_attribute(root, 'SPECIFICATION', 'fikdk', specversion)
@@ -65,8 +65,8 @@ def test_mdtype_items_techmd(schematron_fx, mdtype, othermdtype,
             svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
             assert svrl.count(SVRL_FAILED) == 0
 
-    # Test unknown version
-    fix_version_17(root)
+    # Test unknown mets version
+    fix_fi_kdk_namespaces(root)
     set_attribute(elem_handler, 'MDTYPEVERSION', 'mets', 'xxx')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 1

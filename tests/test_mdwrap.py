@@ -5,7 +5,7 @@ in mets_mdwrap.sch.
 """
 import pytest
 from tests.common import (SVRL_FAILED, parse_xml_file, parse_xml_string,
-                          NAMESPACES, fix_version_17, find_element,
+                          NAMESPACES, fix_fi_kdk_namespaces, find_element,
                           set_element, set_attribute, del_attribute)
 
 SCHFILE = 'mets_mdwrap.sch'
@@ -21,8 +21,8 @@ def test_valid_complete_mdwrap(schematron_fx):
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
-    # Use new specification
-    fix_version_17(root)
+    # Use new catalog specification and fix old namespaces
+    fix_fi_kdk_namespaces(root)
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
 
@@ -61,7 +61,7 @@ def test_mdtype_items_mdwrap(schematron_fx, context, mdtype, othermdtype,
     :mdtypeversion: MDTYPEVERSION attribute value
     """
     (mets, root) = parse_xml_file('mets_valid_complete.xml')
-    fix_version_17(root)
+    fix_fi_kdk_namespaces(root)
     elem_handler = find_element(root, context, 'mets')
     elem_handler = find_element(elem_handler, 'mdWrap', 'mets')
     set_attribute(elem_handler, 'MDTYPE', 'mets', mdtype)
@@ -235,7 +235,7 @@ def test_mdtype_namespace(schematron_fx, section, mdinfo):
              </mets:amdSec></mets:mets>''' % NAMESPACES
     (mets, root) = parse_xml_string(xml)
     if mdinfo[1] == 'DATACITE':
-        fix_version_17(root)
+        fix_fi_kdk_namespaces(root)
 
     # Test that the given combination works
     elem_section = find_element(root, section, 'mets')
