@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<xs:schema xmlns:doc="http://www.mda.org.uk/spectrumXML/Documentation" xmlns:gml="http://www.opengis.net/gml" xmlns:lido="http://www.lido-schema.org" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" targetNamespace="http://www.lido-schema.org" elementFormDefault="qualified" attributeFormDefault="qualified">
+<xs:schema xmlns:doc="http://www.mda.org.uk/spectrumXML/Documentation" xmlns:lido="http://www.lido-schema.org" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" targetNamespace="http://www.lido-schema.org" elementFormDefault="qualified" attributeFormDefault="qualified">
+    <!-- xmlns:gml="http://www.opengis.net/gml"-->
 
 	<xs:annotation>
 		<xs:documentation>
@@ -41,7 +42,7 @@
 	</xs:annotation>
 
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>
-	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd"/>
+        <!-- <xs:import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd"/>-->
 
 	<xs:annotation>
 		<xs:appinfo>
@@ -1456,11 +1457,11 @@
 				<tei:ab type="description">Defines the GML instantiation for georeferences.</tei:ab>
 			</xs:documentation>
 		</xs:annotation>
-		<xs:sequence>
+                <!-- <xs:sequence>
 			<xs:element ref="gml:Point" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element ref="gml:LineString" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element ref="gml:Polygon" minOccurs="0" maxOccurs="unbounded"/>
-		</xs:sequence>
+                </xs:sequence>-->
 	</xs:complexType>
 	<xs:complexType name="identifierComplexType" id="identifierComplexType">
 		<xs:annotation>
