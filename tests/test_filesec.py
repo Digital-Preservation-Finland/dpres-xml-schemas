@@ -590,6 +590,19 @@ def test_bitlevel_identification(schematron_fx):
     assert svrl.count(SVRL_REPORT) == 1
 
 
+def test_forensic_feature_analysis(schematron_fx):
+    """Test forensic feature analysis.
+
+    This is a DV file format with concealing bitstream errors
+    that has been forensically analysed.
+    """
+    (mets, _) = parse_xml_file('mets_valid_forensic_analysis.xml')
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    print(svrl)
+    assert svrl.count(SVRL_FAILED) == 0
+    assert svrl.count(SVRL_REPORT) == 1
+
+
 def test_bitlevel_failure(schematron_fx):
     """Test the case where bit level file storage is missing required
     event.
