@@ -598,10 +598,37 @@ def test_forensic_feature_analysis(schematron_fx):
 
     Forensic feature analysis and conversion events are required.
     """
+    # Valid case, checks two patterns
     (mets, _) = parse_xml_file('mets_valid_forensic_analysis.xml')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
     assert svrl.count(SVRL_FAILED) == 0
     assert svrl.count(SVRL_REPORT) == 2
+
+    # Make the original file outcome and the derivative file source
+    # in the conversion element. Should fail the conversion element
+    # requirement check.
+    (mets, root) = parse_xml_file('mets_valid_forensic_analysis.xml')
+    slink = 'linkingObjectIdentifier[{%(premis)s}linkingObjectRole="outcome"]'\
+            + '/{%(premis)s}linkingObjectRole' % NAMESPACES
+    olink = 'linkingObjectIdentifier[{%(premis)s}linkingObjectRole="source"]'\
+            + '/{%(premis)s}linkingObjectRole' % NAMESPACES
+    elem_source = find_element(root, slink % NAMESPACES, 'premis')
+    elem_outcome = find_element(root, olink % NAMESPACES, 'premis')
+    elem_source.text = 'source'
+    elem_outcome.text = 'outcome'
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 1
+    assert svrl.count(SVRL_REPORT) == 1
+
+    # Make the original file source in the forensic feature analysis
+    # event. Should fail the forensic feature analysis event check.
+    tlink = 'linkingObjectIdentifier[{%(premis)s}linkingObjectRole="target"]'\
+            + '/{%(premis)s}linkingObjectRole' % NAMESPACES
+    elem_target = find_element(root, tlink % NAMESPACES, 'premis')
+    elem_target.text = 'source'
+    svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
+    assert svrl.count(SVRL_FAILED) == 2
+    assert svrl.count(SVRL_REPORT) == 0
 
 
 def test_bitlevel_failure(schematron_fx):
