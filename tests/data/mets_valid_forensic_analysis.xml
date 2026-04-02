@@ -82,6 +82,33 @@
         </mets:xmlData>
       </mets:mdWrap>
     </mets:techMD>
+    <mets:techMD ID="techmd-003" fi:CREATED="2016-04-12">
+      <mets:mdWrap MDTYPE="PREMIS:OBJECT" MDTYPEVERSION="2.3">
+        <mets:xmlData>
+          <premis:object xsi:type="premis:file">
+            <premis:objectIdentifier>
+              <premis:objectIdentifierType>local</premis:objectIdentifierType>
+              <premis:objectIdentifierValue>object-002</premis:objectIdentifierValue>
+            </premis:objectIdentifier>
+            <premis:objectCharacteristics>
+              <premis:compositionLevel>0</premis:compositionLevel>
+              <premis:fixity>
+                <premis:messageDigestAlgorithm>MD5</premis:messageDigestAlgorithm>
+                <premis:messageDigest>2a2e5816c93ee7c21ae1c84ddcf8c80a</premis:messageDigest>
+             </premis:fixity>
+              <premis:format>
+                <premis:formatDesignation>
+                    <premis:formatName>text/plain; charset=utf-8</premis:formatName>
+                </premis:formatDesignation>
+              </premis:format>
+              <premis:creatingApplication>
+                <premis:dateCreatedByApplication>2016-03-16T14:00:00</premis:dateCreatedByApplication>
+              </premis:creatingApplication>
+            </premis:objectCharacteristics>
+          </premis:object>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:techMD>
     <mets:digiprovMD ID="event-001" fi:CREATED="2016-04-12">
       <mets:mdWrap MDTYPE="PREMIS:EVENT" MDTYPEVERSION="2.3">
         <mets:xmlData>
@@ -108,6 +135,37 @@
         </mets:xmlData>
       </mets:mdWrap>
     </mets:digiprovMD>
+    <mets:digiprovMD ID="event-002" fi:CREATED="2016-04-12">
+      <mets:mdWrap MDTYPE="PREMIS:EVENT" MDTYPEVERSION="2.3">
+        <mets:xmlData>
+          <premis:event>
+            <premis:eventIdentifier>
+              <premis:eventIdentifierType>local</premis:eventIdentifierType>
+              <premis:eventIdentifierValue>event-002</premis:eventIdentifierValue>
+            </premis:eventIdentifier>
+            <premis:eventType>conversion</premis:eventType>
+            <premis:eventDateTime>2016-03-16</premis:eventDateTime>
+            <premis:eventOutcomeInformation>
+              <premis:eventOutcome>success</premis:eventOutcome>
+            </premis:eventOutcomeInformation>
+            <premis:linkingAgentIdentifier>
+              <premis:linkingAgentIdentifierType>local</premis:linkingAgentIdentifierType>
+              <premis:linkingAgentIdentifierValue>agent-001</premis:linkingAgentIdentifierValue>
+            </premis:linkingAgentIdentifier>
+            <premis:linkingObjectIdentifier>
+              <premis:linkingObjectIdentifierType>local</premis:linkingObjectIdentifierType>
+              <premis:linkingObjectIdentifierValue>object-001</premis:linkingObjectIdentifierValue>
+              <premis:linkingObjectRole>source</premis:linkingObjectRole>
+            </premis:linkingObjectIdentifier>
+            <premis:linkingObjectIdentifier>
+              <premis:linkingObjectIdentifierType>local</premis:linkingObjectIdentifierType>
+              <premis:linkingObjectIdentifierValue>object-002</premis:linkingObjectIdentifierValue>
+              <premis:linkingObjectRole>outcome</premis:linkingObjectRole>
+            </premis:linkingObjectIdentifier>
+          </premis:event>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:digiprovMD>
     <mets:digiprovMD ID="agent-001" fi:CREATED="2016-04-12">
       <mets:mdWrap MDTYPE="PREMIS:AGENT" MDTYPEVERSION="2.3">
         <mets:xmlData>
@@ -125,8 +183,11 @@
   </mets:amdSec>
   <mets:fileSec>
     <mets:fileGrp>
-      <mets:file USE="fi-dpres-preserve-forensically-analysed-object" ADMID="techmd-001 techmd-002 event-001 agent-001" ID="fileid-001">
+      <mets:file USE="fi-dpres-preserve-forensically-analysed-object" ADMID="techmd-001 techmd-002 event-001 event-002 agent-001" ID="fileid-001">
         <mets:FLocat LOCTYPE="URL" xlink:href="file://./file.dv" xlink:type="simple"/>
+      </mets:file>
+      <mets:file ADMID="techmd-003 event-002 agent-001" ID="fileid-001">
+        <mets:FLocat LOCTYPE="URL" xlink:href="file://./file.txt" xlink:type="simple"/>
       </mets:file>
     </mets:fileGrp>
   </mets:fileSec>

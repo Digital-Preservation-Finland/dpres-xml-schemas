@@ -546,7 +546,10 @@ Validates METS fileSec.
                 </sch:rule>
         </sch:pattern>
 
-        <sch:pattern id="preserve-forensically-analysed-object">
+        <!-- Checks for forensically analysed files (files with errors that can be accepted after forensic analysis has been performed and a derivative file is supplied).
+             Conversion and forensic feature analysis events are required for these files
+             Reports on analysis requirement. -->
+        <sch:pattern id="check_forensic_analysis_event_for_forensically_analysed_object">
                 <sch:rule context="mets:fileGrp/mets:file[(normalize-space(@USE)='fi-dpres-preserve-forensically-analysed-object')]">
                         <sch:let name="admid" value="normalize-space(@ADMID)"/>
                         <sch:let name="analysis_target_techmd_id" value="normalize-space($techmd/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' ')) and (normalize-space(../mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:file' or normalize-space(../mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:bitstream')])"/>
@@ -561,6 +564,28 @@ Validates METS fileSec.
                         </sch:assert>
                         <sch:report test="((count($digiprovmd_analysis) &gt; 0 and count($digiprovmd_analysis/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' '))]) &gt; 0) or (count($digiprovmd_analysis) &gt; 0 and count($digiprovmd_analysis/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' '))]) &gt; 0)) and count($events_with_ok_links) &gt; 0">
                                 INFO: Value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' found for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'. Certain validation errors can be ignored as the file has undergone a forensic feature analysis.
+                        </sch:report>
+                </sch:rule>
+        </sch:pattern>
+
+        <sch:pattern id="check_conversion_event_for_forensically_analysed_object">
+                <sch:rule context="mets:fileGrp/mets:file[(normalize-space(@USE)='fi-dpres-preserve-forensically-analysed-object')]">
+                        <sch:let name="admid" value="normalize-space(@ADMID)"/>
+                        <sch:let name="analysis_object_techmd_id" value="normalize-space($techmd/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' ')) and (normalize-space(../mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:file' or normalize-space(../mets:mdWrap/mets:xmlData/premis:object/@xsi:type)='premis:bitstream')])"/>
+                        <sch:let name="analysis_object_id" value="normalize-space($techmd[normalize-space(@ID) = $analysis_object_techmd_id]/mets:mdWrap/mets:xmlData/premis:object/premis:objectIdentifier/premis:objectIdentifierValue)"/>
+
+                        <sch:let name="conversion_events_analysis_object_as_source" value="exsl:node-set($digiprovmd_conversion/mets:mdWrap/mets:xmlData/premis:event/premis:linkingObjectIdentifier[normalize-space(./premis:linkingObjectRole)='source' and normalize-space(./premis:linkingObjectIdentifierValue)=$analysis_object_id and (normalize-space(following-sibling::premis:linkingObjectIdentifier/premis:linkingObjectRole)='outcome' or normalize-space(preceding-sibling::premis:linkingObjectIdentifier/premis:linkingObjectRole)='outcome')]/..)"/>
+                        <sch:let name="conversion_events_analysis_object_not_as_outcome" value="exsl:node-set($digiprovmd_conversion/mets:mdWrap/mets:xmlData/premis:event/premis:linkingObjectIdentifier[normalize-space(./premis:linkingObjectRole)='outcome' and not(normalize-space(./premis:linkingObjectIdentifierValue)=$analysis_object_id)]/..)"/>
+                        <sch:let name="conversion_events_with_ok_links" value="sets:intersection($conversion_events_analysis_object_as_source, $conversion_events_analysis_object_not_as_outcome)"/>
+
+                        <sch:assert test="(count($digiprovmd_conversion) &gt; 0 and count($digiprovmd_conversion/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' '))]) &gt; 0)">
+                                Value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' found for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'. Succeeded PREMIS event for conversion is required.
+                        </sch:assert>
+                        <sch:assert test="count($digiprovmd_conversion) = 0 or count($conversion_events_with_ok_links) &gt; 0">
+                            Value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' found for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'. PREMIS event for conversion contains ambiguous links to object identifiers.
+                        </sch:assert>
+                        <sch:report test="(count($digiprovmd_conversion) &gt; 0 and count($digiprovmd_conversion/@ID[contains(concat(' ', $admid, ' '), concat(' ', normalize-space(.), ' '))]) &gt; 0) and count($conversion_events_with_ok_links) &gt; 0">
+                                INFO: Value '<sch:value-of select="@USE"/>' in attribute '<sch:value-of select="name(@USE)"/>' found for file '<sch:value-of select="./mets:FLocat/@xlink:href"/>'. File requiring forensic analysis is supplied with a derivative version.
                         </sch:report>
                 </sch:rule>
         </sch:pattern>

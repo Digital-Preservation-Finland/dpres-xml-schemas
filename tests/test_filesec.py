@@ -595,12 +595,13 @@ def test_forensic_feature_analysis(schematron_fx):
 
     This is a DV file format with concealing bitstream errors
     that has been forensically analysed.
+
+    Forensic feature analysis and conversion events are required.
     """
     (mets, _) = parse_xml_file('mets_valid_forensic_analysis.xml')
     svrl = schematron_fx(schematronfile=SCHFILE, xmltree=mets)
-    print(svrl)
     assert svrl.count(SVRL_FAILED) == 0
-    assert svrl.count(SVRL_REPORT) == 1
+    assert svrl.count(SVRL_REPORT) == 2
 
 
 def test_bitlevel_failure(schematron_fx):
