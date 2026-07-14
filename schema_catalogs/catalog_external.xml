@@ -91,7 +91,7 @@
 	<!-- MADS -->
 	<rewriteURI uriStartString="http://www.loc.gov/standards/mads/mads-1-0.xsd" rewritePrefix="mads/1.0/mads-1-0.xsd"/>
 	<rewriteURI uriStartString="http://www.loc.gov/standards/mads/mads.xsd" rewritePrefix="mads/2.0/mads.xsd"/>
-	
+
 	<!-- ADDML -->
 	<rewriteURI uriStartString="http://schema.arkivverket.no/ADDML/v8.3/addml.xsd" rewritePrefix="addml/8.3/addml-8-3.xsd"/>
 	<rewriteURI uriStartString="http://schema.arkivverket.no/ADDML/v8.2/addml.xsd" rewritePrefix="addml/8.2/addml-8-2.xsd"/>
@@ -144,4 +144,7 @@
 	<rewriteURI uriStartString="https://schema.datacite.org/meta/kernel-4.2/metadata.xsd" rewritePrefix="datacite/4.2/metadata.xsd"/>
 	<rewriteURI uriStartString="https://schema.datacite.org/meta/kernel-4.1/metadata.xsd" rewritePrefix="datacite/4.1/metadata.xsd"/>
 	<rewriteURI uriStartString="http://www.topografix.com/GPX/1/1/gpx.xsd" rewritePrefix="gpx/1.1/gpx.xsd"/>
+
+	<!-- MusicXML -->
+	<rewriteURI uriStartString="http://www.musicxml.org/xsd/" rewritePrefix="musicxml/4.0/" />
 </catalog>
