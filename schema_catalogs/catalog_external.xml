@@ -144,7 +144,4 @@
 	<rewriteURI uriStartString="https://schema.datacite.org/meta/kernel-4.2/metadata.xsd" rewritePrefix="datacite/4.2/metadata.xsd"/>
 	<rewriteURI uriStartString="https://schema.datacite.org/meta/kernel-4.1/metadata.xsd" rewritePrefix="datacite/4.1/metadata.xsd"/>
 	<rewriteURI uriStartString="http://www.topografix.com/GPX/1/1/gpx.xsd" rewritePrefix="gpx/1.1/gpx.xsd"/>
-
-	<!-- MusicXML -->
-	<rewriteURI uriStartString="http://www.musicxml.org/xsd/" rewritePrefix="musicxml/4.0/" />
 </catalog>
